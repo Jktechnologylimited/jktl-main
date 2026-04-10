@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import BeforeAfter from "@/components/ui/BeforeAfter";
-import { caseStudies, testimonial, siteConfig } from "@/data/index";
+import {  testimonial, siteConfig } from "@/data/index";
+// import { caseStudies, testimonial, siteConfig } from "@/data/index";
 import { CTA } from "@/components/sections/Sections";
 
 export const metadata: Metadata = {
@@ -45,12 +46,12 @@ export default function WorkPage() {
       </div>
 
       {/* Case studies */}
-      <section className="section-pad" style={{ background:"var(--cream-50)" }}>
+      {/* <section className="section-pad" style={{ background:"var(--cream-50)" }}>
         <div className="max-w-7xl mx-auto px-8 space-y-24">
           {caseStudies.map((cs, i) => (
             <div key={cs.slug}>
               {/* Header */}
-              <div style={{ display:"flex", alignItems:"center", gap:"16px", marginBottom:"36px" }}>
+              {/* <div style={{ display:"flex", alignItems:"center", gap:"16px", marginBottom:"36px" }}>
                 <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"2.5rem", fontWeight:300, color:"var(--cream-300)", lineHeight:1 }}>
                   {String(i+1).padStart(2,"0")}
                 </span>
@@ -59,10 +60,10 @@ export default function WorkPage() {
                   <h2 className="display-lg" style={{ color:"var(--navy-900)" }}>{cs.client}</h2>
                   <p className="label-xs" style={{ color:"var(--navy-500)", marginTop:"4px" }}>{cs.service}</p>
                 </div>
-              </div>
+              </div> */}
 
               {/* Before / After slider */}
-              <div style={{ marginBottom:"36px" }}>
+              {/* <div style={{ marginBottom:"36px" }}>
                 <BeforeAfter
                   beforeSrc={`/placeholder-before-${cs.slug}`}
                   afterSrc={`/placeholder-after-${cs.slug}`}
@@ -79,10 +80,10 @@ export default function WorkPage() {
                     Replace placeholder images by adding screenshots to <code style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.68rem" }}>/public/work/{cs.slug}-before.jpg</code> and <code style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.68rem" }}>/public/work/{cs.slug}-after.jpg</code>
                   </span>
                 </p>
-              </div>
+              </div> */}
 
               {/* Before / After cards */}
-              <div className="grid md:grid-cols-2 gap-6 mb-10">
+              {/* <div className="grid md:grid-cols-2 gap-6 mb-10">
                 <div style={{ padding:"32px", background:"rgba(239,68,68,0.04)", border:"1px solid rgba(239,68,68,0.1)", borderRadius:"4px" }}>
                   <p style={{ fontWeight:700, fontSize:"0.82rem", color:"#EF4444", letterSpacing:"0.08em", textTransform:"uppercase", marginBottom:"16px" }}>{cs.before.title}</p>
                   <ul style={{ listStyle:"none", display:"flex", flexDirection:"column", gap:"10px" }}>
@@ -103,28 +104,28 @@ export default function WorkPage() {
                     ))}
                   </ul>
                 </div>
-              </div>
+              </div> */}
 
               {/* Results */}
-              <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(160px,1fr))", gap:"12px" }}>
+              {/* <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(160px,1fr))", gap:"12px" }}>
                 {cs.results.map((r) => (
                   <div key={r.label} style={{ padding:"20px 24px", background:"var(--navy-900)", borderRadius:"4px", textAlign:"center" }}>
                     <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"2rem", fontWeight:300, color:"var(--gold-400)", lineHeight:1, marginBottom:"4px" }}>{r.value}</p>
                     <p className="label-xs" style={{ color:"rgba(249,247,240,0.4)" }}>{r.label}</p>
                   </div>
                 ))}
-              </div>
+              </div> */}
 
               {/* CTA inline */}
-              <div style={{ marginTop:"24px" }}>
+              {/* <div style={{ marginTop:"24px" }}>
                 <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="label-xs" style={{ color:"var(--navy-600)", textDecoration:"none", display:"flex", alignItems:"center", gap:"6px" }}>
                   Get similar results — Book a free Zoom audit →
                 </a>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+              </div> */}
+            {/* </div>  */}
+          {/* ))}  */}
+        {/* </div>  */}
+      {/* </section>  */}
 
       {/* Testimonial */}
       <section style={{ background:"var(--cream-100)", padding:"72px 32px" }}>

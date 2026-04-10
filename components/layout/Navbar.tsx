@@ -60,7 +60,7 @@ export default function Navbar() {
           {/* CTA */}
           <div className="hidden md:flex items-center gap-3">
             <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold" style={{ padding:"10px 22px", fontSize:"0.68rem" }}>
-              Book Free Zoom Audit
+              Book Free Call Audit
             </a>
           </div>
 
@@ -91,7 +91,7 @@ export default function Navbar() {
             ))}
             <div style={{ paddingTop:"20px" }}>
               <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold" style={{ width:"100%", justifyContent:"center" }}>
-                Book Free Zoom Audit
+                Book Free Call Audit
               </a>
             </div>
           </div>

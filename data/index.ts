@@ -5,10 +5,10 @@ export const siteConfig = {
   tagline: "AI-Powered Business Websites & SEO That Drive Measurable Growth",
   url: "https://jktl.com.ng",
   email: "info@jktl.com.ng",
-  zoomLink: "https://calendly.com/jktl/discovery", // replace with real Calendly/Zoom link
+  zoomLink: "https://calendly.com/johnchnd195/30min", // replace with real Calendly/Zoom link
   founded: "2019",
   experience: "6+",
-  projectsDelivered: "50+",
+  // projectsDelivered: "50+",
   countriesServed: "US, UK, Canada, Nigeria",
 };
 
@@ -224,109 +224,109 @@ export const testimonial = {
   metric: "Page 1 rankings in 60 days · 3 practice areas",
 };
 
-// ─── CASE STUDIES ──────────────────────────────────────────────────────────────
-export const caseStudies = [
-  {
-    slug: "law-firm-new-york",
-    client: "Meridian Legal Group",
-    category: "Law Firm",
-    location: "New York, NY",
-    service: "Authority Package + SEO Retainer",
-    before: {
-      title: "Before: Invisible and Unconvincing",
-      points: [
-        "Ranked on page 4+ for all primary practice area keywords",
-        "Homepage copy was generic — indistinguishable from 50 other firms",
-        "Zero inbound leads from organic search",
-        "Spending $2,000/month on Google Ads with poor ROI",
-      ],
-    },
-    after: {
-      title: "After: First Page. Premium Positioning.",
-      points: [
-        "Page 1 Google rankings for 3 core practice area keywords",
-        "Clear, authoritative positioning that pre-qualifies clients",
-        "8–12 qualified inbound enquiries per month from organic search",
-        "Google Ads spend reduced by 55%",
-      ],
-    },
-    results: [
-      { value: "Page 1", label: "for 3 practice areas" },
-      { value: "55%", label: "reduction in ad spend" },
-      { value: "60 days", label: "to first results" },
-    ],
-    color: "#112055",
-  },
-  {
-    slug: "executive-coach-chicago",
-    client: "Executive Coaching Practice",
-    category: "Coaching",
-    location: "Chicago, IL",
-    service: "Landing Page",
-    before: {
-      title: "Before: Ads Running. Money Bleeding.",
-      points: [
-        "Running Facebook ads to a DIY landing page converting at 2.1%",
-        "Cost per lead was $180 — unsustainable for a $2,500 programme",
-        "Page looked inconsistent with the premium positioning of the offer",
-        "No objection handling, no trust signals, weak CTA",
-      ],
-    },
-    after: {
-      title: "After: 14% Conversion. ROI in Week One.",
-      points: [
-        "New landing page converting at 14% from cold traffic",
-        "Cost per lead dropped to $27",
-        "Premium design and copy consistent with the $2,500 programme price",
-        "First launch ROI paid back the project fee 12×",
-      ],
-    },
-    results: [
-      { value: "14%", label: "conversion rate" },
-      { value: "12×", label: "ROI first launch" },
-      { value: "$27", label: "cost per lead" },
-    ],
-    color: "#254387",
-  },
-  {
-    slug: "medical-clinic-los-angeles",
-    client: "Specialist Medical Clinic",
-    category: "Healthcare",
-    location: "Los Angeles, CA",
-    service: "Growth Website + SEO",
-    before: {
-      title: "Before: Traffic. No Patients.",
-      points: [
-        "Had a website with 400 monthly visitors but fewer than 5 enquiries",
-        "No SEO — invisible for condition-specific searches",
-        "Confusing navigation and weak calls to action",
-        "Relied entirely on referrals and paid directories",
-      ],
-    },
-    after: {
-      title: "After: Ranked, Converting, Growing.",
-      points: [
-        "Ranking page 1 for 5 condition-specific keywords in LA",
-        "Monthly organic enquiries increased from 5 to 38",
-        "New patient conversion improved through clearer copy and UX",
-        "Referral directory spend cut by 70%",
-      ],
-    },
-    results: [
-      { value: "38", label: "organic enquiries/month" },
-      { value: "7×", label: "increase from 5 to 38" },
-      { value: "70%", label: "directory spend cut" },
-    ],
-    color: "#1A316E",
-  },
-];
+// // ─── CASE STUDIES ──────────────────────────────────────────────────────────────
+// export const caseStudies = [
+//   {
+//     slug: "law-firm-new-york",
+//     client: "Meridian Legal Group",
+//     category: "Law Firm",
+//     location: "New York, NY",
+//     service: "Authority Package + SEO Retainer",
+//     before: {
+//       title: "Before: Invisible and Unconvincing",
+//       points: [
+//         "Ranked on page 4+ for all primary practice area keywords",
+//         "Homepage copy was generic — indistinguishable from 50 other firms",
+//         "Zero inbound leads from organic search",
+//         "Spending $2,000/month on Google Ads with poor ROI",
+//       ],
+//     },
+//     after: {
+//       title: "After: First Page. Premium Positioning.",
+//       points: [
+//         "Page 1 Google rankings for 3 core practice area keywords",
+//         "Clear, authoritative positioning that pre-qualifies clients",
+//         "8–12 qualified inbound enquiries per month from organic search",
+//         "Google Ads spend reduced by 55%",
+//       ],
+//     },
+//     results: [
+//       { value: "Page 1", label: "for 3 practice areas" },
+//       { value: "55%", label: "reduction in ad spend" },
+//       { value: "60 days", label: "to first results" },
+//     ],
+//     color: "#112055",
+//   },
+//   {
+//     slug: "executive-coach-chicago",
+//     client: "Executive Coaching Practice",
+//     category: "Coaching",
+//     location: "Chicago, IL",
+//     service: "Landing Page",
+//     before: {
+//       title: "Before: Ads Running. Money Bleeding.",
+//       points: [
+//         "Running Facebook ads to a DIY landing page converting at 2.1%",
+//         "Cost per lead was $180 — unsustainable for a $2,500 programme",
+//         "Page looked inconsistent with the premium positioning of the offer",
+//         "No objection handling, no trust signals, weak CTA",
+//       ],
+//     },
+//     after: {
+//       title: "After: 14% Conversion. ROI in Week One.",
+//       points: [
+//         "New landing page converting at 14% from cold traffic",
+//         "Cost per lead dropped to $27",
+//         "Premium design and copy consistent with the $2,500 programme price",
+//         "First launch ROI paid back the project fee 12×",
+//       ],
+//     },
+//     results: [
+//       { value: "14%", label: "conversion rate" },
+//       { value: "12×", label: "ROI first launch" },
+//       { value: "$27", label: "cost per lead" },
+//     ],
+//     color: "#254387",
+//   },
+//   {
+//     slug: "medical-clinic-los-angeles",
+//     client: "Specialist Medical Clinic",
+//     category: "Healthcare",
+//     location: "Los Angeles, CA",
+//     service: "Growth Website + SEO",
+//     before: {
+//       title: "Before: Traffic. No Patients.",
+//       points: [
+//         "Had a website with 400 monthly visitors but fewer than 5 enquiries",
+//         "No SEO — invisible for condition-specific searches",
+//         "Confusing navigation and weak calls to action",
+//         "Relied entirely on referrals and paid directories",
+//       ],
+//     },
+//     after: {
+//       title: "After: Ranked, Converting, Growing.",
+//       points: [
+//         "Ranking page 1 for 5 condition-specific keywords in LA",
+//         "Monthly organic enquiries increased from 5 to 38",
+//         "New patient conversion improved through clearer copy and UX",
+//         "Referral directory spend cut by 70%",
+//       ],
+//     },
+//     results: [
+//       { value: "38", label: "organic enquiries/month" },
+//       { value: "7×", label: "increase from 5 to 38" },
+//       { value: "70%", label: "directory spend cut" },
+//     ],
+//     color: "#1A316E",
+//   },
+// ];
 
 // ─── PROCESS ──────────────────────────────────────────────────────────────────
 export const processSteps = [
   {
     number: "I",
-    title: "Discovery — Free Audit & Zoom Call",
-    description: "We begin with a free 30-minute Zoom call to audit your current digital presence, understand your target clients and service areas, and identify the specific opportunities you're missing. Book directly in our calendar — no back-and-forth.",
+    title: "Discovery — Free Audit &  Call",
+    description: "We begin with a free 30-minute call to audit your current digital presence, understand your target clients and service areas, and identify the specific opportunities you're missing. Book directly in our calendar — no back-and-forth.",
   },
   {
     number: "II",

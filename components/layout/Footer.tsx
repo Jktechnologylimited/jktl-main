@@ -14,12 +14,12 @@ export default function Footer() {
               Ready to build a website that<br className="hidden md:block"/> actually grows your business?
             </p>
             <p className="label-xs" style={{ color:"rgba(249,247,240,0.35)" }}>
-              Book a free 30-minute Zoom audit — no pitch, no pressure.
+              Book a free 30-minute Call audit — no pitch, no pressure.
             </p>
           </div>
           <div style={{ display:"flex", flexDirection:"column", gap:"10px", flexShrink:0 }}>
             <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold" style={{ justifyContent:"center" }}>
-              Book Free Zoom Audit
+              Book Free Call Audit
             </a>
             <a href={`mailto:${siteConfig.email}`} className="btn-outline-cream" style={{ justifyContent:"center", fontSize:"0.68rem" }}>
               Email Us
@@ -36,7 +36,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <div style={{ marginBottom:"16px" }}>
               <p style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:600, fontSize:"1.3rem", color:"var(--cream-50)", lineHeight:1 }}>JK Technology Limited</p>
-              <p className="label-xs" style={{ color:"var(--gold-400)", marginTop:"4px" }}>jktl.com.ng</p>
+              <p className="label-xs" style={{ color:"var(--gold-400)", marginTop:"4px" }}></p>
             </div>
             <p className="body-sm" style={{ color:"rgba(249,247,240,0.4)", maxWidth:"280px", marginBottom:"20px" }}>
               AI-powered business websites, high-converting landing pages, and SEO strategies that drive measurable growth — serving businesses across all 50 US states.
@@ -46,7 +46,7 @@ export default function Footer() {
                 📧 {siteConfig.email}
               </a>
               <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="footer-link-gold" style={{ fontSize:"0.82rem" }}>
-                🎥 Book a Zoom Call
+                🎥 Book a free Call
               </a>
             </div>
             <div style={{ marginTop:"20px", display:"flex", gap:"8px", flexWrap:"wrap" }}>

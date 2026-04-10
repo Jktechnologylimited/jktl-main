@@ -35,7 +35,7 @@ export function Hero() {
         {/* CTAs */}
         <div className="animate-fade-up d3" style={{ display:"flex", flexWrap:"wrap", gap:"14px", marginBottom:"64px" }}>
           <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold">
-            Book a Free Zoom Audit
+            Book a Free Call Audit
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
           <Link href="/work" className="btn-outline-cream">
@@ -111,7 +111,7 @@ export function Problem() {
             ))}
             <div style={{ marginTop:"20px", padding:"14px 16px", background:"rgba(201,168,76,0.1)", border:"1px solid rgba(201,168,76,0.2)", borderRadius:"2px" }}>
               <p style={{ fontSize:"0.72rem", color:"var(--gold-300)", fontWeight:600, marginBottom:"4px" }}>// after jktl</p>
-              <p style={{ fontSize:"0.75rem", color:"rgba(249,247,240,0.5)" }}>Page 1 rankings · 8–14% conversion · Predictable organic leads</p>
+              <p style={{ fontSize:"0.75rem", color:"rgba(249,247,240,0.5)" }}>Search rankings · 8–14% conversion · Predictable organic leads</p>
             </div>
           </div>
         </div>
@@ -180,14 +180,14 @@ export function Process() {
           <div>
             <span className="gold-rule mb-5" style={{ display:"block" }} />
             <h2 className="display-xl mb-5" style={{ color:"var(--navy-900)" }}>
-              From First Zoom Call<br/>
+              From First Call<br/>
               <em className="not-italic gold-text">to Live in 14 Days.</em>
             </h2>
             <p className="body-lg" style={{ color:"rgba(28,28,30,0.58)", marginBottom:"32px" }}>
               A transparent, structured process — no guesswork, no delays, no disappearing after delivery.
             </p>
             <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-primary">
-              Start with a Free Zoom Audit
+              Start with a Free Call Audit
             </a>
           </div>
 
@@ -282,7 +282,7 @@ export function CTA({ heading = "Your Clients Are Searching for You Right Now.",
         <p className="body-lg" style={{ color:"rgba(249,247,240,0.5)", marginBottom:"36px" }}>{subtext}</p>
         <div style={{ display:"flex", flexWrap:"wrap", gap:"14px", justifyContent:"center", marginBottom:"20px" }}>
           <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold">
-            Book Free Zoom Audit
+            Book Free Call Audit
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
           <a href={`mailto:${siteConfig.email}`} className="btn-outline-cream">
