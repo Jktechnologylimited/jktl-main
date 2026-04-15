@@ -1,0 +1,14 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: *
+Disallow: /api/
+Disallow: /sitemap/
+
+# Host
+Host: https://jktl.com.ng
+
+# Sitemaps
+Sitemap: https://jktl.com.ng/sitemap.xml

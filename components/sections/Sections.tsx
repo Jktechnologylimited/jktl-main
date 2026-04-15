@@ -35,7 +35,7 @@ export function Hero() {
         {/* CTAs */}
         <div className="animate-fade-up d3" style={{ display:"flex", flexWrap:"wrap", gap:"14px", marginBottom:"64px" }}>
           <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold">
-            Book a Free Call Audit
+            Book a Free Zoom Audit
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
           <Link href="/work" className="btn-outline-cream">
@@ -50,7 +50,7 @@ export function Hero() {
         <div className="animate-fade-up d4" style={{ borderTop:"1px solid rgba(201,168,76,0.15)", paddingTop:"28px", paddingBottom:"56px", display:"flex", flexWrap:"wrap", gap:"36px" }}>
           {[
             { value:"6+",       label:"Years of experience" },
-            // { value:"50+",      label:"Projects delivered" },
+            { value:"50+",      label:"Projects delivered" },
             { value:"8–14%",    label:"Landing page conversion rate" },
             { value:"All 50",   label:"US states served" },
           ].map((s) => (
@@ -111,7 +111,7 @@ export function Problem() {
             ))}
             <div style={{ marginTop:"20px", padding:"14px 16px", background:"rgba(201,168,76,0.1)", border:"1px solid rgba(201,168,76,0.2)", borderRadius:"2px" }}>
               <p style={{ fontSize:"0.72rem", color:"var(--gold-300)", fontWeight:600, marginBottom:"4px" }}>// after jktl</p>
-              <p style={{ fontSize:"0.75rem", color:"rgba(249,247,240,0.5)" }}>Search rankings · 8–14% conversion · Predictable organic leads</p>
+              <p style={{ fontSize:"0.75rem", color:"rgba(249,247,240,0.5)" }}>Page 1 rankings · 8–14% conversion · Predictable organic leads</p>
             </div>
           </div>
         </div>
@@ -180,14 +180,14 @@ export function Process() {
           <div>
             <span className="gold-rule mb-5" style={{ display:"block" }} />
             <h2 className="display-xl mb-5" style={{ color:"var(--navy-900)" }}>
-              From First Call<br/>
+              From First Zoom Call<br/>
               <em className="not-italic gold-text">to Live in 14 Days.</em>
             </h2>
             <p className="body-lg" style={{ color:"rgba(28,28,30,0.58)", marginBottom:"32px" }}>
               A transparent, structured process — no guesswork, no delays, no disappearing after delivery.
             </p>
             <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-primary">
-              Start with a Free Call Audit
+              Start with a Free Zoom Audit
             </a>
           </div>
 
@@ -208,14 +208,14 @@ export function Process() {
   );
 }
 
-// ─── TESTIMONIAL (single law firm) ────────────────────────────────────────────
+// ─── TESTIMONIAL — K.K. Ubani & Co. ─────────────────────────────────────────
 export function TestimonialSection() {
   return (
     <section className="section-pad" style={{ background:"var(--navy-950)", position:"relative", overflow:"hidden" }}>
       <div style={{ position:"absolute", inset:0, opacity:0.03, backgroundImage:"linear-gradient(rgba(201,168,76,1) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,1) 1px,transparent 1px)", backgroundSize:"72px 72px", pointerEvents:"none" }} />
       <div className="max-w-4xl mx-auto px-8 relative z-10 text-center">
         <div className="ornament mb-12" style={{ color:"var(--gold-400)" }}>
-          <span className="label-xs">Client Voice</span>
+          <span className="label-xs">Client Voice — Law Firm · Port Harcourt</span>
         </div>
         <p style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:300, fontSize:"clamp(1.4rem,3vw,2.4rem)", color:"var(--cream-50)", lineHeight:1.5, marginBottom:"40px", fontStyle:"italic" }}>
           &ldquo;{testimonial.quote}&rdquo;
@@ -226,7 +226,9 @@ export function TestimonialSection() {
           </div>
           <p style={{ fontWeight:600, fontSize:"0.95rem", color:"var(--cream-50)" }}>{testimonial.name}</p>
           <p className="label-xs" style={{ color:"rgba(249,247,240,0.4)" }}>{testimonial.role} · {testimonial.firm}</p>
-          <p style={{ fontSize:"0.8rem", color:"rgba(249,247,240,0.3)" }}>{testimonial.location}</p>
+          <a href="https://kkubaniandco.com" target="_blank" rel="noopener noreferrer" className="label-xs" style={{ color:"rgba(249,247,240,0.3)", textDecoration:"underline", textUnderlineOffset:"3px" }}>
+            {testimonial.website}
+          </a>
           <div style={{ marginTop:"12px", padding:"6px 16px", background:"rgba(201,168,76,0.1)", border:"1px solid rgba(201,168,76,0.2)", borderRadius:"2px" }}>
             <p className="label-xs" style={{ color:"var(--gold-300)" }}>{testimonial.metric}</p>
           </div>
@@ -282,7 +284,7 @@ export function CTA({ heading = "Your Clients Are Searching for You Right Now.",
         <p className="body-lg" style={{ color:"rgba(249,247,240,0.5)", marginBottom:"36px" }}>{subtext}</p>
         <div style={{ display:"flex", flexWrap:"wrap", gap:"14px", justifyContent:"center", marginBottom:"20px" }}>
           <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold">
-            Book Free Call Audit
+            Book Free Zoom Audit
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
           <a href={`mailto:${siteConfig.email}`} className="btn-outline-cream">
@@ -292,6 +294,116 @@ export function CTA({ heading = "Your Clients Are Searching for You Right Now.",
         <p className="label-xs" style={{ color:"rgba(249,247,240,0.2)" }}>
           Free consultation · Proposal within 24 hours · No obligations
         </p>
+      </div>
+    </section>
+  );
+}
+
+// ─── FOUNDER STRIP ────────────────────────────────────────────────────────────
+// Compact trust section showing the real person behind JKTL.
+// Appears on the homepage between testimonial and Why Us.
+export function FounderStrip() {
+  return (
+    <section style={{ background:"var(--cream-200)", padding:"64px 32px", borderTop:"1px solid var(--cream-300)", borderBottom:"1px solid var(--cream-300)" }}>
+      <div className="max-w-7xl mx-auto px-8">
+        <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:"32px" }}>
+
+          {/* Ornament */}
+          <div className="ornament" style={{ color:"var(--gold-400)", width:"100%", maxWidth:"400px" }}>
+            <span className="label-xs">The person behind JKTL</span>
+          </div>
+
+          {/* Photo + text row */}
+          <div style={{ display:"flex", flexWrap:"wrap", gap:"32px", alignItems:"center", justifyContent:"center", maxWidth:"800px", textAlign:"center" }}>
+
+            {/* Photo circle */}
+            <div style={{ position:"relative", flexShrink:0 }}>
+              {/* Decorative gold ring */}
+              <div style={{
+                position:"absolute", inset:"-6px", borderRadius:"50%",
+                border:"1px solid var(--gold-400)", opacity:0.45,
+              }} />
+              {/* Photo */}
+              <div style={{
+                width:"120px", height:"120px", borderRadius:"50%", overflow:"hidden",
+                background:"var(--navy-800)", position:"relative",
+                boxShadow:"0 8px 32px rgba(6,14,42,0.18)",
+              }}>
+                {/*
+                  ── HOW TO ADD YOUR PHOTO ──────────────────────────────────
+                  1. Save your headshot as /public/owner.jpg
+                     (square crop, min 300×300px, clear face visible)
+                  2. Replace the placeholder div below with:
+
+                  <Image
+                    src="/owner.jpg"
+                    alt="John K. — Founder of JK Technology Limited"
+                    fill
+                    style={{ objectFit:"cover", objectPosition:"top" }}
+                  />
+
+                  3. Import Image at the top: import Image from "next/image";
+                  ────────────────────────────────────────────────────────── */}
+                <div style={{
+                  width:"100%", height:"100%", display:"flex",
+                  alignItems:"center", justifyContent:"center",
+                  background:"linear-gradient(135deg, var(--navy-700), var(--navy-900))",
+                }}>
+                  <svg width="44" height="44" viewBox="0 0 24 24" fill="none" style={{ opacity:0.3 }}>
+                    <circle cx="12" cy="8" r="4" stroke="var(--gold-400)" strokeWidth="1"/>
+                    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="var(--gold-400)" strokeWidth="1" strokeLinecap="round"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            {/* Text */}
+            <div style={{ textAlign:"left", maxWidth:"560px" }}>
+              <p style={{
+                fontFamily:"'Cormorant Garamond',serif", fontWeight:400,
+                fontSize:"clamp(1.2rem,2vw,1.6rem)", color:"var(--navy-900)",
+                lineHeight:1.4, marginBottom:"10px",
+              }}>
+                &ldquo;I founded JKTL because I was tired of watching great businesses stay invisible online. Every client I work with gets my direct attention — from the first Zoom call to the day we launch.&rdquo;
+              </p>
+              <div style={{ display:"flex", alignItems:"center", gap:"14px", flexWrap:"wrap" }}>
+                <div>
+                  {/* Replace "John K." with the real founder name */}
+                  <p style={{ fontWeight:700, fontSize:"0.9rem", color:"var(--navy-900)", letterSpacing:"0.03em" }}>
+                    John K.
+                  </p>
+                  <p className="label-xs" style={{ color:"var(--navy-500)", marginTop:"2px" }}>
+                    Founder · JK Technology Limited · 6+ Years
+                  </p>
+                </div>
+                <a href="/about" style={{ marginLeft:"auto" }}>
+                  <span className="label-xs" style={{ color:"var(--navy-600)", textDecoration:"underline", textUnderlineOffset:"3px", cursor:"pointer" }}>
+                    More about me →
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Trust badges row */}
+          <div style={{ display:"flex", flexWrap:"wrap", gap:"10px", justifyContent:"center" }}>
+            {[
+              "✓ You deal directly with the founder",
+              "✓ 6+ years building business websites",
+              "✓ 50+ projects delivered",
+              "✓ US clients across all 50 states",
+              "✓ Response within 24 hours",
+            ].map(badge => (
+              <span key={badge} style={{
+                fontSize:"0.75rem", fontWeight:500, color:"rgba(28,28,30,0.65)",
+                background:"var(--cream-50)", padding:"6px 14px",
+                border:"1px solid var(--cream-300)", borderRadius:"2px",
+              }}>
+                {badge}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

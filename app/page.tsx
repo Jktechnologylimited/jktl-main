@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Hero, Problem, ServicesPreview, Process, TestimonialSection, WhyUs, CTA } from "@/components/sections/Sections";
+import { Hero, Problem, ServicesPreview, Process, TestimonialSection, FounderStrip, WhyUs, CTA } from "@/components/sections/Sections";
 import Link from "next/link";
 import { blogPosts, siteConfig } from "@/data/index";
 
@@ -40,6 +40,7 @@ export default function HomePage() {
 
       <Process />
       <TestimonialSection />
+      <FounderStrip />
       <WhyUs />
 
       {/* Blog preview */}

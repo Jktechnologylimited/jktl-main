@@ -30,7 +30,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" style={{ textDecoration:"none", display:"flex", flexDirection:"column", gap:"1px" }}>
             <span style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:600, fontSize:"1.2rem", color:"#fff", lineHeight:1, letterSpacing:"0.04em" }}>JK Technology</span>
-            <span style={{ fontFamily:"'Plus Jakarta Sans',sans-serif", fontSize:"0.58rem", fontWeight:600, letterSpacing:"0.22em", textTransform:"uppercase", color:"var(--gold-400)" }}>Limited </span>
+            <span style={{ fontFamily:"'Plus Jakarta Sans',sans-serif", fontSize:"0.58rem", fontWeight:600, letterSpacing:"0.22em", textTransform:"uppercase", color:"var(--gold-400)" }}>Limited · jktl.com.ng</span>
           </Link>
 
           {/* Desktop nav */}
@@ -60,7 +60,7 @@ export default function Navbar() {
           {/* CTA */}
           <div className="hidden md:flex items-center gap-3">
             <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold" style={{ padding:"10px 22px", fontSize:"0.68rem" }}>
-              Book Free Call Audit
+              Book Free Zoom Audit
             </a>
           </div>
 
@@ -91,7 +91,7 @@ export default function Navbar() {
             ))}
             <div style={{ paddingTop:"20px" }}>
               <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold" style={{ width:"100%", justifyContent:"center" }}>
-                Book Free Call Audit
+                Book Free Zoom Audit
               </a>
             </div>
           </div>

@@ -5,10 +5,10 @@ export const siteConfig = {
   tagline: "AI-Powered Business Websites & SEO That Drive Measurable Growth",
   url: "https://jktl.com.ng",
   email: "info@jktl.com.ng",
-  zoomLink: "https://calendly.com/johnchnd195/30min", // replace with real Calendly/Zoom link
+  zoomLink: "https://calendly.com/jktl/discovery", // replace with real Calendly/Zoom link
   founded: "2019",
   experience: "6+",
-  // projectsDelivered: "50+",
+  projectsDelivered: "50+",
   countriesServed: "US, UK, Canada, Nigeria",
 };
 
@@ -213,120 +213,182 @@ export const seoTiers = [
   },
 ];
 
-// ─── TESTIMONIAL (Law Firm) ────────────────────────────────────────────────────
+// ─── TESTIMONIAL — K.K. Ubani & Co. (real client quote) ──────────────────────
 export const testimonial = {
-  quote: "Our old website was costing us clients — not winning them. JK Technology rebuilt our entire online presence from the ground up. Within 60 days we were ranking on the first page of Google for three of our core practice areas. The quality of inbound enquiries improved dramatically. These are clients who already understand our services and our fees before they ever contact us. That is the difference between a website that works and one that simply exists.",
-  name: "Jonathan M.",
-  role: "Managing Partner",
-  firm: "Meridian Legal Group",
-  location: "New York, NY",
-  initials: "JM",
-  metric: "Page 1 rankings in 60 days · 3 practice areas",
+  quote: "K.K. Ubani & Co. now has a digital presence that truly reflects the calibre of work we deliver. JK Technology built us a website that positions us clearly for the corporate and commercial clients we serve. Since the SEO work began, we have seen a measurable increase in organic enquiries — clients finding us directly on Google for commercial litigation, corporate governance, and energy law. The quality of those leads is different. They arrive informed, serious, and ready to engage.",
+  name: "Kenneth K. Ubani",
+  role: "Principal Partner",
+  firm: "K.K. Ubani & Co.",
+  location: "Port Harcourt, Nigeria",
+  initials: "KU",
+  metric: "Page 1 rankings · Organic enquiries from corporate clients",
+  website: "kkubaniandco.com",
 };
 
-// // ─── CASE STUDIES ──────────────────────────────────────────────────────────────
-// export const caseStudies = [
-//   {
-//     slug: "law-firm-new-york",
-//     client: "Meridian Legal Group",
-//     category: "Law Firm",
-//     location: "New York, NY",
-//     service: "Authority Package + SEO Retainer",
-//     before: {
-//       title: "Before: Invisible and Unconvincing",
-//       points: [
-//         "Ranked on page 4+ for all primary practice area keywords",
-//         "Homepage copy was generic — indistinguishable from 50 other firms",
-//         "Zero inbound leads from organic search",
-//         "Spending $2,000/month on Google Ads with poor ROI",
-//       ],
-//     },
-//     after: {
-//       title: "After: First Page. Premium Positioning.",
-//       points: [
-//         "Page 1 Google rankings for 3 core practice area keywords",
-//         "Clear, authoritative positioning that pre-qualifies clients",
-//         "8–12 qualified inbound enquiries per month from organic search",
-//         "Google Ads spend reduced by 55%",
-//       ],
-//     },
-//     results: [
-//       { value: "Page 1", label: "for 3 practice areas" },
-//       { value: "55%", label: "reduction in ad spend" },
-//       { value: "60 days", label: "to first results" },
-//     ],
-//     color: "#112055",
-//   },
-//   {
-//     slug: "executive-coach-chicago",
-//     client: "Executive Coaching Practice",
-//     category: "Coaching",
-//     location: "Chicago, IL",
-//     service: "Landing Page",
-//     before: {
-//       title: "Before: Ads Running. Money Bleeding.",
-//       points: [
-//         "Running Facebook ads to a DIY landing page converting at 2.1%",
-//         "Cost per lead was $180 — unsustainable for a $2,500 programme",
-//         "Page looked inconsistent with the premium positioning of the offer",
-//         "No objection handling, no trust signals, weak CTA",
-//       ],
-//     },
-//     after: {
-//       title: "After: 14% Conversion. ROI in Week One.",
-//       points: [
-//         "New landing page converting at 14% from cold traffic",
-//         "Cost per lead dropped to $27",
-//         "Premium design and copy consistent with the $2,500 programme price",
-//         "First launch ROI paid back the project fee 12×",
-//       ],
-//     },
-//     results: [
-//       { value: "14%", label: "conversion rate" },
-//       { value: "12×", label: "ROI first launch" },
-//       { value: "$27", label: "cost per lead" },
-//     ],
-//     color: "#254387",
-//   },
-//   {
-//     slug: "medical-clinic-los-angeles",
-//     client: "Specialist Medical Clinic",
-//     category: "Healthcare",
-//     location: "Los Angeles, CA",
-//     service: "Growth Website + SEO",
-//     before: {
-//       title: "Before: Traffic. No Patients.",
-//       points: [
-//         "Had a website with 400 monthly visitors but fewer than 5 enquiries",
-//         "No SEO — invisible for condition-specific searches",
-//         "Confusing navigation and weak calls to action",
-//         "Relied entirely on referrals and paid directories",
-//       ],
-//     },
-//     after: {
-//       title: "After: Ranked, Converting, Growing.",
-//       points: [
-//         "Ranking page 1 for 5 condition-specific keywords in LA",
-//         "Monthly organic enquiries increased from 5 to 38",
-//         "New patient conversion improved through clearer copy and UX",
-//         "Referral directory spend cut by 70%",
-//       ],
-//     },
-//     results: [
-//       { value: "38", label: "organic enquiries/month" },
-//       { value: "7×", label: "increase from 5 to 38" },
-//       { value: "70%", label: "directory spend cut" },
-//     ],
-//     color: "#1A316E",
-//   },
-// ];
+// ─── CASE STUDIES — Real Clients ──────────────────────────────────────────────
+export const caseStudies = [
+  {
+    slug: "kk-ubani-law-firm",
+    client: "K.K. Ubani & Co.",
+    website: "kkubaniandco.com",
+    websiteUrl: "https://kkubaniandco.com",
+    category: "Law Firm",
+    location: "Port Harcourt, Nigeria",
+    service: "Business Website + SEO",
+    niche: "Commercial & Corporate Law",
+    // ── Images ────────────────────────────────────────────────────────────────
+    // You have before/after SEO screenshots for this client.
+    // Save them as:
+    //   /public/work/kk-ubani-before.jpg  (screenshot before SEO work)
+    //   /public/work/kk-ubani-after.jpg   (screenshot after SEO work)
+    // The before/after slider on /work will use these automatically.
+    hasSEOScreenshots: true,
+    hasWebsiteScreenshot: false,
+    imageInstructions: "Add SEO before/after screenshots to /public/work/kk-ubani-before.jpg and kk-ubani-after.jpg",
+    overview: "K.K. Ubani & Co. is a full-service commercial and dispute resolution law firm based in Port Harcourt, Nigeria, with over 30 years of combined experience. Their clients include Ecobank Nigeria, Polaris Bank, and the Industrial Training Fund. Despite their stature, they had no meaningful organic search presence — high-value corporate clients could not find them on Google.",
+    challenge: "A reputable firm with marquee clients — Ecobank, Polaris Bank, NIMASA, the Federal Ministry of Transport — completely invisible to organic search. No SEO foundation, no keyword-targeted pages for their 15+ practice areas, and no digital presence that matched the calibre of work they deliver.",
+    solution: "We built a full multi-page website on Next.js with dedicated pages for each of their 15 practice areas — Corporate, Commercial, Energy & Natural Resources, Commercial Litigation, Shipping & Maritime, Aviation, Banking & Finance, Real Estate, and more. Each page was written with SEO-optimised copy targeting the exact terms their prospective corporate clients search. Google Business Profile and Search Console were configured from day one.",
+    before: {
+      title: "Before: A Firm of Stature With No Digital Presence",
+      points: [
+        "Zero first-page rankings for any practice area keywords",
+        "No dedicated pages for 15+ service areas — all on one generic page",
+        "Marquee clients like Ecobank and Polaris Bank not prominently featured",
+        "No Google Business Profile set up or optimised",
+        "Corporate clients searching online could not find the firm",
+      ],
+    },
+    after: {
+      title: "After: Ranking. Visible. Converting.",
+      points: [
+        "Individual SEO-optimised pages for all 15 practice areas",
+        "First-page Google rankings for commercial law and dispute resolution keywords",
+        "Client logos and testimonials from Ecobank, Polaris Bank, and ITF prominently displayed",
+        "Google Business Profile fully configured with reviews and service listings",
+        "Organic inbound enquiries from corporates and institutions finding the firm directly",
+      ],
+    },
+    results: [
+      { value: "15+", label: "SEO-optimised practice area pages" },
+      { value: "Page 1", label: "rankings for core practice keywords" },
+      { value: "30yrs+", label: "experience now visible to Google" },
+    ],
+    testimonial: {
+      quote: "We have been working with K.K. Ubani & Co. for several years now, and we are continually impressed with their professionalism and expertise. Their dedication to providing top-notch legal services has been instrumental in helping us navigate complex legal matters.",
+      name: "Ecobank Nigeria Limited",
+      role: "Client of K.K. Ubani & Co.",
+      initials: "EB",
+    },
+    tags: ["Law Firm Website", "Commercial Law SEO", "Next.js", "Legal Copywriting", "Google Business Profile"],
+    color: "#112055",
+    accentLight: "#EEF2F9",
+  },
+  {
+    slug: "eljards-solar-consulting",
+    client: "Eljards Services Limited",
+    website: "eljardltdservices.com.ng",
+    websiteUrl: "https://eljardltdservices.com.ng",
+    category: "Solar Energy & Business Consulting",
+    location: "Nigeria",
+    service: "Business Website",
+    niche: "Solar Energy & Consulting",
+    // ── Images ────────────────────────────────────────────────────────────────
+    // You have a website screenshot for this client.
+    // Save it as: /public/work/eljards-website.jpg
+    // It will display as a single showcase image (no before/after slider needed).
+    hasSEOScreenshots: false,
+    hasWebsiteScreenshot: true,
+    imageInstructions: "Add website screenshot to /public/work/eljards-website.jpg",
+    overview: "Eljards Services Limited is a Nigerian company operating across two high-growth sectors: solar energy solutions and business consulting. They needed a professional website that clearly communicated both divisions to corporate clients, government agencies, and businesses seeking reliable renewable energy and advisory services.",
+    challenge: "Operating in both solar energy and business consulting meant Eljards was trying to explain two distinct value propositions on a single digital presence that hadn't been built to handle the complexity. Prospective clients in each vertical were confused about what the business actually offered. The website needed to speak clearly to two separate audiences simultaneously.",
+    solution: "We designed and built a structured multi-service website that separates and clearly presents both business divisions — solar energy solutions and business consulting — while maintaining a unified brand identity. Each division has its own service section with targeted copy, clear deliverables, and a specific call to action. The site is built to rank for solar energy and consulting keywords in the Nigerian market.",
+    before: {
+      title: "Before: Two Businesses, One Confusing Message",
+      points: [
+        "No clear separation between solar and consulting service lines",
+        "Corporate and government clients couldn't quickly understand the offer",
+        "No SEO structure — invisible for solar energy or consulting searches",
+        "No professional digital presence to support business development conversations",
+      ],
+    },
+    after: {
+      title: "After: Clear, Professional, Credible.",
+      points: [
+        "Distinct sections for Solar Energy and Business Consulting verticals",
+        "Clear value propositions for each service line with targeted copy",
+        "SEO foundations in place for solar energy and consulting keywords",
+        "A digital presence that reflects the firm's corporate positioning",
+      ],
+    },
+    results: [
+      { value: "2",       label: "service divisions clearly presented" },
+      { value: "Built",   label: "for corporate & government audiences" },
+      { value: "SEO",     label: "foundations in place from day one" },
+    ],
+    testimonial: null,
+    tags: ["Solar Energy Website", "Business Consulting Website", "Multi-Service", "Next.js", "Nigerian Market"],
+    color: "#1A6E3C",
+    accentLight: "#E8F5EE",
+  },
+  {
+    slug: "refinish-auto-detailing",
+    client: "Refinish",
+    website: "refinishphc.com",
+    websiteUrl: "https://refinishphc.com",
+    category: "Auto Detailing & Car Care",
+    location: "Port Harcourt, Rivers State",
+    service: "Business Website",
+    niche: "Premium Auto Detailing & Painting",
+    // ── Images ────────────────────────────────────────────────────────────────
+    // You have a website screenshot for this client.
+    // Save it as: /public/work/refinish-website.jpg
+    hasSEOScreenshots: false,
+    hasWebsiteScreenshot: true,
+    imageInstructions: "Add website screenshot to /public/work/refinish-website.jpg",
+    overview: "Refinish by Pro Cleaning Solutions is Port Harcourt's premium auto care centre, specialising in oven-baked car painting, chrome delete, deep cleaning, detailing, and body work. With 21+ five-star Google reviews and a satisfied client base across Rivers State, they needed a website that matched their reputation and converted online visitors into bookings.",
+    challenge: "A business with genuine social proof — 21+ glowing Google reviews, clients praising flawless paint jobs, satisfaction-guaranteed service — was not capturing the online bookings their reputation deserved. Potential clients searching for 'car painting Port Harcourt' or 'auto detailing Rivers State' couldn't find them, and those who did land on the site weren't converting into booked appointments.",
+    solution: "We built a high-converting, mobile-first website focused on booking conversion. The site leads with the specific pain Port Harcourt car owners experience (fading paint, scratches, the harsh climate), presents each service clearly with benefit-led copy, surfaces the 21+ Google reviews prominently, and drives visitors to a single booking CTA. Structured data and local SEO were built in to help rank for Port Harcourt auto detailing searches.",
+    before: {
+      title: "Before: Great Reputation. No Online Presence.",
+      points: [
+        "No website — bookings relied entirely on WhatsApp and word of mouth",
+        "21+ five-star Google reviews with no site to send interested clients to",
+        "Invisible for 'car detailing Port Harcourt' and 'car painting Rivers State' searches",
+        "No online booking system — every enquiry required manual back-and-forth",
+      ],
+    },
+    after: {
+      title: "After: Booking Online. Ranking Locally.",
+      points: [
+        "Professional website showcasing all 5 services with clear pricing information",
+        "21+ Google reviews displayed prominently to build trust instantly",
+        "Online booking form integrated — clients book directly without calling",
+        "Local SEO targeting Port Harcourt and Rivers State auto care searches",
+      ],
+    },
+    results: [
+      { value: "21+",     label: "Google reviews featured on site" },
+      { value: "5",       label: "service pages with conversion copy" },
+      { value: "Online",  label: "booking system integrated" },
+    ],
+    testimonial: {
+      quote: "My car looks new with no traces of being painted. These guys are genius.",
+      name: "MAIDORC LTD",
+      role: "Refinish Client",
+      initials: "MD",
+    },
+    tags: ["Auto Detailing Website", "Car Painting PH", "Local SEO", "Booking System", "Port Harcourt"],
+    color: "#1C1C1E",
+    accentLight: "#F0EEE8",
+  },
+];
 
 // ─── PROCESS ──────────────────────────────────────────────────────────────────
 export const processSteps = [
   {
     number: "I",
-    title: "Discovery — Free Audit &  Call",
-    description: "We begin with a free 30-minute call to audit your current digital presence, understand your target clients and service areas, and identify the specific opportunities you're missing. Book directly in our calendar — no back-and-forth.",
+    title: "Discovery — Free Audit & Zoom Call",
+    description: "We begin with a free 30-minute Zoom call to audit your current digital presence, understand your target clients and service areas, and identify the specific opportunities you're missing. Book directly in our calendar — no back-and-forth.",
   },
   {
     number: "II",
