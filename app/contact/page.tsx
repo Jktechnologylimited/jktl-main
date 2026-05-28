@@ -137,14 +137,14 @@ export default function ContactPage() {
                         <label style={lbl}>Business Type *</label>
                         <select name="type" required value={form.type} onChange={handle} style={field}>
                           <option value="">Select...</option>
-                          {["Law Firm","Coach / Consultant","Medical / Dental Practice","Accounting / Finance","Digital Agency","E-commerce Brand","Real Estate","Gym / Fitness","Home Services","SaaS / Tech","Other"].map(o => <option key={o}>{o}</option>)}
+                          {["Law Firm","Consultant / Professional Service","Medical / Dental Clinic","Accounting / Finance","Digital Agency","E-commerce Brand","Real Estate","Salon / Gym / Wellness","Auto / Transport","Solar / Energy","Logistics / Construction","School / Training Institute","Other"].map(o => <option key={o}>{o}</option>)}
                         </select>
                       </div>
                       <div>
                         <label style={lbl}>Monthly Marketing Budget</label>
                         <select name="budget" value={form.budget} onChange={handle} style={field}>
                           <option value="">Select...</option>
-                          {["Under $500","$500 – $1,500","$1,500 – $5,000","$5,000+","Not sure yet"].map(o => <option key={o}>{o}</option>)}
+                          {["Under ₦100,000","₦100,000 – ₦500,000","₦500,000 – ₦2,000,000","₦2,000,000+","Not sure yet"].map(o => <option key={o}>{o}</option>)}
                         </select>
                       </div>
                     </div>
@@ -152,7 +152,7 @@ export default function ContactPage() {
                       <label style={lbl}>Service You&apos;re Interested In</label>
                       <select name="service" value={form.service} onChange={handle} style={field}>
                         <option value="">Select...</option>
-                        {["AI Business Website ($1,500+)","High-Converting Landing Page ($800+)","SEO Retainer ($600/month+)","Growth Package ($3,000)","Authority Package ($5,500)","Not sure — advise me"].map(o => <option key={o}>{o}</option>)}
+                        {["Website & Landing Page System","Lead Generation Landing Page","Email & Follow-up Automation","SEO & Google Visibility","CRM & Business Operations","Payment Infrastructure","AI & Automation System","Full Business System Package","Not sure — advise me"].map(o => <option key={o}>{o}</option>)}
                       </select>
                     </div>
                     <div>

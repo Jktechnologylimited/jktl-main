@@ -4,25 +4,20 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "JK Technology Limited | AI Business Websites & SEO — USA",
+  title: "JK Technology Limited | Digital Growth & Business Systems Agency",
   description:
-    "JK Technology Limited builds AI-powered business websites, high-converting landing pages, and SEO strategies for US service businesses. 6+ years experience. Book a free Zoom audit.",
+    "JK Technology builds digital systems that help businesses get customers, convert leads, and automate operations. Websites, SEO, CRM, email automation, AI systems — Nigeria & UK.",
   keywords:
-    "AI business website designer, high converting landing page USA, SEO for small business, business website designer USA, landing page with SEO, AI powered website",
+    "digital systems Nigeria, business website Nigeria, SEO Nigeria, CRM system, email automation, AI chatbot, web design Lagos, web design Port Harcourt, landing page Nigeria",
   authors: [{ name: "JK Technology Limited", url: "https://jktl.com.ng" }],
   openGraph: {
-    title: "JK Technology Limited | AI Business Websites & SEO",
+    title: "JK Technology Limited | Digital Growth & Business Systems Agency",
     description:
-      "We build AI-powered websites and landing pages that rank on Google and turn visitors into paying clients. Serving all 50 US states.",
+      "We build digital systems that help businesses get customers, convert leads, and automate operations.",
     url: "https://jktl.com.ng",
     siteName: "JK Technology Limited",
-    locale: "en_US",
+    locale: "en_NG",
     type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "JK Technology Limited | AI Business Websites & SEO",
-    description: "AI-powered websites that rank, convert, and grow your business.",
   },
   robots: { index: true, follow: true },
   alternates: { canonical: "https://jktl.com.ng" },

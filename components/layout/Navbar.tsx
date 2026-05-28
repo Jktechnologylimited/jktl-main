@@ -17,32 +17,30 @@ export default function Navbar() {
   return (
     <>
       <style>{`
-        .dd-menu { position:absolute; top:calc(100%+12px); left:50%; transform:translateX(-50%); background:var(--navy-900); border:1px solid rgba(249,247,240,0.1); border-radius:2px; padding:8px; min-width:240px; z-index:200; box-shadow:0 24px 48px rgba(2,8,24,0.5); }
-        .dd-menu a { display:block; padding:11px 16px; font-size:0.82rem; font-weight:400; color:rgba(249,247,240,0.65); text-decoration:none; transition:all 0.15s; letter-spacing:0.02em; }
+        .dd-menu { position:absolute; top:calc(100%+12px); left:50%; transform:translateX(-50%); background:var(--navy-900); border:1px solid rgba(249,247,240,0.1); border-radius:2px; padding:8px; min-width:280px; z-index:200; box-shadow:0 24px 48px rgba(2,8,24,0.5); }
+        .dd-menu a { display:block; padding:10px 16px; font-size:0.8rem; font-weight:400; color:rgba(249,247,240,0.6); text-decoration:none; transition:all 0.15s; letter-spacing:0.02em; }
         .dd-menu a:hover { color:#fff; background:rgba(249,247,240,0.05); }
-        .dd-menu .dd-label { font-size:0.62rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold-400); padding:8px 16px 4px; }
+        .dd-label { font-size:0.62rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold-400); padding:8px 16px 4px; }
       `}</style>
-      <header
-        className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
-        style={{ background: scrolled ? "rgba(6,14,42,0.97)" : "transparent", backdropFilter: scrolled ? "blur(16px)" : "none", borderBottom: scrolled ? "1px solid rgba(249,247,240,0.06)" : "none" }}
-      >
-        <div className="max-w-7xl mx-auto px-8 py-5 flex items-center justify-between">
+      <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+        style={{ background: scrolled ? "rgba(6,14,42,0.97)" : "transparent", backdropFilter: scrolled ? "blur(16px)" : "none", borderBottom: scrolled ? "1px solid rgba(249,247,240,0.06)" : "none" }}>
+        <div className="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" style={{ textDecoration:"none", display:"flex", flexDirection:"column", gap:"1px" }}>
             <span style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:600, fontSize:"1.2rem", color:"#fff", lineHeight:1, letterSpacing:"0.04em" }}>JK Technology</span>
-            <span style={{ fontFamily:"'Plus Jakarta Sans',sans-serif", fontSize:"0.58rem", fontWeight:600, letterSpacing:"0.22em", textTransform:"uppercase", color:"var(--gold-400)" }}></span>
+            <span style={{ fontFamily:"'Plus Jakarta Sans',sans-serif", fontSize:"0.55rem", fontWeight:600, letterSpacing:"0.2em", textTransform:"uppercase", color:"var(--gold-400)" }}>Limited · Digital Growth Agency</span>
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-7">
             {navLinks.map((l) => (
               <div key={l.href} className="relative"
                 onMouseEnter={() => l.children && setDropdown(l.href)}
                 onMouseLeave={() => setDropdown(null)}>
-                <Link href={l.href} className="nav-link-cream flex items-center gap-1">
+                <Link href={l.href} className="nav-link-cream flex items-center gap-1" style={{ fontSize:"0.8rem" }}>
                   {l.label}
                   {l.children && (
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ opacity:0.4 }}>
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ opacity:0.4 }}>
                       <path d="M6 9l6 6 6-6"/>
                     </svg>
                   )}
@@ -58,15 +56,14 @@ export default function Navbar() {
           </nav>
 
           {/* CTA */}
-          <div className="hidden md:flex items-center gap-3">
-            <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold" style={{ padding:"10px 22px", fontSize:"0.68rem" }}>
-              Book Free Zoom Audit
+          <div className="hidden md:flex">
+            <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold" style={{ padding:"10px 20px", fontSize:"0.68rem" }}>
+              Book Free Call
             </a>
           </div>
 
-          {/* Mobile */}
-          <button className="md:hidden p-2" onClick={() => setOpen(!open)}
-            style={{ background:"none", border:"none", cursor:"pointer", color:"#fff" }}>
+          {/* Mobile toggle */}
+          <button className="md:hidden p-2" onClick={() => setOpen(!open)} style={{ background:"none", border:"none", cursor:"pointer", color:"#fff" }}>
             {open
               ? <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
               : <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
@@ -83,7 +80,7 @@ export default function Navbar() {
                   {l.label}
                 </Link>
                 {l.children?.map((c) => (
-                  <Link key={c.href} href={c.href} className="nav-link-cream" style={{ display:"block", padding:"8px 0 8px 16px", fontSize:"0.8rem", opacity:0.6 }} onClick={() => setOpen(false)}>
+                  <Link key={c.href} href={c.href} className="nav-link-cream" style={{ display:"block", padding:"8px 0 8px 16px", fontSize:"0.78rem", opacity:0.55 }} onClick={() => setOpen(false)}>
                     — {c.label}
                   </Link>
                 ))}
@@ -91,7 +88,7 @@ export default function Navbar() {
             ))}
             <div style={{ paddingTop:"20px" }}>
               <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold" style={{ width:"100%", justifyContent:"center" }}>
-                Book Free Zoom Audit
+                Book Free Discovery Call
               </a>
             </div>
           </div>
