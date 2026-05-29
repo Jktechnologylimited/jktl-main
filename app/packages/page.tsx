@@ -167,7 +167,7 @@ export default function PackagesPage() {
         </div>
       </section>
 
-      <CTA heading="Ready to Invest in Systems That Pay for Themselves?" subtext="Book a free discovery call. We'll assess your situation and recommend the right package — or build a custom scope that fits your exact stage and budget." />
+      <CTA heading="Ready to Invest in Systems That Pay for Themselves?" subtext="contact us. We'll assess your situation and recommend the right package — or build a custom scope that fits your exact stage and budget." />
     </>
   );
 }

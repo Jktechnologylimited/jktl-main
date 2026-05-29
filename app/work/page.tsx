@@ -276,7 +276,7 @@ export default function WorkPage() {
         </div>
       </section>
 
-      <CTA heading="Your Business Could Be Next." subtext="Book a free 30-minute Zoom audit. We'll assess your current digital presence and tell you honestly what results you can expect, what we'd build, and what it would cost." />
+      <CTA heading="Your Business Could Be Next." subtext="Reach out via email or phone. We'll assess your current digital presence and tell you honestly what results you can expect, what we'd build, and what it would cost." />
     </>
   );
 }

@@ -16,38 +16,50 @@ export function Hero() {
         <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"28px" }}>
           <span className="gold-rule" />
           <span className="label-xs" style={{ color:"var(--gold-400)" }}>
-            Digital Growth &amp; Business Systems Agency · Nigeria &amp; UK · Est. 2019
+            Business Infrastructure Ecosystem · Nigeria, Africa &amp; the World · Est. 2019
           </span>
         </div>
 
         {/* H1 */}
-        <h1 className="display-hero animate-fade-up" style={{ color:"var(--cream-50)", marginBottom:"24px", maxWidth:"900px" }}>
-          We Build Digital Systems That Help Businesses{" "}
-          <em className="not-italic gold-text">Get Customers, Convert Leads,</em>
-          {" "}and Automate Operations.
+        <h1 className="display-hero animate-fade-up" style={{ color:"var(--cream-50)", marginBottom:"20px", maxWidth:"900px" }}>
+          Empowering African Businesses<br/>
+          with Systems They{" "}
+          <em className="not-italic gold-text">Depend On. Every Day.</em>
         </h1>
 
-        <p className="body-lg animate-fade-up d2" style={{ color:"rgba(249,247,240,0.58)", maxWidth:"600px", marginBottom:"36px" }}>
-          JK Technology Limited builds websites, landing pages, SEO strategies, CRM systems, email automation, payment infrastructure, and AI tools — fully integrated systems that grow your business on autopilot.
+        <p className="body-lg animate-fade-up d2" style={{ color:"rgba(249,247,240,0.58)", maxWidth:"620px", marginBottom:"12px" }}>
+          We build modular digital infrastructure and business operating systems that help African businesses attract customers, run operations efficiently, collect payments, and scale sustainably.
         </p>
+        <p className="body-sm animate-fade-up d2" style={{ color:"rgba(249,247,240,0.35)", maxWidth:"540px", marginBottom:"36px", fontStyle:"italic" }}>
+          We don&apos;t just build software. We build systems that businesses rely on to grow, every single day.
+        </p>
+
+        {/* System tags */}
+        <div className="animate-fade-up d2" style={{ display:"flex", flexWrap:"wrap", gap:"7px", marginBottom:"28px" }}>
+          {["Websites","Landing Pages","Email Automation","CRM","Payments","SEO","AI Systems","Hotel System","Retail POS","Free Tools"].map(tag => (
+            <span key={tag} style={{ fontSize:"0.68rem", fontWeight:600, letterSpacing:"0.06em", textTransform:"uppercase", color:"rgba(249,247,240,0.45)", border:"1px solid rgba(249,247,240,0.1)", padding:"4px 10px", borderRadius:"2px" }}>{tag}</span>
+          ))}
+        </div>
 
         {/* CTAs */}
         <div className="animate-fade-up d3" style={{ display:"flex", flexWrap:"wrap", gap:"14px", marginBottom:"56px" }}>
           <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold">
-            Book a Free Discovery Call
+            Get in Touch
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
-          <Link href="/services" className="btn-outline-cream">See All Services</Link>
-          <a href={`mailto:${siteConfig.email}`} className="btn-outline-cream">Email Us</a>
+          <Link href="/services" className="btn-outline-cream">Explore Systems</Link>
+          <Link href="/tools" className="btn-outline-cream">🛠️ Free Tools</Link>
         </div>
 
         {/* Stats */}
         <div className="animate-fade-up d4" style={{ borderTop:"1px solid rgba(201,168,76,0.15)", paddingTop:"28px", paddingBottom:"56px", display:"flex", flexWrap:"wrap", gap:"36px" }}>
           {[
             { value:"2019",  label:"Year founded" },
-            { value:"50+",   label:"Systems delivered" },
-            { value:"8",     label:"Service categories" },
-            { value:"Nigeria & UK", label:"Markets served" },
+            { value:"2019",  label:"Year founded" },
+            { value:"8",     label:"Core service systems" },
+            { value:"₦500k", label:"Avg. setup fee" },
+            { value:"70%+",  label:"Profit margin at scale" },
+            { value:"4",     label:"Free tools available" },
           ].map((s) => (
             <div key={s.label}>
               <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"2.2rem", fontWeight:300, color:"var(--cream-50)", lineHeight:1, marginBottom:"4px" }}>{s.value}</p>
@@ -139,7 +151,7 @@ export function ServicesPreview() {
               <div style={{ padding:"28px 24px", background: s.highlight ? "var(--navy-700)" : "var(--navy-800)", height:"100%", display:"flex", flexDirection:"column", transition:"background 0.2s", position:"relative" }}>
                 {s.highlight && <div style={{ position:"absolute", top:0, left:0, right:0, height:"2px", background:"var(--gold-400)" }} />}
                 <p className="label-xs" style={{ color:"var(--gold-400)", marginBottom:"8px" }}>{s.number}</p>
-                <div style={{ fontSize:"1.4rem", marginBottom:"10px" }}>{s.icon}</div>
+                <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.72rem", color:"var(--gold-400)", marginBottom:"8px", opacity:0.7 }}>{s.icon}</div>
                 <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:400, fontSize:"1.15rem", color:"var(--cream-50)", lineHeight:1.2, marginBottom:"10px", flex:1 }}>
                   {s.label}
                 </h3>
@@ -156,7 +168,7 @@ export function ServicesPreview() {
           <Link href="/packages" style={{ textDecoration:"none" }}>
             <div style={{ padding:"28px 24px", background:"var(--gold-400)", height:"100%", display:"flex", flexDirection:"column" }}>
               <p className="label-xs" style={{ color:"var(--navy-900)", marginBottom:"8px", opacity:0.7 }}>{flagshipPackage.number}</p>
-              <div style={{ fontSize:"1.4rem", marginBottom:"10px" }}>{flagshipPackage.icon}</div>
+              <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.72rem", color:"var(--navy-900)", marginBottom:"8px", opacity:0.7 }}>{flagshipPackage.icon}</div>
               <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:600, fontSize:"1.15rem", color:"var(--navy-900)", lineHeight:1.2, marginBottom:"10px", flex:1 }}>
                 {flagshipPackage.name}
               </h3>
@@ -187,8 +199,8 @@ export function Process() {
             <p className="body-lg" style={{ color:"rgba(28,28,30,0.58)", marginBottom:"32px" }}>
               Every system we build follows the same five-stage logic — attract, capture, nurture, convert, retain. This is the architecture of a business that grows predictably.
             </p>
-            <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-primary">
-              Start with a Free Discovery Call
+            <a href={`mailto:${siteConfig.email}`} className="btn-primary">
+              Get in Touch
             </a>
           </div>
           <div style={{ display:"flex", flexDirection:"column", gap:"2px" }}>
@@ -314,9 +326,9 @@ export function FounderStrip() {
                   <p style={{ fontWeight:700, fontSize:"0.9rem", color:"var(--navy-900)", letterSpacing:"0.03em" }}>John K.</p>
                   <p className="label-xs" style={{ color:"var(--navy-500)", marginTop:"2px" }}>Founder · JK Technology Limited · Since 2019</p>
                 </div>
-                <a href="/about" style={{ marginLeft:"auto" }}>
-                  <span className="label-xs" style={{ color:"var(--navy-600)", textDecoration:"underline", textUnderlineOffset:"3px", cursor:"pointer" }}>More about us →</span>
-                </a>
+                <Link href="/about" style={{ marginLeft:"auto" }}>
+                  <span className="label-xs" style={{ color:"var(--navy-600)", textDecoration:"underline", textUnderlineOffset:"3px" }}>More about us</span>
+                </Link>
               </div>
             </div>
           </div>
@@ -325,7 +337,7 @@ export function FounderStrip() {
               "✓ You deal directly with the founder",
               "✓ 6+ years building business systems",
               "✓ 50+ projects delivered",
-              "✓ Nigeria & UK clients",
+              "✓ Nigeria & Africa clients",
               "✓ Response within 24 hours",
             ].map((badge) => (
               <span key={badge} style={{ fontSize:"0.75rem", fontWeight:500, color:"rgba(28,28,30,0.65)", background:"var(--cream-50)", padding:"6px 14px", border:"1px solid var(--cream-300)", borderRadius:"2px" }}>
@@ -342,7 +354,7 @@ export function FounderStrip() {
 // ─── CTA ──────────────────────────────────────────────────────────────────────
 export function CTA({
   heading = "Your Growth. Our Mission.",
-  subtext = "Book a free 30-minute discovery call. We'll assess your current digital presence, map out the system your business needs, and give you a clear proposal within 24 hours. No pitch, no pressure.",
+  subtext = "Reach out via email or phone. We'll assess your current digital presence, map out the system your business needs, and give you a clear proposal within 24 hours. No pitch, no pressure.",
 }: { heading?: string; subtext?: string }) {
   return (
     <section style={{ background:"var(--navy-900)", padding:"100px 32px", textAlign:"center", position:"relative", overflow:"hidden" }}>
@@ -355,7 +367,7 @@ export function CTA({
         <p className="body-lg" style={{ color:"rgba(249,247,240,0.5)", marginBottom:"36px" }}>{subtext}</p>
         <div style={{ display:"flex", flexWrap:"wrap", gap:"14px", justifyContent:"center", marginBottom:"20px" }}>
           <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold">
-            Book Free Discovery Call
+            Get in Touch
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
           <a href={`mailto:${siteConfig.email}`} className="btn-outline-cream">

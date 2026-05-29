@@ -3,36 +3,41 @@ export const siteConfig = {
   name: "JK Technology Limited",
   short: "JKTL",
   tagline: "We Build Digital Systems That Help Businesses Get Customers, Convert Leads, and Automate Operations",
-  shortTagline: "Digital Growth & Business Systems Agency",
+  shortTagline: "Business Infrastructure Ecosystem",
   url: "https://jktl.com.ng",
   email: "info@jktl.com.ng",
-  zoomLink: "https://calendly.com/jktl/discovery", // REPLACE with real link
+  phone: "+234 703 658 0994",
+  whatsapp: "2347036580994",
+  location: "Lagos, Nigeria",
+  coverage: "Serving Nigeria & Africa",
   founded: "2019",
   experience: "6+",
-  projectsDelivered: "50+",
-  markets: "Nigeria & UK",
-  mission: "To empower businesses with smart digital systems that drive growth, increase efficiency, and maximise revenue.",
-  vision: "To be the #1 technology partner for SMEs in Africa and the UK, powering them with systems that scale.",
+  markets: "Nigeria & Africa",
+  mission: "Empower businesses with smart digital systems that drive growth, efficiency, and maximise revenue.",
+  vision: "To be the #1 provider of business infrastructure systems for African SMEs and enterprises.",
   values: ["Innovation", "Integrity", "Customer Success", "Excellence"],
-  promise: "We don't just build websites or software. We build long-term partnerships that help your business grow, scale, and lead in your industry.",
+  promise: "We don't just build software. We build systems that businesses rely on to grow, every single day.",
 };
 
 // ─── NAVIGATION ───────────────────────────────────────────────────────────────
 export const navLinks = [
   { href: "/services", label: "Services", children: [
-    { href: "/services/website-systems",       label: "Website & Landing Page Systems" },
-    { href: "/services/lead-generation",       label: "Lead Generation Landing Pages" },
-    { href: "/services/email-automation",      label: "Email & Follow-up Automation" },
-    { href: "/services/seo",                   label: "SEO & Google Visibility" },
-    { href: "/services/crm-operations",        label: "CRM & Business Operations" },
-    { href: "/services/payment-infrastructure",label: "Payment & Business Infrastructure" },
-    { href: "/services/ai-automation",         label: "AI & Automation Systems" },
+    { href: "/services/website-systems",        label: "Website & Landing Page Systems" },
+    { href: "/services/lead-generation",        label: "Lead Generation Landing Pages" },
+    { href: "/services/email-automation",       label: "Email & Follow-up Automation" },
+    { href: "/services/seo",                    label: "SEO & Google Visibility" },
+    { href: "/services/crm-operations",         label: "CRM & Business Operations" },
+    { href: "/services/payment-infrastructure", label: "Payment & Business Infrastructure" },
+    { href: "/services/ai-automation",          label: "AI & Automation Systems" },
   ]},
+  { href: "/solutions", label: "Solutions", children: null },
+  { href: "/tools",     label: "Free Tools", children: null },
   { href: "/packages",  label: "Packages",  children: null },
   { href: "/work",      label: "Work",      children: null },
   { href: "/about",     label: "About",     children: null },
   { href: "/blog",      label: "Insights",  children: null },
-  { href: "/contact",   label: "Contact",   children: null },
+  { href: "/demos",     label: "Try Demos",  children: null },
+  { href: "/contact",   label: "Contact",    children: null },
 ];
 
 // ─── 8 SERVICES ───────────────────────────────────────────────────────────────
@@ -40,7 +45,7 @@ export const services = [
   {
     slug: "website-systems",
     number: "01",
-    icon: "🖥️",
+    icon: "01",
     label: "Website & Landing Page Systems",
     shortLabel: "Website Systems",
     tier: "Foundation",
@@ -66,7 +71,7 @@ export const services = [
   {
     slug: "lead-generation",
     number: "02",
-    icon: "🎯",
+    icon: "02",
     label: "Lead Generation Landing Pages",
     shortLabel: "Lead Generation",
     tier: "Campaign",
@@ -92,7 +97,7 @@ export const services = [
   {
     slug: "email-automation",
     number: "03",
-    icon: "📧",
+    icon: "03",
     label: "Email & Follow-up Automation",
     shortLabel: "Email Automation",
     tier: "Automation",
@@ -119,7 +124,7 @@ export const services = [
   {
     slug: "seo",
     number: "04",
-    icon: "🔍",
+    icon: "04",
     label: "SEO & Google Visibility System",
     shortLabel: "SEO",
     tier: "Traffic",
@@ -146,7 +151,7 @@ export const services = [
   {
     slug: "crm-operations",
     number: "05",
-    icon: "📊",
+    icon: "05",
     label: "CRM & Business Operations System",
     shortLabel: "CRM System",
     tier: "Operations",
@@ -173,7 +178,7 @@ export const services = [
   {
     slug: "payment-infrastructure",
     number: "06",
-    icon: "💳",
+    icon: "06",
     label: "Payment & Business Infrastructure",
     shortLabel: "Payment Systems",
     tier: "Infrastructure",
@@ -199,7 +204,7 @@ export const services = [
   {
     slug: "ai-automation",
     number: "07",
-    icon: "🤖",
+    icon: "07",
     label: "AI & Automation Systems",
     shortLabel: "AI Systems",
     tier: "Intelligence",
@@ -230,7 +235,7 @@ export const flagshipPackage = {
   name: "Full Business System Package",
   label: "Flagship Offer",
   number: "08",
-  icon: "🚀",
+  icon: "08",
   tagline: "Everything your business needs to grow — built, integrated, and running.",
   description: "Our flagship end-to-end solution. Website, landing pages, SEO, CRM, email automation, payment system, AI chatbot, analytics, and ongoing support — all designed to work together as one integrated growth machine.",
   priceFrom: "₦800,000",
@@ -383,22 +388,22 @@ export const processSteps = [
 // ─── TARGET AUDIENCES ─────────────────────────────────────────────────────────
 export const targetAudiences = [
   {
-    icon: "🔧",
+    icon: "SB",
     title: "Service-Based Businesses",
     examples: "Plumbers, Electricians, HVAC, Pest Control, Auto Mechanics, Cleaning, Security",
   },
   {
-    icon: "📅",
+    icon: "AB",
     title: "Appointment-Based Businesses",
     examples: "Clinics, Salons, Gyms, Dentists, Schools, Tutors",
   },
   {
-    icon: "🏆",
+    icon: "HC",
     title: "High-Competition Businesses",
     examples: "Real Estate, Loan Companies, Consultants, Training Institutes",
   },
   {
-    icon: "🏢",
+    icon: "SM",
     title: "SMEs & Growing Companies",
     examples: "Logistics, Law Firms, Construction, Retail, E-commerce Businesses",
   },
@@ -730,11 +735,14 @@ export const sitemapLinks = {
     { label: "AI & Automation Systems",           href: "/services/ai-automation" },
   ],
   company: [
-    { label: "About JKTL",     href: "/about" },
-    { label: "Our Work",        href: "/work" },
-    { label: "Packages",        href: "/packages" },
-    { label: "Insights",        href: "/blog" },
-    { label: "Contact Us",      href: "/contact" },
+    { label: "About JKTL",          href: "/about" },
+    { label: "Our Work",             href: "/work" },
+    { label: "Packages",             href: "/packages" },
+    { label: "Business Solutions",   href: "/solutions" },
+    { label: "Free Tools",           href: "/tools" },
+    { label: "Try Demos",            href: "/demos" },
+    { label: "Insights",             href: "/blog" },
+    { label: "Contact Us",           href: "/contact" },
   ],
   legal: [
     { label: "Privacy Policy",  href: "/privacy" },
@@ -764,11 +772,199 @@ export const addOns = [
   { name: "Staff training session",             price: "₦50,000 – ₦150,000" },
 ];
 
-// ─── NIGERIAN STATES (for footer/coverage) ────────────────────────────────────
+// ─── NIGERIAN STATES ──────────────────────────────────────────────────────────
 export const nigerianStates = [
   "Abia","Adamawa","Akwa Ibom","Anambra","Bauchi","Bayelsa","Benue","Borno",
   "Cross River","Delta","Ebonyi","Edo","Ekiti","Enugu","FCT – Abuja","Gombe",
   "Imo","Jigawa","Kaduna","Kano","Katsina","Kebbi","Kogi","Kwara","Lagos",
   "Nasarawa","Niger","Ogun","Ondo","Osun","Oyo","Plateau","Rivers","Sokoto",
   "Taraba","Yobe","Zamfara",
+];
+
+// ─── ECOSYSTEM OVERVIEW ───────────────────────────────────────────────────────
+export const ecosystemOverview = {
+  headline: "Business Infrastructure Ecosystem",
+  subheadline: "Empowering African Businesses with Systems They Depend On. Every Day.",
+  description: "We build modular digital infrastructure and business operating systems that help African businesses attract customers, run operations efficiently, collect payments, and scale sustainably.",
+  outcomes: [
+    { icon: "01", title: "More Customers",   desc: "Attract & capture quality leads" },
+    { icon: "02", title: "More Conversions", desc: "Convert leads into paying customers" },
+    { icon: "03", title: "More Efficiency",  desc: "Automate operations & save time" },
+    { icon: "04", title: "More Profit",      desc: "Increase revenue & maximise profit" },
+  ],
+};
+
+// ─── COUPLED SOLUTIONS ────────────────────────────────────────────────────────
+export const coupledSolutions = [
+  {
+    slug: "local-service",
+    icon: "LS",
+    color: "#1A6E3C",
+    title: "Local Service Business Growth System",
+    includes: ["Website & Landing Pages","Lead Capture & Follow-up","CRM & Pipeline Management","Missed Call & WhatsApp Automation","SEO & Google Visibility","AI Chatbot & Automation"],
+    bestFor: "Plumbers, Electricians, HVAC, Mechanics, Pest Control, Cleaning Services, etc.",
+    outcome: "More calls, more booked jobs, fewer lost leads.",
+  },
+  {
+    slug: "clinic",
+    icon: "CL",
+    color: "#1A4A8A",
+    title: "Clinic & Appointment System",
+    includes: ["Appointment Booking","Patient Management (CRM)","Payment & Invoicing","Reminders (SMS/Email/WhatsApp)","AI Assistant","Analytics Dashboard"],
+    bestFor: "Clinics, Hospitals, Dentists, Salons, Gyms, Wellness Centres.",
+    outcome: "Better scheduling, fewer no-shows, organised operations.",
+  },
+  {
+    slug: "sme-digital",
+    icon: "SM",
+    color: "#7C3AED",
+    title: "SME Digital Operating System",
+    includes: ["CRM & Operations","Staff & Task Management","Payments & Invoicing","Email & Automation","Analytics & Reporting","Document Management"],
+    bestFor: "SMEs, Agencies, Construction, Logistics, NGOs, Manufacturing.",
+    outcome: "Business runs in one place with full visibility.",
+  },
+  {
+    slug: "online-sales",
+    icon: "OS",
+    color: "#D97706",
+    title: "Online Sales & Payment System",
+    includes: ["Landing Pages & Funnels","Checkout & Payments","Email Automation","Customer Management","Abandoned Cart Recovery","Sales Analytics"],
+    bestFor: "E-commerce, Coaches, Digital Product Sellers, Event Planners.",
+    outcome: "Increase sales, automate follow-up, improve customer value.",
+  },
+  {
+    slug: "real-estate",
+    icon: "RE",
+    color: "#DC2626",
+    title: "Real Estate Lead Conversion System",
+    includes: ["Lead Capture","CRM & Lead Tracking","WhatsApp & Email Automation","Property Listing Management","Analytics & Reporting","Appointment Booking"],
+    bestFor: "Realtors, Property Firms, Housing Companies, Estate Developers.",
+    outcome: "Convert more leads into paying clients.",
+  },
+];
+
+// ─── INDUSTRY-SPECIFIC SYSTEMS ────────────────────────────────────────────────
+export const industrySystems = [
+  {
+    slug: "hotel",
+    icon: "HT",
+    title: "Hotel Management System",
+    subtitle: "Complete system to run hotel operations smoothly",
+    modules: ["Room Management","Bookings & Reservations","Check-in / Check-out","Payment & Billing","Guest Management","Housekeeping & Maintenance","Reports & Analytics"],
+    problemsSolved: "Overbooking, manual records, payment issues, poor guest management, operations chaos.",
+    targetAudience: "Hotels, Guest Houses, Resorts, Lodges, Shortlet Apartments",
+  },
+  {
+    slug: "supermarket",
+    icon: "RT",
+    title: "Supermarket / Retail System (POS)",
+    subtitle: "All-in-one system to manage sales outlets & supermarkets",
+    modules: ["POS & Sales Checkout","Inventory Management","Stock & Supplier Management","Staff & Shift Management","Payments & Receipts","Sales & Profit Reports","Multi-Branch Management"],
+    problemsSolved: "Stock loss, manual sales, inaccurate records, poor reporting, cashier fraud, inventory issues.",
+    targetAudience: "Supermarkets, Retail Stores, Mini Marts, Pharmacies, Wholesale Shops",
+  },
+];
+
+// ─── FREE TOOLS ───────────────────────────────────────────────────────────────
+export const freeTools = [
+  {
+    name: "Invoice Generator",
+    slug: "invoice",
+    subdomain: "invoice.jktl.com.ng",
+    icon: "INV",
+    description: "Create professional invoices in seconds. Free forever.",
+    freeFeatures: ["Unlimited invoices","Custom business logo","PDF download","Multiple currencies (₦, £, $)"],
+    premiumFeatures: ["Invoice history & tracking","Client database","Automatic reminders","Payment integration","Multi-user access"],
+    color: "#1A4A8A",
+  },
+  {
+    name: "Receipt Generator",
+    slug: "receipt",
+    subdomain: "receipt.jktl.com.ng",
+    icon: "RCP",
+    description: "Generate branded receipts for any transaction instantly.",
+    freeFeatures: ["Unlimited receipts","Custom branding","PDF & print","QR code on receipt"],
+    premiumFeatures: ["Receipt history","Customer records","Bulk generation","WhatsApp delivery","Analytics"],
+    color: "#1A6E3C",
+  },
+  {
+    name: "Profit Calculator",
+    slug: "profit",
+    subdomain: "profit.jktl.com.ng",
+    icon: "05",
+    description: "Know your real profit margin on every product or service.",
+    freeFeatures: ["Unlimited calculations","Cost breakdown","Margin percentage","Break-even point"],
+    premiumFeatures: ["Save & compare products","Bulk product upload","Report generation","Team sharing","Export to Excel"],
+    color: "#7C3AED",
+  },
+  {
+    name: "Pricing Calculator",
+    slug: "pricing",
+    subdomain: "pricing.jktl.com.ng",
+    icon: "PRC",
+    description: "Set the right price for your products and services every time.",
+    freeFeatures: ["Cost-plus pricing","Competitor benchmarking","Target margin setting","Price recommendations"],
+    premiumFeatures: ["Price history tracking","Multiple pricing strategies","Market analysis","Client sharing","API access"],
+    color: "#D97706",
+  },
+];
+
+// ─── ROI DATA ─────────────────────────────────────────────────────────────────
+export const roiData = {
+  stats: [
+    { value: "₦500k",  label: "Avg. Setup Fee",                    sub: "And growing" },
+    { value: "₦500k",  label: "Avg. Setup Fee",             sub: "One-time investment" },
+    { value: "₦50k+",  label: "Avg. Monthly Subscription",  sub: "Recurring revenue" },
+    { value: "70%+",   label: "Profit Margin at Scale",      sub: "Highly profitable" },
+  ],
+  roiExamples: [
+    {
+      industry: "Local Service Business",
+      investment: "₦250,000",
+      monthlyValue: "₦80,000",
+      breakEven: "3 months",
+      yearOneROI: "284%",
+      story: "A plumbing business with no website was losing 3–5 jobs per week to competitors online. After our Local Service System — website, SEO, WhatsApp automation, CRM — they averaged 12 new booked jobs in the first month from Google alone.",
+    },
+    {
+      industry: "Clinic / Health Practice",
+      investment: "₦400,000",
+      monthlyValue: "₦120,000",
+      breakEven: "4 months",
+      yearOneROI: "260%",
+      story: "A dental clinic running on WhatsApp and paper records had a 35% no-show rate. After the Clinic System with automated reminders, no-shows dropped to 8% within 60 days.",
+    },
+    {
+      industry: "SME / Agency",
+      investment: "₦600,000",
+      monthlyValue: "₦150,000",
+      breakEven: "4 months",
+      yearOneROI: "200%",
+      story: "A logistics company managing 40+ clients on spreadsheets. After the SME Digital Operating System, they reduced admin time by 60% and onboarded 15 new clients in 90 days.",
+    },
+    {
+      industry: "Retail / Supermarket",
+      investment: "₦800,000",
+      monthlyValue: "₦200,000",
+      breakEven: "4 months",
+      yearOneROI: "200%",
+      story: "A retail store losing ₦50,000+ monthly to stock shrinkage. After the Supermarket POS system, inventory discrepancies dropped to near-zero and profit visibility improved dramatically.",
+    },
+  ],
+  revenueModel: [
+    { label: "Setup / Implementation", sub: "One-time onboarding fee",        icon: "01" },
+    { label: "Monthly Subscription",   sub: "Recurring monthly revenue",       icon: "02" },
+    { label: "Add-on Modules",         sub: "Premium features & integrations", icon: "03" },
+    { label: "Support & Maintenance",  sub: "Ongoing support & updates",       icon: "04" },
+  ],
+};
+
+// ─── PLATFORM FEATURES ────────────────────────────────────────────────────────
+export const platformFeatures = [
+  { icon: "MT", title: "Multi-Tenant Architecture",  desc: "One platform, many businesses. Your data stays yours, always." },
+  { icon: "RB", title: "Role-Based Access",            desc: "Owners, staff, cashiers — each sees only what they need." },
+  { icon: "SC", title: "Secure & Scalable",            desc: "Enterprise-grade security with 99.9% uptime guarantee." },
+  { icon: "AP", title: "APIs & Integrations",          desc: "Payments, SMS, email — connected and working together." },
+  { icon: "CB",  title: "Cloud-Based",                desc: "Access your business from anywhere, on any device." },
+  { icon: "MF", title: "Mobile-First",                 desc: "Built for how African businesses actually operate." },
 ];

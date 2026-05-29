@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { navLinks, siteConfig } from "@/data/index";
 
@@ -18,26 +19,37 @@ export default function Navbar() {
     <>
       <style>{`
         .dd-menu { position:absolute; top:calc(100%+12px); left:50%; transform:translateX(-50%); background:var(--navy-900); border:1px solid rgba(249,247,240,0.1); border-radius:2px; padding:8px; min-width:280px; z-index:200; box-shadow:0 24px 48px rgba(2,8,24,0.5); }
-        .dd-menu a { display:block; padding:10px 16px; font-size:0.8rem; font-weight:400; color:rgba(249,247,240,0.6); text-decoration:none; transition:all 0.15s; letter-spacing:0.02em; }
+        .dd-menu a { display:block; padding:10px 16px; font-size:0.8rem; font-weight:400; color:rgba(249,247,240,0.6); text-decoration:none; transition:all 0.15s; }
         .dd-menu a:hover { color:#fff; background:rgba(249,247,240,0.05); }
         .dd-label { font-size:0.62rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold-400); padding:8px 16px 4px; }
       `}</style>
       <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
         style={{ background: scrolled ? "rgba(6,14,42,0.97)" : "transparent", backdropFilter: scrolled ? "blur(16px)" : "none", borderBottom: scrolled ? "1px solid rgba(249,247,240,0.06)" : "none" }}>
         <div className="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
+
           {/* Logo */}
-          <Link href="/" style={{ textDecoration:"none", display:"flex", flexDirection:"column", gap:"1px" }}>
-            <span style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:600, fontSize:"1.2rem", color:"#fff", lineHeight:1, letterSpacing:"0.04em" }}>JK Technology</span>
-            <span style={{ fontFamily:"'Plus Jakarta Sans',sans-serif", fontSize:"0.55rem", fontWeight:600, letterSpacing:"0.2em", textTransform:"uppercase", color:"var(--gold-400)" }}>Limited · Digital Growth Agency</span>
+          <Link href="/" style={{ textDecoration:"none", display:"flex", alignItems:"center", gap:"10px" }}>
+            <Image
+              src="/logo.png"
+              alt="JK Technology Limited"
+              width={44}
+              height={44}
+              style={{ objectFit:"contain" }}
+              priority
+            />
+            <div style={{ display:"flex", flexDirection:"column", gap:"1px" }}>
+              <span style={{ fontFamily:"'Plus Jakarta Sans',sans-serif", fontWeight:700, fontSize:"0.95rem", color:"#fff", lineHeight:1, letterSpacing:"0.02em" }}>JK Technology</span>
+              <span style={{ fontFamily:"'Plus Jakarta Sans',sans-serif", fontSize:"0.55rem", fontWeight:600, letterSpacing:"0.2em", textTransform:"uppercase", color:"var(--gold-400)" }}>Limited</span>
+            </div>
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-7">
+          <nav className="hidden md:flex items-center gap-6">
             {navLinks.map((l) => (
               <div key={l.href} className="relative"
                 onMouseEnter={() => l.children && setDropdown(l.href)}
                 onMouseLeave={() => setDropdown(null)}>
-                <Link href={l.href} className="nav-link-cream flex items-center gap-1" style={{ fontSize:"0.8rem" }}>
+                <Link href={l.href} className="nav-link-cream flex items-center gap-1" style={{ fontSize:"0.78rem" }}>
                   {l.label}
                   {l.children && (
                     <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ opacity:0.4 }}>
@@ -56,9 +68,15 @@ export default function Navbar() {
           </nav>
 
           {/* CTA */}
-          <div className="hidden md:flex">
-            <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold" style={{ padding:"10px 20px", fontSize:"0.68rem" }}>
-              Book Free Call
+          <div className="hidden md:flex items-center gap-3">
+            <a href={`tel:${siteConfig.phone.replace(/\s/g,"")}`} style={{ color:"rgba(249,247,240,0.6)", fontSize:"0.75rem", textDecoration:"none", display:"flex", alignItems:"center", gap:"5px" }}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink:0 }}>
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 7.82 19.79 19.79 0 01.21 4.18 2 2 0 012.18 2H5.18a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+              </svg>
+              {siteConfig.phone}
+            </a>
+            <a href={`mailto:${siteConfig.email}`} className="btn-gold" style={{ padding:"10px 18px", fontSize:"0.68rem" }}>
+              Get in Touch
             </a>
           </div>
 
@@ -86,9 +104,12 @@ export default function Navbar() {
                 ))}
               </div>
             ))}
-            <div style={{ paddingTop:"20px" }}>
-              <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold" style={{ width:"100%", justifyContent:"center" }}>
-                Book Free Discovery Call
+            <div style={{ paddingTop:"20px", display:"flex", flexDirection:"column", gap:"10px" }}>
+              <a href={`tel:${siteConfig.phone.replace(/\s/g,"")}`} className="btn-outline-cream" style={{ justifyContent:"center" }}>
+                Call {siteConfig.phone}
+              </a>
+              <a href={`mailto:${siteConfig.email}`} className="btn-gold" style={{ justifyContent:"center" }}>
+                Email Us
               </a>
             </div>
           </div>

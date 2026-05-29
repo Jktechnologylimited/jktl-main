@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { siteConfig, sitemapLinks, nigerianStates } from "@/data/index";
 
 export default function Footer() {
@@ -11,18 +12,18 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-8 py-14 flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
             <p style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:300, fontSize:"clamp(1.75rem,3.5vw,2.75rem)", color:"var(--cream-50)", lineHeight:1.15, marginBottom:"8px" }}>
-              Ready to build a system that<br className="hidden md:block"/> actually grows your business?
+              Ready to build a system that<br className="hidden md:block"/> grows your business?
             </p>
             <p className="label-xs" style={{ color:"rgba(249,247,240,0.35)" }}>
-              Book a free 30-minute discovery call — no pitch, no pressure.
+              Reach us by email or phone — we respond within 24 hours.
             </p>
           </div>
           <div style={{ display:"flex", flexDirection:"column", gap:"10px", flexShrink:0 }}>
-            <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold" style={{ justifyContent:"center" }}>
-              Book Free Discovery Call
-            </a>
-            <a href={`mailto:${siteConfig.email}`} className="btn-outline-cream" style={{ justifyContent:"center", fontSize:"0.68rem" }}>
+            <a href={`mailto:${siteConfig.email}`} className="btn-gold" style={{ justifyContent:"center" }}>
               {siteConfig.email}
+            </a>
+            <a href={`tel:${siteConfig.phone.replace(/\s/g,"")}`} className="btn-outline-cream" style={{ justifyContent:"center", fontSize:"0.68rem" }}>
+              {siteConfig.phone}
             </a>
           </div>
         </div>
@@ -34,17 +35,32 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="md:col-span-2">
-            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:600, fontSize:"1.3rem", color:"var(--cream-50)", lineHeight:1 }}>JK Technology Limited</p>
-            <p className="label-xs" style={{ color:"var(--gold-400)", marginTop:"4px", marginBottom:"12px" }}>Digital Growth & Business Systems Agency</p>
+            <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"14px" }}>
+              <Image src="/logo.png" alt="JK Technology Limited" width={48} height={48} style={{ objectFit:"contain" }} />
+              <div>
+                <p style={{ fontFamily:"'Plus Jakarta Sans',sans-serif", fontWeight:700, fontSize:"1rem", color:"var(--cream-50)", lineHeight:1 }}>JK Technology Limited</p>
+                <p className="label-xs" style={{ color:"var(--gold-400)", marginTop:"3px" }}>Business Infrastructure Ecosystem</p>
+              </div>
+            </div>
             <p className="body-sm" style={{ color:"rgba(249,247,240,0.4)", maxWidth:"280px", marginBottom:"16px" }}>
               {siteConfig.tagline}
             </p>
-            <div style={{ display:"flex", flexDirection:"column", gap:"6px", marginBottom:"16px" }}>
-              <a href={`mailto:${siteConfig.email}`} className="footer-link" style={{ fontSize:"0.82rem" }}>📧 {siteConfig.email}</a>
-              <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="footer-link-gold" style={{ fontSize:"0.82rem" }}>🎥 Book a Discovery Call</a>
+            <div style={{ display:"flex", flexDirection:"column", gap:"8px", marginBottom:"14px" }}>
+              <a href={`mailto:${siteConfig.email}`} className="footer-link" style={{ fontSize:"0.82rem", display:"flex", alignItems:"center", gap:"6px" }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                {siteConfig.email}
+              </a>
+              <a href={`tel:${siteConfig.phone.replace(/\s/g,"")}`} className="footer-link" style={{ fontSize:"0.82rem", display:"flex", alignItems:"center", gap:"6px" }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 7.82 19.79 19.79 0 01.21 4.18 2 2 0 012.18 2H5.18a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                {siteConfig.phone}
+              </a>
+              <span className="footer-link" style={{ fontSize:"0.82rem", display:"flex", alignItems:"center", gap:"6px", cursor:"default" }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                {siteConfig.location} · Nigeria & Africa
+              </span>
             </div>
             <div style={{ display:"flex", gap:"8px", flexWrap:"wrap" }}>
-              {["6+ Years","50+ Projects","Nigeria & UK","AI-Powered"].map((tag) => (
+              {["Est. 2019","Nigeria & Africa","AI-Powered Systems","6+ Years"].map((tag) => (
                 <span key={tag} style={{ fontSize:"0.65rem", fontWeight:600, letterSpacing:"0.1em", textTransform:"uppercase", color:"rgba(249,247,240,0.3)", border:"1px solid rgba(249,247,240,0.1)", padding:"3px 10px", borderRadius:"2px" }}>
                   {tag}
                 </span>
@@ -57,7 +73,7 @@ export default function Footer() {
             <p className="label-xs" style={{ color:"rgba(249,247,240,0.3)", marginBottom:"14px" }}>Services</p>
             <ul style={{ listStyle:"none", display:"flex", flexDirection:"column", gap:"9px" }}>
               {sitemapLinks.services.map((l) => (
-                <li key={l.href}><Link href={l.href} className="footer-link" style={{ fontSize:"0.82rem" }}>{l.label}</Link></li>
+                <li key={l.href}><Link href={l.href} className="footer-link" style={{ fontSize:"0.8rem" }}>{l.label}</Link></li>
               ))}
             </ul>
           </div>
@@ -74,7 +90,7 @@ export default function Footer() {
 
           {/* Insights */}
           <div>
-            <p className="label-xs" style={{ color:"rgba(249,247,240,0.3)", marginBottom:"14px" }}>Latest Insights</p>
+            <p className="label-xs" style={{ color:"rgba(249,247,240,0.3)", marginBottom:"14px" }}>Insights</p>
             <ul style={{ listStyle:"none", display:"flex", flexDirection:"column", gap:"9px" }}>
               {sitemapLinks.blog.map((l) => (
                 <li key={l.href}><Link href={l.href} className="footer-link" style={{ fontSize:"0.78rem" }}>{l.label}</Link></li>
@@ -83,9 +99,9 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* ── SITEMAP ── */}
-        <div style={{ borderTop:"1px solid rgba(249,247,240,0.06)", paddingTop:"40px", marginBottom:"32px" }}>
-          <p className="label-xs" style={{ color:"rgba(249,247,240,0.25)", marginBottom:"20px" }}>Site Map</p>
+        {/* Sitemap */}
+        <div style={{ borderTop:"1px solid rgba(249,247,240,0.06)", paddingTop:"36px", marginBottom:"28px" }}>
+          <p className="label-xs" style={{ color:"rgba(249,247,240,0.25)", marginBottom:"18px" }}>Site Map</p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div>
               <p style={{ fontSize:"0.7rem", fontWeight:700, letterSpacing:"0.12em", textTransform:"uppercase", color:"var(--gold-400)", marginBottom:"10px" }}>Services</p>
@@ -114,14 +130,13 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Nigerian states coverage */}
+        {/* Nigerian states */}
         <div style={{ borderTop:"1px solid rgba(249,247,240,0.06)", paddingTop:"24px", marginBottom:"24px" }}>
-          <p className="label-xs" style={{ color:"rgba(249,247,240,0.2)", marginBottom:"12px" }}>Serving Businesses Across Nigeria & the UK</p>
+          <p className="label-xs" style={{ color:"rgba(249,247,240,0.2)", marginBottom:"12px" }}>Serving Businesses Across Nigeria</p>
           <div style={{ display:"flex", flexWrap:"wrap", gap:"6px" }}>
             {nigerianStates.map((s) => (
               <span key={s} style={{ fontSize:"0.65rem", color:"rgba(249,247,240,0.2)", padding:"2px 8px", border:"1px solid rgba(249,247,240,0.07)", borderRadius:"2px" }}>{s}</span>
             ))}
-            <span style={{ fontSize:"0.65rem", color:"rgba(249,247,240,0.2)", padding:"2px 8px", border:"1px solid rgba(201,168,76,0.2)", borderRadius:"2px" }}>United Kingdom</span>
           </div>
         </div>
 
@@ -131,7 +146,7 @@ export default function Footer() {
             © {year} JK Technology Limited · jktl.com.ng · All rights reserved.
           </p>
           <p style={{ fontSize:"0.72rem", color:"rgba(249,247,240,0.15)", fontWeight:300 }}>
-            Digital Systems · Website Design · SEO · CRM · Automation · AI — Nigeria & UK
+            Your Growth. Our Mission.
           </p>
         </div>
       </div>

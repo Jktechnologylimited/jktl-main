@@ -113,10 +113,10 @@ export default function BlogPost5() {
               Get a Specific SEO Timeline for Your Business
             </h3>
             <p className="body-sm" style={{ color:"rgba(249,247,240,0.5)", marginBottom:"20px" }}>
-              Book a free 30-minute Zoom audit. We will assess your specific keywords, current rankings, and competition level — and give you a realistic, honest timeline.
+              Reach out via email or phone. We will assess your specific keywords, current rankings, and competition level — and give you a realistic, honest timeline.
             </p>
             <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold">
-              Book a Free Zoom Audit
+              Contact Us
             </a>
           </div>
         </div>

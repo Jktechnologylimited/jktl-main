@@ -114,7 +114,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <CTA heading="Not Sure Which Service You Need?" subtext="Book a free discovery call. We'll assess your current situation and recommend exactly which services will move the needle fastest for your business." />
+      <CTA heading="Not Sure Which Service You Need?" subtext="contact us. We'll assess your current situation and recommend exactly which services will move the needle fastest for your business." />
     </>
   );
 }

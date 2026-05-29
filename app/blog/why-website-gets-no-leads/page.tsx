@@ -133,7 +133,7 @@ export default function BlogPost1() {
               30 minutes on Zoom. We&apos;ll identify exactly which of these seven problems is impacting your site — and what to do about each one.
             </p>
             <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold">
-              Book a Free Zoom Audit
+              Contact Us
             </a>
           </div>
         </div>

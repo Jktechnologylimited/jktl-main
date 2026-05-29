@@ -128,7 +128,7 @@ export default function BlogPost2() {
             <p className="body-sm" style={{ color:"rgba(249,247,240,0.5)", marginBottom:"20px" }}>
               30 minutes on Zoom. We&apos;ll review your current rankings, identify your top three keyword opportunities, and outline a specific 90-day roadmap.
             </p>
-            <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold">Book a Free Zoom Audit</a>
+            <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold">Contact Us</a>
           </div>
         </div>
       </article>

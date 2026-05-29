@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { siteConfig, whyUs, nigerianStates, targetAudiences, valuationRoadmap } from "@/data/index";
+import { siteConfig, whyUs, nigerianStates, targetAudiences } from "@/data/index";
 import { CTA } from "@/components/sections/Sections";
 
 export const metadata: Metadata = {
   title: "About JK Technology Limited | Digital Growth & Business Systems Agency",
-  description: "Founded in 2019, JK Technology Limited builds digital systems that help businesses get customers, convert leads, and automate operations. Nigeria & UK.",
+  description: "Founded in 2019, JK Technology Limited builds digital systems that help businesses get customers, convert leads, and automate operations. Nigeria & Africa.",
   alternates: { canonical: "https://jktl.com.ng/about" },
 };
 
@@ -72,7 +72,7 @@ export default function AboutPage() {
                 <p style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:400, fontSize:"1.5rem", color:"var(--navy-900)", lineHeight:1.1, marginBottom:"4px" }}>John K.</p>
                 <p className="label-xs" style={{ color:"var(--navy-500)", marginBottom:"14px" }}>Founder & Lead Strategist · JK Technology Limited</p>
                 <div style={{ display:"flex", flexWrap:"wrap", gap:"8px" }}>
-                  {["6+ Years Experience","Digital Systems Expert","Nigeria & UK Markets","AI & Automation"].map(b => (
+                  {["6+ Years Experience","Digital Systems Expert","Nigeria & Africa Markets","AI & Automation"].map(b => (
                     <span key={b} style={{ fontSize:"0.68rem", fontWeight:600, letterSpacing:"0.08em", textTransform:"uppercase", color:"var(--navy-600)", background:"var(--cream-200)", padding:"4px 12px", borderRadius:"2px", border:"1px solid var(--cream-300)" }}>{b}</span>
                   ))}
                 </div>
@@ -101,7 +101,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
             { v:"2019",  l:"Year founded",      s:"Over half a decade in business" },
-            { v:"50+",   l:"Systems delivered",  s:"Nigeria, UK, and beyond" },
+            { v:"50+",   l:"Systems delivered",  s:"Nigeria & Africa, and beyond" },
             { v:"8",     l:"Service categories", s:"Fully integrated" },
             { v:"100%",  l:"Copy included",      s:"No templates, no outsourcing" },
           ].map(s => (
@@ -154,25 +154,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Valuation roadmap */}
-      <section style={{ background:"var(--navy-900)", padding:"80px 32px" }}>
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="mb-10">
-            <h2 className="display-lg mb-2" style={{ color:"var(--cream-50)" }}>Our Growth Roadmap</h2>
-            <p className="body-sm" style={{ color:"rgba(249,247,240,0.4)" }}>Our promise to grow as our clients grow — a four-stage vision for JKTL.</p>
-          </div>
-          <div className="grid md:grid-cols-4 gap-px" style={{ background:"rgba(249,247,240,0.06)" }}>
-            {valuationRoadmap.map((stage, i) => (
-              <div key={stage.stage} style={{ padding:"28px 24px", background: i === 0 ? "var(--navy-700)" : "var(--navy-800)" }}>
-                <p className="label-xs" style={{ color:"var(--gold-400)", marginBottom:"6px" }}>{stage.stage}</p>
-                <p style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:400, fontSize:"1.4rem", color:"var(--cream-50)", marginBottom:"4px" }}>{stage.title}</p>
-                <p className="label-xs" style={{ color:"rgba(249,247,240,0.4)", marginBottom:"10px" }}>{stage.timeline}</p>
-                <p className="body-sm" style={{ color:"rgba(249,247,240,0.55)", marginBottom:"12px" }}>{stage.description}</p>
-                <p style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:300, fontSize:"1.1rem", color:"var(--gold-300)" }}>{stage.valuation}</p>
-              </div>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* Coverage */}
@@ -205,7 +186,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <CTA heading="Work With a Team That Cares About Your Growth." subtext="Book a free 30-minute discovery call. No pitch, no pressure — an honest assessment of where you are and a clear plan for where you could be." />
+      <CTA heading="Work With a Team That Cares About Your Growth." subtext="Reach out via email or phone. No pitch, no pressure — an honest assessment of where you are and a clear plan for where you could be." />
     </>
   );
 }

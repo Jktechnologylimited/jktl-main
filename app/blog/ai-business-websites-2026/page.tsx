@@ -60,7 +60,7 @@ export default function BlogPost4() {
           <div style={{ background:"var(--navy-900)", padding:"32px", borderRadius:"4px", marginTop:"40px", textAlign:"center" }}>
             <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:400, fontSize:"1.75rem", color:"var(--cream-50)", marginBottom:"12px" }}>Build an AI-Enhanced Website for Your Business</h3>
             <p className="body-sm" style={{ color:"rgba(249,247,240,0.5)", marginBottom:"20px" }}>Book a free Zoom audit. We&apos;ll show you specifically which AI features would have the biggest impact on your conversion rate.</p>
-            <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold">Book a Free Zoom Audit</a>
+            <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold">Contact Us</a>
           </div>
         </div>
       </article>

@@ -50,7 +50,7 @@ export default function ContactPage() {
                   <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" style={{ display:"flex", alignItems:"center", gap:"14px", padding:"16px 18px", background:"var(--navy-900)", border:"none", borderRadius:"4px", textDecoration:"none" }}>
                     <span style={{ fontSize:"1.25rem" }}>🎥</span>
                     <div>
-                      <p style={{ fontWeight:700, fontSize:"0.875rem", color:"var(--cream-50)" }}>Book a Free Zoom Audit</p>
+                      <p style={{ fontWeight:700, fontSize:"0.875rem", color:"var(--cream-50)" }}>Contact Us</p>
                       <p className="body-sm" style={{ color:"rgba(249,247,240,0.45)" }}>30 mins · Free · No pitch</p>
                     </div>
                     <span style={{ marginLeft:"auto", color:"var(--gold-400)", fontSize:"0.8rem" }}>→</span>
@@ -104,7 +104,7 @@ export default function ContactPage() {
                     We&apos;ll review your enquiry and respond by email within 24 hours. If you&apos;d like to speak sooner, book a Zoom audit directly.
                   </p>
                   <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold" style={{ marginTop:"24px" }}>
-                    Book a Zoom Audit Now
+                    Email Us Now
                   </a>
                 </div>
               ) : (
