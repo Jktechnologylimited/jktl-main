@@ -1,4 +1,4 @@
-// ─── SITE CONFIG ──────────────────────────────────────────────────────────────
+// --- SITE CONFIG --------------------------------------------------------------
 export const siteConfig = {
   name: "JK Technology Limited",
   short: "JKTL",
@@ -19,7 +19,7 @@ export const siteConfig = {
   promise: "We don't just build software. We build systems that businesses rely on to grow, every single day.",
 };
 
-// ─── NAVIGATION ───────────────────────────────────────────────────────────────
+// --- NAVIGATION ---------------------------------------------------------------
 export const navLinks = [
   { href: "/services", label: "Services", children: [
     { href: "/services/website-systems",        label: "Website & Landing Page Systems" },
@@ -40,24 +40,25 @@ export const navLinks = [
   { href: "/contact",   label: "Contact",    children: null },
 ];
 
-// ─── 8 SERVICES ───────────────────────────────────────────────────────────────
+// --- 8 SERVICES ---------------------------------------------------------------
 export const services = [
   {
     slug: "website-systems",
+    demoSlug: "/demos/website",
     number: "01",
     icon: "01",
     label: "Website & Landing Page Systems",
     shortLabel: "Website Systems",
     tier: "Foundation",
-    tagline: "Your digital front door — built to impress, rank, and convert",
+    tagline: "Your digital front door -- built to impress, rank, and convert",
     description: "A complete, professional website built for your specific industry and audience. SEO-ready, mobile-first, and designed to turn visitors into leads from day one.",
-    priceFrom: "₦150,000",
-    priceTo: "₦800,000",
-    priceAlt: "£200 – £1,000",
+    priceFrom: "N150,000",
+    priceTo: "N800,000",
+    priceAlt: "GBP200 - GBP1,000",
     deliveryNote: "One-time project",
     highlight: false,
     features: [
-      "Business Website (5–8 pages)",
+      "Business Website (5-8 pages)",
       "Mobile Responsive Design",
       "SEO Setup",
       "Contact Forms",
@@ -70,23 +71,24 @@ export const services = [
   },
   {
     slug: "lead-generation",
+    demoSlug: "/demos/lead-generation",
     number: "02",
     icon: "02",
     label: "Lead Generation Landing Pages",
     shortLabel: "Lead Generation",
     tier: "Campaign",
-    tagline: "A focused page built for one goal — converting visitors into leads",
+    tagline: "A focused page built for one goal -- converting visitors into leads",
     description: "High-converting landing pages engineered for paid ad campaigns, service launches, and lead magnets. Every element serves one purpose: get the visitor to take action.",
-    priceFrom: "₦100,000",
-    priceTo: "₦500,000",
-    priceAlt: "£150 – £800",
+    priceFrom: "N100,000",
+    priceTo: "N500,000",
+    priceAlt: "GBP150 - GBP800",
     deliveryNote: "One-time project",
     highlight: true,
     features: [
       "High-Converting Landing Page",
       "Ad Integration (Meta / Google)",
       "Lead Capture System",
-      "Form → Email / CRM Automation",
+      "Form -> Email / CRM Automation",
       "Conversion Tracking Setup",
       "Full copywriting included",
       "A/B testing ready",
@@ -96,17 +98,18 @@ export const services = [
   },
   {
     slug: "email-automation",
+    demoSlug: "/demos/email-automation",
     number: "03",
     icon: "03",
     label: "Email & Follow-up Automation",
     shortLabel: "Email Automation",
     tier: "Automation",
-    tagline: "Follow up with every lead automatically — while you focus on delivery",
-    description: "Automated email systems built on Resend that nurture leads, follow up on enquiries, send payment and booking confirmations, and recover missed opportunities — 24/7.",
-    priceFrom: "₦100,000",
-    priceTo: "₦400,000",
+    tagline: "Follow up with every lead automatically -- while you focus on delivery",
+    description: "Automated email systems built on Resend that nurture leads, follow up on enquiries, send payment and booking confirmations, and recover missed opportunities -- 24/7.",
+    priceFrom: "N100,000",
+    priceTo: "N400,000",
     priceAlt: "Setup",
-    priceMonthly: "₦20,000 – ₦100,000/mo",
+    priceMonthly: "N20,000 - N100,000/mo",
     deliveryNote: "Setup + monthly retainer",
     highlight: false,
     features: [
@@ -123,17 +126,18 @@ export const services = [
   },
   {
     slug: "seo",
+    demoSlug: "/demos/seo",
     number: "04",
     icon: "04",
     label: "SEO & Google Visibility System",
     shortLabel: "SEO",
     tier: "Traffic",
     tagline: "Rank on Google for the searches your customers are already making",
-    description: "A complete SEO and Google visibility system covering local search, keyword targeting, Google Business Profile, and map rankings — so your ideal clients find you first.",
-    priceFrom: "₦150,000",
-    priceTo: "₦700,000",
+    description: "A complete SEO and Google visibility system covering local search, keyword targeting, Google Business Profile, and map rankings -- so your ideal clients find you first.",
+    priceFrom: "N150,000",
+    priceTo: "N700,000",
     priceAlt: "Setup",
-    priceMonthly: "₦50,000 – ₦200,000/mo",
+    priceMonthly: "N50,000 - N200,000/mo",
     deliveryNote: "Setup + monthly retainer",
     highlight: false,
     features: [
@@ -150,6 +154,7 @@ export const services = [
   },
   {
     slug: "crm-operations",
+    demoSlug: "/demos/crm",
     number: "05",
     icon: "05",
     label: "CRM & Business Operations System",
@@ -157,10 +162,10 @@ export const services = [
     tier: "Operations",
     tagline: "A single system to track leads, clients, and your entire business pipeline",
     description: "A custom CRM and operations dashboard that tracks every lead, manages your client database, monitors your sales pipeline, and gives you real-time business analytics.",
-    priceFrom: "₦300,000",
-    priceTo: "₦2,000,000",
+    priceFrom: "N300,000",
+    priceTo: "N2,000,000",
     priceAlt: "",
-    priceMonthly: "₦30,000 – ₦150,000/mo",
+    priceMonthly: "N30,000 - N150,000/mo",
     deliveryNote: "Setup + monthly support",
     highlight: false,
     features: [
@@ -177,15 +182,16 @@ export const services = [
   },
   {
     slug: "payment-infrastructure",
+    demoSlug: "/demos/payments",
     number: "06",
     icon: "06",
     label: "Payment & Business Infrastructure",
     shortLabel: "Payment Systems",
     tier: "Infrastructure",
-    tagline: "Accept payments online — seamlessly, professionally, and automatically",
+    tagline: "Accept payments online -- seamlessly, professionally, and automatically",
     description: "Complete payment and business infrastructure: payment links, QR codes, online checkout, subscription billing, and automated invoice generation.",
-    priceFrom: "₦100,000",
-    priceTo: "₦600,000",
+    priceFrom: "N100,000",
+    priceTo: "N600,000",
     priceAlt: "+ Transaction Charges",
     deliveryNote: "One-time setup",
     highlight: false,
@@ -203,17 +209,18 @@ export const services = [
   },
   {
     slug: "ai-automation",
+    demoSlug: "/demos/ai-chatbot",
     number: "07",
     icon: "07",
     label: "AI & Automation Systems",
     shortLabel: "AI Systems",
     tier: "Intelligence",
     tagline: "Automate the repetitive. Focus on what only you can do.",
-    description: "AI-powered systems that handle routine business tasks automatically — website chatbots, WhatsApp auto-replies, FAQ automation, customer onboarding, and workflow automation.",
-    priceFrom: "₦250,000",
-    priceTo: "₦1,500,000",
+    description: "AI-powered systems that handle routine business tasks automatically -- website chatbots, WhatsApp auto-replies, FAQ automation, customer onboarding, and workflow automation.",
+    priceFrom: "N250,000",
+    priceTo: "N1,500,000",
     priceAlt: "Setup",
-    priceMonthly: "₦50,000 – ₦300,000/mo",
+    priceMonthly: "N50,000 - N300,000/mo",
     deliveryNote: "Setup + monthly support",
     highlight: false,
     features: [
@@ -230,17 +237,18 @@ export const services = [
   },
 ];
 
-// ─── FLAGSHIP PACKAGE ──────────────────────────────────────────────────────────
+// --- FLAGSHIP PACKAGE ----------------------------------------------------------
 export const flagshipPackage = {
   name: "Full Business System Package",
+  demoSlug: "/demos",
   label: "Flagship Offer",
   number: "08",
   icon: "08",
-  tagline: "Everything your business needs to grow — built, integrated, and running.",
-  description: "Our flagship end-to-end solution. Website, landing pages, SEO, CRM, email automation, payment system, AI chatbot, analytics, and ongoing support — all designed to work together as one integrated growth machine.",
-  priceFrom: "₦800,000",
-  priceTo: "₦5,000,000",
-  priceAlt: "£1,000 – £6,000+",
+  tagline: "Everything your business needs to grow -- built, integrated, and running.",
+  description: "Our flagship end-to-end solution. Website, landing pages, SEO, CRM, email automation, payment system, AI chatbot, analytics, and ongoing support -- all designed to work together as one integrated growth machine.",
+  priceFrom: "N800,000",
+  priceTo: "N5,000,000",
+  priceAlt: "GBP1,000 - GBP6,000+",
   deliveryNote: "One-time + monthly",
   features: [
     "Website + Landing Pages",
@@ -254,13 +262,13 @@ export const flagshipPackage = {
   ],
 };
 
-// ─── 3 PRICING TIERS ──────────────────────────────────────────────────────────
+// --- 3 PRICING TIERS ----------------------------------------------------------
 export const packages = [
   {
     name: "Starter",
     subtitle: "Get Online",
-    price: "₦150,000",
-    priceTo: "₦500,000",
+    price: "N150,000",
+    priceTo: "N500,000",
     priceNote: "One-time",
     highlight: false,
     tagline: "For businesses that need a professional online presence fast",
@@ -275,8 +283,8 @@ export const packages = [
   {
     name: "Growth",
     subtitle: "Generate & Convert Leads",
-    price: "₦500,000",
-    priceTo: "₦1,500,000",
+    price: "N500,000",
+    priceTo: "N1,500,000",
     priceNote: "One-time + Monthly",
     highlight: true,
     tagline: "For businesses ready to generate consistent leads and revenue online",
@@ -291,8 +299,8 @@ export const packages = [
   {
     name: "Enterprise",
     subtitle: "Full Business System",
-    price: "₦1,500,000",
-    priceTo: "₦5,000,000+",
+    price: "N1,500,000",
+    priceTo: "N5,000,000+",
     priceNote: "One-time + Monthly",
     highlight: false,
     tagline: "Full business system for companies serious about scale",
@@ -306,11 +314,11 @@ export const packages = [
   },
 ];
 
-// ─── SEO TIERS (kept for /services/seo) ───────────────────────────────────────
+// --- SEO TIERS (kept for /services/seo) ---------------------------------------
 export const seoTiers = [
   {
     name: "Starter",
-    price: "₦50,000",
+    price: "N50,000",
     period: "/month",
     highlight: false,
     features: [
@@ -323,7 +331,7 @@ export const seoTiers = [
   },
   {
     name: "Growth",
-    price: "₦100,000",
+    price: "N100,000",
     period: "/month",
     highlight: true,
     features: [
@@ -337,7 +345,7 @@ export const seoTiers = [
   },
   {
     name: "Authority",
-    price: "₦200,000",
+    price: "N200,000",
     period: "/month",
     highlight: false,
     features: [
@@ -351,41 +359,41 @@ export const seoTiers = [
   },
 ];
 
-// ─── PROCESS (5-step client journey) ─────────────────────────────────────────
+// --- PROCESS (5-step client journey) -----------------------------------------
 export const processSteps = [
   {
     number: "1",
     title: "Attract Traffic",
     subtitle: "Website / Ads / SEO",
-    description: "We build the digital assets that bring the right people to your business — a professional website, targeted landing pages, and SEO that gets you found on Google.",
+    description: "We build the digital assets that bring the right people to your business -- a professional website, targeted landing pages, and SEO that gets you found on Google.",
   },
   {
     number: "2",
     title: "Capture Leads",
     subtitle: "Forms, Landing Pages, Chat",
-    description: "Smart capture systems collect enquiries, bookings, and contact details from every visitor — whether they arrive from search, social media, or word of mouth.",
+    description: "Smart capture systems collect enquiries, bookings, and contact details from every visitor -- whether they arrive from search, social media, or word of mouth.",
   },
   {
     number: "3",
     title: "Nurture Leads",
     subtitle: "Email, WhatsApp, Follow-ups",
-    description: "Automated follow-up sequences keep your business in front of prospects who aren't ready to buy today — so when they are ready, they call you first.",
+    description: "Automated follow-up sequences keep your business in front of prospects who aren't ready to buy today -- so when they are ready, they call you first.",
   },
   {
     number: "4",
     title: "Convert Leads",
     subtitle: "Bookings, Payments, Sales",
-    description: "Streamlined booking and payment systems reduce friction at the point of sale — so interested prospects become paying clients with minimum effort on your part.",
+    description: "Streamlined booking and payment systems reduce friction at the point of sale -- so interested prospects become paying clients with minimum effort on your part.",
   },
   {
     number: "5",
     title: "Retain & Grow",
     subtitle: "CRM, Automation, Analytics",
-    description: "CRM dashboards, retention automations, and performance analytics give you full visibility of your business — and the systems to grow it month after month.",
+    description: "CRM dashboards, retention automations, and performance analytics give you full visibility of your business -- and the systems to grow it month after month.",
   },
 ];
 
-// ─── TARGET AUDIENCES ─────────────────────────────────────────────────────────
+// --- TARGET AUDIENCES ---------------------------------------------------------
 export const targetAudiences = [
   {
     icon: "SB",
@@ -409,7 +417,7 @@ export const targetAudiences = [
   },
 ];
 
-// ─── PROBLEMS WE SOLVE ────────────────────────────────────────────────────────
+// --- PROBLEMS WE SOLVE --------------------------------------------------------
 export const problemsSolved = [
   "Low online visibility",
   "Lost leads & missed calls",
@@ -420,7 +428,7 @@ export const problemsSolved = [
   "Low conversion from ads",
 ];
 
-// ─── WHY CHOOSE US ────────────────────────────────────────────────────────────
+// --- WHY CHOOSE US ------------------------------------------------------------
 export const whyUs = [
   {
     title: "We Focus on Results, Not Just Design",
@@ -428,11 +436,11 @@ export const whyUs = [
   },
   {
     title: "We Build Systems That Increase Revenue",
-    description: "We don't build brochure websites. We build integrated digital systems — website, SEO, automation, CRM, payments — working together to bring in and convert clients.",
+    description: "We don't build brochure websites. We build integrated digital systems -- website, SEO, automation, CRM, payments -- working together to bring in and convert clients.",
   },
   {
     title: "We Automate Follow-ups and Save You Time",
-    description: "Most businesses lose leads because nobody followed up. Our automation systems follow up with every prospect automatically — so no opportunity falls through the cracks.",
+    description: "Most businesses lose leads because nobody followed up. Our automation systems follow up with every prospect automatically -- so no opportunity falls through the cracks.",
   },
   {
     title: "We Provide Ongoing Support and Growth",
@@ -444,11 +452,11 @@ export const whyUs = [
   },
   {
     title: "We Understand Local Businesses and Deliver What Works",
-    description: "We know the Nigerian and UK markets. Our systems are built for the real conditions local businesses operate in — not imported templates from the US.",
+    description: "We know the Nigerian and UK markets. Our systems are built for the real conditions local businesses operate in -- not imported templates from the US.",
   },
 ];
 
-// ─── REVENUE MODEL ────────────────────────────────────────────────────────────
+// --- REVENUE MODEL ------------------------------------------------------------
 export const revenueStreams = [
   { label: "One-time Projects", detail: "Websites, Systems, Setup", color: "#C9A84C" },
   { label: "Monthly Retainers", detail: "SEO, Maintenance, Automation", color: "#112055" },
@@ -457,51 +465,51 @@ export const revenueStreams = [
   { label: "Training & Consulting", detail: "", color: "#3A5FA3" },
 ];
 
-// ─── VALUATION ROADMAP ────────────────────────────────────────────────────────
+// --- VALUATION ROADMAP --------------------------------------------------------
 export const valuationRoadmap = [
   {
     stage: "Stage 1",
     title: "Startup",
-    timeline: "0 – 12 Months",
+    timeline: "0 - 12 Months",
     description: "Build, Validate & Get Clients",
-    valuation: "₦5M – ₦30M",
+    valuation: "N5M - N30M",
   },
   {
     stage: "Stage 2",
     title: "Growth",
-    timeline: "12 – 24 Months",
+    timeline: "12 - 24 Months",
     description: "Systems, Team & Recurring Revenue",
-    valuation: "₦50M – ₦300M+",
+    valuation: "N50M - N300M+",
   },
   {
     stage: "Stage 3",
     title: "Scale",
-    timeline: "24 – 48 Months",
+    timeline: "24 - 48 Months",
     description: "SaaS Products, Market Expansion",
-    valuation: "₦300M – ₦1B+",
+    valuation: "N300M - N1B+",
   },
   {
     stage: "Stage 4",
     title: "Leadership",
     timeline: "48+ Months",
     description: "Ecosystem, Multiple Income Streams",
-    valuation: "₦1B – ₦5B+",
+    valuation: "N1B - N5B+",
   },
 ];
 
-// ─── TESTIMONIAL — K.K. Ubani & Co. ─────────────────────────────────────────
+// --- TESTIMONIAL -- K.K. Ubani & Co. -----------------------------------------
 export const testimonial = {
-  quote: "JK Technology built us far more than a website. They delivered a complete digital system — a professional online presence that ranks for our key practice areas, positions us clearly for the corporate and commercial clients we serve, and generates consistent inbound enquiries. The quality of those leads is different. They arrive informed, knowing exactly what we do and what we charge. That is what a properly built digital system produces.",
+  quote: "JK Technology built us far more than a website. They delivered a complete digital system -- a professional online presence that ranks for our key practice areas, positions us clearly for the corporate and commercial clients we serve, and generates consistent inbound enquiries. The quality of those leads is different. They arrive informed, knowing exactly what we do and what we charge. That is what a properly built digital system produces.",
   name: "Kenneth K. Ubani",
   role: "Principal Partner",
   firm: "K.K. Ubani & Co.",
   location: "Port Harcourt, Nigeria",
   initials: "KU",
-  metric: "Complete digital system delivered · Page 1 Google rankings · Consistent inbound enquiries",
+  metric: "Complete digital system delivered | Page 1 Google rankings | Consistent inbound enquiries",
   website: "kkubaniandco.com",
 };
 
-// ─── CASE STUDIES — reframed around systems ───────────────────────────────────
+// --- CASE STUDIES -- reframed around systems -----------------------------------
 export const caseStudies = [
   {
     slug: "kk-ubani-law-firm",
@@ -530,7 +538,7 @@ export const caseStudies = [
         "Zero first-page rankings for any practice area keywords",
         "All 15+ services crammed onto one generic page",
         "Marquee clients (Ecobank, Polaris Bank) not surfaced anywhere online",
-        "No Google Business Profile — invisible on Maps",
+        "No Google Business Profile -- invisible on Maps",
         "Corporate clients searching Google could not find the firm",
       ],
     },
@@ -572,7 +580,7 @@ export const caseStudies = [
     hasSEOScreenshots: false,
     hasWebsiteScreenshot: true,
     imageInstructions: "Add website screenshot to /public/work/eljards-website.jpg",
-    overview: "Eljards Services Limited operates across two high-growth sectors: solar energy solutions and business consulting. They needed a digital system that communicated both service lines clearly to corporate clients, government agencies, and businesses — and captured enquiries from each audience separately.",
+    overview: "Eljards Services Limited operates across two high-growth sectors: solar energy solutions and business consulting. They needed a digital system that communicated both service lines clearly to corporate clients, government agencies, and businesses -- and captured enquiries from each audience separately.",
     systemDelivered: [
       "Structured multi-service website separating solar and consulting divisions",
       "Individual lead capture forms for each service line",
@@ -585,8 +593,8 @@ export const caseStudies = [
       points: [
         "No clear separation between solar energy and consulting service lines",
         "Corporate and government clients confused about what the business offered",
-        "No SEO — invisible for solar energy or consulting searches",
-        "No lead capture system — all enquiries had to come through manual contact",
+        "No SEO -- invisible for solar energy or consulting searches",
+        "No lead capture system -- all enquiries had to come through manual contact",
       ],
     },
     after: {
@@ -594,7 +602,7 @@ export const caseStudies = [
       points: [
         "Distinct sections for Solar Energy and Business Consulting with targeted copy",
         "Separate lead capture forms routed to the right team for each service",
-        "SEO foundations in place — ranking building for both verticals",
+        "SEO foundations in place -- ranking building for both verticals",
         "Professional digital presence that supports enterprise and government sales conversations",
       ],
     },
@@ -621,7 +629,7 @@ export const caseStudies = [
     hasSEOScreenshots: false,
     hasWebsiteScreenshot: true,
     imageInstructions: "Add website screenshot to /public/work/refinish-website.jpg",
-    overview: "Refinish is Port Harcourt's premium auto care centre — oven-baked painting, chrome delete, deep cleaning, and body work. With 21+ five-star Google reviews, they had the reputation. They needed a digital system to capture and convert the online demand that reputation was generating.",
+    overview: "Refinish is Port Harcourt's premium auto care centre -- oven-baked painting, chrome delete, deep cleaning, and body work. With 21+ five-star Google reviews, they had the reputation. They needed a digital system to capture and convert the online demand that reputation was generating.",
     systemDelivered: [
       "High-converting website with dedicated pages for all 5 services",
       "Online booking form integrated and connected to the team's workflow",
@@ -632,17 +640,17 @@ export const caseStudies = [
     before: {
       title: "Before: Great Reputation, No Digital System",
       points: [
-        "No website — all bookings via WhatsApp and word of mouth only",
+        "No website -- all bookings via WhatsApp and word of mouth only",
         "21+ five-star reviews generating interest with nowhere to send people",
         "Invisible for 'car detailing Port Harcourt' and related searches",
-        "Every enquiry required manual back-and-forth — no automated booking",
+        "Every enquiry required manual back-and-forth -- no automated booking",
       ],
     },
     after: {
       title: "After: Booking Online, Ranking Locally",
       points: [
         "All 5 services presented clearly with benefit-led copy and pricing context",
-        "Online booking form — clients book directly, team wakes up to appointments",
+        "Online booking form -- clients book directly, team wakes up to appointments",
         "21+ reviews displayed front and centre, building trust on first visit",
         "Local SEO driving organic traffic from Port Harcourt and Rivers State searches",
       ],
@@ -664,14 +672,14 @@ export const caseStudies = [
   },
 ];
 
-// ─── BLOG POSTS ───────────────────────────────────────────────────────────────
+// --- BLOG POSTS ---------------------------------------------------------------
 export const blogPosts = [
   {
     slug: "why-website-gets-no-leads",
     title: "Why Your Business Website Gets Traffic But No Leads (And How to Fix It)",
     metaTitle: "Why Your Website Gets No Leads | JKTL",
-    metaDescription: "High traffic but no leads? The 7 conversion killers destroying your results — and the exact fixes.",
-    excerpt: "You check your analytics. Traffic is there. But your inbox is empty. Here's the diagnosis — and how to fix it.",
+    metaDescription: "High traffic but no leads? The 7 conversion killers destroying your results -- and the exact fixes.",
+    excerpt: "You check your analytics. Traffic is there. But your inbox is empty. Here's the diagnosis -- and how to fix it.",
     category: "Conversion",
     readTime: "7 min",
     date: "March 15, 2026",
@@ -703,7 +711,7 @@ export const blogPosts = [
     slug: "ai-business-websites-2026",
     title: "AI Business Systems in 2026: What They Are and Why Your Competitors Are Getting Them",
     metaTitle: "AI Business Systems 2026 | JKTL",
-    metaDescription: "AI-powered business systems aren't the future — they're 2026. What they include and who's already using them.",
+    metaDescription: "AI-powered business systems aren't the future -- they're 2026. What they include and who's already using them.",
     excerpt: "Standard websites sit there. AI-enhanced systems personalise, follow up, and convert on autopilot.",
     category: "AI & Automation",
     readTime: "8 min",
@@ -715,7 +723,7 @@ export const blogPosts = [
     title: "How Long Does SEO Take? A Realistic Timeline for Service Businesses",
     metaTitle: "How Long Does SEO Take? | JKTL",
     metaDescription: "The honest answer with real timelines from Nigerian and UK client campaigns.",
-    excerpt: "The honest answer — with real data from real client campaigns. No vague 'it depends.'",
+    excerpt: "The honest answer -- with real data from real client campaigns. No vague 'it depends.'",
     category: "SEO",
     readTime: "6 min",
     date: "January 5, 2026",
@@ -723,7 +731,7 @@ export const blogPosts = [
   },
 ];
 
-// ─── SITEMAP LINKS ────────────────────────────────────────────────────────────
+// --- SITEMAP LINKS ------------------------------------------------------------
 export const sitemapLinks = {
   services: [
     { label: "Website & Landing Page Systems",    href: "/services/website-systems" },
@@ -758,30 +766,30 @@ export const sitemapLinks = {
   ],
 };
 
-// ─── ADD-ONS ─────────────────────────────────────────────────────────────────
+// --- ADD-ONS -----------------------------------------------------------------
 export const addOns = [
-  { name: "Additional website page",            price: "₦30,000 – ₦60,000" },
-  { name: "WhatsApp chatbot setup",             price: "₦80,000 – ₦200,000" },
-  { name: "Blog / CMS setup",                   price: "₦50,000" },
-  { name: "Monthly site maintenance",           price: "₦30,000 – ₦80,000/mo" },
-  { name: "Google Ads campaign setup",          price: "₦100,000 – ₦300,000" },
-  { name: "Professional logo & brand design",   price: "₦80,000 – ₦200,000" },
-  { name: "Copywriting (additional pages)",     price: "₦40,000/page" },
-  { name: "AI chatbot integration",             price: "₦150,000 – ₦400,000" },
-  { name: "Email marketing setup (Resend)",     price: "₦80,000 – ₦150,000" },
-  { name: "Staff training session",             price: "₦50,000 – ₦150,000" },
+  { name: "Additional website page",            price: "N30,000 - N60,000" },
+  { name: "WhatsApp chatbot setup",             price: "N80,000 - N200,000" },
+  { name: "Blog / CMS setup",                   price: "N50,000" },
+  { name: "Monthly site maintenance",           price: "N30,000 - N80,000/mo" },
+  { name: "Google Ads campaign setup",          price: "N100,000 - N300,000" },
+  { name: "Professional logo & brand design",   price: "N80,000 - N200,000" },
+  { name: "Copywriting (additional pages)",     price: "N40,000/page" },
+  { name: "AI chatbot integration",             price: "N150,000 - N400,000" },
+  { name: "Email marketing setup (Resend)",     price: "N80,000 - N150,000" },
+  { name: "Staff training session",             price: "N50,000 - N150,000" },
 ];
 
-// ─── NIGERIAN STATES ──────────────────────────────────────────────────────────
+// --- NIGERIAN STATES ----------------------------------------------------------
 export const nigerianStates = [
   "Abia","Adamawa","Akwa Ibom","Anambra","Bauchi","Bayelsa","Benue","Borno",
-  "Cross River","Delta","Ebonyi","Edo","Ekiti","Enugu","FCT – Abuja","Gombe",
+  "Cross River","Delta","Ebonyi","Edo","Ekiti","Enugu","FCT - Abuja","Gombe",
   "Imo","Jigawa","Kaduna","Kano","Katsina","Kebbi","Kogi","Kwara","Lagos",
   "Nasarawa","Niger","Ogun","Ondo","Osun","Oyo","Plateau","Rivers","Sokoto",
   "Taraba","Yobe","Zamfara",
 ];
 
-// ─── ECOSYSTEM OVERVIEW ───────────────────────────────────────────────────────
+// --- ECOSYSTEM OVERVIEW -------------------------------------------------------
 export const ecosystemOverview = {
   headline: "Business Infrastructure Ecosystem",
   subheadline: "Empowering African Businesses with Systems They Depend On. Every Day.",
@@ -794,10 +802,11 @@ export const ecosystemOverview = {
   ],
 };
 
-// ─── COUPLED SOLUTIONS ────────────────────────────────────────────────────────
+// --- COUPLED SOLUTIONS --------------------------------------------------------
 export const coupledSolutions = [
   {
     slug: "local-service",
+    demoSlug: "/demos/website",
     icon: "LS",
     color: "#1A6E3C",
     title: "Local Service Business Growth System",
@@ -807,6 +816,7 @@ export const coupledSolutions = [
   },
   {
     slug: "clinic",
+    demoSlug: "/demos/crm",
     icon: "CL",
     color: "#1A4A8A",
     title: "Clinic & Appointment System",
@@ -816,6 +826,7 @@ export const coupledSolutions = [
   },
   {
     slug: "sme-digital",
+    demoSlug: "/demos/crm",
     icon: "SM",
     color: "#7C3AED",
     title: "SME Digital Operating System",
@@ -825,6 +836,7 @@ export const coupledSolutions = [
   },
   {
     slug: "online-sales",
+    demoSlug: "/demos/payments",
     icon: "OS",
     color: "#D97706",
     title: "Online Sales & Payment System",
@@ -834,6 +846,7 @@ export const coupledSolutions = [
   },
   {
     slug: "real-estate",
+    demoSlug: "/demos/lead-generation",
     icon: "RE",
     color: "#DC2626",
     title: "Real Estate Lead Conversion System",
@@ -843,7 +856,7 @@ export const coupledSolutions = [
   },
 ];
 
-// ─── INDUSTRY-SPECIFIC SYSTEMS ────────────────────────────────────────────────
+// --- INDUSTRY-SPECIFIC SYSTEMS ------------------------------------------------
 export const industrySystems = [
   {
     slug: "hotel",
@@ -865,21 +878,23 @@ export const industrySystems = [
   },
 ];
 
-// ─── FREE TOOLS ───────────────────────────────────────────────────────────────
+// --- FREE TOOLS ---------------------------------------------------------------
 export const freeTools = [
   {
     name: "Invoice Generator",
     slug: "invoice",
+    demoSlug: "/demos/business-tools",
     subdomain: "invoice.jktl.com.ng",
     icon: "INV",
     description: "Create professional invoices in seconds. Free forever.",
-    freeFeatures: ["Unlimited invoices","Custom business logo","PDF download","Multiple currencies (₦, £, $)"],
+    freeFeatures: ["Unlimited invoices","Custom business logo","PDF download","Multiple currencies (N, GBP, $)"],
     premiumFeatures: ["Invoice history & tracking","Client database","Automatic reminders","Payment integration","Multi-user access"],
     color: "#1A4A8A",
   },
   {
     name: "Receipt Generator",
     slug: "receipt",
+    demoSlug: "/demos/business-tools",
     subdomain: "receipt.jktl.com.ng",
     icon: "RCP",
     description: "Generate branded receipts for any transaction instantly.",
@@ -890,6 +905,7 @@ export const freeTools = [
   {
     name: "Profit Calculator",
     slug: "profit",
+    demoSlug: "/demos/business-tools",
     subdomain: "profit.jktl.com.ng",
     icon: "05",
     description: "Know your real profit margin on every product or service.",
@@ -900,6 +916,7 @@ export const freeTools = [
   {
     name: "Pricing Calculator",
     slug: "pricing",
+    demoSlug: "/demos/business-tools",
     subdomain: "pricing.jktl.com.ng",
     icon: "PRC",
     description: "Set the right price for your products and services every time.",
@@ -909,46 +926,46 @@ export const freeTools = [
   },
 ];
 
-// ─── ROI DATA ─────────────────────────────────────────────────────────────────
+// --- ROI DATA -----------------------------------------------------------------
 export const roiData = {
   stats: [
-    { value: "₦500k",  label: "Avg. Setup Fee",                    sub: "And growing" },
-    { value: "₦500k",  label: "Avg. Setup Fee",             sub: "One-time investment" },
-    { value: "₦50k+",  label: "Avg. Monthly Subscription",  sub: "Recurring revenue" },
-    { value: "70%+",   label: "Profit Margin at Scale",      sub: "Highly profitable" },
+    { value: "N500k",  label: "Avg. Setup Fee",             sub: "One-time investment" },
+    { value: "N50k+",  label: "Avg. Monthly Retainer",      sub: "Recurring revenue" },
+    { value: "70%+",   label: "Profit Margin at Scale",     sub: "Highly profitable" },
+    { value: "High",   label: "Recurring Revenue",          sub: "Predictable income" },
   ],
   roiExamples: [
     {
       industry: "Local Service Business",
-      investment: "₦250,000",
-      monthlyValue: "₦80,000",
+      investment: "N250,000",
+      monthlyValue: "N80,000",
       breakEven: "3 months",
       yearOneROI: "284%",
-      story: "A plumbing business with no website was losing 3–5 jobs per week to competitors online. After our Local Service System — website, SEO, WhatsApp automation, CRM — they averaged 12 new booked jobs in the first month from Google alone.",
+      story: "A plumbing business with no website was losing 3-5 jobs per week to competitors online. After our Local Service System -- website, SEO, WhatsApp automation, CRM -- they averaged 12 new booked jobs in the first month from Google alone.",
     },
     {
       industry: "Clinic / Health Practice",
-      investment: "₦400,000",
-      monthlyValue: "₦120,000",
+      investment: "N400,000",
+      monthlyValue: "N120,000",
       breakEven: "4 months",
       yearOneROI: "260%",
       story: "A dental clinic running on WhatsApp and paper records had a 35% no-show rate. After the Clinic System with automated reminders, no-shows dropped to 8% within 60 days.",
     },
     {
       industry: "SME / Agency",
-      investment: "₦600,000",
-      monthlyValue: "₦150,000",
+      investment: "N600,000",
+      monthlyValue: "N150,000",
       breakEven: "4 months",
       yearOneROI: "200%",
       story: "A logistics company managing 40+ clients on spreadsheets. After the SME Digital Operating System, they reduced admin time by 60% and onboarded 15 new clients in 90 days.",
     },
     {
       industry: "Retail / Supermarket",
-      investment: "₦800,000",
-      monthlyValue: "₦200,000",
+      investment: "N800,000",
+      monthlyValue: "N200,000",
       breakEven: "4 months",
       yearOneROI: "200%",
-      story: "A retail store losing ₦50,000+ monthly to stock shrinkage. After the Supermarket POS system, inventory discrepancies dropped to near-zero and profit visibility improved dramatically.",
+      story: "A retail store losing N50,000+ monthly to stock shrinkage. After the Supermarket POS system, inventory discrepancies dropped to near-zero and profit visibility improved dramatically.",
     },
   ],
   revenueModel: [
@@ -959,12 +976,171 @@ export const roiData = {
   ],
 };
 
-// ─── PLATFORM FEATURES ────────────────────────────────────────────────────────
+// --- PLATFORM FEATURES --------------------------------------------------------
 export const platformFeatures = [
   { icon: "MT", title: "Multi-Tenant Architecture",  desc: "One platform, many businesses. Your data stays yours, always." },
-  { icon: "RB", title: "Role-Based Access",            desc: "Owners, staff, cashiers — each sees only what they need." },
+  { icon: "RB", title: "Role-Based Access",            desc: "Owners, staff, cashiers -- each sees only what they need." },
   { icon: "SC", title: "Secure & Scalable",            desc: "Enterprise-grade security with 99.9% uptime guarantee." },
-  { icon: "AP", title: "APIs & Integrations",          desc: "Payments, SMS, email — connected and working together." },
+  { icon: "AP", title: "APIs & Integrations",          desc: "Payments, SMS, email -- connected and working together." },
   { icon: "CB",  title: "Cloud-Based",                desc: "Access your business from anywhere, on any device." },
   { icon: "MF", title: "Mobile-First",                 desc: "Built for how African businesses actually operate." },
 ];
+
+// --- DESK PRODUCTS -----------------------------------------------------------
+export const deskProducts = [
+  {
+    id: "faithdesk",
+    name: "FaithDesk",
+    tagline: "Ministry Management Software",
+    description: "Complete management system for churches and ministries. Members, tithes, offerings, portals, analytics -- all in one place.",
+    status: "live",
+    color: "#8B5CF6",
+    slug: "faithdesk",
+    href: "/faithdesk",
+    getStartedHref: "/get-started/faithdesk",
+    icon: "FD",
+    features: [
+      "Member CRM and profiles",
+      "Tithes and offerings via Paystack",
+      "Ministry portal and dashboard",
+      "Analytics and reporting",
+      "Full CRUD and settings",
+      "Self-service onboarding",
+    ],
+    domains: [
+      { label: "Member Portal", example: "triumphchurch.org", type: "public" },
+      { label: "Admin Panel",   example: "admin.triumphchurch.org", type: "admin" },
+    ],
+    useCases: [
+      "Track member attendance and giving history",
+      "Collect tithes and offerings online",
+      "Send announcements to congregation",
+      "Manage ministry departments and leadership",
+    ],
+  },
+  {
+    id: "schooldesk",
+    name: "SchoolDesk",
+    tagline: "School Administration Software",
+    description: "End-to-end school management. Fee collection, student portal, staff management, public website -- built for Nigerian schools.",
+    status: "coming-soon",
+    color: "#10B981",
+    slug: "schooldesk",
+    href: "/schooldesk",
+    getStartedHref: "/get-started/schooldesk",
+    icon: "SD",
+    features: [
+      "Fees collection and receipts",
+      "Student and parent portal",
+      "Public school website",
+      "Staff management",
+      "Analytics and reporting",
+      "Waitlist -- coming soon",
+    ],
+    domains: [
+      { label: "Public Website", example: "graceschool.com",        type: "public" },
+      { label: "Admin Panel",    example: "admin.graceschool.com",   type: "admin" },
+      { label: "Student Portal", example: "portal.graceschool.com",  type: "portal" },
+    ],
+    useCases: [
+      "Collect school fees online with receipts",
+      "Give students and parents a portal",
+      "Manage staff records and payroll",
+      "Run a professional school website",
+    ],
+  },
+  {
+    id: "detaildesk",
+    name: "DetailDesk",
+    tagline: "Auto Detailing Business Software",
+    description: "Complete operating system for auto detailing businesses. Online store, job assignment, role-based access, CRM and analytics.",
+    status: "live",
+    color: "#F59E0B",
+    slug: "detaildesk",
+    href: "/detaildesk",
+    getStartedHref: "/get-started/detaildesk",
+    icon: "DD",
+    features: [
+      "Online store and booking",
+      "Job assignment system",
+      "Owner, Manager, Worker roles",
+      "Payment and job tracking",
+      "CRM and analytics",
+      "Self-service onboarding",
+    ],
+    domains: [
+      { label: "Public Website", example: "elitedetailing.com",       type: "public" },
+      { label: "Online Store",   example: "shop.elitedetailing.com",  type: "shop" },
+      { label: "Admin Panel",    example: "admin.elitedetailing.com", type: "admin" },
+    ],
+    useCases: [
+      "Let customers book and pay online",
+      "Assign jobs to workers with one click",
+      "Track every job from order to delivery",
+      "See revenue, staff performance, analytics",
+    ],
+  },
+];
+
+export const deskPlans = [
+  {
+    id: "standard",
+    name: "Standard",
+    setupFee: 300000,
+    monthlyFee: 50000,
+    description: "Perfect for getting started. All core features included.",
+    features: [
+      "All core product features",
+      "Up to 500 records",
+      "Email support",
+      "Custom subdomain",
+      "Paystack payments",
+      "Basic analytics",
+    ],
+    highlight: false,
+  },
+  {
+    id: "pro",
+    name: "Pro",
+    setupFee: 500000,
+    monthlyFee: 75000,
+    description: "For growing organisations that need more power.",
+    features: [
+      "Everything in Standard",
+      "Unlimited records",
+      "Priority support",
+      "Custom domain",
+      "Advanced analytics",
+      "API access",
+      "Multiple admin users",
+    ],
+    highlight: true,
+  },
+  {
+    id: "enterprise",
+    name: "Enterprise",
+    setupFee: 2000000,
+    monthlyFee: 150000,
+    description: "For large organisations needing full customisation.",
+    features: [
+      "Everything in Pro",
+      "Full white-label",
+      "Dedicated support manager",
+      "Custom integrations",
+      "SLA guarantee",
+      "On-site training",
+      "Multi-branch support",
+    ],
+    highlight: false,
+  },
+];
+
+// Per-product pricing (from v3 brief)
+export const productPricing: Record<string,{setup:number;monthly:number;label:string}> = {
+  faithdesk:  { setup: 300000, monthly: 50000,  label: "N300k setup / N50k/mo" },
+  detaildesk: { setup: 200000, monthly: 30000,  label: "N200k setup / N30k/mo" },
+  schooldesk: { setup: 300000, monthly: 50000,  label: "N300k setup / N50k/mo" },
+};
+
+// Accounts hub URL
+export const ACCOUNTS_URL = process.env.NEXT_PUBLIC_ACCOUNTS_URL || "https://accounts.jktl.com.ng";

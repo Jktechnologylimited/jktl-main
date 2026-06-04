@@ -1,120 +1,166 @@
 "use client";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { navLinks, siteConfig } from "@/data/index";
+import { usePathname } from "next/navigation";
+import { deskProducts, siteConfig } from "@/data/index";
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [dropdown, setDropdown] = useState<string | null>(null);
+  const [deskOpen, setDeskOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const dropRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => { setMenuOpen(false); setDeskOpen(false); }, [pathname]);
+
+  // Close dropdown on outside click
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", fn);
-    return () => window.removeEventListener("scroll", fn);
+    function handler(e: MouseEvent) {
+      if (dropRef.current && !dropRef.current.contains(e.target as Node)) setDeskOpen(false);
+    }
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
   }, []);
 
   return (
     <>
-      <style>{`
-        .dd-menu { position:absolute; top:calc(100%+12px); left:50%; transform:translateX(-50%); background:var(--navy-900); border:1px solid rgba(249,247,240,0.1); border-radius:2px; padding:8px; min-width:280px; z-index:200; box-shadow:0 24px 48px rgba(2,8,24,0.5); }
-        .dd-menu a { display:block; padding:10px 16px; font-size:0.8rem; font-weight:400; color:rgba(249,247,240,0.6); text-decoration:none; transition:all 0.15s; }
-        .dd-menu a:hover { color:#fff; background:rgba(249,247,240,0.05); }
-        .dd-label { font-size:0.62rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold-400); padding:8px 16px 4px; }
-      `}</style>
-      <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
-        style={{ background: scrolled ? "rgba(6,14,42,0.97)" : "transparent", backdropFilter: scrolled ? "blur(16px)" : "none", borderBottom: scrolled ? "1px solid rgba(249,247,240,0.06)" : "none" }}>
-        <div className="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
+      {/*  NAV BAR  */}
+      <nav className="fixed top-0 left-0 right-0 z-[100] h-[68px] flex items-center bg-navy-950/97 backdrop-blur-md border-b border-white/[0.06]">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between gap-4">
 
           {/* Logo */}
-          <Link href="/" style={{ textDecoration:"none", display:"flex", alignItems:"center", gap:"10px" }}>
-            <Image
-              src="/logo.png"
-              alt="JK Technology Limited"
-              width={44}
-              height={44}
-              style={{ objectFit:"contain" }}
-              priority
-            />
-            <div style={{ display:"flex", flexDirection:"column", gap:"1px" }}>
-              <span style={{ fontFamily:"'Plus Jakarta Sans',sans-serif", fontWeight:700, fontSize:"0.95rem", color:"#fff", lineHeight:1, letterSpacing:"0.02em" }}>JK Technology</span>
-              <span style={{ fontFamily:"'Plus Jakarta Sans',sans-serif", fontSize:"0.55rem", fontWeight:600, letterSpacing:"0.2em", textTransform:"uppercase", color:"var(--gold-400)" }}>Limited</span>
+          <Link href="/" className="no-underline flex items-center gap-2.5 shrink-0">
+            <Image src="/logo.png" alt="JK Technology" width={34} height={34} className="object-contain" />
+            <div className="hidden sm:block">
+              <p className="font-bold text-[0.88rem] text-white leading-none">JK Technology</p>
+              <p className="font-mono text-[0.5rem] text-gold-400 tracking-[0.15em]">DESK SUITE</p>
             </div>
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-6">
-            {navLinks.map((l) => (
-              <div key={l.href} className="relative"
-                onMouseEnter={() => l.children && setDropdown(l.href)}
-                onMouseLeave={() => setDropdown(null)}>
-                <Link href={l.href} className="nav-link-cream flex items-center gap-1" style={{ fontSize:"0.78rem" }}>
-                  {l.label}
-                  {l.children && (
-                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ opacity:0.4 }}>
-                      <path d="M6 9l6 6 6-6"/>
-                    </svg>
-                  )}
-                </Link>
-                {l.children && dropdown === l.href && (
-                  <div className="dd-menu">
-                    <div className="dd-label">Services</div>
-                    {l.children.map((c) => <Link key={c.href} href={c.href}>{c.label}</Link>)}
-                  </div>
-                )}
-              </div>
-            ))}
-          </nav>
+          {/* Desktop nav links -- hidden below lg */}
+          <div className="hidden lg:flex items-center gap-1">
+            {/* Products dropdown */}
+            <div ref={dropRef} className="relative">
+              <button
+                onClick={() => setDeskOpen(!deskOpen)}
+                className="flex items-center gap-1 px-3.5 py-2 bg-transparent border-none text-white/70 text-[0.82rem] font-semibold cursor-pointer rounded-sm hover:text-white transition-colors">
+                Products
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+                  className={`transition-transform duration-200 ${deskOpen ? "rotate-180" : ""}`}>
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </button>
 
-          {/* CTA */}
-          <div className="hidden md:flex items-center gap-3">
-            <a href={`tel:${siteConfig.phone.replace(/\s/g,"")}`} style={{ color:"rgba(249,247,240,0.6)", fontSize:"0.75rem", textDecoration:"none", display:"flex", alignItems:"center", gap:"5px" }}>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink:0 }}>
-                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 7.82 19.79 19.79 0 01.21 4.18 2 2 0 012.18 2H5.18a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
-              </svg>
-              {siteConfig.phone}
-            </a>
-            <a href={`mailto:${siteConfig.email}`} className="btn-gold" style={{ padding:"10px 18px", fontSize:"0.68rem" }}>
-              Get in Touch
-            </a>
+              {deskOpen && (
+                <div className="absolute top-full left-0 mt-1 bg-navy-900 border border-white/[0.08] rounded p-2 min-w-[240px] shadow-2xl z-50">
+                  {deskProducts.map(p => (
+                    <Link key={p.id} href={p.href}
+                      className="flex items-center gap-2.5 px-3 py-2.5 no-underline rounded-sm hover:bg-white/[0.05] transition-colors">
+                      <div className="w-7 h-7 rounded-sm flex items-center justify-center shrink-0"
+                        style={{ background: p.color + "20", border: `1px solid ${p.color}40` }}>
+                        <span className="font-mono text-[0.6rem] font-bold" style={{ color: p.color }}>{p.icon}</span>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-bold text-[0.82rem] text-white">{p.name}</p>
+                        <p className="text-[0.68rem] text-white/35 truncate">{p.tagline}</p>
+                      </div>
+                      {p.status !== "live" && (
+                        <span className="font-mono text-[0.52rem] text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded shrink-0">SOON</span>
+                      )}
+                    </Link>
+                  ))}
+                  <div className="border-t border-white/[0.06] mt-1 pt-1">
+                    <Link href="/desk" className="block px-3 py-2 text-[0.75rem] text-white/45 no-underline hover:text-white/70 transition-colors">
+                      View all products &#8594;
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <Link href="/services"  className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors">Services</Link>
+            <Link href="/affiliates" className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors">Affiliates</Link>
+            <Link href="/about"     className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors">About</Link>
+            <a href="https://accounts.jktl.com.ng/login" className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors">Sign In</a>
           </div>
 
-          {/* Mobile toggle */}
-          <button className="md:hidden p-2" onClick={() => setOpen(!open)} style={{ background:"none", border:"none", cursor:"pointer", color:"#fff" }}>
-            {open
-              ? <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
-              : <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-            }
-          </button>
-        </div>
+          {/* Right side */}
+          <div className="flex items-center gap-3">
+            {/* Phone -- only on xl */}
+            <a href={"tel:" + siteConfig.phone.replace(/ /g, "")}
+              className="hidden xl:block font-mono text-[0.65rem] text-white/30 no-underline">
+              {siteConfig.phone}
+            </a>
 
-        {/* Mobile menu */}
-        {open && (
-          <div style={{ background:"var(--navy-900)", borderTop:"1px solid rgba(249,247,240,0.07)", padding:"20px 32px 28px" }}>
-            {navLinks.map((l) => (
-              <div key={l.href}>
-                <Link href={l.href} className="nav-link-cream" style={{ display:"block", padding:"12px 0", borderBottom:"1px solid rgba(249,247,240,0.06)", fontWeight:500 }} onClick={() => setOpen(false)}>
-                  {l.label}
-                </Link>
-                {l.children?.map((c) => (
-                  <Link key={c.href} href={c.href} className="nav-link-cream" style={{ display:"block", padding:"8px 0 8px 16px", fontSize:"0.78rem", opacity:0.55 }} onClick={() => setOpen(false)}>
-                    — {c.label}
-                  </Link>
-                ))}
-              </div>
+            {/* Get Started -- hidden on mobile */}
+            <Link href="https://accounts.jktl.com.ng/signup" className="hidden sm:inline-flex btn-gold text-[0.72rem] px-5 py-2.5 whitespace-nowrap">
+              Get Started
+            </Link>
+
+            {/* Hamburger -- visible below lg */}
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="lg:hidden flex items-center justify-center w-9 h-9 bg-transparent border-none cursor-pointer text-white"
+              aria-label="Toggle menu">
+              {menuOpen
+                ? <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                : <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
+              }
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/*  MOBILE MENU OVERLAY  */}
+      {menuOpen && (
+        <div className="fixed top-[68px] left-0 right-0 bottom-0 z-[99] bg-navy-950/98 overflow-y-auto lg:hidden">
+          <div className="px-4 py-6 flex flex-col gap-1 pb-10">
+
+            {/* Products label */}
+            <p className="font-mono text-[0.58rem] text-white/25 tracking-[0.15em] uppercase px-3 pt-2 pb-1">Products</p>
+            {deskProducts.map(p => (
+              <Link key={p.id} href={p.href}
+                className="flex items-center gap-3 px-3 py-3 no-underline rounded bg-white/[0.03] border border-white/[0.06]">
+                <div className="w-8 h-8 rounded-sm flex items-center justify-center shrink-0"
+                  style={{ background: p.color + "20", border: `1px solid ${p.color}40` }}>
+                  <span className="font-mono text-[0.65rem] font-bold" style={{ color: p.color }}>{p.icon}</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-bold text-[0.9rem] text-white">{p.name}</p>
+                  <p className="text-[0.72rem] text-white/35">{p.tagline}</p>
+                </div>
+                {p.status !== "live" && (
+                  <span className="font-mono text-[0.52rem] text-amber-400 shrink-0">SOON</span>
+                )}
+              </Link>
             ))}
-            <div style={{ paddingTop:"20px", display:"flex", flexDirection:"column", gap:"10px" }}>
-              <a href={`tel:${siteConfig.phone.replace(/\s/g,"")}`} className="btn-outline-cream" style={{ justifyContent:"center" }}>
-                Call {siteConfig.phone}
-              </a>
-              <a href={`mailto:${siteConfig.email}`} className="btn-gold" style={{ justifyContent:"center" }}>
-                Email Us
+
+            {/* Nav links */}
+            <p className="font-mono text-[0.58rem] text-white/25 tracking-[0.15em] uppercase px-3 pt-4 pb-1">Navigation</p>
+            {[
+              { l: "Desk Overview", h: "/desk" },
+              { l: "Services",      h: "/services" },
+              { l: "Affiliates",    h: "/affiliates" },
+              { l: "About",         h: "/about" },
+              { l: "Contact",       h: "/contact" },
+              { l: "Sign In",       h: "https://accounts.jktl.com.ng/login" },
+            ].map(link => (
+              <Link key={link.l} href={link.h}
+                className="block px-4 py-3.5 text-[0.9rem] font-semibold text-white/70 no-underline rounded hover:bg-white/[0.04] transition-colors">
+                {link.l}
+              </Link>
+            ))}
+
+            {/* CTAs */}
+            <div className="flex flex-col gap-2.5 mt-5">
+              <Link href="https://accounts.jktl.com.ng/signup" className="btn-gold w-full justify-center py-3.5">Get Started</Link>
+              <a href={"mailto:" + siteConfig.email} className="btn-outline-cream w-full justify-center py-3.5 text-[0.72rem]">
+                {siteConfig.email}
               </a>
             </div>
           </div>
-        )}
-      </header>
+        </div>
+      )}
     </>
   );
 }

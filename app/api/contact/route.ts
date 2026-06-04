@@ -9,14 +9,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    // ── Resend (uncomment after adding RESEND_API_KEY to .env.local) ─────────
+    // -- Resend (uncomment after adding RESEND_API_KEY to .env.local) ---------
     //
     // const { Resend } = await import("resend");
     // const resend = new Resend(process.env.RESEND_API_KEY);
     // await resend.emails.send({
     //   from: "noreply@jktl.com.ng",
     //   to: "info@jktl.com.ng",
-    //   subject: `New enquiry — ${body.type || "Business"} | ${name}`,
+    //   subject: `New enquiry -- ${body.type || "Business"} | ${name}`,
     //   text: Object.entries(body).map(([k,v]) => `${k}: ${v}`).join("\n"),
     // });
 

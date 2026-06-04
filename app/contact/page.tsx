@@ -47,17 +47,17 @@ export default function ContactPage() {
                 <p className="label-xs" style={{ color:"rgba(28,28,30,0.35)", marginBottom:"14px" }}>How to Reach Us</p>
                 <div style={{ display:"flex", flexDirection:"column", gap:"8px" }}>
                   {/* Zoom */}
-                  <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" style={{ display:"flex", alignItems:"center", gap:"14px", padding:"16px 18px", background:"var(--navy-900)", border:"none", borderRadius:"4px", textDecoration:"none" }}>
-                    <span style={{ fontSize:"1.25rem" }}>🎥</span>
+                  <a href={`mailto:${siteConfig.email}`} style={{ display:"flex", alignItems:"center", gap:"14px", padding:"16px 18px", background:"var(--navy-900)", border:"none", borderRadius:"4px", textDecoration:"none" }}>
+                    <span style={{ fontSize:"1.25rem" }}></span>
                     <div>
                       <p style={{ fontWeight:700, fontSize:"0.875rem", color:"var(--cream-50)" }}>Contact Us</p>
-                      <p className="body-sm" style={{ color:"rgba(249,247,240,0.45)" }}>30 mins · Free · No pitch</p>
+                      <p className="body-sm" style={{ color:"rgba(249,247,240,0.45)" }}>30 mins | Free | No pitch</p>
                     </div>
-                    <span style={{ marginLeft:"auto", color:"var(--gold-400)", fontSize:"0.8rem" }}>→</span>
+                    <span style={{ marginLeft:"auto", color:"var(--gold-400)", fontSize:"0.8rem" }}>{"->"}</span>
                   </a>
                   {/* Email */}
                   <a href={`mailto:${siteConfig.email}`} style={{ display:"flex", alignItems:"center", gap:"14px", padding:"16px 18px", background:"#fff", border:"1px solid var(--cream-300)", borderRadius:"4px", textDecoration:"none" }}>
-                    <span style={{ fontSize:"1.25rem" }}>📧</span>
+                    <span style={{ fontSize:"1.25rem" }}></span>
                     <div>
                       <p style={{ fontWeight:700, fontSize:"0.875rem", color:"var(--navy-900)" }}>Email Us Directly</p>
                       <p className="body-sm" style={{ color:"rgba(28,28,30,0.5)" }}>{siteConfig.email}</p>
@@ -85,13 +85,13 @@ export default function ContactPage() {
               </div>
 
               <div style={{ padding:"16px 18px", background:"rgba(16,185,129,0.05)", border:"1px solid rgba(16,185,129,0.18)", borderRadius:"4px" }}>
-                <p style={{ fontWeight:700, fontSize:"0.85rem", color:"var(--navy-900)", marginBottom:"4px" }}>✓ No-pressure guarantee</p>
+                <p style={{ fontWeight:700, fontSize:"0.85rem", color:"var(--navy-900)", marginBottom:"4px" }}>v No-pressure guarantee</p>
                 <p className="body-sm" style={{ color:"rgba(28,28,30,0.55)" }}>If we&apos;re not the right fit, we&apos;ll tell you and point you in the right direction. We don&apos;t chase business that isn&apos;t a genuine match.</p>
               </div>
 
               <div style={{ padding:"14px 18px", background:"var(--cream-100)", border:"1px solid var(--cream-300)", borderRadius:"4px" }}>
                 <p className="label-xs" style={{ color:"rgba(28,28,30,0.35)", marginBottom:"6px" }}>Response Time</p>
-                <p className="body-sm" style={{ color:"rgba(28,28,30,0.65)" }}>All emails responded to within 24 hours. Zoom audits available Monday–Friday, 9am–6pm EST.</p>
+                <p className="body-sm" style={{ color:"rgba(28,28,30,0.65)" }}>All emails responded to within 24 hours. Zoom audits available Monday-Friday, 9am-6pm EST.</p>
               </div>
             </div>
 
@@ -103,7 +103,7 @@ export default function ContactPage() {
                   <p className="body-md" style={{ color:"rgba(249,247,240,0.5)", maxWidth:"340px" }}>
                     We&apos;ll review your enquiry and respond by email within 24 hours. If you&apos;d like to speak sooner, book a Zoom audit directly.
                   </p>
-                  <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold" style={{ marginTop:"24px" }}>
+                  <a href={`mailto:${siteConfig.email}`} className="btn-gold" style={{ marginTop:"24px" }}>
                     Email Us Now
                   </a>
                 </div>
@@ -114,7 +114,7 @@ export default function ContactPage() {
                     <p className="body-sm" style={{ color:"rgba(28,28,30,0.4)", marginTop:"4px" }}>Fields marked * are required</p>
                   </div>
                   <form onSubmit={submit} style={{ padding:"28px", display:"flex", flexDirection:"column", gap:"16px" }}>
-                    <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"14px" }}>
+                    <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))", gap:"14px" }}>
                       <div>
                         <label style={lbl}>Full Name *</label>
                         <input name="name" required value={form.name} onChange={handle} placeholder="Your name" style={field} />
@@ -132,7 +132,7 @@ export default function ContactPage() {
                       <label style={lbl}>Email Address *</label>
                       <input name="email" type="email" required value={form.email} onChange={handle} placeholder="you@yourbusiness.com" style={field} />
                     </div>
-                    <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"14px" }}>
+                    <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))", gap:"14px" }}>
                       <div>
                         <label style={lbl}>Business Type *</label>
                         <select name="type" required value={form.type} onChange={handle} style={field}>
@@ -144,7 +144,7 @@ export default function ContactPage() {
                         <label style={lbl}>Monthly Marketing Budget</label>
                         <select name="budget" value={form.budget} onChange={handle} style={field}>
                           <option value="">Select...</option>
-                          {["Under ₦100,000","₦100,000 – ₦500,000","₦500,000 – ₦2,000,000","₦2,000,000+","Not sure yet"].map(o => <option key={o}>{o}</option>)}
+                          {["Under N100,000","N100,000 - N500,000","N500,000 - N2,000,000","N2,000,000+","Not sure yet"].map(o => <option key={o}>{o}</option>)}
                         </select>
                       </div>
                     </div>
@@ -152,7 +152,7 @@ export default function ContactPage() {
                       <label style={lbl}>Service You&apos;re Interested In</label>
                       <select name="service" value={form.service} onChange={handle} style={field}>
                         <option value="">Select...</option>
-                        {["Website & Landing Page System","Lead Generation Landing Page","Email & Follow-up Automation","SEO & Google Visibility","CRM & Business Operations","Payment Infrastructure","AI & Automation System","Full Business System Package","Not sure — advise me"].map(o => <option key={o}>{o}</option>)}
+                        {["Website & Landing Page System","Lead Generation Landing Page","Email & Follow-up Automation","SEO & Google Visibility","CRM & Business Operations","Payment Infrastructure","AI & Automation System","Full Business System Package","Not sure -- advise me"].map(o => <option key={o}>{o}</option>)}
                       </select>
                     </div>
                     <div>
@@ -168,7 +168,7 @@ export default function ContactPage() {
                       <button type="submit" className="btn-gold" style={{ justifyContent:"center", opacity: status === "loading" ? 0.6 : 1 }} disabled={status === "loading"}>
                         {status === "loading" ? "Sending..." : "Submit Enquiry"}
                       </button>
-                      <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-outline-navy" style={{ textAlign:"center", justifyContent:"center" }}>
+                      <a href={`mailto:${siteConfig.email}`} className="btn-outline-navy" style={{ textAlign:"center", justifyContent:"center" }}>
                         Or Book a Zoom Audit Directly
                       </a>
                     </div>

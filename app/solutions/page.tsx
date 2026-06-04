@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { coupledSolutions, industrySystems, siteConfig } from "@/data/index";
 import { CTA } from "@/components/sections/Sections";
+import TryDemoButton from "@/components/ui/TryDemoButton";
 
 export const metadata: Metadata = {
   title: "Complete Business Solutions | JK Technology Limited",
@@ -19,7 +20,7 @@ export default function SolutionsPage() {
             <em className="not-italic gold-text">Your Industry.</em>
           </h1>
           <p className="body-lg" style={{ color:"rgba(249,247,240,0.55)", maxWidth:"560px" }}>
-            Pre-built, fully integrated systems designed for specific industries. Not generic tools — purpose-built infrastructure that covers every part of your operations.
+            Pre-built, fully integrated systems designed for specific industries. Not generic tools -- purpose-built infrastructure that covers every part of your operations.
           </p>
         </div>
       </section>
@@ -49,15 +50,18 @@ export default function SolutionsPage() {
                     <ul style={{ listStyle:"none", display:"flex", flexDirection:"column", gap:"7px" }}>
                       {sol.includes.map(inc => (
                         <li key={inc} style={{ display:"flex", gap:"8px", fontSize:"0.875rem", color:"rgba(28,28,30,0.7)" }}>
-                          <span style={{ color:sol.color, flexShrink:0 }}>✓</span>{inc}
+                          <span style={{ color:sol.color, flexShrink:0 }}>v</span>{inc}
                         </li>
                       ))}
                     </ul>
                   </div>
                   <div style={{ display:"flex", flexDirection:"column", gap:"8px" }}>
-                    <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ justifyContent:"center" }}>
+                    <a href={`mailto:${siteConfig.email}`} className="btn-primary" style={{ justifyContent:"center" }}>
                       Get This System
                     </a>
+                    {sol.demoSlug && (
+                      <TryDemoButton href={sol.demoSlug} label="Try Demo" variant="outline" style={{ justifyContent:"center", width:"100%" }} />
+                    )}
                     <a href={`mailto:${siteConfig.email}`} className="btn-outline-navy" style={{ justifyContent:"center" }}>
                       Ask a Question
                     </a>
@@ -102,9 +106,10 @@ export default function SolutionsPage() {
                     <p style={{ fontSize:"0.78rem", color:"rgba(249,247,240,0.55)" }}>{sys.targetAudience}</p>
                   </div>
                 </div>
-                <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold" style={{ width:"100%", justifyContent:"center" }}>
+                <a href={`mailto:${siteConfig.email}`} className="btn-gold" style={{ width:"100%", justifyContent:"center" }}>
                   Enquire About This System
                 </a>
+                <TryDemoButton href="/demos" label="Try a Demo First" variant="outline" style={{ width:"100%", justifyContent:"center", borderColor:"rgba(201,168,76,0.4)", color:"var(--gold-400)" }} />
               </div>
             ))}
           </div>

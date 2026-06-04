@@ -1,10 +1,11 @@
 import Link from "next/link";
+import TryDemoButton from "@/components/ui/TryDemoButton";
 import {
   processSteps, services, flagshipPackage,
   testimonial, whyUs, siteConfig,
 } from "@/data/index";
 
-// ─── HERO ─────────────────────────────────────────────────────────────────────
+// --- HERO ---------------------------------------------------------------------
 export function Hero() {
   return (
     <section style={{ background:"var(--navy-950)", minHeight:"100vh", display:"flex", flexDirection:"column", justifyContent:"flex-end", overflow:"hidden", position:"relative", paddingTop:"120px" }}>
@@ -16,7 +17,7 @@ export function Hero() {
         <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"28px" }}>
           <span className="gold-rule" />
           <span className="label-xs" style={{ color:"var(--gold-400)" }}>
-            Business Infrastructure Ecosystem · Nigeria, Africa &amp; the World · Est. 2019
+            Business Infrastructure Ecosystem | Nigeria, Africa &amp; the World | Est. 2019
           </span>
         </div>
 
@@ -43,23 +44,23 @@ export function Hero() {
 
         {/* CTAs */}
         <div className="animate-fade-up d3" style={{ display:"flex", flexWrap:"wrap", gap:"14px", marginBottom:"56px" }}>
-          <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold">
+          <a href={`mailto:${siteConfig.email}`} className="btn-gold">
             Get in Touch
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
           <Link href="/services" className="btn-outline-cream">Explore Systems</Link>
-          <Link href="/tools" className="btn-outline-cream">🛠️ Free Tools</Link>
+          <Link href="/tools" className="btn-outline-cream">Free Tools</Link>
         </div>
 
         {/* Stats */}
         <div className="animate-fade-up d4" style={{ borderTop:"1px solid rgba(201,168,76,0.15)", paddingTop:"28px", paddingBottom:"56px", display:"flex", flexWrap:"wrap", gap:"36px" }}>
           {[
             { value:"2019",  label:"Year founded" },
-            { value:"2019",  label:"Year founded" },
-            { value:"8",     label:"Core service systems" },
-            { value:"₦500k", label:"Avg. setup fee" },
+            { value:"6+",    label:"Years experience" },
+            { value:"8",     label:"Service systems" },
+            { value:"N500k", label:"Avg. setup fee" },
             { value:"70%+",  label:"Profit margin at scale" },
-            { value:"4",     label:"Free tools available" },
+            { value:"4",     label:"Free tools" },
           ].map((s) => (
             <div key={s.label}>
               <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"2.2rem", fontWeight:300, color:"var(--cream-50)", lineHeight:1, marginBottom:"4px" }}>{s.value}</p>
@@ -72,7 +73,7 @@ export function Hero() {
   );
 }
 
-// ─── PROBLEM ─────────────────────────────────────────────────────────────────
+// --- PROBLEM -----------------------------------------------------------------
 export function Problem() {
   return (
     <section className="section-pad" style={{ background:"var(--cream-50)" }}>
@@ -88,7 +89,7 @@ export function Problem() {
               {[
                 { t:"You have a website but it generates no enquiries.", b:"Because a website without SEO, clear messaging, and a conversion system is just an expensive business card. Most businesses have exactly that." },
                 { t:"Leads come in but nobody follows up consistently.", b:"You're busy. Leads fall through the cracks. Prospects who were interested three weeks ago have moved on to a competitor who responded faster." },
-                { t:"You can't see what's working and what isn't.", b:"No CRM, no analytics, no tracking. You're running a business blind — making decisions based on gut feel instead of data." },
+                { t:"You can't see what's working and what isn't.", b:"No CRM, no analytics, no tracking. You're running a business blind -- making decisions based on gut feel instead of data." },
               ].map((item) => (
                 <div key={item.t} style={{ padding:"16px 20px", background:"rgba(239,68,68,0.04)", border:"1px solid rgba(239,68,68,0.1)", borderRadius:"2px" }}>
                   <p style={{ fontWeight:600, fontSize:"0.9rem", color:"var(--navy-900)", marginBottom:"4px" }}>{item.t}</p>
@@ -118,7 +119,7 @@ export function Problem() {
             ))}
             <div style={{ marginTop:"20px", padding:"14px 16px", background:"rgba(201,168,76,0.1)", border:"1px solid rgba(201,168,76,0.2)", borderRadius:"2px" }}>
               <p style={{ fontSize:"0.72rem", color:"var(--gold-300)", fontWeight:600, marginBottom:"4px" }}>// with a jktl system</p>
-              <p style={{ fontSize:"0.75rem", color:"rgba(249,247,240,0.5)" }}>Every visitor captured · Every lead followed up · Every metric tracked</p>
+              <p style={{ fontSize:"0.75rem", color:"rgba(249,247,240,0.5)" }}>Every visitor captured | Every lead followed up | Every metric tracked</p>
             </div>
           </div>
         </div>
@@ -127,7 +128,7 @@ export function Problem() {
   );
 }
 
-// ─── SERVICES PREVIEW ─────────────────────────────────────────────────────────
+// --- SERVICES PREVIEW ---------------------------------------------------------
 export function ServicesPreview() {
   return (
     <section className="section-pad" style={{ background:"var(--navy-900)" }}>
@@ -140,7 +141,7 @@ export function ServicesPreview() {
             </h2>
           </div>
           <Link href="/services" className="label-xs" style={{ color:"var(--gold-400)", textDecoration:"none", display:"flex", alignItems:"center", gap:"6px" }}>
-            All services →
+            All services {"->"}
           </Link>
         </div>
 
@@ -158,7 +159,7 @@ export function ServicesPreview() {
                 <p className="body-sm" style={{ color:"rgba(249,247,240,0.4)", marginBottom:"16px", fontSize:"0.8rem" }}>{s.tagline}</p>
                 <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1rem", fontWeight:300, color:"var(--gold-300)", lineHeight:1 }}>
                   {s.priceFrom}
-                  {s.priceTo !== s.priceFrom && <span style={{ color:"rgba(249,247,240,0.3)", fontSize:"0.85rem" }}> – {s.priceTo}</span>}
+                  {s.priceTo !== s.priceFrom && <span style={{ color:"rgba(249,247,240,0.3)", fontSize:"0.85rem" }}> - {s.priceTo}</span>}
                 </p>
               </div>
             </Link>
@@ -174,7 +175,7 @@ export function ServicesPreview() {
               </h3>
               <p className="body-sm" style={{ color:"rgba(6,14,42,0.65)", marginBottom:"16px", fontSize:"0.8rem" }}>{flagshipPackage.tagline}</p>
               <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1rem", fontWeight:600, color:"var(--navy-900)", lineHeight:1 }}>
-                {flagshipPackage.priceFrom} – {flagshipPackage.priceTo}
+                {flagshipPackage.priceFrom} - {flagshipPackage.priceTo}
               </p>
             </div>
           </Link>
@@ -184,7 +185,7 @@ export function ServicesPreview() {
   );
 }
 
-// ─── PROCESS ──────────────────────────────────────────────────────────────────
+// --- PROCESS ------------------------------------------------------------------
 export function Process() {
   return (
     <section className="section-pad" style={{ background:"var(--cream-100)" }}>
@@ -197,7 +198,7 @@ export function Process() {
               <em className="not-italic gold-text">The Client Journey.</em>
             </h2>
             <p className="body-lg" style={{ color:"rgba(28,28,30,0.58)", marginBottom:"32px" }}>
-              Every system we build follows the same five-stage logic — attract, capture, nurture, convert, retain. This is the architecture of a business that grows predictably.
+              Every system we build follows the same five-stage logic -- attract, capture, nurture, convert, retain. This is the architecture of a business that grows predictably.
             </p>
             <a href={`mailto:${siteConfig.email}`} className="btn-primary">
               Get in Touch
@@ -225,14 +226,14 @@ export function Process() {
   );
 }
 
-// ─── TESTIMONIAL ──────────────────────────────────────────────────────────────
+// --- TESTIMONIAL --------------------------------------------------------------
 export function TestimonialSection() {
   return (
     <section className="section-pad" style={{ background:"var(--navy-950)", position:"relative", overflow:"hidden" }}>
       <div style={{ position:"absolute", inset:0, opacity:0.03, backgroundImage:"linear-gradient(rgba(201,168,76,1) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,1) 1px,transparent 1px)", backgroundSize:"72px 72px", pointerEvents:"none" }} />
       <div className="max-w-4xl mx-auto px-8 relative z-10 text-center">
         <div className="ornament mb-12" style={{ color:"var(--gold-400)" }}>
-          <span className="label-xs">Client Voice — Law Firm · Port Harcourt</span>
+          <span className="label-xs">Client Voice -- Law Firm | Port Harcourt</span>
         </div>
         <p style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:300, fontSize:"clamp(1.4rem,3vw,2.4rem)", color:"var(--cream-50)", lineHeight:1.5, marginBottom:"40px", fontStyle:"italic" }}>
           &ldquo;{testimonial.quote}&rdquo;
@@ -242,7 +243,7 @@ export function TestimonialSection() {
             {testimonial.initials}
           </div>
           <p style={{ fontWeight:600, fontSize:"0.95rem", color:"var(--cream-50)" }}>{testimonial.name}</p>
-          <p className="label-xs" style={{ color:"rgba(249,247,240,0.4)" }}>{testimonial.role} · {testimonial.firm}</p>
+          <p className="label-xs" style={{ color:"rgba(249,247,240,0.4)" }}>{testimonial.role} | {testimonial.firm}</p>
           <a href="https://kkubaniandco.com" target="_blank" rel="noopener noreferrer" className="label-xs" style={{ color:"rgba(249,247,240,0.3)", textDecoration:"underline", textUnderlineOffset:"3px" }}>
             {testimonial.website}
           </a>
@@ -255,7 +256,7 @@ export function TestimonialSection() {
   );
 }
 
-// ─── WHY US ───────────────────────────────────────────────────────────────────
+// --- WHY US -------------------------------------------------------------------
 export function WhyUs() {
   return (
     <section className="section-pad" style={{ background:"var(--cream-50)" }}>
@@ -288,7 +289,7 @@ export function WhyUs() {
   );
 }
 
-// ─── FOUNDER STRIP ────────────────────────────────────────────────────────────
+// --- FOUNDER STRIP ------------------------------------------------------------
 export function FounderStrip() {
   return (
     <section style={{ background:"var(--cream-200)", padding:"64px 32px", borderTop:"1px solid var(--cream-300)", borderBottom:"1px solid var(--cream-300)" }}>
@@ -302,13 +303,13 @@ export function FounderStrip() {
               <div style={{ position:"absolute", inset:"-6px", borderRadius:"50%", border:"1px solid var(--gold-400)", opacity:0.45 }} />
               <div style={{ width:"120px", height:"120px", borderRadius:"50%", overflow:"hidden", background:"var(--navy-800)", position:"relative", boxShadow:"0 8px 32px rgba(6,14,42,0.18)" }}>
                 {/*
-                  ── ADD YOUR PHOTO ────────────────────────────────────────
-                  1. Save headshot as /public/owner.jpg (min 300×300px)
+                  -- ADD YOUR PHOTO ----------------------------------------
+                  1. Save headshot as /public/owner.jpg (min 300300px)
                   2. Import: import Image from "next/image";
                   3. Replace the div below with:
                      <Image src="/owner.jpg" alt="Founder of JK Technology Limited"
                        fill style={{ objectFit:"cover", objectPosition:"top" }} />
-                  ────────────────────────────────────────────────────────── */}
+                  ---------------------------------------------------------- */}
                 <div style={{ width:"100%", height:"100%", display:"flex", alignItems:"center", justifyContent:"center", background:"linear-gradient(135deg, var(--navy-700), var(--navy-900))" }}>
                   <svg width="44" height="44" viewBox="0 0 24 24" fill="none" style={{ opacity:0.3 }}>
                     <circle cx="12" cy="8" r="4" stroke="var(--gold-400)" strokeWidth="1"/>
@@ -319,12 +320,12 @@ export function FounderStrip() {
             </div>
             <div style={{ textAlign:"left", maxWidth:"560px" }}>
               <p style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:400, fontSize:"clamp(1.2rem,2vw,1.6rem)", color:"var(--navy-900)", lineHeight:1.4, marginBottom:"10px" }}>
-                &ldquo;I founded JKTL because I was tired of watching great businesses stay invisible and inefficient online. Every client gets my direct attention — from the first call to the day we launch and beyond.&rdquo;
+                &ldquo;I founded JKTL because I was tired of watching great businesses stay invisible and inefficient online. Every client gets my direct attention -- from the first call to the day we launch and beyond.&rdquo;
               </p>
               <div style={{ display:"flex", alignItems:"center", gap:"14px", flexWrap:"wrap" }}>
                 <div>
                   <p style={{ fontWeight:700, fontSize:"0.9rem", color:"var(--navy-900)", letterSpacing:"0.03em" }}>John K.</p>
-                  <p className="label-xs" style={{ color:"var(--navy-500)", marginTop:"2px" }}>Founder · JK Technology Limited · Since 2019</p>
+                  <p className="label-xs" style={{ color:"var(--navy-500)", marginTop:"2px" }}>Founder | JK Technology Limited | Since 2019</p>
                 </div>
                 <Link href="/about" style={{ marginLeft:"auto" }}>
                   <span className="label-xs" style={{ color:"var(--navy-600)", textDecoration:"underline", textUnderlineOffset:"3px" }}>More about us</span>
@@ -334,11 +335,11 @@ export function FounderStrip() {
           </div>
           <div style={{ display:"flex", flexWrap:"wrap", gap:"10px", justifyContent:"center" }}>
             {[
-              "✓ You deal directly with the founder",
-              "✓ 6+ years building business systems",
-              "✓ 50+ projects delivered",
-              "✓ Nigeria & Africa clients",
-              "✓ Response within 24 hours",
+              "v You deal directly with the founder",
+              "v 6+ years building business systems",
+              "v 50+ projects delivered",
+              "v Nigeria & Africa clients",
+              "v Response within 24 hours",
             ].map((badge) => (
               <span key={badge} style={{ fontSize:"0.75rem", fontWeight:500, color:"rgba(28,28,30,0.65)", background:"var(--cream-50)", padding:"6px 14px", border:"1px solid var(--cream-300)", borderRadius:"2px" }}>
                 {badge}
@@ -351,7 +352,7 @@ export function FounderStrip() {
   );
 }
 
-// ─── CTA ──────────────────────────────────────────────────────────────────────
+// --- CTA ----------------------------------------------------------------------
 export function CTA({
   heading = "Your Growth. Our Mission.",
   subtext = "Reach out via email or phone. We'll assess your current digital presence, map out the system your business needs, and give you a clear proposal within 24 hours. No pitch, no pressure.",
@@ -366,7 +367,7 @@ export function CTA({
         <h2 className="display-xl mb-5" style={{ color:"var(--cream-50)" }}>{heading}</h2>
         <p className="body-lg" style={{ color:"rgba(249,247,240,0.5)", marginBottom:"36px" }}>{subtext}</p>
         <div style={{ display:"flex", flexWrap:"wrap", gap:"14px", justifyContent:"center", marginBottom:"20px" }}>
-          <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold">
+          <a href={`mailto:${siteConfig.email}`} className="btn-gold">
             Get in Touch
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
@@ -375,7 +376,7 @@ export function CTA({
           </a>
         </div>
         <p className="label-xs" style={{ color:"rgba(249,247,240,0.2)" }}>
-          Free consultation · Proposal within 24 hours · No obligations
+          Free consultation | Proposal within 24 hours | No obligations
         </p>
       </div>
     </section>

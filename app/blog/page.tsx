@@ -30,17 +30,17 @@ export default function BlogPage() {
           <Link href={`/blog/${blogPosts[0].slug}`} style={{ textDecoration:"none", display:"block", marginBottom:"16px" }}>
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"0", background:"var(--navy-900)", borderRadius:"4px", overflow:"hidden" }} className="grid-cols-1 md:grid-cols-2">
               <div style={{ padding:"48px 40px" }}>
-                <p className="label-xs" style={{ color:"var(--gold-400)", marginBottom:"10px" }}>Featured · {blogPosts[0].category}</p>
+                <p className="label-xs" style={{ color:"var(--gold-400)", marginBottom:"10px" }}>Featured | {blogPosts[0].category}</p>
                 <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:400, fontSize:"clamp(1.4rem,2.5vw,2rem)", color:"var(--cream-50)", lineHeight:1.25, marginBottom:"14px" }}>
                   {blogPosts[0].title}
                 </h2>
                 <p className="body-sm" style={{ color:"rgba(249,247,240,0.5)", marginBottom:"20px" }}>{blogPosts[0].excerpt}</p>
-                <p className="label-xs" style={{ color:"rgba(249,247,240,0.25)" }}>{blogPosts[0].readTime} read · {blogPosts[0].date}</p>
+                <p className="label-xs" style={{ color:"rgba(249,247,240,0.25)" }}>{blogPosts[0].readTime} read | {blogPosts[0].date}</p>
               </div>
               <div style={{ background:"rgba(201,168,76,0.06)", borderLeft:"1px solid rgba(249,247,240,0.06)", padding:"48px 40px", display:"flex", flexDirection:"column", justifyContent:"center", gap:"12px" }}>
                 {["Traffic vs. Conversion", "The 7 Conversion Killers", "How to Diagnose the Problem", "Quick Wins You Can Implement Today"].map((item) => (
                   <div key={item} style={{ display:"flex", gap:"10px", alignItems:"center" }}>
-                    <span style={{ color:"var(--gold-400)", fontSize:"0.8rem" }}>→</span>
+                    <span style={{ color:"var(--gold-400)", fontSize:"0.8rem" }}>{"->"}</span>
                     <span style={{ fontSize:"0.875rem", color:"rgba(249,247,240,0.55)" }}>{item}</span>
                   </div>
                 ))}
@@ -53,7 +53,7 @@ export default function BlogPage() {
             {blogPosts.slice(1).map((post) => (
               <Link key={post.slug} href={`/blog/${post.slug}`} style={{ textDecoration:"none" }}>
                 <div className="card-light" style={{ padding:"32px", height:"100%", display:"flex", flexDirection:"column" }}>
-                  <p className="label-xs" style={{ color:"var(--navy-500)", marginBottom:"10px" }}>{post.category} · {post.readTime} read</p>
+                  <p className="label-xs" style={{ color:"var(--navy-500)", marginBottom:"10px" }}>{post.category} | {post.readTime} read</p>
                   <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:400, fontSize:"1.4rem", color:"var(--navy-900)", lineHeight:1.25, marginBottom:"12px", flex:1 }}>
                     {post.title}
                   </h3>

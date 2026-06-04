@@ -1,381 +1,275 @@
-import type { Metadata } from "next";
+"use client";
 import Link from "next/link";
-import {
-  Hero, Problem, ServicesPreview, Process,
-  TestimonialSection, FounderStrip, WhyUs, CTA,
-} from "@/components/sections/Sections";
-import {
-  blogPosts, siteConfig,
-  ecosystemOverview, coupledSolutions, freeTools,
-  roiData, platformFeatures, industrySystems,
-} from "@/data/index";
+import { deskProducts, deskPlans, siteConfig } from "@/data/index";
 
-export const metadata: Metadata = {
-  title: "JK Technology | Business Infrastructure Ecosystem — Nigeria",
-  description:
-    "JK Technology builds modular business infrastructure systems that help African businesses attract customers, run operations efficiently, collect payments, and scale sustainably.",
-  alternates: { canonical: "https://jktl.com.ng" },
-};
+function fmtN(n: number) {
+  return "N" + n.toLocaleString("en-NG");
+}
 
 export default function HomePage() {
   return (
-    <>
-      <Hero />
+    <div className="bg-cream-50">
 
-      {/* ── OUTCOMES STRIP ─────────────────────────────────────────────────── */}
-      <section style={{ background:"var(--gold-400)", padding:"22px 32px" }}>
-        <div className="max-w-7xl mx-auto px-8">
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))", gap:"14px" }}>
-            {ecosystemOverview.outcomes.map((o) => (
-              <div key={o.title} style={{ display:"flex", alignItems:"center", gap:"12px" }}>
-                <div style={{ width:32, height:32, background:"var(--navy-900)", borderRadius:"2px", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
-                  <span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.62rem", fontWeight:700, color:"var(--gold-400)" }}>{o.icon}</span>
-                </div>
-                <div>
-                  <p style={{ fontWeight:700, fontSize:"0.88rem", color:"var(--navy-900)" }}>{o.title}</p>
-                  <p style={{ fontSize:"0.73rem", color:"rgba(6,14,42,0.65)" }}>{o.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/*  HERO  */}
+      <section className="bg-navy-950 relative overflow-hidden" style={{ paddingTop: "clamp(88px,12vw,120px)" }}>
+        {/* Grid bg */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
+          style={{ backgroundImage: "linear-gradient(rgba(201,168,76,1) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,1) 1px,transparent 1px)", backgroundSize: "64px 64px" }} />
 
-      <Problem />
-      <ServicesPreview />
-
-      {/* ── ROI SECTION ────────────────────────────────────────────────────── */}
-      <section className="section-pad" style={{ background:"var(--navy-900)" }}>
-        <div className="max-w-7xl mx-auto px-8">
-          {/* Header */}
-          <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
-            <div>
-              <span className="gold-rule mb-5" style={{ display:"block" }} />
-              <h2 className="display-xl mb-4" style={{ color:"var(--cream-50)" }}>
-                What&apos;s the Return on<br/>
-                <em className="not-italic gold-text">Your Investment?</em>
-              </h2>
-              <p className="body-lg" style={{ color:"rgba(249,247,240,0.55)" }}>
-                Every system we build pays for itself. Here&apos;s how — in real numbers, from real businesses like yours.
-              </p>
-            </div>
-            {/* Stats row */}
-            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"12px" }}>
-              {roiData.stats.slice(0,4).map((s) => (
-                <div key={s.label} style={{ padding:"20px", background:"rgba(249,247,240,0.04)", border:"1px solid rgba(201,168,76,0.15)", borderRadius:"4px" }}>
-                  <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.8rem", fontWeight:300, color:"var(--gold-400)", lineHeight:1, marginBottom:"4px" }}>{s.value}</p>
-                  <p style={{ fontWeight:600, fontSize:"0.82rem", color:"var(--cream-50)", marginBottom:"2px" }}>{s.label}</p>
-                  <p className="label-xs" style={{ color:"rgba(249,247,240,0.35)" }}>{s.sub}</p>
-                </div>
-              ))}
-            </div>
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 border border-gold-400/25 bg-gold-400/10 px-4 py-1.5 rounded-sm mb-7">
+            <span className="w-1.5 h-1.5 rounded-full bg-gold-400 shrink-0" />
+            <span className="label-xs text-gold-400">JK Technology Limited -- Desk Product Suite</span>
           </div>
 
-          {/* ROI examples */}
-          <div className="grid md:grid-cols-2 gap-5">
-            {roiData.roiExamples.map((ex) => (
-              <div key={ex.industry} style={{ background:"rgba(249,247,240,0.03)", border:"1px solid rgba(249,247,240,0.08)", borderRadius:"4px", padding:"28px", display:"flex", flexDirection:"column", gap:"16px" }}>
-                {/* Industry + metrics */}
-                <div>
-                  <p className="label-xs" style={{ color:"var(--gold-400)", marginBottom:"6px" }}>{ex.industry}</p>
-                  <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr 1fr", gap:"8px" }}>
-                    {[
-                      { l:"Investment",     v: ex.investment },
-                      { l:"Monthly Value",  v: ex.monthlyValue },
-                      { l:"Break Even",     v: ex.breakEven },
-                      { l:"Year 1 ROI",     v: ex.yearOneROI },
-                    ].map((m) => (
-                      <div key={m.l} style={{ textAlign:"center", padding:"8px 4px", background:"rgba(201,168,76,0.08)", borderRadius:"2px" }}>
-                        <p style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:400, fontSize:"1rem", color:"var(--gold-300)", lineHeight:1, marginBottom:"3px" }}>{m.v}</p>
-                        <p style={{ fontSize:"0.6rem", color:"rgba(249,247,240,0.35)", fontWeight:600, letterSpacing:"0.08em", textTransform:"uppercase" }}>{m.l}</p>
-                      </div>
-                    ))}
+          <h1 className="display-hero text-white mb-5 leading-[1.05]" style={{ maxWidth: 760 }}>
+            Vertical Software Built for<br />
+            <span className="text-gold-400">African Businesses.</span>
+          </h1>
+
+          <p className="body-lg text-white/55 mb-9" style={{ maxWidth: 540 }}>
+            Desk is our suite of industry-specific management systems. Self-service onboarding. Instant deployment. Real tools that run real businesses.
+          </p>
+
+          <div className="flex flex-wrap gap-3 mb-14">
+            <Link href="/desk" className="btn-gold text-sm px-6 py-3">Explore Desk Products</Link>
+            <Link href="https://accounts.jktl.com.ng/signup" className="btn-outline-cream text-sm px-6 py-3">Get Started</Link>
+          </div>
+
+          {/* Product preview cards -- stack on mobile, 3-col on lg */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0.5 bg-white/[0.06]">
+            {deskProducts.map((p) => (
+              <Link key={p.id} href={p.href}
+                className="block no-underline p-6 bg-navy-900 transition-colors hover:bg-navy-800"
+                style={{ borderTop: `2px solid ${p.color}` }}>
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-9 h-9 rounded-sm flex items-center justify-center shrink-0"
+                    style={{ background: p.color + "20", border: `1px solid ${p.color}40` }}>
+                    <span className="font-mono text-[0.65rem] font-bold" style={{ color: p.color }}>{p.icon}</span>
                   </div>
-                </div>
-                {/* Story */}
-                <p className="body-sm" style={{ color:"rgba(249,247,240,0.55)", fontStyle:"italic", borderLeft:"2px solid rgba(201,168,76,0.3)", paddingLeft:"14px" }}>
-                  &ldquo;{ex.story}&rdquo;
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Revenue model */}
-          <div style={{ marginTop:"40px", borderTop:"1px solid rgba(249,247,240,0.07)", paddingTop:"32px" }}>
-            <p className="label-xs" style={{ color:"rgba(249,247,240,0.3)", marginBottom:"16px" }}>How We Generate Revenue Together</p>
-            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))", gap:"10px" }}>
-              {roiData.revenueModel.map((r) => (
-                <div key={r.label} style={{ display:"flex", gap:"12px", alignItems:"flex-start", padding:"14px 16px", background:"rgba(249,247,240,0.03)", border:"1px solid rgba(249,247,240,0.07)", borderRadius:"4px" }}>
-                  <div style={{ width:28, height:28, background:"rgba(201,168,76,0.15)", borderRadius:"2px", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}><span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.6rem", fontWeight:700, color:"var(--gold-400)" }}>{r.icon}</span></div>
                   <div>
-                    <p style={{ fontWeight:600, fontSize:"0.82rem", color:"var(--cream-50)", marginBottom:"2px" }}>{r.label}</p>
-                    <p className="body-sm" style={{ color:"rgba(249,247,240,0.4)", fontSize:"0.75rem" }}>{r.sub}</p>
+                    <p className="font-bold text-[0.95rem] text-white">{p.name}</p>
+                    <p className="font-mono text-[0.58rem] tracking-widest"
+                      style={{ color: p.status === "live" ? "#34D399" : "rgba(249,247,240,0.3)" }}>
+                      {p.status === "live" ? "LIVE" : "COMING SOON"}
+                    </p>
                   </div>
                 </div>
-              ))}
+                <p className="text-[0.8rem] text-white/45 leading-relaxed mb-3">{p.description}</p>
+                <p className="font-mono text-[0.62rem] font-bold" style={{ color: p.color }}>
+                  {p.status === "live" ? "Get started \u2192" : "Join waitlist \u2192"}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/*  FOUNDER VIDEO  */}
+      <section className="bg-navy-900 px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          {/* Text -- comes second on mobile (video first) */}
+          <div className="order-2 lg:order-1">
+            <span className="gold-rule block mb-4" />
+            <h2 className="display-lg text-cream-50 mb-4 leading-snug">
+              Built by a Nigerian founder.<br />For African businesses.
+            </h2>
+            <p className="body-md text-white/50 mb-4 leading-[1.8]">
+              JK Technology Limited is a registered Nigerian software company. We have been building digital systems for businesses since 2019. Desk is the product we always wanted to exist -- vertical software that actually fits how African businesses operate.
+            </p>
+            <p className="body-md text-white/50 mb-7 leading-[1.8]">
+              Not adapted from foreign tools. Built from scratch, in Nigeria, for Nigeria.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/about" className="btn-gold text-xs px-5 py-2.5">Our Story</Link>
+              <a href={"mailto:" + siteConfig.email} className="btn-ghost text-xs px-5 py-2.5">Talk to the founder</a>
+            </div>
+          </div>
+
+          {/* Video -- comes first on mobile */}
+          <div className="order-1 lg:order-2 relative rounded overflow-hidden bg-navy-800 w-full max-w-[320px] mx-auto lg:max-w-none"
+            style={{ aspectRatio: "9/16", maxHeight: 480 }}>
+            <video src="/founder-video.mov" autoPlay loop muted playsInline
+              className="w-full h-full object-cover block" />
+            <div className="absolute bottom-0 left-0 right-0 px-5 pb-4 pt-10"
+              style={{ background: "linear-gradient(transparent,rgba(6,14,42,0.85))" }}>
+              <p className="font-bold text-[0.85rem] text-white">John K.</p>
+              <p className="text-[0.72rem] text-white/50">Founder, JK Technology Limited</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── COUPLED SOLUTIONS ──────────────────────────────────────────────── */}
-      <section className="section-pad" style={{ background:"var(--cream-50)" }}>
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="mb-12">
-            <span className="gold-rule mb-4" style={{ display:"block" }} />
-            <div className="flex items-end justify-between flex-wrap gap-4">
-              <div>
-                <h2 className="display-xl" style={{ color:"var(--navy-900)" }}>
-                  Complete Systems for<br/>
-                  <em className="not-italic gold-text">Your Industry.</em>
-                </h2>
-                <p className="body-md" style={{ color:"rgba(28,28,30,0.55)", marginTop:"10px", maxWidth:"520px" }}>
-                  Pre-built, fully integrated systems designed for specific industries. Not generic tools — purpose-built infrastructure.
-                </p>
-              </div>
-              <Link href="/solutions" className="label-xs" style={{ color:"var(--navy-600)", textDecoration:"none" }}>
-                All solutions →
-              </Link>
+      {/*  DESK SUITE OVERVIEW  */}
+      <section className="bg-cream-50 px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+            <div>
+              <span className="gold-rule block mb-3" />
+              <h2 className="display-lg text-navy-900">The Desk Suite</h2>
+              <p className="body-md text-black/50 mt-1.5">Industry-specific software. Self-service. Instant deployment.</p>
             </div>
+            <Link href="/desk" className="btn-outline-navy text-xs px-4 py-2 self-start sm:self-auto shrink-0">View all products</Link>
           </div>
 
-          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {coupledSolutions.map((sol) => (
-              <div key={sol.slug} style={{ background:"#fff", border:"1px solid var(--cream-300)", borderTop:`3px solid ${sol.color}`, borderRadius:"4px", padding:"24px", display:"flex", flexDirection:"column" }}>
-                <div style={{ width:36, height:36, background:sol.color, borderRadius:"2px", display:"flex", alignItems:"center", justifyContent:"center", marginBottom:"12px" }}><span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.65rem", fontWeight:700, color:"#fff" }}>{sol.icon}</span></div>
-                <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:400, fontSize:"1.05rem", color:"var(--navy-900)", lineHeight:1.25, marginBottom:"10px", flex:1 }}>
-                  {sol.title}
-                </h3>
-                <ul style={{ listStyle:"none", display:"flex", flexDirection:"column", gap:"5px", marginBottom:"14px" }}>
-                  {sol.includes.slice(0,4).map((inc) => (
-                    <li key={inc} style={{ fontSize:"0.75rem", color:"rgba(28,28,30,0.6)", display:"flex", gap:"6px", alignItems:"flex-start" }}>
-                      <span style={{ color:sol.color, flexShrink:0, marginTop:"1px" }}>✓</span>
-                      {inc}
+          {/* Cards -- 1 col mobile, 2 col sm, 3 col lg */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {deskProducts.map((p) => (
+              <div key={p.id} className="bg-white rounded border border-cream-300 p-7 flex flex-col"
+                style={{ borderTop: `3px solid ${p.color}` }}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-sm flex items-center justify-center shrink-0"
+                    style={{ background: p.color + "15", border: `1px solid ${p.color}30` }}>
+                    <span className="font-mono text-[0.72rem] font-bold" style={{ color: p.color }}>{p.icon}</span>
+                  </div>
+                  <div>
+                    <p className="font-bold text-[1rem] text-navy-900">{p.name}</p>
+                    <p className="text-[0.72rem] text-black/40">{p.tagline}</p>
+                  </div>
+                </div>
+
+                <p className="body-sm text-black/58 mb-4 flex-1">{p.description}</p>
+
+                <ul className="flex flex-col gap-1.5 mb-5">
+                  {p.features.slice(0, 4).map((f) => (
+                    <li key={f} className="flex gap-2 text-[0.78rem] text-black/60 items-start">
+                      <span className="shrink-0 mt-0.5" style={{ color: p.color }}>&#10003;</span>{f}
                     </li>
                   ))}
-                  {sol.includes.length > 4 && (
-                    <li style={{ fontSize:"0.72rem", color:"rgba(28,28,30,0.35)", fontStyle:"italic" }}>+{sol.includes.length - 4} more</li>
-                  )}
                 </ul>
-                <p style={{ fontSize:"0.72rem", color:sol.color, fontWeight:700, fontStyle:"italic", borderTop:`1px solid ${sol.color}20`, paddingTop:"10px" }}>
-                  {sol.outcome}
-                </p>
+
+                <div className="flex gap-2">
+                  {p.status === "live" ? (
+                    <>
+                      <Link href={p.getStartedHref}
+                        className="flex-1 py-2.5 text-center text-white text-[0.72rem] font-bold rounded-sm uppercase tracking-wide no-underline"
+                        style={{ background: p.color }}>
+                        Get Started
+                      </Link>
+                      <Link href={p.href}
+                        className="px-3.5 py-2.5 bg-transparent border border-cream-300 text-black/60 text-[0.72rem] font-semibold rounded-sm no-underline">
+                        More
+                      </Link>
+                    </>
+                  ) : (
+                    <Link href={p.href}
+                      className="flex-1 py-2.5 text-center bg-cream-100 border border-cream-300 text-black/50 text-[0.72rem] font-bold rounded-sm no-underline">
+                      Join Waitlist
+                    </Link>
+                  )}
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── INDUSTRY SYSTEMS ───────────────────────────────────────────────── */}
-      <section style={{ background:"var(--cream-100)", padding:"72px 32px" }}>
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="mb-10">
-            <span className="gold-rule mb-4" style={{ display:"block" }} />
-            <h2 className="display-lg" style={{ color:"var(--navy-900)" }}>
-              Industry-Specific Systems
-            </h2>
-            <p className="body-sm" style={{ color:"rgba(28,28,30,0.5)", marginTop:"6px" }}>
-              Build Once. Deploy Many. Scale Forever.
+      {/*  PRICING  */}
+      <section className="bg-cream-100 px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="text-center mb-10">
+            <span className="gold-rule inline-block mb-3" />
+            <h2 className="display-lg text-navy-900 mb-2">Simple, Transparent Pricing</h2>
+            <p className="body-md text-black/50">Same pricing across all Desk products. One-time setup + monthly subscription.</p>
+          </div>
+
+          {/* 1 col mobile, 3 col lg */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {deskPlans.map((plan) => (
+              <div key={plan.id} className="rounded p-7 relative flex flex-col"
+                style={{ background: plan.highlight ? "var(--navy-900)" : "#fff", border: plan.highlight ? "none" : "1px solid var(--cream-300)" }}>
+                {plan.highlight && <div className="absolute top-0 left-0 right-0 h-0.5 rounded-t bg-gold-400" />}
+                {plan.highlight && (
+                  <div className="absolute top-3.5 right-3.5 bg-gold-400 text-navy-900 text-[0.58rem] font-bold tracking-widest uppercase px-2 py-0.5 rounded-sm">
+                    Popular
+                  </div>
+                )}
+
+                <p className={`font-bold text-[1rem] mb-1 ${plan.highlight ? "text-cream-50" : "text-navy-900"}`}>{plan.name}</p>
+                <p className={`text-[0.78rem] mb-5 ${plan.highlight ? "text-white/45" : "text-black/45"}`}>{plan.description}</p>
+
+                <div className="mb-5">
+                  <p className="font-display font-light text-[2.2rem] leading-none mb-0.5"
+                    style={{ color: plan.highlight ? "var(--gold-400)" : "var(--navy-900)" }}>
+                    {fmtN(plan.setupFee)}
+                  </p>
+                  <p className={`text-[0.7rem] mb-1.5 ${plan.highlight ? "text-white/40" : "text-black/40"}`}>setup fee</p>
+                  <p className={`font-bold text-[0.95rem] ${plan.highlight ? "text-cream-50" : "text-navy-900"}`}>
+                    {fmtN(plan.monthlyFee)}<span className="font-normal text-[0.78rem] opacity-50">/month</span>
+                  </p>
+                </div>
+
+                <ul className="flex flex-col gap-1.5 mb-6 flex-1">
+                  {plan.features.map((f) => (
+                    <li key={f} className={`flex gap-2 text-[0.78rem] items-start ${plan.highlight ? "text-white/60" : "text-black/60"}`}>
+                      <span className="shrink-0" style={{ color: plan.highlight ? "var(--gold-400)" : "#059669" }}>&#10003;</span>{f}
+                    </li>
+                  ))}
+                </ul>
+
+                <Link href={`https://accounts.jktl.com.ng/signup`}
+                  className="block py-3 text-center text-[0.72rem] font-bold no-underline rounded-sm uppercase tracking-widest"
+                  style={{ background: plan.highlight ? "var(--gold-400)" : "var(--navy-900)", color: plan.highlight ? "var(--navy-900)" : "#fff" }}>
+                  Get Started
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/*  CUSTOM SOLUTION  */}
+      <section className="bg-cream-50 px-4 sm:px-6 lg:px-8 py-14">
+        <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row gap-8 sm:items-center sm:justify-between">
+          <div className="flex-1 min-w-0">
+            <span className="gold-rule block mb-3" />
+            <h2 className="display-lg text-navy-900 mb-2.5">Need a Custom Solution?</h2>
+            <p className="body-md text-black/55 leading-[1.75]">
+              Beyond Desk products, JKTL builds custom digital systems -- websites, SEO, CRM, automation, AI chatbots, payment infrastructure. Tell us what you need and we will scope a proposal within 24 hours.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            {industrySystems.map((sys) => (
-              <div key={sys.slug} style={{ background:"var(--navy-900)", borderRadius:"4px", overflow:"hidden" }}>
-                <div style={{ padding:"28px 32px 0" }}>
-                  <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"8px" }}>
-                    <div style={{ width:44, height:44, background:"rgba(201,168,76,0.12)", border:"1px solid rgba(201,168,76,0.25)", borderRadius:"2px", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}><span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.7rem", fontWeight:700, color:"var(--gold-400)" }}>{sys.icon}</span></div>
-                    <div>
-                      <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:400, fontSize:"1.4rem", color:"var(--cream-50)", lineHeight:1.2 }}>{sys.title}</h3>
-                      <p className="label-xs" style={{ color:"var(--gold-400)", marginTop:"3px" }}>{sys.subtitle}</p>
-                    </div>
-                  </div>
-                </div>
-                {/* Modules */}
-                <div style={{ padding:"16px 32px 24px" }}>
-                  <div style={{ display:"flex", flexWrap:"wrap", gap:"6px", marginBottom:"16px" }}>
-                    {sys.modules.map((mod) => (
-                      <span key={mod} style={{ fontSize:"0.72rem", fontWeight:600, color:"rgba(249,247,240,0.7)", background:"rgba(249,247,240,0.07)", padding:"4px 10px", borderRadius:"2px" }}>
-                        {mod}
-                      </span>
-                    ))}
-                  </div>
-                  <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"10px" }}>
-                    <div style={{ padding:"10px 12px", background:"rgba(239,68,68,0.08)", border:"1px solid rgba(239,68,68,0.15)", borderRadius:"2px" }}>
-                      <p style={{ fontSize:"0.65rem", fontWeight:700, color:"#F87171", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:"4px" }}>Problems Solved</p>
-                      <p style={{ fontSize:"0.75rem", color:"rgba(249,247,240,0.55)" }}>{sys.problemsSolved}</p>
-                    </div>
-                    <div style={{ padding:"10px 12px", background:"rgba(16,185,129,0.06)", border:"1px solid rgba(16,185,129,0.15)", borderRadius:"2px" }}>
-                      <p style={{ fontSize:"0.65rem", fontWeight:700, color:"#34D399", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:"4px" }}>Target Audience</p>
-                      <p style={{ fontSize:"0.75rem", color:"rgba(249,247,240,0.55)" }}>{sys.targetAudience}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+          {/* Buttons: stack on mobile, row on sm+ */}
+          <div className="flex flex-col sm:flex-row gap-2.5 sm:shrink-0">
+            <Link href="https://jktl.com.ng/get-started/services"
+              className="btn-gold text-[0.68rem] sm:text-[0.72rem] px-4 sm:px-6 py-2.5 sm:py-3 text-center">
+              Submit an Inquiry
+            </Link>
+            <Link href="/services"
+              className="btn-outline-navy text-[0.68rem] sm:text-[0.72rem] px-4 sm:px-6 py-2.5 sm:py-3 text-center">
+              View Agency Services
+            </Link>
           </div>
         </div>
       </section>
 
-      <Process />
-
-      {/* ── FREE TOOLS SECTION ─────────────────────────────────────────────── */}
-      <section className="section-pad" style={{ background:"var(--navy-950)" }}>
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="grid md:grid-cols-2 gap-12 items-center mb-14">
-            <div>
-              <span className="gold-rule mb-5" style={{ display:"block" }} />
-              <h2 className="display-xl mb-4" style={{ color:"var(--cream-50)" }}>
-                Free Business Tools.<br/>
-                <em className="not-italic gold-text">Yours to Use. Forever.</em>
-              </h2>
-              <p className="body-lg" style={{ color:"rgba(249,247,240,0.55)", marginBottom:"16px" }}>
-                We give you tools that make your business look and run more professionally — completely free. No catch. No credit card. Just tools that work.
-              </p>
-              <p className="body-sm" style={{ color:"rgba(249,247,240,0.35)", fontStyle:"italic" }}>
-                Premium features (history, team access, integrations) available when you&apos;re ready to upgrade.
-              </p>
-            </div>
-            <div style={{ display:"flex", flexDirection:"column", gap:"10px" }}>
-              {freeTools.map((tool) => (
-                <a key={tool.slug} href={`https://${tool.subdomain}`} target="_blank" rel="noopener noreferrer"
-                  style={{ display:"flex", alignItems:"center", gap:"14px", padding:"16px 20px", background:"rgba(249,247,240,0.04)", border:`1px solid ${tool.color}30`, borderRadius:"4px", textDecoration:"none", transition:"background 0.2s" }}>
-                  <div style={{ width:36, height:36, background:tool.color, borderRadius:"2px", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}><span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.65rem", fontWeight:700, color:"#fff" }}>{tool.icon}</span></div>
-                  <div style={{ flex:1 }}>
-                    <p style={{ fontWeight:700, fontSize:"0.9rem", color:"var(--cream-50)", marginBottom:"2px" }}>{tool.name}</p>
-                    <p className="body-sm" style={{ color:"rgba(249,247,240,0.45)", fontSize:"0.78rem" }}>{tool.description}</p>
-                  </div>
-                  <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-end", gap:"4px", flexShrink:0 }}>
-                    <span style={{ fontSize:"0.65rem", fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", background:"rgba(16,185,129,0.15)", color:"#34D399", padding:"3px 8px", borderRadius:"2px" }}>FREE</span>
-                    <span style={{ fontSize:"0.65rem", color:"rgba(249,247,240,0.3)" }}>{tool.subdomain}</span>
-                  </div>
-                </a>
-              ))}
-            </div>
+      {/*  AFFILIATE BANNER  */}
+      <section className="bg-navy-950 px-4 sm:px-6 lg:px-8 py-14">
+        <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row gap-6 sm:items-center sm:justify-between">
+          <div>
+            <p className="label-xs text-gold-400 mb-2.5">Affiliate Program</p>
+            <h2 className="font-display font-light text-cream-50 mb-2" style={{ fontSize: "clamp(1.4rem,3vw,2rem)" }}>
+              Earn by referring businesses to Desk.
+            </h2>
+            <p className="body-sm text-white/45">
+              N10,000 welcome bonus. 5% on setup fees. 2% recurring for 3 months. Paid monthly.
+            </p>
           </div>
-
-          {/* Free vs Premium table */}
-          <div style={{ background:"rgba(249,247,240,0.02)", border:"1px solid rgba(249,247,240,0.08)", borderRadius:"4px", overflow:"hidden" }}>
-            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", borderBottom:"1px solid rgba(249,247,240,0.08)" }}>
-              <div style={{ padding:"16px 20px" }}>
-                <p className="label-xs" style={{ color:"rgba(249,247,240,0.3)" }}>Feature</p>
-              </div>
-              <div style={{ padding:"16px 20px", borderLeft:"1px solid rgba(249,247,240,0.08)", textAlign:"center" }}>
-                <p className="label-xs" style={{ color:"#34D399" }}>Free Forever</p>
-              </div>
-              <div style={{ padding:"16px 20px", borderLeft:"1px solid rgba(249,247,240,0.08)", textAlign:"center" }}>
-                <p className="label-xs" style={{ color:"var(--gold-400)" }}>Premium (Coming Soon)</p>
-              </div>
-            </div>
-            {[
-              ["Create invoices & receipts",         "✓ Unlimited",    "✓ Unlimited"],
-              ["PDF download",                       "✓",              "✓"],
-              ["Custom branding / logo",             "✓",              "✓ Advanced"],
-              ["History & record keeping",           "—",              "✓"],
-              ["Client / customer database",         "—",              "✓"],
-              ["WhatsApp & email delivery",          "—",              "✓"],
-              ["Team / multi-user access",           "—",              "✓"],
-              ["Payment integration",                "—",              "✓"],
-              ["Analytics & reporting",              "—",              "✓"],
-            ].map(([feature, free, premium]) => (
-              <div key={feature} style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", borderBottom:"1px solid rgba(249,247,240,0.05)" }}>
-                <div style={{ padding:"12px 20px" }}>
-                  <p style={{ fontSize:"0.82rem", color:"rgba(249,247,240,0.6)" }}>{feature}</p>
-                </div>
-                <div style={{ padding:"12px 20px", borderLeft:"1px solid rgba(249,247,240,0.05)", textAlign:"center" }}>
-                  <p style={{ fontSize:"0.82rem", color: free === "—" ? "rgba(249,247,240,0.2)" : "#34D399", fontWeight: free !== "—" ? 600 : 400 }}>{free}</p>
-                </div>
-                <div style={{ padding:"12px 20px", borderLeft:"1px solid rgba(249,247,240,0.05)", textAlign:"center" }}>
-                  <p style={{ fontSize:"0.82rem", color: premium === "—" ? "rgba(249,247,240,0.2)" : "var(--gold-400)", fontWeight: premium !== "—" ? 600 : 400 }}>{premium}</p>
-                </div>
-              </div>
-            ))}
+          <div className="flex gap-3 shrink-0 flex-wrap">
+            <Link href="https://accounts.jktl.com.ng/signup?from=affiliate" className="btn-gold text-xs px-5 py-2.5">Join Free</Link>
+            <Link href="/affiliates" className="btn-ghost text-xs px-5 py-2.5">Learn More</Link>
           </div>
         </div>
       </section>
 
-      {/* ── PLATFORM ARCHITECTURE ──────────────────────────────────────────── */}
-      <section style={{ background:"var(--cream-50)", padding:"72px 32px" }}>
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div>
-              <span className="gold-rule mb-5" style={{ display:"block" }} />
-              <h2 className="display-xl mb-4" style={{ color:"var(--navy-900)" }}>
-                One Platform.<br/>
-                <em className="not-italic gold-text">Built to Scale.</em>
-              </h2>
-              <p className="body-lg" style={{ color:"rgba(28,28,30,0.58)", marginBottom:"24px" }}>
-                All systems run on a single powerful infrastructure — multi-tenant, role-based, cloud-native, and built for the African business environment.
-              </p>
-              <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"10px" }}>
-                {platformFeatures.map((f) => (
-                  <div key={f.title} style={{ padding:"16px", background:"var(--cream-100)", border:"1px solid var(--cream-300)", borderRadius:"4px" }}>
-                    <div style={{ width:32, height:32, background:"var(--navy-700)", borderRadius:"2px", display:"flex", alignItems:"center", justifyContent:"center", marginBottom:"8px" }}><span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"0.62rem", fontWeight:700, color:"var(--gold-400)" }}>{f.icon}</span></div>
-                    <p style={{ fontWeight:700, fontSize:"0.82rem", color:"var(--navy-900)", marginBottom:"3px" }}>{f.title}</p>
-                    <p style={{ fontSize:"0.75rem", color:"rgba(28,28,30,0.55)" }}>{f.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            {/* Architecture visual */}
-            <div style={{ background:"var(--navy-900)", borderRadius:"4px", padding:"32px" }}>
-              <p className="label-xs" style={{ color:"var(--gold-400)", marginBottom:"20px" }}>Platform Architecture</p>
-              <div style={{ display:"flex", flexDirection:"column", gap:"10px" }}>
-                <div style={{ padding:"14px 16px", background:"rgba(201,168,76,0.12)", border:"1px solid rgba(201,168,76,0.25)", borderRadius:"4px", textAlign:"center" }}>
-                  <p style={{ fontWeight:700, fontSize:"0.85rem", color:"var(--gold-300)" }}>Central Platform</p>
-                  <p style={{ fontSize:"0.72rem", color:"rgba(249,247,240,0.45)" }}>Shared Core Infrastructure</p>
-                </div>
-                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:"6px" }}>
-                  {["Hotel A", "Supermarket A", "Clinic B", "Retail Store", "Hotel B", "Your Business"].map((b) => (
-                    <div key={b} style={{ padding:"10px 8px", background:"rgba(249,247,240,0.05)", border:"1px solid rgba(249,247,240,0.08)", borderRadius:"2px", textAlign:"center" }}>
-                      <p style={{ fontSize:"0.72rem", color:"rgba(249,247,240,0.6)", fontWeight:500 }}>{b}</p>
-                      <p style={{ fontSize:"0.6rem", color:"rgba(249,247,240,0.3)" }}>Your Data</p>
-                    </div>
-                  ))}
-                </div>
-                <div style={{ display:"flex", flexWrap:"wrap", gap:"6px", justifyContent:"center", marginTop:"4px" }}>
-                  {["Auth","Billing","Notifications","Analytics","File Storage","Settings"].map((feat) => (
-                    <span key={feat} style={{ fontSize:"0.65rem", color:"rgba(249,247,240,0.4)", background:"rgba(249,247,240,0.04)", padding:"3px 8px", borderRadius:"2px", border:"1px solid rgba(249,247,240,0.08)" }}>{feat}</span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+      {/*  FOOTER CTA  */}
+      <section className="bg-cream-100 px-4 sm:px-6 lg:px-8 py-16 text-center">
+        <div className="max-w-lg mx-auto">
+          <h2 className="display-lg text-navy-900 mb-3">Ready to get started?</h2>
+          <p className="body-md text-black/50 mb-7">Pick a product and go live in minutes. No developer needed.</p>
+          <Link href="https://accounts.jktl.com.ng/signup" className="btn-gold px-10 py-3.5">Get Started Today</Link>
         </div>
       </section>
-
-      <TestimonialSection />
-      <FounderStrip />
-      <WhyUs />
-
-      {/* ── BLOG PREVIEW ───────────────────────────────────────────────────── */}
-      <section className="section-pad" style={{ background:"var(--cream-200)" }}>
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="flex items-end justify-between mb-12">
-            <div>
-              <span className="gold-rule mb-4" style={{ display:"block" }} />
-              <h2 className="display-lg" style={{ color:"var(--navy-900)" }}>Latest Insights</h2>
-            </div>
-            <Link href="/blog" className="label-xs" style={{ color:"var(--navy-600)", textDecoration:"none" }}>All articles →</Link>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            {blogPosts.slice(0,2).map((post) => (
-              <Link key={post.slug} href={`/blog/${post.slug}`} style={{ textDecoration:"none" }}>
-                <div className="card-light" style={{ padding:"32px", height:"100%" }}>
-                  <p className="label-xs" style={{ color:"var(--navy-500)", marginBottom:"10px" }}>{post.category}</p>
-                  <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:400, fontSize:"1.4rem", color:"var(--navy-900)", lineHeight:1.25, marginBottom:"12px" }}>{post.title}</h3>
-                  <p className="body-sm" style={{ color:"rgba(28,28,30,0.58)", marginBottom:"16px" }}>{post.excerpt}</p>
-                  <p className="label-xs" style={{ color:"rgba(28,28,30,0.3)" }}>{post.readTime} read · {post.date}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <CTA
-        heading="Your Growth. Our Mission."
-        subtext="Reach out via email or phone. We'll map out the exact system your business needs, show you the ROI you can expect, and give you a clear proposal within 24 hours."
-      />
-    </>
+    </div>
   );
 }

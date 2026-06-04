@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   const sections = [
     { title:"1. Information We Collect", body:"When you submit our contact form or communicate with us, we may collect your name, email address, business name, website URL, and project details. We also collect standard analytics data (page views, session duration, device type) via Google Analytics 4." },
-    { title:"2. How We Use Your Information", body:"We use your information to respond to enquiries, deliver our services, send project updates and proposals, and — only if you opt in — share periodic business insights. We never sell your data to third parties." },
+    { title:"2. How We Use Your Information", body:"We use your information to respond to enquiries, deliver our services, send project updates and proposals, and -- only if you opt in -- share periodic business insights. We never sell your data to third parties." },
     { title:"3. Data Sharing", body:"We share data only with trusted service providers necessary to deliver our services (email delivery, analytics). We may disclose information if required by law. We do not sell or rent your personal data." },
     { title:"4. Data Retention", body:"Enquiry data is retained for up to 24 months. Client project data is retained for up to 5 years for accounting and legal compliance. You may request deletion at any time by emailing info@jktl.com.ng." },
     { title:"5. Cookies", body:"We use essential cookies (required for basic functionality) and analytics cookies (Google Analytics 4). You may opt out of analytics cookies via your browser settings or the Google Analytics opt-out add-on." },

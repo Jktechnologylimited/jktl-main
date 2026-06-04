@@ -7,7 +7,7 @@ import { CTA } from "@/components/sections/Sections";
 
 export const metadata: Metadata = {
   title: "Case Studies & Portfolio | JK Technology Limited",
-  description: "Real client results — K.K. Ubani & Co. (law firm SEO), Eljards Services (solar & consulting website), and Refinish Port Harcourt (auto detailing website). Measurable outcomes across every niche.",
+  description: "Real client results -- K.K. Ubani & Co. (law firm SEO), Eljards Services (solar & consulting website), and Refinish Port Harcourt (auto detailing website). Measurable outcomes across every niche.",
   alternates: { canonical: "https://jktl.com.ng/work" },
 };
 
@@ -60,25 +60,25 @@ export default function WorkPage() {
                 <div style={{ flex:1 }}>
                   <div style={{ display:"flex", alignItems:"center", gap:"10px", flexWrap:"wrap", marginBottom:"6px" }}>
                     <p className="label-xs" style={{ color:"rgba(28,28,30,0.4)" }}>{cs.category}</p>
-                    <span style={{ color:"var(--cream-300)", fontSize:"0.7rem" }}>·</span>
+                    <span style={{ color:"var(--cream-300)", fontSize:"0.7rem" }}>|</span>
                     <p className="label-xs" style={{ color:"rgba(28,28,30,0.4)" }}>{cs.location}</p>
-                    <span style={{ color:"var(--cream-300)", fontSize:"0.7rem" }}>·</span>
+                    <span style={{ color:"var(--cream-300)", fontSize:"0.7rem" }}>|</span>
                     <a href={cs.websiteUrl} target="_blank" rel="noopener noreferrer" className="label-xs" style={{ color:"var(--navy-500)", textDecoration:"underline", textUnderlineOffset:"3px" }}>
                       {cs.website}
                     </a>
                   </div>
                   <h2 className="display-lg" style={{ color:"var(--navy-900)", marginBottom:"4px" }}>{cs.client}</h2>
-                  <p className="label-xs" style={{ color:"var(--navy-500)" }}>{cs.service} · {cs.niche}</p>
+                  <p className="label-xs" style={{ color:"var(--navy-500)" }}>{cs.service} | {cs.niche}</p>
                 </div>
               </div>
 
-              {/* ── K.K. UBANI: Before/After SEO slider ── */}
+              {/* -- K.K. UBANI: Before/After SEO slider -- */}
               {cs.hasSEOScreenshots && (
                 <div style={{ marginBottom:"32px" }}>
                   <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"12px" }}>
                     <span className="gold-rule" style={{ width:"32px" }} />
                     <p className="label-xs" style={{ color:"rgba(28,28,30,0.4)" }}>
-                      SEO Performance — Before &amp; After
+                      SEO Performance -- Before &amp; After
                     </p>
                   </div>
                   <BeforeAfter
@@ -90,13 +90,12 @@ export default function WorkPage() {
                     afterLabel="After SEO"
                     height={400}
                   />
-                  <p style={{ fontSize:"0.72rem", color:"rgba(28,28,30,0.3)", textAlign:"center", marginTop:"8px" }}>
-                    ← Drag to compare Google rankings before and after SEO work
+                  <p style={{ fontSize:"0.72rem", color:"rgba(28,28,30,0.3)", textAlign:"center", marginTop:"8px" }}>{"<-"} Drag to compare Google rankings before and after SEO work
                   </p>
                 </div>
               )}
 
-              {/* ── ELJARDS + REFINISH: Website screenshot showcase ── */}
+              {/* -- ELJARDS + REFINISH: Website screenshot showcase -- */}
               {cs.hasWebsiteScreenshot && (
                 <div style={{ marginBottom:"32px" }}>
                   <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"12px" }}>
@@ -104,9 +103,9 @@ export default function WorkPage() {
                     <p className="label-xs" style={{ color:"rgba(28,28,30,0.4)" }}>Website Delivered</p>
                   </div>
                   <div style={{ position:"relative", borderRadius:"4px", overflow:"hidden", background:"var(--cream-200)", border:"1px solid var(--cream-300)", minHeight:"320px" }}>
-                    {/* Real screenshot — add image to /public/work/[slug]-website.jpg */}
+                    {/* Real screenshot -- add image to /public/work/[slug]-website.jpg */}
                     <div style={{ width:"100%", height:"320px", position:"relative" }}>
-                      {/* Placeholder — replace with real Image tag once you add the screenshot */}
+                      {/* Placeholder -- replace with real Image tag once you add the screenshot */}
                       <div style={{
                         width:"100%", height:"100%",
                         display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center",
@@ -127,7 +126,7 @@ export default function WorkPage() {
                           </p>
                           <a href={cs.websiteUrl} target="_blank" rel="noopener noreferrer"
                             className="label-xs" style={{ color:"var(--navy-600)", textDecoration:"underline", textUnderlineOffset:"3px" }}>
-                            View live site: {cs.website} →
+                            View live site: {cs.website} {"->"}
                           </a>
                         </div>
                       </div>
@@ -159,7 +158,7 @@ export default function WorkPage() {
                   <ul style={{ listStyle:"none", display:"flex", flexDirection:"column", gap:"10px" }}>
                     {cs.before.points.map((p) => (
                       <li key={p} style={{ display:"flex", gap:"10px", alignItems:"flex-start" }}>
-                        <span style={{ color:"#EF4444", flexShrink:0, marginTop:"1px" }}>×</span>
+                        <span style={{ color:"#EF4444", flexShrink:0, marginTop:"1px" }}></span>
                         <span className="body-sm" style={{ color:"rgba(28,28,30,0.65)" }}>{p}</span>
                       </li>
                     ))}
@@ -172,7 +171,7 @@ export default function WorkPage() {
                   <ul style={{ listStyle:"none", display:"flex", flexDirection:"column", gap:"10px" }}>
                     {cs.after.points.map((p) => (
                       <li key={p} style={{ display:"flex", gap:"10px", alignItems:"flex-start" }}>
-                        <span style={{ color:"#10B981", flexShrink:0, marginTop:"1px" }}>✓</span>
+                        <span style={{ color:"#10B981", flexShrink:0, marginTop:"1px" }}>v</span>
                         <span className="body-sm" style={{ color:"rgba(28,28,30,0.65)" }}>{p}</span>
                       </li>
                     ))}
@@ -218,9 +217,9 @@ export default function WorkPage() {
               )}
 
               {/* CTA inline */}
-              <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer"
+              <a href={`mailto:${siteConfig.email}`}
                 className="label-xs" style={{ color:"var(--navy-600)", textDecoration:"none", display:"inline-flex", alignItems:"center", gap:"6px" }}>
-                Want similar results for your business? Book a free Zoom audit →
+                Want similar results for your business? Book a free Zoom audit {"->"}
               </a>
 
               {/* Divider between case studies */}
@@ -246,7 +245,7 @@ export default function WorkPage() {
               {testimonial.initials}
             </div>
             <p style={{ fontWeight:700, fontSize:"0.95rem", color:"var(--navy-900)" }}>{testimonial.name}</p>
-            <p className="label-xs" style={{ color:"rgba(28,28,30,0.45)" }}>{testimonial.role} · {testimonial.firm}</p>
+            <p className="label-xs" style={{ color:"rgba(28,28,30,0.45)" }}>{testimonial.role} | {testimonial.firm}</p>
             <a href="https://kkubaniandco.com" target="_blank" rel="noopener noreferrer" className="label-xs" style={{ color:"var(--navy-500)", textDecoration:"underline", textUnderlineOffset:"3px", marginTop:"4px" }}>
               {testimonial.website}
             </a>

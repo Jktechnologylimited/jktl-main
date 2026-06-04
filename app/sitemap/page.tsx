@@ -4,7 +4,7 @@ import { sitemapLinks } from "@/data/index";
 
 export const metadata: Metadata = {
   title: "Sitemap | JK Technology Limited",
-  description: "Complete sitemap for jktl.com.ng — AI business websites, landing pages, SEO services, case studies, and insights for US businesses.",
+  description: "Complete sitemap for jktl.com.ng -- AI business websites, landing pages, SEO services, case studies, and insights for US businesses.",
   robots: { index: true, follow: true },
 };
 
@@ -59,7 +59,7 @@ export default function SitemapPage() {
                   {section.links.map(link => (
                     <li key={link.href}>
                       <Link href={link.href} style={{ display:"flex", alignItems:"center", gap:"8px", textDecoration:"none" }}>
-                        <span style={{ color:"var(--gold-400)", fontSize:"0.7rem" }}>→</span>
+                        <span style={{ color:"var(--gold-400)", fontSize:"0.7rem" }}>{"->"}</span>
                         <span style={{ fontSize:"0.9rem", color:"var(--navy-600)", fontWeight:400 }}>{link.label}</span>
                         <span style={{ fontSize:"0.72rem", color:"rgba(28,28,30,0.3)", marginLeft:"auto", fontFamily:"'JetBrains Mono',monospace" }}>jktl.com.ng{link.href}</span>
                       </Link>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { freeTools, siteConfig } from "@/data/index";
 import { CTA } from "@/components/sections/Sections";
+import TryDemoButton from "@/components/ui/TryDemoButton";
 
 export const metadata: Metadata = {
   title: "Free Business Tools | JK Technology Limited",
@@ -20,10 +21,10 @@ export default function ToolsPage() {
             <em className="not-italic gold-text">Built for African Businesses.</em>
           </h1>
           <p className="body-lg" style={{ color:"rgba(249,247,240,0.55)", maxWidth:"560px", marginBottom:"8px" }}>
-            Professional tools that make your business look and run better — completely free. No credit card. No trial. Just tools that work.
+            Professional tools that make your business look and run better -- completely free. No credit card. No trial. Just tools that work.
           </p>
           <p className="body-sm" style={{ color:"rgba(249,247,240,0.35)", maxWidth:"520px", fontStyle:"italic" }}>
-            Each tool lives on its own subdomain (like Google does it). Premium features — history, team access, integrations — unlock when you upgrade.
+            Each tool lives on its own subdomain (like Google does it). Premium features -- history, team access, integrations -- unlock when you upgrade.
           </p>
         </div>
       </section>
@@ -54,7 +55,7 @@ export default function ToolsPage() {
                     <ul style={{ listStyle:"none", display:"flex", flexDirection:"column", gap:"6px" }}>
                       {tool.freeFeatures.map(f => (
                         <li key={f} style={{ display:"flex", gap:"8px", fontSize:"0.8rem", color:"rgba(28,28,30,0.65)" }}>
-                          <span style={{ color:"#10B981", flexShrink:0 }}>✓</span>{f}
+                          <span style={{ color:"#10B981", flexShrink:0 }}>v</span>{f}
                         </li>
                       ))}
                     </ul>
@@ -64,7 +65,7 @@ export default function ToolsPage() {
                     <ul style={{ listStyle:"none", display:"flex", flexDirection:"column", gap:"6px" }}>
                       {tool.premiumFeatures.map(f => (
                         <li key={f} style={{ display:"flex", gap:"8px", fontSize:"0.8rem", color:"rgba(28,28,30,0.45)" }}>
-                          <span style={{ color:"var(--gold-400)", flexShrink:0 }}>◦</span>{f}
+                          <span style={{ color:"var(--gold-400)", flexShrink:0 }}></span>{f}
                         </li>
                       ))}
                     </ul>
@@ -73,7 +74,7 @@ export default function ToolsPage() {
 
                 <a href={`https://${tool.subdomain}`} target="_blank" rel="noopener noreferrer"
                   style={{ display:"inline-flex", alignItems:"center", justifyContent:"center", gap:"8px", padding:"14px 24px", background:tool.color, color:"#fff", fontFamily:"'Plus Jakarta Sans',sans-serif", fontSize:"0.72rem", fontWeight:700, letterSpacing:"0.12em", textTransform:"uppercase", textDecoration:"none", borderRadius:"2px", marginTop:"auto" }}>
-                  Open {tool.name} →
+                  Open {tool.name} {"->"}
                 </a>
               </div>
             ))}
@@ -88,9 +89,9 @@ export default function ToolsPage() {
             <span className="label-xs">Why We Give These Away Free</span>
           </div>
           <p style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:300, fontSize:"clamp(1.4rem,2.5vw,2rem)", color:"var(--cream-50)", lineHeight:1.55, marginBottom:"20px" }}>
-            &ldquo;We believe every African business deserves professional tools — not just the ones who can afford expensive software. Use these freely. When you&apos;re ready to scale, we&apos;ll be here.&rdquo;
+            &ldquo;We believe every African business deserves professional tools -- not just the ones who can afford expensive software. Use these freely. When you&apos;re ready to scale, we&apos;ll be here.&rdquo;
           </p>
-          <p className="label-xs" style={{ color:"var(--gold-400)" }}>JK Technology Limited · {siteConfig.email}</p>
+          <p className="label-xs" style={{ color:"var(--gold-400)" }}>JK Technology Limited | {siteConfig.email}</p>
         </div>
       </section>
 

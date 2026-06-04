@@ -4,7 +4,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "JK Technology Limited | Business Infrastructure Ecosystem — Nigeria",
+  title: "JK Technology Limited | Business Infrastructure Ecosystem -- Nigeria",
   description:
     "JK Technology builds modular digital infrastructure and business operating systems that help African businesses attract customers, run operations efficiently, collect payments, and scale sustainably.",
   keywords:

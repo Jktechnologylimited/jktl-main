@@ -86,7 +86,7 @@ export default function BeforeAfter({
       {/* Drag hint */}
       <div style={{ position:"absolute", bottom:"12px", left:"50%", transform:"translateX(-50%)", pointerEvents:"none", zIndex:5 }}>
         <span style={{ background:"rgba(0,0,0,0.6)", color:"rgba(255,255,255,0.7)", fontSize:"0.62rem", letterSpacing:"0.1em", textTransform:"uppercase", padding:"4px 12px", borderRadius:"99px" }}>
-          ← Drag to compare →
+          {"<-"} Drag to compare {"->"}
         </span>
       </div>
     </div>
@@ -102,7 +102,7 @@ function BeforePlaceholder({ label }: { label: string }) {
         </svg>
       </div>
       <p style={{ fontFamily:"'Plus Jakarta Sans',sans-serif", fontSize:"0.72rem", fontWeight:600, letterSpacing:"0.15em", textTransform:"uppercase", color:"rgba(28,28,30,0.35)" }}>
-        {label} — Replace with screenshot
+        {label} -- Replace with screenshot
       </p>
       <p style={{ fontSize:"0.65rem", color:"rgba(28,28,30,0.25)", textAlign:"center", maxWidth:"180px" }}>
         Add image to /public/work/ and update src in data/index.ts
@@ -120,7 +120,7 @@ function AfterPlaceholder({ label }: { label: string }) {
         </svg>
       </div>
       <p style={{ fontFamily:"'Plus Jakarta Sans',sans-serif", fontSize:"0.72rem", fontWeight:600, letterSpacing:"0.15em", textTransform:"uppercase", color:"rgba(249,247,240,0.3)" }}>
-        {label} — Replace with screenshot
+        {label} -- Replace with screenshot
       </p>
     </div>
   );

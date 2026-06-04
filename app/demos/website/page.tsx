@@ -1,187 +1,139 @@
-"use client";
-import { useState } from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/data/index";
 
-const pages = ["Home", "Services", "About", "Contact"];
-
-const pageContent: Record<string, { hero: string; sub: string; body: string }> = {
-  Home: {
-    hero: "Professional Plumbing Services in Lagos",
-    sub: "Fast, reliable, and trusted by 500+ Lagos homeowners. Licensed & insured.",
-    body: "Your homepage is your first impression. This hero section communicates what you do, who you serve, and why they should trust you — in under 5 seconds.",
-  },
-  Services: {
-    hero: "Our Plumbing Services",
-    sub: "From emergency repairs to full installations — we handle it all.",
-    body: "Each service gets its own section with clear descriptions, pricing context, and a call to action. This page ranks for specific service keywords on Google.",
-  },
-  About: {
-    hero: "About Our Business",
-    sub: "10 years of trusted plumbing experience in Lagos State.",
-    body: "The About page builds personal trust. Real photos, real credentials, real story — this is what converts a visitor who is comparing three plumbers.",
-  },
-  Contact: {
-    hero: "Get in Touch",
-    sub: "Call, WhatsApp, or fill the form below. We respond within 1 hour.",
-    body: "A contact form that captures the visitor's name, phone, and problem — and sends it directly to your CRM or email. No lead falls through the cracks.",
-  },
+export const metadata: Metadata = {
+  title: "Website & Landing Page System Demo | JK Technology Limited",
+  description: "A fully built, industry-specific business website -- homepage, services, about, contact, mobile-responsive, SEO-ready.",
+  alternates: { canonical: "https://jktl.com.ng/demos/website" },
 };
 
-export default function WebsiteDemo() {
-  const [activePage, setActivePage] = useState("Home");
-  const [formStep, setFormStep] = useState(0);
-  const [formData, setFormData] = useState({ name: "", phone: "", service: "" });
-  const pg = pageContent[activePage];
+const subdomains = [
+  { label: "Law Firm Website", url: "https://lawfirm-website.jktl.com.ng", desc: "Built for commercial and corporate law firms" },
+  { label: "Clinic Website", url: "https://clinic-website.jktl.com.ng", desc: "Built for clinics, hospitals, and health practices" },
+  { label: "Service Business", url: "https://service-website.jktl.com.ng", desc: "Built for plumbers, electricians, HVAC, cleaning" },
+  { label: "Consultant Website", url: "https://consultant-website.jktl.com.ng", desc: "Built for consultants, coaches, and agencies" },
+];
 
+export default function DemoPage() {
   return (
-    <div style={{ background:"var(--cream-50)", minHeight:"100vh", paddingTop:"80px" }}>
+    <div style={{ background: "var(--cream-50)", minHeight: "100vh", paddingTop: "80px" }}>
+
       {/* Demo header */}
-      <div style={{ background:"var(--navy-900)", padding:"16px 32px", display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:"wrap", gap:"12px" }}>
+      <div style={{ background: "var(--navy-900)", padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "12px" }}>
         <div>
-          <p style={{ fontFamily:"'Plus Jakarta Sans',sans-serif", fontWeight:700, fontSize:"0.85rem", color:"var(--cream-50)" }}>
-            Demo: Website & Landing Page System
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "4px" }}>
+            <div style={{ width: 32, height: 32, background: "#1A4A8A", borderRadius: "2px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "0.68rem", fontWeight: 700, color: "#fff" }}>01</span>
+            </div>
+            <p style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 700, fontSize: "0.85rem", color: "var(--cream-50)" }}>
+              Website & Landing Page System
+            </p>
+          </div>
+          <p style={{ fontSize: "0.72rem", color: "rgba(249,247,240,0.45)" }}>
+            A fully built, industry-specific business website -- homepage, services, about, contact, mobile-responsive, SEO-ready.
           </p>
-          <p style={{ fontSize:"0.72rem", color:"rgba(249,247,240,0.45)" }}>Interactive preview — this is what your business website looks like</p>
         </div>
-        <div style={{ display:"flex", gap:"10px" }}>
-          <Link href="/demos" style={{ padding:"8px 16px", background:"rgba(249,247,240,0.08)", color:"rgba(249,247,240,0.7)", fontSize:"0.72rem", fontWeight:600, textDecoration:"none", borderRadius:"2px" }}>
+        <div style={{ display: "flex", gap: "10px" }}>
+          <Link href="/demos" style={{ padding: "8px 16px", background: "rgba(249,247,240,0.08)", color: "rgba(249,247,240,0.7)", fontSize: "0.72rem", fontWeight: 600, textDecoration: "none", borderRadius: "2px" }}>
             All Demos
           </Link>
-          <a href={`mailto:${siteConfig.email}`} className="btn-gold" style={{ padding:"8px 16px", fontSize:"0.72rem" }}>
-            Build My Website
+          <a href={"mailto:" + siteConfig.email} className="btn-gold" style={{ padding: "8px 16px", fontSize: "0.72rem" }}>
+            Get This System
           </a>
         </div>
       </div>
 
-      {/* Simulated browser */}
-      <div style={{ maxWidth:"900px", margin:"32px auto", padding:"0 24px" }}>
-        {/* Browser chrome */}
-        <div style={{ background:"#f5f5f5", border:"1px solid #ddd", borderRadius:"8px 8px 0 0", padding:"10px 16px", display:"flex", alignItems:"center", gap:"10px" }}>
-          <div style={{ display:"flex", gap:"6px" }}>
-            <div style={{ width:12, height:12, borderRadius:"50%", background:"#ff5f57" }} />
-            <div style={{ width:12, height:12, borderRadius:"50%", background:"#ffbd2e" }} />
-            <div style={{ width:12, height:12, borderRadius:"50%", background:"#28ca41" }} />
-          </div>
-          <div style={{ flex:1, background:"#fff", border:"1px solid #e0e0e0", borderRadius:"4px", padding:"5px 14px", fontSize:"0.75rem", color:"#666", display:"flex", alignItems:"center", gap:"6px" }}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            yourbusiness.com.ng
-          </div>
-        </div>
+      <div style={{ maxWidth: "1200px", margin: "32px auto", padding: "0 24px" }}>
 
-        {/* Simulated website */}
-        <div style={{ border:"1px solid #e0e0e0", borderTop:"none", borderRadius:"0 0 8px 8px", overflow:"hidden", boxShadow:"0 4px 24px rgba(0,0,0,0.08)" }}>
-          {/* Site nav */}
-          <nav style={{ background:"#0b1f3a", padding:"14px 28px", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
-            <span style={{ fontWeight:700, fontSize:"1rem", color:"#fff" }}>YourBusiness</span>
-            <div style={{ display:"flex", gap:"4px" }}>
-              {pages.map(p => (
-                <button key={p} onClick={() => setActivePage(p)}
-                  style={{ padding:"6px 14px", background: activePage === p ? "#C9A84C" : "transparent", color: activePage === p ? "#0b1f3a" : "rgba(255,255,255,0.7)", border:"none", borderRadius:"2px", fontSize:"0.75rem", fontWeight:600, cursor:"pointer", transition:"all 0.15s" }}>
-                  {p}
-                </button>
-              ))}
-            </div>
-          </nav>
+        {/* Subdomain selector + iframes */}
+        {subdomains.map((sub, i) => (
+          <div key={sub.label} style={{ marginBottom: "40px" }}>
 
-          {/* Hero area */}
-          <div style={{ background:"linear-gradient(135deg, #0b1f3a 60%, #1a3a6e)", padding:"48px 32px" }}>
-            <div style={{ display:"inline-block", background:"#C9A84C", color:"#0b1f3a", fontSize:"0.65rem", fontWeight:700, letterSpacing:"0.15em", textTransform:"uppercase", padding:"4px 12px", marginBottom:"16px", borderRadius:"2px" }}>
-              {activePage}
-            </div>
-            <h1 style={{ fontFamily:"'Plus Jakarta Sans',sans-serif", fontWeight:800, fontSize:"clamp(1.4rem,3vw,2.2rem)", color:"#fff", lineHeight:1.15, marginBottom:"12px", maxWidth:"520px" }}>
-              {pg.hero}
-            </h1>
-            <p style={{ color:"rgba(255,255,255,0.65)", fontSize:"0.9rem", marginBottom:"24px", maxWidth:"440px" }}>{pg.sub}</p>
-            <div style={{ display:"flex", gap:"10px", flexWrap:"wrap" }}>
-              <button style={{ background:"#C9A84C", color:"#0b1f3a", padding:"10px 22px", border:"none", borderRadius:"2px", fontWeight:700, fontSize:"0.8rem", cursor:"pointer" }}>
-                Get a Quote
-              </button>
-              <button style={{ background:"transparent", color:"rgba(255,255,255,0.7)", padding:"10px 22px", border:"1px solid rgba(255,255,255,0.3)", borderRadius:"2px", fontSize:"0.8rem", cursor:"pointer" }}>
-                Learn More
-              </button>
-            </div>
-          </div>
-
-          {/* Content area */}
-          <div style={{ padding:"28px 32px", background:"#fff" }}>
-            {activePage === "Contact" ? (
-              <div>
-                {formStep === 0 && (
-                  <div>
-                    <h3 style={{ fontFamily:"'Plus Jakarta Sans',sans-serif", fontWeight:700, marginBottom:"16px", color:"#0b1f3a" }}>Send Us a Message</h3>
-                    <div style={{ display:"flex", flexDirection:"column", gap:"12px", maxWidth:"400px" }}>
-                      <input placeholder="Your Name" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})}
-                        style={{ padding:"10px 14px", border:"1px solid #e0e0e0", borderRadius:"2px", fontSize:"0.875rem" }} />
-                      <input placeholder="Phone Number" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})}
-                        style={{ padding:"10px 14px", border:"1px solid #e0e0e0", borderRadius:"2px", fontSize:"0.875rem" }} />
-                      <select value={formData.service} onChange={e => setFormData({...formData, service: e.target.value})}
-                        style={{ padding:"10px 14px", border:"1px solid #e0e0e0", borderRadius:"2px", fontSize:"0.875rem" }}>
-                        <option value="">Select a service...</option>
-                        <option>Emergency Repair</option>
-                        <option>Pipe Installation</option>
-                        <option>Drainage Cleaning</option>
-                        <option>Full Renovation</option>
-                      </select>
-                      <button onClick={() => formData.name && formData.phone ? setFormStep(1) : null}
-                        style={{ padding:"12px", background:"#0b1f3a", color:"#fff", border:"none", borderRadius:"2px", fontWeight:700, fontSize:"0.875rem", cursor:"pointer" }}>
-                        Submit Enquiry
-                      </button>
-                    </div>
-                  </div>
-                )}
-                {formStep === 1 && (
-                  <div style={{ textAlign:"center", padding:"24px" }}>
-                    <div style={{ fontSize:"2.5rem", marginBottom:"12px" }}>✓</div>
-                    <h3 style={{ color:"#0b1f3a", fontFamily:"'Plus Jakarta Sans',sans-serif", fontWeight:700, marginBottom:"8px" }}>
-                      Enquiry Received!
-                    </h3>
-                    <p style={{ color:"#666", fontSize:"0.875rem", marginBottom:"16px" }}>
-                      <strong>{formData.name}</strong> — we&apos;ll call you back on <strong>{formData.phone}</strong> within 1 hour.
-                    </p>
-                    <p style={{ color:"#888", fontSize:"0.78rem", fontStyle:"italic" }}>
-                      In a real system, this submission is sent to your CRM, triggers an automatic WhatsApp message, and logs the lead for follow-up.
-                    </p>
-                    <button onClick={() => { setFormStep(0); setFormData({name:"",phone:"",service:""}); }}
-                      style={{ marginTop:"16px", padding:"8px 20px", background:"transparent", border:"1px solid #ddd", borderRadius:"2px", fontSize:"0.78rem", cursor:"pointer", color:"#666" }}>
-                      Reset Demo
-                    </button>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div>
-                <div style={{ background:"#f0f4f8", border:"1px solid #e0e8f0", borderLeft:"4px solid #C9A84C", padding:"16px 18px", borderRadius:"0 4px 4px 0", marginBottom:"16px" }}>
-                  <p style={{ fontSize:"0.82rem", color:"#1a3a6e", fontWeight:600, marginBottom:"4px" }}>What This Page Does For Your Business:</p>
-                  <p style={{ fontSize:"0.82rem", color:"#444", lineHeight:1.6 }}>{pg.body}</p>
+            {/* Label row */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px", flexWrap: "wrap", gap: "10px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <div style={{ width: 28, height: 28, background: "#1A4A8A", borderRadius: "2px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "0.6rem", fontWeight: 700, color: "#fff" }}>{"0" + (i + 1)}</span>
                 </div>
-                <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:"12px" }}>
-                  {["SEO Optimised", "Mobile-First", "Fast Loading"].map(f => (
-                    <div key={f} style={{ padding:"12px", background:"#f9f9f9", border:"1px solid #eee", borderRadius:"2px", textAlign:"center" }}>
-                      <p style={{ fontSize:"0.72rem", fontWeight:700, color:"#1a3a6e" }}>{f}</p>
-                    </div>
-                  ))}
+                <div>
+                  <p style={{ fontWeight: 700, fontSize: "0.9rem", color: "var(--navy-900)" }}>{"" + sub.label}</p>
+                  <p style={{ fontSize: "0.75rem", color: "rgba(28,28,30,0.45)" }}>{"" + sub.desc}</p>
                 </div>
               </div>
-            )}
+              <a href={sub.url} target="_blank" rel="noopener noreferrer"
+                style={{ display: "inline-flex", alignItems: "center", gap: "6px", padding: "7px 14px", background: "transparent", border: "1px solid #1A4A8A", color: "#1A4A8A", fontSize: "0.72rem", fontWeight: 700, textDecoration: "none", borderRadius: "2px", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+                Open Full Screen
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+              </a>
+            </div>
+
+            {/* iframe */}
+            <div style={{ position: "relative", background: "#fff", border: "1px solid var(--cream-300)", borderRadius: "4px", overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.08)" }}>
+              {/* Browser chrome */}
+              <div style={{ background: "#f5f5f5", borderBottom: "1px solid #e0e0e0", padding: "10px 16px", display: "flex", alignItems: "center", gap: "10px" }}>
+                <div style={{ display: "flex", gap: "5px" }}>
+                  <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#ff5f57" }} />
+                  <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#ffbd2e" }} />
+                  <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#28ca41" }} />
+                </div>
+                <div style={{ flex: 1, background: "#fff", border: "1px solid #e0e0e0", borderRadius: "4px", padding: "4px 12px", fontSize: "0.72rem", color: "#666", display: "flex", alignItems: "center", gap: "6px" }}>
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  </svg>
+                  {"" + sub.url.replace("https://", "")}
+                </div>
+              </div>
+
+              {/* The iframe */}
+              <iframe
+                src={sub.url}
+                title={sub.label + " Demo"}
+                style={{ width: "100%", height: "700px", border: "none", display: "block" }}
+                loading="lazy"
+                allow="clipboard-write"
+              />
+
+              {/* Coming soon overlay -- shown when subdomain not yet live */}
+              {/* Remove this div once your subdomain is deployed */}
+              <div style={{
+                position: "absolute", inset: 0,
+                background: "rgba(6,14,42,0.92)",
+                display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+                gap: "16px",
+              }}>
+                <div style={{ width: 56, height: 56, background: "rgba(201,168,76,0.15)", border: "1px solid rgba(201,168,76,0.3)", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="1.5">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                </div>
+                <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.5rem", color: "#fff", fontWeight: 300 }}>Coming Soon</p>
+                <p style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "0.72rem", color: "rgba(249,247,240,0.4)" }}>{"" + sub.url.replace("https://", "")}</p>
+                <p style={{ fontSize: "0.78rem", color: "rgba(249,247,240,0.5)", textAlign: "center", maxWidth: "320px" }}>
+                  This demo is being built. In the meantime, contact us to see a live walkthrough.
+                </p>
+                <a href={"mailto:" + siteConfig.email}
+                  style={{ padding: "10px 24px", background: "#C9A84C", color: "#0b1f3a", fontFamily: "'Plus Jakarta Sans',sans-serif", fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", textDecoration: "none", borderRadius: "2px" }}>
+                  Request Live Walkthrough
+                </a>
+              </div>
+              {/* END coming soon overlay */}
+            </div>
           </div>
-        </div>
+        ))}
 
-        {/* Demo explanation */}
-        <div style={{ marginTop:"24px", padding:"20px 24px", background:"rgba(26,74,138,0.06)", border:"1px solid rgba(26,74,138,0.15)", borderRadius:"4px" }}>
-          <p style={{ fontSize:"0.82rem", color:"var(--navy-700)", fontWeight:600, marginBottom:"4px" }}>About This Demo</p>
-          <p style={{ fontSize:"0.8rem", color:"rgba(28,28,30,0.6)", lineHeight:1.6 }}>
-            This is a simplified preview of how your business website would work. Your actual site would include your real logo, photos, services, testimonials, Google reviews, and full mobile optimisation — built specifically for your industry.
-          </p>
-        </div>
-
-        <div style={{ marginTop:"16px", display:"flex", gap:"10px", flexWrap:"wrap" }}>
-          <a href={`mailto:${siteConfig.email}`} className="btn-primary">
-            Build My Website — {siteConfig.email}
+        {/* Navigation */}
+        <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginTop: "8px" }}>
+          <a href={"mailto:" + siteConfig.email} className="btn-primary">
+            Get This System -- {siteConfig.email}
           </a>
-          <Link href="/demos/lead-generation" className="btn-outline-navy">
-            Next Demo: Lead Generation
-          </Link>
+          <Link href="/demos/lead-generation" className="btn-outline-navy">Next: Lead Generation</Link>
+          <Link href="/demos" className="btn-outline-navy">All Demos</Link>
         </div>
       </div>
     </div>

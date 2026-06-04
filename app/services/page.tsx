@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { services, flagshipPackage, siteConfig } from "@/data/index";
 import { CTA } from "@/components/sections/Sections";
+import TryDemoButton from "@/components/ui/TryDemoButton";
 
 export const metadata: Metadata = {
   title: "Digital Systems & Services | JK Technology Limited",
-  description: "8 digital services: websites, landing pages, email automation, SEO, CRM, payment systems, AI — fully integrated to help your business get customers, convert leads, and automate operations.",
+  description: "8 digital services: websites, landing pages, email automation, SEO, CRM, payment systems, AI -- fully integrated to help your business get customers, convert leads, and automate operations.",
   alternates: { canonical: "https://jktl.com.ng/services" },
 };
 
@@ -20,7 +21,7 @@ export default function ServicesPage() {
             <em className="not-italic gold-text">One Integrated Strategy.</em>
           </h1>
           <p className="body-lg" style={{ color:"rgba(249,247,240,0.55)", maxWidth:"560px" }}>
-            Every service we offer connects to the others. Together they form a complete business growth system — attract, capture, nurture, convert, retain.
+            Every service we offer connects to the others. Together they form a complete business growth system -- attract, capture, nurture, convert, retain.
           </p>
         </div>
       </section>
@@ -31,7 +32,7 @@ export default function ServicesPage() {
             <div key={s.slug} style={{ background:"#fff", border: s.highlight ? `2px solid var(--navy-600)` : "1px solid var(--cream-300)", borderRadius:"4px", overflow:"hidden" }}>
               {s.highlight && (
                 <div style={{ background:"var(--navy-900)", padding:"10px 28px" }}>
-                  <p className="label-xs" style={{ color:"var(--gold-400)" }}>— Most Popular Service</p>
+                  <p className="label-xs" style={{ color:"var(--gold-400)" }}>-- Most Popular Service</p>
                 </div>
               )}
               <div className="grid md:grid-cols-5">
@@ -70,9 +71,12 @@ export default function ServicesPage() {
                     <Link href={`/services/${s.slug}`} className="btn-primary" style={{ justifyContent:"center" }}>
                       View Full Details
                     </Link>
-                    <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-outline-navy" style={{ justifyContent:"center" }}>
-                      Book Free Consultation
+                    <a href={`mailto:${siteConfig.email}`} className="btn-outline-navy" style={{ justifyContent:"center" }}>
+                      Get Started
                     </a>
+                    {s.demoSlug && (
+                      <TryDemoButton href={s.demoSlug} label="Try Demo" variant="outline" style={{ justifyContent:"center", width:"100%" }} />
+                    )}
                   </div>
                 </div>
                 {/* Right: features */}
@@ -91,10 +95,10 @@ export default function ServicesPage() {
             <div style={{ position:"absolute", top:0, left:0, right:0, height:"3px", background:"var(--gold-400)" }} />
             <div className="grid md:grid-cols-5">
               <div style={{ padding:"40px 36px" }} className="md:col-span-3">
-                <p className="label-xs" style={{ color:"var(--gold-400)", marginBottom:"6px" }}>{flagshipPackage.number} — {flagshipPackage.label}</p>
+                <p className="label-xs" style={{ color:"var(--gold-400)", marginBottom:"6px" }}>{flagshipPackage.number} -- {flagshipPackage.label}</p>
                 <h2 className="display-lg mb-3" style={{ color:"var(--cream-50)" }}>{flagshipPackage.name}</h2>
                 <p className="body-md" style={{ color:"rgba(249,247,240,0.55)", marginBottom:"20px" }}>{flagshipPackage.description}</p>
-                <ul className="check-list" style={{ listStyle:"none", display:"grid", gridTemplateColumns:"1fr 1fr", gap:"4px" }}>
+                <ul className="check-list" style={{ listStyle:"none", display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))", gap:"4px" }}>
                   {flagshipPackage.features.map((f) => <li key={f} style={{ color:"rgba(249,247,240,0.7)" }}>{f}</li>)}
                 </ul>
               </div>
@@ -102,9 +106,10 @@ export default function ServicesPage() {
                 <p style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:300, fontSize:"2rem", color:"var(--cream-50)", lineHeight:1 }}>{flagshipPackage.priceFrom}</p>
                 <p style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:300, fontSize:"1.1rem", color:"rgba(249,247,240,0.4)", lineHeight:1 }}>to {flagshipPackage.priceTo}</p>
                 <p className="label-xs" style={{ color:"var(--gold-400)" }}>{flagshipPackage.deliveryNote}</p>
-                <a href={siteConfig.zoomLink} target="_blank" rel="noopener noreferrer" className="btn-gold">
+                <a href={`mailto:${siteConfig.email}`} className="btn-gold">
                   Discuss This Package
                 </a>
+                <TryDemoButton href="/demos" label="Try All Demos" variant="outline" style={{ justifyContent:"center", borderColor:"rgba(249,247,240,0.4)", color:"rgba(249,247,240,0.8)" }} />
                 <Link href="/packages" className="btn-outline-cream" style={{ justifyContent:"center", textAlign:"center" }}>
                   View All Packages
                 </Link>
