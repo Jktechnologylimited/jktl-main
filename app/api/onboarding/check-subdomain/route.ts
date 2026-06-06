@@ -32,10 +32,10 @@ export async function GET(req: NextRequest) {
       const { sql } = await import("@/lib/db");
       const rows = await sql`SELECT id FROM organisations WHERE subdomain = ${sub} LIMIT 1`;
       if (rows.length > 0) {
-        return NextResponse.json({ available: false, error: "Already taken — try another" });
+        return NextResponse.json({ available: false, error: "Already taken -- try another" });
       }
     } catch {
-      // DB not available — skip check
+      // DB not available -- skip check
     }
   }
 

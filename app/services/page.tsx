@@ -1,125 +1,128 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { services, flagshipPackage, siteConfig } from "@/data/index";
-import { CTA } from "@/components/sections/Sections";
-import TryDemoButton from "@/components/ui/TryDemoButton";
+import { services, flagshipPackage, siteConfig, companyDetails } from "@/data/index";
 
 export const metadata: Metadata = {
-  title: "Digital Systems & Services | JK Technology Limited",
-  description: "8 digital services: websites, landing pages, email automation, SEO, CRM, payment systems, AI -- fully integrated to help your business get customers, convert leads, and automate operations.",
-  alternates: { canonical: "https://jktl.com.ng/services" },
+  title: "Agency Services | JK Technology Limited",
+  description: "Custom digital systems for Nigerian businesses. Websites, SEO, CRM, email automation, payment infrastructure, AI chatbots. Scoped, built, and delivered by JKTL.",
 };
 
 export default function ServicesPage() {
   return (
-    <>
-      <section style={{ background:"var(--navy-950)", paddingTop:"120px", paddingBottom:"80px" }}>
-        <div className="max-w-7xl mx-auto px-8">
-          <span className="gold-rule mb-6" style={{ display:"block" }} />
-          <h1 className="display-hero mb-5" style={{ color:"var(--cream-50)", maxWidth:"800px" }}>
-            8 Systems.<br/>
-            <em className="not-italic gold-text">One Integrated Strategy.</em>
+    <div className="bg-cream-50">
+      <section className="bg-navy-950" style={{ paddingTop: "clamp(88px,12vw,120px)", paddingBottom: "64px" }}>
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="inline-flex items-center gap-2 bg-gold-400/10 border border-gold-400/20 px-3.5 py-1.5 rounded-sm mb-6">
+            <span className="label-xs text-gold-400">Agency Services -- Custom Scoped Work</span>
+          </div>
+          <h1 className="display-hero text-white mb-4" style={{ maxWidth: 720 }}>
+            Custom Digital Systems<br /><span className="text-gold-400">Built for Your Business.</span>
           </h1>
-          <p className="body-lg" style={{ color:"rgba(249,247,240,0.55)", maxWidth:"560px" }}>
-            Every service we offer connects to the others. Together they form a complete business growth system -- attract, capture, nurture, convert, retain.
+          <p className="body-lg text-white/50 mb-4" style={{ maxWidth: 580 }}>
+            Not self-service. Every project is scoped, quoted, built, and delivered by our team.
+            You deal directly with the founder -- not a helpdesk or outsourced developer.
           </p>
+          <p className="font-mono text-[0.72rem] text-white/25 mb-8">
+            Serving Nigeria and Africa since 2019. 50+ systems delivered.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/get-started/services" className="btn-gold px-6 py-3.5">Submit an Inquiry</Link>
+            <a href={companyDetails.whatsappLink} target="_blank" rel="noopener noreferrer" className="btn-ghost px-5 py-3.5 flex items-center gap-2 text-sm">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.556 4.118 1.528 5.845L0 24l6.335-1.652A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.652-.493-5.188-1.357l-.371-.214-3.861 1.007 1.028-3.752-.233-.387A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+              WhatsApp Us
+            </a>
+          </div>
         </div>
       </section>
 
-      <section className="section-pad" style={{ background:"var(--cream-50)" }}>
-        <div className="max-w-7xl mx-auto px-8 space-y-4">
-          {services.map((s, i) => (
-            <div key={s.slug} style={{ background:"#fff", border: s.highlight ? `2px solid var(--navy-600)` : "1px solid var(--cream-300)", borderRadius:"4px", overflow:"hidden" }}>
-              {s.highlight && (
-                <div style={{ background:"var(--navy-900)", padding:"10px 28px" }}>
-                  <p className="label-xs" style={{ color:"var(--gold-400)" }}>-- Most Popular Service</p>
-                </div>
-              )}
-              <div className="grid md:grid-cols-5">
-                {/* Left */}
-                <div style={{ padding:"40px 36px", background: i % 2 !== 0 ? "var(--cream-100)" : "#fff" }} className="md:col-span-2">
-                  <div style={{ display:"flex", alignItems:"center", gap:"12px", marginBottom:"12px" }}>
-                    <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.2rem", fontWeight:300, color:"var(--gold-400)" }}>{s.number}</span>
-                    <span style={{ fontSize:"1.4rem" }}>{s.icon}</span>
-                    <p className="label-xs" style={{ color:"var(--navy-500)" }}>{s.tier}</p>
-                  </div>
-                  <h2 className="display-lg mb-2" style={{ color:"var(--navy-900)" }}>{s.label}</h2>
-                  <p className="body-md" style={{ color:"rgba(28,28,30,0.6)", marginBottom:"20px" }}>{s.tagline}</p>
-                  <p className="body-sm" style={{ color:"rgba(28,28,30,0.55)", marginBottom:"20px" }}>{s.description}</p>
-                  <div style={{ display:"flex", flexWrap:"wrap", gap:"6px", marginBottom:"20px" }}>
-                    {s.bestFor.map((b) => (
-                      <span key={b} style={{ fontSize:"0.72rem", fontWeight:600, color:"var(--navy-600)", background:"var(--navy-50,#EEF2F9)", padding:"4px 12px", borderRadius:"2px", border:"1px solid var(--navy-100,#D0DAED)" }}>{b}</span>
-                    ))}
-                  </div>
-                  <div style={{ padding:"16px 18px", background:"var(--navy-900)", borderRadius:"2px", marginBottom:"16px" }}>
-                    <div style={{ display:"flex", justifyContent:"space-between", marginBottom:"4px" }}>
-                      <span className="label-xs" style={{ color:"rgba(249,247,240,0.4)" }}>From</span>
-                      <span style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:400, fontSize:"1.3rem", color:"var(--cream-50)", lineHeight:1 }}>{s.priceFrom}</span>
-                    </div>
-                    <div style={{ display:"flex", justifyContent:"space-between" }}>
-                      <span className="label-xs" style={{ color:"rgba(249,247,240,0.4)" }}>Up to</span>
-                      <span style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:300, fontSize:"1.1rem", color:"rgba(249,247,240,0.7)", lineHeight:1 }}>{s.priceTo}</span>
-                    </div>
-                    {s.priceMonthly && (
-                      <div style={{ display:"flex", justifyContent:"space-between", marginTop:"4px", paddingTop:"6px", borderTop:"1px solid rgba(249,247,240,0.08)" }}>
-                        <span className="label-xs" style={{ color:"rgba(249,247,240,0.4)" }}>Monthly</span>
-                        <span className="label-xs" style={{ color:"var(--gold-400)" }}>{s.priceMonthly}</span>
-                      </div>
-                    )}
-                  </div>
-                  <div style={{ display:"flex", flexDirection:"column", gap:"8px" }}>
-                    <Link href={`/services/${s.slug}`} className="btn-primary" style={{ justifyContent:"center" }}>
-                      View Full Details
-                    </Link>
-                    <a href={`mailto:${siteConfig.email}`} className="btn-outline-navy" style={{ justifyContent:"center" }}>
-                      Get Started
-                    </a>
-                    {s.demoSlug && (
-                      <TryDemoButton href={s.demoSlug} label="Try Demo" variant="outline" style={{ justifyContent:"center", width:"100%" }} />
-                    )}
-                  </div>
-                </div>
-                {/* Right: features */}
-                <div style={{ padding:"40px 36px", borderLeft:"1px solid var(--cream-300)" }} className="md:col-span-3">
-                  <p className="label-xs" style={{ color:"rgba(28,28,30,0.3)", marginBottom:"20px" }}>What&apos;s Included</p>
-                  <ul className="check-list" style={{ listStyle:"none", display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(230px,1fr))", gap:"4px" }}>
-                    {s.features.map((f) => <li key={f}>{f}</li>)}
-                  </ul>
-                </div>
+      {/* How it works -- agency */}
+      <section className="bg-cream-100 px-4 sm:px-6 lg:px-8 py-10">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-px bg-cream-300">
+            {[
+              { n: "01", t: "Submit Inquiry",   d: "Fill out our discovery form with your needs, budget, and timeline." },
+              { n: "02", t: "Auto-Reply",        d: "You get a confirmation immediately. We respond within 24 hours." },
+              { n: "03", t: "We Review",         d: "Owner reviews your inquiry personally and scopes the work." },
+              { n: "04", t: "Custom Proposal",   d: "You receive a detailed proposal and price within 24 hours." },
+              { n: "05", t: "Pay & Build",        d: "Accepted? Paystack invoice sent. Project begins." },
+            ].map(s => (
+              <div key={s.n} className="bg-cream-50 p-5">
+                <p className="font-mono text-[0.65rem] font-bold text-gold-400 mb-2">{s.n}</p>
+                <p className="font-bold text-[0.85rem] text-navy-900 mb-1">{s.t}</p>
+                <p className="text-[0.75rem] text-black/50 leading-relaxed">{s.d}</p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+        </div>
+      </section>
 
-          {/* Flagship */}
-          <div style={{ background:"var(--navy-900)", borderRadius:"4px", overflow:"hidden", border:"2px solid var(--gold-400)", position:"relative" }}>
-            <div style={{ position:"absolute", top:0, left:0, right:0, height:"3px", background:"var(--gold-400)" }} />
-            <div className="grid md:grid-cols-5">
-              <div style={{ padding:"40px 36px" }} className="md:col-span-3">
-                <p className="label-xs" style={{ color:"var(--gold-400)", marginBottom:"6px" }}>{flagshipPackage.number} -- {flagshipPackage.label}</p>
-                <h2 className="display-lg mb-3" style={{ color:"var(--cream-50)" }}>{flagshipPackage.name}</h2>
-                <p className="body-md" style={{ color:"rgba(249,247,240,0.55)", marginBottom:"20px" }}>{flagshipPackage.description}</p>
-                <ul className="check-list" style={{ listStyle:"none", display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))", gap:"4px" }}>
-                  {flagshipPackage.features.map((f) => <li key={f} style={{ color:"rgba(249,247,240,0.7)" }}>{f}</li>)}
-                </ul>
+      {/* Service cards */}
+      <section className="bg-cream-50 px-4 sm:px-6 lg:px-8 py-16">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="mb-10">
+            <span className="gold-rule block mb-3" />
+            <h2 className="display-lg text-navy-900">8 Service Categories</h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {services.map(s => (
+              <div key={s.slug} className="bg-white border border-cream-300 rounded p-6 flex flex-col">
+                <div className="w-10 h-10 rounded-sm bg-navy-900 flex items-center justify-center mb-4">
+                  <span className="font-mono text-[0.65rem] font-bold text-gold-400">{s.number}</span>
+                </div>
+                <p className="font-bold text-[0.95rem] text-navy-900 mb-1.5 leading-snug">{s.label}</p>
+                <p className="text-[0.78rem] text-black/50 mb-3 flex-1 leading-relaxed">{s.description}</p>
+                <div className="mb-4">
+                  <p className="font-display font-light text-[1.4rem] text-navy-900 leading-none">{s.priceFrom}</p>
+                  {s.priceTo && s.priceTo !== s.priceFrom && (
+                    <p className="text-[0.72rem] text-black/35">up to {s.priceTo}</p>
+                  )}
+                </div>
+                <div className="flex gap-2">
+                  <Link href={`/services/${s.slug}`}
+                    className="flex-1 py-2.5 text-center bg-navy-900 text-white text-[0.68rem] font-bold rounded-sm uppercase tracking-wide no-underline">
+                    Details
+                  </Link>
+                  <Link href="/get-started/services"
+                    className="px-3.5 py-2.5 border border-cream-300 text-black/60 text-[0.68rem] font-semibold rounded-sm no-underline bg-transparent">
+                    Inquire
+                  </Link>
+                </div>
               </div>
-              <div style={{ padding:"40px 36px", borderLeft:"1px solid rgba(249,247,240,0.08)", display:"flex", flexDirection:"column", justifyContent:"center", gap:"12px" }} className="md:col-span-2">
-                <p style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:300, fontSize:"2rem", color:"var(--cream-50)", lineHeight:1 }}>{flagshipPackage.priceFrom}</p>
-                <p style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:300, fontSize:"1.1rem", color:"rgba(249,247,240,0.4)", lineHeight:1 }}>to {flagshipPackage.priceTo}</p>
-                <p className="label-xs" style={{ color:"var(--gold-400)" }}>{flagshipPackage.deliveryNote}</p>
-                <a href={`mailto:${siteConfig.email}`} className="btn-gold">
-                  Discuss This Package
-                </a>
-                <TryDemoButton href="/demos" label="Try All Demos" variant="outline" style={{ justifyContent:"center", borderColor:"rgba(249,247,240,0.4)", color:"rgba(249,247,240,0.8)" }} />
-                <Link href="/packages" className="btn-outline-cream" style={{ justifyContent:"center", textAlign:"center" }}>
-                  View All Packages
-                </Link>
+            ))}
+
+            {/* Flagship package */}
+            <div className="bg-navy-900 rounded p-6 flex flex-col sm:col-span-2 lg:col-span-1 xl:col-span-1">
+              <div className="w-10 h-10 rounded-sm bg-gold-400/15 border border-gold-400/30 flex items-center justify-center mb-4">
+                <span className="font-mono text-[0.65rem] font-bold text-gold-400">FS</span>
               </div>
+              <p className="font-bold text-[0.95rem] text-white mb-1.5 leading-snug">{flagshipPackage.name}</p>
+              <p className="text-[0.78rem] text-white/45 mb-3 flex-1 leading-relaxed">{flagshipPackage.tagline}</p>
+              <div className="mb-4">
+                <p className="font-display font-light text-[1.4rem] text-gold-400 leading-none">{flagshipPackage.priceFrom}</p>
+                <p className="text-[0.72rem] text-white/35">up to {flagshipPackage.priceTo}</p>
+              </div>
+              <Link href="/get-started/services"
+                className="w-full py-2.5 text-center bg-gold-400 text-navy-900 text-[0.68rem] font-bold rounded-sm uppercase tracking-wide no-underline">
+                Inquire Now
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      <CTA heading="Not Sure Which Service You Need?" subtext="contact us. We'll assess your current situation and recommend exactly which services will move the needle fastest for your business." />
-    </>
+      {/* CTA */}
+      <section className="bg-navy-950 px-4 sm:px-6 lg:px-8 py-14 text-center">
+        <div className="max-w-lg mx-auto">
+          <h2 className="display-lg text-cream-50 mb-3">Not sure which service you need?</h2>
+          <p className="text-white/45 text-[0.9rem] mb-7">
+            Submit an inquiry and describe what you are trying to achieve. We will scope the right solution and send a proposal within 24 hours.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link href="/get-started/services" className="btn-gold px-8 py-3.5">Submit an Inquiry</Link>
+            <a href={"mailto:" + siteConfig.email} className="btn-ghost px-7 py-3.5">{siteConfig.email}</a>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

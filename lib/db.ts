@@ -78,7 +78,7 @@ CREATE INDEX IF NOT EXISTS idx_affiliates_code    ON affiliates(referral_code);
 CREATE INDEX IF NOT EXISTS idx_affiliates_email   ON affiliates(email);
 `;
 
-// ── ONBOARDING SCHEMA ────────────────────────────────────────────────────────
+//  ONBOARDING SCHEMA 
 // Add this to your Neon DB by hitting GET /api/onboarding/setup
 export const ONBOARDING_SCHEMA = `
 CREATE TABLE IF NOT EXISTS organisations (

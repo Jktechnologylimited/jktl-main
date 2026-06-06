@@ -1120,7 +1120,7 @@ export const deskPlans = [
     id: "enterprise",
     name: "Enterprise",
     setupFee: 2000000,
-    monthlyFee: 150000,
+    monthlyFee: 200000,
     description: "For large organisations needing full customisation.",
     features: [
       "Everything in Pro",
@@ -1135,12 +1135,56 @@ export const deskPlans = [
   },
 ];
 
-// Per-product pricing (from v3 brief)
-export const productPricing: Record<string,{setup:number;monthly:number;label:string}> = {
-  faithdesk:  { setup: 300000, monthly: 50000,  label: "N300k setup / N50k/mo" },
-  detaildesk: { setup: 200000, monthly: 30000,  label: "N200k setup / N30k/mo" },
-  schooldesk: { setup: 300000, monthly: 50000,  label: "N300k setup / N50k/mo" },
+//  PER-PRODUCT PRICING (overrides plans for display) 
+export const productPricing = {
+  faithdesk: {
+    setup: 300000,
+    monthly: 50000,
+    label: "N300k setup + N50k/mo",
+  },
+  detaildesk: {
+    setup: 200000,
+    monthly: 30000,
+    label: "N200k setup + N30k/mo",
+  },
+  schooldesk: {
+    setup: null,
+    monthly: 25000,
+    label: "Waitlist -- lock in N25k/mo",
+    waitlistNote: "Join now to lock in launch pricing before the price goes up.",
+  },
 };
 
-// Accounts hub URL
+//  BUSINESS SUITE ROADMAP 
+export const businessSuiteRoadmap = [
+  {
+    id: "invoicedesk",
+    name: "InvoiceDesk",
+    icon: "IV",
+    color: "#F59E0B",
+    tagline: "Global invoicing for freelancers and businesses",
+    description: "Send professional invoices, collect payments via Paystack, track payment status, automated reminders. Free to use -- platform fee on transactions.",
+    status: "roadmap",
+  },
+  {
+    id: "qrpay",
+    name: "QRPay",
+    icon: "QR",
+    color: "#10B981",
+    tagline: "QR code payments for physical shops",
+    description: "Generate a QR code for your shop counter. Customers scan and pay instantly. Opay/Monnify/Paystack. Transaction dashboard included.",
+    status: "roadmap",
+  },
+];
+
+//  COMPANY DETAILS 
+export const companyDetails = {
+  name: "JK Technology Limited",
+  cac: "RC-8754824",
+  founded: "2019",
+  country: "Nigeria",
+  whatsapp: "+2347036580994",
+  whatsappLink: "https://wa.me/2347036580994",
+};
+
 export const ACCOUNTS_URL = process.env.NEXT_PUBLIC_ACCOUNTS_URL || "https://accounts.jktl.com.ng";

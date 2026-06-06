@@ -8,8 +8,16 @@ import { deskProducts, siteConfig } from "@/data/index";
 export default function Navbar() {
   const [deskOpen, setDeskOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [signedIn, setSignedIn] = useState(false);
   const pathname = usePathname();
   const dropRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    fetch("/api/auth/session")
+      .then(r => r.json())
+      .then(d => setSignedIn(d.authenticated === true))
+      .catch(() => {});
+  }, [pathname]);
 
   useEffect(() => { setMenuOpen(false); setDeskOpen(false); }, [pathname]);
 
@@ -25,16 +33,12 @@ export default function Navbar() {
   return (
     <>
       {/*  NAV BAR  */}
-      <nav className="fixed top-0 left-0 right-0 z-[100] h-[68px] flex items-center bg-navy-950/97 backdrop-blur-md border-b border-white/[0.06]">
+      <nav className="fixed top-0 left-0 right-0 z-[100] h-[68px] flex items-center border-b border-white/[0.06]" style={{ background: "#060E2A" }}>
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between gap-4">
 
           {/* Logo */}
-          <Link href="/" className="no-underline flex items-center gap-2.5 shrink-0">
-            <Image src="/logo.png" alt="JK Technology" width={34} height={34} className="object-contain" />
-            <div className="hidden sm:block">
-              <p className="font-bold text-[0.88rem] text-white leading-none">JK Technology</p>
-              <p className="font-mono text-[0.5rem] text-gold-400 tracking-[0.15em]">DESK SUITE</p>
-            </div>
+          <Link href="/" className="no-underline flex items-center gap-2 shrink-0">
+            <Image src="/logo.png" alt="JK Technology Limited" width={44} height={44} className="object-contain" />
           </Link>
 
           {/* Desktop nav links -- hidden below lg */}
@@ -113,7 +117,7 @@ export default function Navbar() {
 
       {/*  MOBILE MENU OVERLAY  */}
       {menuOpen && (
-        <div className="fixed top-[68px] left-0 right-0 bottom-0 z-[99] bg-navy-950/98 overflow-y-auto lg:hidden">
+        <div className="fixed top-[68px] left-0 right-0 bottom-0 z-[99] overflow-y-auto lg:hidden" style={{ background: "#060E2A" }}>
           <div className="px-4 py-6 flex flex-col gap-1 pb-10">
 
             {/* Products label */}

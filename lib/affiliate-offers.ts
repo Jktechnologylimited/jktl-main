@@ -123,13 +123,13 @@ export const OFFERS = [
 ];
 
 export const PAYOUT = {
-  minimum: 50000,
+  minimum: 100000,
   signupBonus: 20000,
   payoutDay: 28,
   schedule: "Monthly -- 28th of every month",
   methods: ["Bank Transfer (all Nigerian banks)"],
   currency: "NGN",
-  cookieDays: 30,
+  cookieDays: 60,
   bonusExpiryDays: 90,
   dormancyDays: 365,
   commissionApprovalDays: 60,

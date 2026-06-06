@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { deskProducts, deskPlans, siteConfig } from "@/data/index";
+import { deskProducts, deskPlans, productPricing, businessSuiteRoadmap, siteConfig, companyDetails, ACCOUNTS_URL } from "@/data/index";
 
 export const metadata: Metadata = {
   title: "Desk by JK Technology | Vertical Software for African Businesses",
-  description: "Desk is a suite of industry-specific management software. FaithDesk for ministries, DetailDesk for auto detailing, SchoolDesk for schools. Self-service onboarding.",
+  description: "Desk is a suite of industry-specific management software. FaithDesk for ministries, DetailDesk for auto detailing businesses, SchoolDesk for schools. Self-service onboarding, Paystack billing, live today.",
   alternates: { canonical: "https://jktl.com.ng/desk" },
 };
 
@@ -12,208 +12,216 @@ function fmtN(n: number) { return "N" + n.toLocaleString("en-NG"); }
 
 export default function DeskPage() {
   return (
-    <div style={{ background: "var(--cream-50)" }}>
+    <div className="bg-cream-50">
 
       {/* Hero */}
-      <section style={{ background: "var(--navy-950)", paddingTop: "clamp(88px,12vw,120px)", paddingBottom: "80px", position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", inset: 0, opacity: 0.025, backgroundImage: "linear-gradient(rgba(201,168,76,1) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,1) 1px,transparent 1px)", backgroundSize: "64px 64px", pointerEvents: "none" }} />
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px", position: "relative", zIndex: 1 }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(201,168,76,0.1)", border: "1px solid rgba(201,168,76,0.2)", padding: "5px 14px", borderRadius: 2, marginBottom: 24 }}>
-            <span className="label-xs" style={{ color: "var(--gold-400)" }}>jktl.com.ng / desk</span>
+      <section className="bg-navy-950 relative overflow-hidden" style={{ paddingTop: "clamp(88px,12vw,120px)", paddingBottom: "80px" }}>
+        <div className="absolute inset-0 opacity-[0.025] pointer-events-none"
+          style={{ backgroundImage: "linear-gradient(rgba(201,168,76,1) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,1) 1px,transparent 1px)", backgroundSize: "64px 64px" }} />
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="inline-flex items-center gap-2 bg-gold-400/10 border border-gold-400/20 px-4 py-1.5 rounded-sm mb-6">
+            <span className="label-xs text-gold-400">jktl.com.ng / desk</span>
           </div>
-          <h1 className="display-hero" style={{ color: "#fff", maxWidth: 700, marginBottom: 16 }}>
-            Desk.<br />
-            <span style={{ color: "var(--gold-400)" }}>Vertical Software Suite.</span>
+          <h1 className="display-hero text-white mb-4" style={{ maxWidth: 700 }}>
+            Desk. <span className="text-gold-400">Vertical Software Suite.</span>
           </h1>
-          <p className="body-lg" style={{ color: "rgba(249,247,240,0.5)", maxWidth: 520, marginBottom: 12 }}>
-            Industry-specific management systems built for African businesses. Self-service onboarding. Real-time deployment. Subscription billing.
+          <p className="body-lg text-white/50 mb-3" style={{ maxWidth: 540 }}>
+            Industry-specific management systems built for African businesses. Self-service onboarding. Real-time deployment. Paystack billing.
           </p>
-          <p className="body-sm" style={{ color: "rgba(249,247,240,0.3)", fontFamily: "'JetBrains Mono',monospace", marginBottom: 36 }}>
-            Like Google Workspace -- except built for churches, schools, and auto detailers.
+          <p className="font-mono text-[0.72rem] text-white/25 mb-8">
+            Like Google Workspace -- except built for churches, schools, and auto detailing businesses in Nigeria.
           </p>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-            <Link href="https://accounts.jktl.com.ng/signup" className="btn-gold" style={{ padding: "12px 28px", fontSize: "0.78rem" }}>Choose a Product</Link>
-            <a href={"mailto:" + siteConfig.email} className="btn-ghost" style={{ fontSize: "0.78rem" }}>Talk to us</a>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/get-started" className="btn-gold px-7 py-3.5">Choose a Product</Link>
+            <a href={companyDetails.whatsappLink} target="_blank" rel="noopener noreferrer" className="btn-ghost px-5 py-3.5 flex items-center gap-2 text-sm">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.556 4.118 1.528 5.845L0 24l6.335-1.652A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.652-.493-5.188-1.357l-.371-.214-3.861 1.007 1.028-3.752-.233-.387A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+              Ask on WhatsApp
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Products */}
-      <section style={{ background: "var(--cream-50)", padding: "80px 32px" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div style={{ marginBottom: 48 }}>
-            <span className="gold-rule" style={{ display: "block", marginBottom: 12 }} />
-            <h2 className="display-lg" style={{ color: "var(--navy-900)" }}>Three Products. One Suite.</h2>
+      {/* Products detail rows */}
+      <section className="bg-cream-50 px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="mb-12">
+            <span className="gold-rule block mb-3" />
+            <h2 className="display-lg text-navy-900">Three Products. One Suite.</h2>
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            {deskProducts.map((p, i) => (
-              <div key={p.id} style={{ background: "#fff", border: "1px solid var(--cream-300)", borderLeft: "4px solid " + p.color, borderRadius: 4, padding: "28px 32px" }}>
-                <div style={{ display: "grid", gridTemplateColumns: "280px 1fr auto", gap: 32, alignItems: "start" }}>
-                  {/* Left */}
-                  <div>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-                      <div style={{ width: 40, height: 40, background: p.color + "15", border: "1px solid " + p.color + "30", borderRadius: 2, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                        <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "0.72rem", fontWeight: 700, color: p.color }}>{p.icon}</span>
+          <div className="flex flex-col gap-4">
+            {deskProducts.map(p => {
+              const pp = productPricing[p.id as keyof typeof productPricing];
+              return (
+                <div key={p.id} className="bg-white border border-cream-300 rounded p-6 sm:p-8"
+                  style={{ borderLeft: `4px solid ${p.color}` }}>
+                  {/* Header row */}
+                  <div className="flex flex-col sm:flex-row sm:items-start gap-5 mb-6">
+                    <div className="flex items-center gap-3 shrink-0">
+                      <div className="w-12 h-12 rounded-sm flex items-center justify-center"
+                        style={{ background: p.color + "15", border: `1px solid ${p.color}30` }}>
+                        <span className="font-mono text-[0.72rem] font-bold" style={{ color: p.color }}>{p.icon}</span>
                       </div>
                       <div>
-                        <p style={{ fontWeight: 800, fontSize: "1.1rem", color: "var(--navy-900)" }}>{p.name}</p>
-                        <span style={{ display: "inline-block", fontFamily: "'JetBrains Mono',monospace", fontSize: "0.58rem", fontWeight: 700, color: p.status === "live" ? "#059669" : "#D97706", background: p.status === "live" ? "rgba(5,150,105,0.1)" : "rgba(217,119,6,0.1)", padding: "2px 8px", borderRadius: 2 }}>
+                        <p className="font-bold text-[1.15rem] text-navy-900">{p.name}</p>
+                        <p className="text-[0.72rem] text-black/40">{p.tagline}</p>
+                        <span className="inline-block font-mono text-[0.58rem] font-bold px-2 py-0.5 rounded mt-1"
+                          style={{ background: p.status === "live" ? "rgba(5,150,105,0.1)" : "rgba(245,158,11,0.1)", color: p.status === "live" ? "#059669" : "#D97706" }}>
                           {p.status === "live" ? "LIVE" : "COMING SOON"}
                         </span>
                       </div>
                     </div>
-                    <p className="body-sm" style={{ color: "rgba(28,28,30,0.55)", lineHeight: 1.7 }}>{p.description}</p>
+                    <div className="flex-1">
+                      <p className="body-md text-black/55 leading-[1.7]">{p.description}</p>
+                    </div>
+                    <div className="shrink-0 text-right">
+                      {pp && pp.setup ? (
+                        <>
+                          <p className="font-bold text-[1.4rem] text-navy-900 leading-none">{fmtN(pp.setup)}</p>
+                          <p className="text-[0.68rem] text-black/35 mb-1">setup fee</p>
+                          <p className="font-bold text-[0.9rem] text-navy-700">{fmtN(pp.monthly)}<span className="font-normal text-[0.75rem] text-black/35">/mo</span></p>
+                        </>
+                      ) : (
+                        <>
+                          <p className="font-bold text-[1rem] text-navy-900">Waitlist</p>
+                          <p className="text-[0.72rem] text-black/40">lock in {fmtN((pp as {monthly:number}).monthly)}/mo</p>
+                        </>
+                      )}
+                    </div>
                   </div>
 
-                  {/* Features */}
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(280px,1fr))", gap: "4px 16px" }}>
-                    {p.features.map((f) => (
-                      <div key={f} style={{ display: "flex", gap: 8, fontSize: "0.8rem", color: "rgba(28,28,30,0.6)", alignItems: "flex-start", padding: "3px 0" }}>
-                        <span style={{ color: p.color, flexShrink: 0 }}>v</span>{f}
+                  {/* Features grid */}
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-1.5 mb-5">
+                    {p.features.map(f => (
+                      <div key={f} className="flex gap-2 text-[0.8rem] text-black/60 items-start">
+                        <span className="shrink-0 mt-0.5" style={{ color: p.color }}>&#10003;</span>{f}
                       </div>
                     ))}
                   </div>
 
+                  {/* Domain structure */}
+                  <div className="border-t border-cream-200 pt-4 mb-5">
+                    <p className="label-xs text-black/30 mb-2">Your domains</p>
+                    <div className="flex flex-wrap gap-2">
+                      {p.domains.map((d: {label:string;example:string;type:string}) => (
+                        <div key={d.label} className="flex items-center gap-2">
+                          <span className="font-mono text-[0.72rem] text-black/50">{d.example}</span>
+                          <span className="font-mono text-[0.58rem] font-bold px-1.5 py-0.5 rounded"
+                            style={{
+                              background: d.type === "public" ? "rgba(6,182,212,0.1)" : d.type === "admin" ? "rgba(239,68,68,0.1)" : d.type === "portal" ? "rgba(139,92,246,0.1)" : "rgba(245,158,11,0.1)",
+                              color: d.type === "public" ? "#0891B2" : d.type === "admin" ? "#DC2626" : d.type === "portal" ? "#7C3AED" : "#D97706",
+                            }}>{d.type}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
                   {/* CTA */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: 8, minWidth: 140 }}>
+                  <div className="flex gap-3 flex-wrap">
                     {p.status === "live" ? (
                       <>
-                        <Link href={p.getStartedHref} style={{ padding: "10px 20px", background: p.color, color: "#fff", fontSize: "0.72rem", fontWeight: 700, textDecoration: "none", borderRadius: 2, textAlign: "center", letterSpacing: "0.08em", textTransform: "uppercase" }}>Get Started</Link>
-                        <Link href={p.href} style={{ padding: "10px 20px", background: "transparent", border: "1px solid var(--cream-300)", color: "rgba(28,28,30,0.6)", fontSize: "0.72rem", textDecoration: "none", borderRadius: 2, textAlign: "center" }}>Learn More</Link>
+                        <Link href={p.getStartedHref}
+                          className="px-6 py-2.5 text-white text-[0.72rem] font-bold rounded-sm uppercase tracking-wide no-underline"
+                          style={{ background: p.color }}>
+                          Get Started
+                        </Link>
+                        <Link href={p.href} className="px-6 py-2.5 bg-transparent border border-cream-300 text-black/60 text-[0.72rem] font-semibold rounded-sm no-underline">
+                          Full Details
+                        </Link>
                       </>
                     ) : (
-                      <Link href={p.href} style={{ padding: "10px 20px", background: "var(--cream-100)", border: "1px solid var(--cream-300)", color: "rgba(28,28,30,0.5)", fontSize: "0.72rem", fontWeight: 700, textDecoration: "none", borderRadius: 2, textAlign: "center" }}>Join Waitlist</Link>
+                      <Link href={p.href}
+                        className="px-6 py-2.5 text-[0.72rem] font-bold rounded-sm no-underline"
+                        style={{ background: p.color + "20", color: p.color, border: `1px solid ${p.color}30` }}>
+                        Join Waitlist
+                      </Link>
                     )}
+                    <a href={companyDetails.whatsappLink} target="_blank" rel="noopener noreferrer"
+                      className="px-5 py-2.5 text-[0.72rem] font-semibold rounded-sm no-underline flex items-center gap-1.5"
+                      style={{ background: "rgba(37,211,102,0.08)", color: "#16a34a", border: "1px solid rgba(37,211,102,0.2)" }}>
+                      Ask on WhatsApp
+                    </a>
                   </div>
                 </div>
-
-                {/* Domains */}
-                <div style={{ marginTop: 16, paddingTop: 16, borderTop: "1px solid var(--cream-200)", display: "flex", gap: 12, flexWrap: "wrap" }}>
-                  <p className="label-xs" style={{ color: "rgba(28,28,30,0.3)", alignSelf: "center" }}>Domains:</p>
-                  {p.domains.map((d) => (
-                    <div key={d.label} style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                      <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "0.65rem", color: "rgba(28,28,30,0.4)" }}>{d.example}</span>
-                      <span style={{ fontSize: "0.58rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", padding: "1px 6px", borderRadius: 2,
-                        background: d.type === "public" ? "rgba(6,182,212,0.1)" : d.type === "admin" ? "rgba(239,68,68,0.1)" : d.type === "portal" ? "rgba(139,92,246,0.1)" : "rgba(245,158,11,0.1)",
-                        color: d.type === "public" ? "#0891B2" : d.type === "admin" ? "#DC2626" : d.type === "portal" ? "#7C3AED" : "#D97706",
-                      }}>{d.type}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Pricing */}
-      <section style={{ background: "var(--navy-900)", padding: "80px 32px" }}>
-        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <h2 className="display-lg" style={{ color: "var(--cream-50)", marginBottom: 8 }}>Pricing</h2>
-            <p className="body-md" style={{ color: "rgba(249,247,240,0.4)" }}>Same plans across all Desk products.</p>
+      {/* Pricing table */}
+      <section className="bg-navy-900 px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <div className="max-w-[1000px] mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="display-lg text-cream-50 mb-3">Pricing Plans</h2>
+            <p className="text-white/40 text-[0.9rem]">Same plans across all Desk products. One-time setup + monthly subscription.</p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(260px,1fr))", gap: 2, background: "rgba(249,247,240,0.06)" }}>
-            {deskPlans.map((plan) => (
-              <div key={plan.id} style={{ padding: "28px", background: plan.highlight ? "rgba(201,168,76,0.06)" : "var(--navy-800)", borderTop: plan.highlight ? "2px solid var(--gold-400)" : "2px solid transparent", position: "relative" }}>
-                {plan.highlight && <p style={{ position: "absolute", top: 14, right: 14, fontFamily: "'JetBrains Mono',monospace", fontSize: "0.58rem", color: "var(--gold-400)", background: "rgba(201,168,76,0.15)", padding: "2px 8px", borderRadius: 2 }}>POPULAR</p>}
-                <p style={{ fontWeight: 700, fontSize: "1rem", color: plan.highlight ? "var(--gold-400)" : "var(--cream-50)", marginBottom: 4 }}>{plan.name}</p>
-                <p style={{ fontSize: "0.75rem", color: "rgba(249,247,240,0.4)", marginBottom: 20 }}>{plan.description}</p>
-                <p style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 300, fontSize: "2rem", color: "#fff", lineHeight: 1, marginBottom: 2 }}>{fmtN(plan.setupFee)}</p>
-                <p style={{ fontSize: "0.7rem", color: "rgba(249,247,240,0.35)", marginBottom: 6 }}>one-time setup</p>
-                <p style={{ fontWeight: 700, fontSize: "0.9rem", color: plan.highlight ? "var(--gold-300)" : "var(--cream-50)", marginBottom: 20 }}>{fmtN(plan.monthlyFee)}<span style={{ fontWeight: 300, fontSize: "0.8rem", opacity: 0.5 }}>/mo</span></p>
-                <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 20 }}>
-                  {plan.features.map((f) => (
-                    <div key={f} style={{ display: "flex", gap: 7, fontSize: "0.78rem", color: "rgba(249,247,240,0.5)" }}>
-                      <span style={{ color: plan.highlight ? "var(--gold-400)" : "#34D399", flexShrink: 0 }}>v</span>{f}
-                    </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/[0.06]">
+            {deskPlans.map(plan => (
+              <div key={plan.id} className="p-7 flex flex-col"
+                style={{ background: plan.highlight ? "rgba(201,168,76,0.06)" : "var(--navy-800)", borderTop: plan.highlight ? "2px solid #C9A84C" : "2px solid transparent" }}>
+                {plan.highlight && <p className="font-mono text-[0.58rem] text-gold-400 tracking-widest mb-2">MOST POPULAR</p>}
+                <p className="font-bold text-[1rem] mb-1" style={{ color: plan.highlight ? "#C9A84C" : "var(--cream-50)" }}>{plan.name}</p>
+                <p className="text-[0.75rem] text-white/40 mb-5">{plan.description}</p>
+                <p className="font-display font-light text-[2rem] text-white leading-none mb-0.5">{fmtN(plan.setupFee)}</p>
+                <p className="text-[0.68rem] text-white/30 mb-1.5">one-time setup</p>
+                <p className="font-bold text-[0.9rem] mb-5" style={{ color: plan.highlight ? "#E2CF96" : "var(--cream-50)" }}>
+                  {fmtN(plan.monthlyFee)}<span className="font-normal text-[0.78rem] text-white/35">/mo</span>
+                </p>
+                <ul className="flex flex-col gap-2 mb-6 flex-1">
+                  {plan.features.map(f => (
+                    <li key={f} className="flex gap-2 text-[0.78rem] text-white/50 items-start">
+                      <span style={{ color: plan.highlight ? "#C9A84C" : "#34D399" }} className="shrink-0">&#10003;</span>{f}
+                    </li>
                   ))}
-                </div>
-                <Link href="https://accounts.jktl.com.ng/signup" style={{ display: "block", padding: "10px", background: plan.highlight ? "var(--gold-400)" : "rgba(249,247,240,0.08)", color: plan.highlight ? "var(--navy-900)" : "var(--cream-50)", fontSize: "0.72rem", fontWeight: 700, textDecoration: "none", borderRadius: 2, textAlign: "center", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+                </ul>
+                <Link href="/get-started"
+                  className="block py-3 text-center font-bold text-[0.72rem] uppercase tracking-widest rounded-sm no-underline"
+                  style={{ background: plan.highlight ? "#C9A84C" : "rgba(249,247,240,0.08)", color: plan.highlight ? "#060E2A" : "var(--cream-50)" }}>
                   Get Started
                 </Link>
               </div>
             ))}
           </div>
+          <div className="mt-6 text-center">
+            <p className="text-white/25 text-[0.78rem]">
+              All plans include a 30-day money-back guarantee. Cancel anytime.
+            </p>
+          </div>
         </div>
       </section>
 
-
-      {/* Business Suite Roadmap */}
-      <section className="px-4 sm:px-6 lg:px-8 py-16" style={{ background: "var(--cream-50)" }}>
-        <div className="max-w-[1200px] mx-auto">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="gold-rule block" />
-            <span className="label-xs" style={{ color: "rgba(28,28,30,0.4)" }}>Coming Later</span>
+      {/* Onboarding flow */}
+      <section className="bg-cream-50 px-4 sm:px-6 lg:px-8 py-16">
+        <div className="max-w-[800px] mx-auto">
+          <div className="text-center mb-10">
+            <span className="gold-rule inline-block mb-3" />
+            <h2 className="display-lg text-navy-900 mb-2">Go live in 10 minutes.</h2>
+            <p className="text-black/50 text-[0.9rem]">Self-service. No developer. No waiting. 8 steps and you are live.</p>
           </div>
-          <h2 className="display-lg text-navy-900 mb-3">Business Suite</h2>
-          <p className="body-md mb-8" style={{ color: "rgba(28,28,30,0.5)", maxWidth: 560 }}>
-            General business tools built on the same JKTL infrastructure. Free to use with platform fee revenue model. Your existing account works immediately when launched.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="flex flex-col gap-0">
             {[
-              {
-                icon: "IV",
-                name: "InvoiceDesk",
-                color: "#F59E0B",
-                desc: "Global invoicing for freelancers and businesses. Paystack payments, bank account required, automated reminders, payment tracking.",
-              },
-              {
-                icon: "QR",
-                name: "QRPay",
-                color: "#06B6D4",
-                desc: "Generate QR codes for physical shops. Customers scan and pay. Opay and Monnify integration. Transaction dashboard.",
-              },
-            ].map(p => (
-              <div key={p.name} className="p-6 rounded bg-white border border-cream-300 flex items-start gap-4" style={{ opacity: 0.75 }}>
-                <div className="w-10 h-10 rounded-sm flex items-center justify-center shrink-0" style={{ background: p.color + "15", border: `1px solid ${p.color}30` }}>
-                  <span className="font-mono text-[0.72rem] font-bold" style={{ color: p.color }}>{p.icon}</span>
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <p className="font-bold text-navy-900">{p.name}</p>
-                    <span className="label-xs px-2 py-0.5 rounded" style={{ background: "rgba(245,158,11,0.1)", color: "#D97706" }}>ROADMAP</span>
-                  </div>
-                  <p className="body-sm" style={{ color: "rgba(28,28,30,0.55)" }}>{p.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <p className="text-xs mt-5" style={{ color: "rgba(28,28,30,0.35)", fontStyle: "italic" }}>
-            Your JKTL account will give you instant access when these launch -- no new signup needed.
-          </p>
-        </div>
-      </section>
-
-      {/* How onboarding works */}
-      <section style={{ background: "var(--cream-50)", padding: "80px 32px" }}>
-        <div style={{ maxWidth: 800, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <span className="gold-rule" style={{ display: "inline-block", marginBottom: 12 }} />
-            <h2 className="display-lg" style={{ color: "var(--navy-900)" }}>Go Live in 10 Minutes</h2>
-            <p className="body-md" style={{ color: "rgba(28,28,30,0.5)", marginTop: 8 }}>No developer needed. No waiting. Self-service.</p>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            {[
-              { n:"01", t:"Choose Your Plan",       d:"Standard, Pro, or Enterprise. Pricing shown clearly upfront." },
-              { n:"02", t:"Enter Organisation Details", d:"Name, owner, email, phone. Takes 2 minutes." },
-              { n:"03", t:"Pick Your Subdomain",    d:"Real-time availability check. Custom domain available on Pro and Enterprise." },
-              { n:"04", t:"Upload Branding",        d:"Your logo and brand colours. Live preview before you pay." },
-              { n:"05", t:"Pay via Paystack",       d:"Secure card payment. Setup fee charged once. Subscription starts immediately." },
-              { n:"06", t:"Go Live Automatically",  d:"Payment confirmed. System provisioned. Credentials sent to your email. You are live." },
+              { n: "01", t: "Create JKTL Account",    d: "Sign up at accounts.jktl.com.ng with Google, Microsoft, or email. One account for all JKTL products." },
+              { n: "02", t: "Organisation Details",    d: "Enter your organisation name, owner name, phone, email, and address. Takes 2 minutes." },
+              { n: "03", t: "Choose Subdomain",        d: "Pick your URL: yourchurch.jktl.com.ng. Real-time availability check. Custom domain on Pro and Enterprise." },
+              { n: "04", t: "Upload Branding",         d: "Upload your logo and pick your brand colour. Live preview before you pay." },
+              { n: "05", t: "Choose Plan",             d: "Standard, Pro, or Enterprise. All features listed clearly. No hidden costs." },
+              { n: "06", t: "Pay Setup Fee",           d: "Secure Paystack payment. Setup fee charged once. Monthly subscription starts after." },
+              { n: "07", t: "Auto Deploy",             d: "Payment confirmed. System provisioned automatically. Login credentials sent to your email." },
+              { n: "08", t: "Go Live",                 d: "Your system is live. Open WhatsApp and message us -- we onboard you in 30 minutes." },
             ].map((step, i) => (
-              <div key={step.n} style={{ display: "flex", gap: 20, padding: "16px 0", borderBottom: i < 5 ? "1px solid var(--cream-300)" : "none", alignItems: "flex-start" }}>
-                <div style={{ width: 36, height: 36, borderRadius: "50%", background: i === 5 ? "#059669" : "var(--navy-900)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "0.65rem", fontWeight: 700, color: i === 5 ? "#fff" : "var(--gold-400)" }}>{step.n}</span>
+              <div key={step.n} className="flex gap-5 py-4 border-b border-cream-300 last:border-0 items-start">
+                <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 mt-0.5"
+                  style={{ background: i === 7 ? "#059669" : "var(--navy-900)" }}>
+                  <span className="font-mono text-[0.65rem] font-bold" style={{ color: i === 7 ? "#fff" : "#C9A84C" }}>{step.n}</span>
                 </div>
                 <div>
-                  <p style={{ fontWeight: 700, fontSize: "0.9rem", color: "var(--navy-900)", marginBottom: 3 }}>{step.t}</p>
-                  <p className="body-sm" style={{ color: "rgba(28,28,30,0.55)" }}>{step.d}</p>
-                  {i === 5 && (
-                    <div style={{ marginTop: 8, display: "flex", gap: 16, flexWrap: "wrap" }}>
-                      {["Create organisation record", "Provision subdomain", "Send credentials", "Start subscription"].map(a => (
-                        <span key={a} style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "0.62rem", color: "#059669", background: "rgba(5,150,105,0.08)", padding: "3px 10px", borderRadius: 2 }}>v {a}</span>
+                  <p className="font-bold text-[0.9rem] text-navy-900 mb-0.5">{step.t}</p>
+                  <p className="text-[0.82rem] text-black/55 leading-[1.6]">{step.d}</p>
+                  {i === 7 && (
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {["System provisioned","Credentials emailed","Subscription started","Affiliate credited if referred"].map(a => (
+                        <span key={a} className="font-mono text-[0.62rem] text-emerald-700 bg-emerald-500/10 px-2 py-0.5 rounded">&#10003; {a}</span>
                       ))}
                     </div>
                   )}
@@ -221,8 +229,38 @@ export default function DeskPage() {
               </div>
             ))}
           </div>
-          <div style={{ marginTop: 32, textAlign: "center" }}>
-            <Link href="https://accounts.jktl.com.ng/signup" className="btn-gold" style={{ padding: "14px 40px" }}>Start Onboarding</Link>
+          <div className="flex justify-center mt-8">
+            <Link href="/get-started" className="btn-gold px-10 py-3.5">Start Onboarding</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Business Suite Roadmap */}
+      <section className="bg-cream-100 px-4 sm:px-6 lg:px-8 py-14">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="flex items-center gap-3 mb-6">
+            <span className="font-mono text-[0.6rem] bg-amber-500/15 text-amber-600 px-2.5 py-1 rounded tracking-widest uppercase font-bold">Roadmap -- Not yet built</span>
+            <h2 className="font-bold text-[1.1rem] text-navy-900">Business Suite -- Coming Later</h2>
+          </div>
+          <p className="text-black/55 text-[0.9rem] mb-6" style={{ maxWidth: 600 }}>
+            After Desk matures, JKTL will launch a Business Suite -- general business tools with a free tier and platform-fee revenue model. The SSO infrastructure already supports them.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {businessSuiteRoadmap.map(p => (
+              <div key={p.id} className="bg-white border border-cream-300 rounded p-6 opacity-70">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-9 h-9 rounded-sm flex items-center justify-center"
+                    style={{ background: p.color + "15", border: `1px solid ${p.color}30` }}>
+                    <span className="font-mono text-[0.65rem] font-bold" style={{ color: p.color }}>{p.icon}</span>
+                  </div>
+                  <div>
+                    <p className="font-bold text-[0.95rem] text-navy-900">{p.name}</p>
+                    <p className="text-[0.7rem] text-black/40">{p.tagline}</p>
+                  </div>
+                </div>
+                <p className="text-[0.82rem] text-black/55 leading-[1.6]">{p.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

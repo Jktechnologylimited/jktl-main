@@ -43,11 +43,12 @@ export async function POST(req: NextRequest) {
     // Initialise Paystack transaction
     const paystackSecret = process.env.PAYSTACK_SECRET_KEY;
     if (!paystackSecret) {
-      // Dev mode — return mock payment url
+      // Dev mode -- skip payment, go straight to success
+      const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
       return NextResponse.json({
         ok: true,
         orgId,
-        paymentUrl: `/get-started/${product}?success=1&org=${orgId}&mock=1`,
+        paymentUrl: `${appUrl}/get-started/${product}?success=1&org=${orgId}&mock=1`,
         reference: `MOCK_${Date.now()}`,
       });
     }

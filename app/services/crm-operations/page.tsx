@@ -1,75 +1,123 @@
-import { services, siteConfig } from "@/data/index";
-import { CTA } from "@/components/sections/Sections";
-import TryDemoButton from "@/components/ui/TryDemoButton";
-import DemoCallout from "@/components/ui/DemoCallout";
-import type { Metadata } from "next";
+"use client";
+import Link from "next/link";
+import { services, siteConfig, companyDetails } from "@/data/index";
 
-const s = services.find(x => x.slug === "crm-operations")!;
+export default function ServicePage() {
+  const service = services.find(s => s.slug === "crm-operations");
+  if (!service) return null;
+  const extra = ["Sales pipeline tracking","Activity logging","Staff task assignment","Analytics dashboard"];
+  const allFeatures = [...(service.features || []), ...extra];
 
-export const metadata: Metadata = {
-  title: "CRM & Business Operations System | JK Technology Limited",
-  description: "A single system to track leads, clients, and your entire business pipeline. N300,000 - N2,000,000.",
-};
-
-export default function Page() {
   return (
-    <>
-      <section style={{ background:"var(--navy-950)", paddingTop:"120px", paddingBottom:"80px" }}>
-        <div className="max-w-5xl mx-auto px-8">
-          <p className="label-xs" style={{ color:"var(--gold-400)", marginBottom:"10px" }}>05 -- Operations</p>
-          <h1 className="display-hero mb-4" style={{ color:"var(--cream-50)" }}>CRM & Business Operations System</h1>
-          <p className="body-lg" style={{ color:"rgba(249,247,240,0.58)", maxWidth:"560px", marginBottom:"24px" }}>A single system to track leads, clients, and your entire business pipeline</p>
-          <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.6rem", fontWeight:300, color:"var(--gold-300)", marginBottom:"28px" }}>
-            N300,000 - N2,000,000
-            <span style={{ fontSize:"1rem", color:"rgba(249,247,240,0.4)", marginLeft:"10px" }}>+ N30,000 - N150,000/mo</span>
-          </p>
-          <div style={{ display:"flex", flexWrap:"wrap", gap:"12px" }}>
-            <a href={`mailto:${siteConfig.email}`} className="btn-gold">Get Started</a>
-            <TryDemoButton href="/demos/crm" label="Try Demo First" variant="outline" style={{ borderColor:"rgba(249,247,240,0.4)", color:"rgba(249,247,240,0.8)" }} />
-            <a href={`mailto:${siteConfig.email}`} className="btn-outline-cream">Email Us</a>
+    <div className="bg-cream-50">
+      <section className="bg-navy-950 relative overflow-hidden" style={{ paddingTop:"clamp(88px,12vw,120px)", paddingBottom:"72px" }}>
+        <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background:"#D97706" }} />
+        <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-sm mb-6"
+            style={{ background:"#D9770620", border:"1px solid #D9770640" }}>
+            <span className="font-mono text-[0.6rem] tracking-widest uppercase font-bold" style={{ color:"#D97706" }}>
+              Agency Service -- Custom Scoped Work
+            </span>
+          </div>
+          <h1 className="display-hero text-white mb-5 leading-[1.04]">{service.label}</h1>
+          <div className="border-l-4 pl-5 mb-6" style={{ borderColor:"#D97706" }}>
+            <p className="text-white/65 text-[0.95rem] leading-[1.8]" style={{ maxWidth:620 }}>
+              If your client records are in a spreadsheet or your head, you are one laptop crash away from losing your entire business history -- and losing follow-up on every lead you have ever generated.
+            </p>
+          </div>
+          <div className="p-5 rounded mb-8" style={{ background:"#D9770612", border:"1px solid #D9770630" }}>
+            <p className="font-mono text-[0.6rem] tracking-widest uppercase font-bold mb-2" style={{ color:"#D97706" }}>Our Promise</p>
+            <p className="text-white font-bold text-[0.95rem] leading-[1.6]">A full CRM that tracks every lead, client, deal, and interaction -- with a pipeline that shows you exactly what is happening in your business at any moment.</p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/get-started/services"
+              className="px-7 py-3.5 font-bold text-[0.78rem] uppercase tracking-widest rounded-sm no-underline text-white"
+              style={{ background:"#D97706" }}>
+              Get a Quote
+            </Link>
+            <a href={companyDetails.whatsappLink} target="_blank" rel="noopener noreferrer"
+              className="btn-ghost px-5 py-3.5 flex items-center gap-2 text-sm">
+              WhatsApp Us
+            </a>
           </div>
         </div>
       </section>
-      <section style={{ background:"var(--cream-50)", padding:"80px 32px" }}>
-        <div className="max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-16 items-start">
+
+      <div className="py-3 px-4 text-center" style={{ background:"#D97706" }}>
+        <p className="text-white font-bold text-[0.72rem] uppercase tracking-widest">
+          24-hour response -- Custom proposal -- Direct founder contact -- No outsourcing
+        </p>
+      </div>
+
+      <section className="bg-cream-50 px-4 sm:px-6 lg:px-8 py-14">
+        <div className="max-w-[1000px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div>
-            <span className="gold-rule mb-5" style={{ display:"block" }} />
-            <h2 className="display-lg mb-5" style={{ color:"var(--navy-900)" }}>What&apos;s Included</h2>
-            <ul className="check-list" style={{ listStyle:"none", display:"flex", flexDirection:"column", gap:"4px" }}>
-              {s.features.map(f => <li key={f}>{f}</li>)}
-            </ul>
-          </div>
-          <div>
-            <h2 className="display-lg mb-5" style={{ color:"var(--navy-900)" }}>Best For</h2>
-            <div style={{ display:"flex", flexDirection:"column", gap:"10px", marginBottom:"28px" }}>
-              {s.bestFor.map(b => (
-                <div key={b} style={{ display:"flex", gap:"12px", alignItems:"center", padding:"14px 18px", background:"var(--cream-100)", border:"1px solid var(--cream-300)", borderRadius:"2px" }}>
-                  <span style={{ color:"var(--gold-400)" }}>{"->"}</span>
-                  <span style={{ fontWeight:600, fontSize:"0.9rem", color:"var(--navy-900)" }}>{b}</span>
+            <span className="gold-rule block mb-4" />
+            <h2 className="display-lg text-navy-900 mb-5">What is included.</h2>
+            <div className="flex flex-col gap-3">
+              {allFeatures.map((f: string) => (
+                <div key={f} className="flex gap-3 items-start">
+                  <div className="w-6 h-6 rounded-sm flex items-center justify-center shrink-0 mt-0.5"
+                    style={{ background:"#D9770615" }}>
+                    <span className="text-[0.65rem] font-bold" style={{ color:"#D97706" }}>v</span>
+                  </div>
+                  <p className="text-[0.88rem] text-black/65 leading-[1.55]">{f}</p>
                 </div>
               ))}
             </div>
-            <div style={{ padding:"24px", background:"var(--navy-900)", borderRadius:"4px" }}>
-              <p className="label-xs" style={{ color:"rgba(249,247,240,0.4)", marginBottom:"10px" }}>Investment</p>
-              <p style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:300, fontSize:"1.8rem", color:"var(--cream-50)", lineHeight:1, marginBottom:"4px" }}>N300,000</p>
-              <p style={{ fontFamily:"'Cormorant Garamond',serif", fontWeight:300, fontSize:"1.1rem", color:"rgba(249,247,240,0.4)", marginBottom:"20px" }}>to N2,000,000</p>
-              <p className="label-xs" style={{ color:"var(--gold-400)", marginBottom:"16px" }}>N30,000 - N150,000/mo</p>
-              <a href={`mailto:${siteConfig.email}`} className="btn-gold" style={{ width:"100%", justifyContent:"center" }}>Get Started</a>
-              <div style={{ marginTop:"10px" }}>
-                <TryDemoButton href="/demos/crm" label="Try Live Demo First" variant="outline" style={{ width:"100%", justifyContent:"center" }} />
+          </div>
+          <div>
+            <div className="bg-white border border-cream-300 rounded p-7 mb-4">
+              <p className="label-xs text-black/35 mb-4">Pricing</p>
+              <p className="font-display font-light text-[2.5rem] text-navy-900 leading-none mb-1">{service.priceFrom}</p>
+              {service.priceTo && service.priceTo !== service.priceFrom && (
+                <p className="text-black/35 text-[0.75rem] mb-4">up to {service.priceTo}</p>
+              )}
+              <p className="text-[0.78rem] text-black/50 mb-5 leading-[1.6]">
+                Exact price depends on scope. Submit an inquiry for a detailed quote within 24 hours.
+              </p>
+              <div className="flex flex-col gap-2.5">
+                {["24-hour response guarantee","Custom scope -- not a package","Direct founder contact","Nigerian context, Naira pricing"].map((item: string) => (
+                  <div key={item} className="flex items-center gap-2.5 text-[0.82rem] text-black/65">
+                    <span style={{ color:"#D97706" }}>v</span>{item}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="bg-navy-900 rounded p-5 flex items-start gap-3">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="2" className="shrink-0 mt-0.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <div>
+                <p className="font-bold text-[0.85rem] text-white mb-1">Satisfaction Guarantee</p>
+                <p className="text-[0.75rem] text-white/45 leading-[1.6]">We do not take full payment until you approve the scope and design.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <DemoCallout
-        demoSlug="crm"
-        demoTitle="CRM Pipeline Dashboard"
-        demoDescription="Explore a live lead pipeline with real client records. Click any lead to view details, move them between stages, and see both pipeline and table views -- this is what your team would use every day."
-        accentColor="#D97706"
-        extraDemos={[{ slug: "email-automation", label: "Email Automation" }, { slug: "payments", label: "Payment System" }]}
-      />
-      <CTA />
-    </>
+
+      {service.bestFor && service.bestFor.length > 0 && (
+        <section className="bg-cream-100 px-4 sm:px-6 lg:px-8 py-10">
+          <div className="max-w-[1000px] mx-auto">
+            <p className="label-xs text-black/35 mb-4">Best For</p>
+            <div className="flex flex-wrap gap-2">
+              {service.bestFor.map((b: string) => (
+                <span key={b} className="px-4 py-2 bg-white border border-cream-300 rounded text-[0.82rem] font-semibold text-navy-900">{b}</span>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section className="bg-navy-950 px-4 sm:px-6 lg:px-8 py-14 text-center">
+        <div className="max-w-lg mx-auto">
+          <h2 className="display-lg text-cream-50 mb-3">Ready to get started?</h2>
+          <p className="text-white/45 text-[0.9rem] mb-7">Submit an inquiry. We respond within 24 hours with a scoped proposal and exact price.</p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link href="/get-started/services" className="btn-gold px-8 py-3.5">Submit Inquiry</Link>
+            <a href={`mailto:${siteConfig.email}`} className="btn-ghost px-7 py-3.5">{siteConfig.email}</a>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

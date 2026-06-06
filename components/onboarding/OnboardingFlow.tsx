@@ -43,7 +43,7 @@ const EMPTY: OnboardingData = {
 const BRAND_COLORS = [
   "#8B5CF6", "#3B82F6", "#10B981", "#F59E0B",
   "#EF4444", "#EC4899", "#0EA5E9", "#14B8A6",
-  "#8B5CF6", "#060E2A", "#1A316E", "#C9A84C",
+  "#7C3AED", "#060E2A", "#1A316E", "#C9A84C",
 ];
 
 //  STEP INDICATOR 
@@ -482,30 +482,25 @@ export default function OnboardingFlow({ config }: { config: ProductConfig }) {
                 </div>
               </div>
 
-              {/* Live mini preview */}
-              <div>
-                <label className="block text-[0.68rem] font-bold tracking-[0.1em] uppercase text-black/45 mb-2">Preview</label>
-                <div className="rounded overflow-hidden border border-cream-300 shadow-sm">
-                  {/* Mini navbar */}
-                  <div className="px-4 py-3 flex items-center gap-3" style={{ background: data.brandColor }}>
-                    {logoPreview
-                      ? <img src={logoPreview} alt="" className="w-6 h-6 object-contain rounded" />
-                      : <div className="w-6 h-6 rounded bg-white/20 flex items-center justify-center font-mono text-[0.5rem] text-white">
-                          {data.orgName.slice(0, 2).toUpperCase() || "JK"}
-                        </div>
-                    }
-                    <p className="font-bold text-white text-[0.8rem]">{data.orgName || "Your Organisation"}</p>
-                  </div>
-                  {/* Mini content */}
-                  <div className="p-4 bg-gray-50">
-                    <div className="h-2 rounded bg-gray-200 mb-2 w-2/3" />
-                    <div className="h-2 rounded bg-gray-200 mb-3 w-1/2" />
-                    <div className="h-7 rounded px-3 flex items-center w-20 text-white text-[0.62rem] font-bold"
-                      style={{ background: data.brandColor }}>
-                      Action
+              {/* What your branding applies to */}
+              <div className="rounded border border-cream-300 bg-cream-100 p-4">
+                <p className="text-[0.68rem] font-bold tracking-[0.1em] uppercase text-black/40 mb-3">Your branding will appear on</p>
+                <div className="flex flex-col gap-2">
+                  {[
+                    "Your public portal (yourchurch.jktl.com.ng)",
+                    "Member login and dashboard screens",
+                    "Email notifications and receipts sent to members",
+                    "Admin panel header and navigation",
+                  ].map(item => (
+                    <div key={item} className="flex items-center gap-2 text-[0.78rem] text-black/60">
+                      <div className="w-2 h-2 rounded-full shrink-0" style={{ background: data.brandColor }} />
+                      {item}
                     </div>
-                  </div>
+                  ))}
                 </div>
+                <p className="text-[0.68rem] text-black/35 mt-3 italic">
+                  You can update your logo and colours anytime from your admin settings after going live.
+                </p>
               </div>
             </div>
 
