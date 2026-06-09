@@ -22,12 +22,24 @@ export default function Navbar() {
   const dropRef   = useRef<HTMLDivElement>(null);
   const userRef   = useRef<HTMLDivElement>(null);
 
-  // Fetch session on every route change
+  // Fetch session on every route change -- retry up to 3x for fresh cookies
   useEffect(() => {
-    fetch("/api/auth/session")
-      .then(r => r.json())
-      .then(d => setSession(d))
-      .catch(() => setSession({ authenticated: false, name: null, email: null }));
+    let attempts = 0;
+    async function check() {
+      attempts++;
+      try {
+        const res = await fetch("/api/auth/session", { cache: "no-store" });
+        const d = await res.json();
+        setSession(d);
+        // If still not authenticated and have retries left, try again
+        if (!d.authenticated && attempts < 3) {
+          setTimeout(check, 800);
+        }
+      } catch {
+        setSession({ authenticated: false, name: null, email: null });
+      }
+    }
+    check();
   }, [pathname]);
 
   // Close menus on route change

@@ -1,51 +1,12 @@
 "use client";
-import { useEffect, useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
+import { AuthGate } from "@/components/onboarding/AuthGate";
 import OnboardingFlow from "@/components/onboarding/OnboardingFlow";
-
-function AuthGate({ children }: { children: React.ReactNode }) {
-  const params = useSearchParams();
-  const [status, setStatus] = useState<"checking"|"ok"|"redirect">("checking");
-
-  useEffect(() => {
-    if (params.get("mock") === "bypass") { setStatus("ok"); return; }
-
-    const token = params.get("token");
-    if (token) { sessionStorage.setItem("jktl_session", token); setStatus("ok"); return; }
-
-    if (sessionStorage.getItem("jktl_session")) { setStatus("ok"); return; }
-
-    fetch("/api/auth/session")
-      .then(r => r.json())
-      .then(d => setStatus(d.authenticated ? "ok" : "redirect"))
-      .catch(() => setStatus("redirect"));
-  }, [params]);
-
-  useEffect(() => {
-    if (status !== "redirect") return;
-    const returnUrl = encodeURIComponent(window.location.href);
-    const accountsUrl = process.env.NEXT_PUBLIC_ACCOUNTS_URL || "http://localhost:3001";
-    window.location.href = `${accountsUrl}/sign-in?return=${returnUrl}`;
-  }, [status]);
-
-  if (status === "checking") return (
-    <div style={{ minHeight:"100vh", display:"flex", alignItems:"center", justifyContent:"center", background:"#060E2A" }}>
-      <div style={{ textAlign:"center" }}>
-        <div style={{ width:32, height:32, border:"2px solid rgba(245,158,11,0.3)", borderTop:"2px solid #F59E0B", borderRadius:"50%", animation:"spin 0.8s linear infinite", margin:"0 auto 12px" }} />
-        <p style={{ color:"rgba(226,232,240,0.4)", fontSize:"0.85rem" }}>Checking your account...</p>
-        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-      </div>
-    </div>
-  );
-
-  if (status === "redirect") return null;
-  return <>{children}</>;
-}
 
 function DetailDeskContent() {
   return (
     <Suspense>
-      <AuthGate>
+      <AuthGate color="#F59E0B">
         <OnboardingFlow config={{
           id: "detaildesk",
           name: "DetailDesk",
