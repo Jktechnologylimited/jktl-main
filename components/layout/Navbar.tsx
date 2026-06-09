@@ -85,7 +85,7 @@ export default function Navbar() {
             <Link href="/services"  className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors">Services</Link>
             <Link href="/affiliates" className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors">Affiliates</Link>
             <Link href="/about"     className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors">About</Link>
-            <a href="https://accounts.jktl.com.ng/login" className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors">Sign In</a>
+            <a href="https://accounts.jktl.com.ng/" className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors">Sign In</a>
           </div>
 
           {/* Right side */}
@@ -97,7 +97,7 @@ export default function Navbar() {
             </a>
 
             {/* Get Started -- hidden on mobile */}
-            <Link href="https://accounts.jktl.com.ng/signup" className="hidden sm:inline-flex btn-gold text-[0.72rem] px-5 py-2.5 whitespace-nowrap">
+            <Link href="https://accounts.jktl.com.ng/" className="hidden sm:inline-flex btn-gold text-[0.72rem] px-5 py-2.5 whitespace-nowrap">
               Get Started
             </Link>
 
@@ -147,7 +147,7 @@ export default function Navbar() {
               { l: "Affiliates",    h: "/affiliates" },
               { l: "About",         h: "/about" },
               { l: "Contact",       h: "/contact" },
-              { l: "Sign In",       h: "https://accounts.jktl.com.ng/login" },
+              { l: "Sign In",       h: "https://accounts.jktl.com.ng/" },
             ].map(link => (
               <Link key={link.l} href={link.h}
                 className="block px-4 py-3.5 text-[0.9rem] font-semibold text-white/70 no-underline rounded hover:bg-white/[0.04] transition-colors">
@@ -157,7 +157,7 @@ export default function Navbar() {
 
             {/* CTAs */}
             <div className="flex flex-col gap-2.5 mt-5">
-              <Link href="https://accounts.jktl.com.ng/signup" className="btn-gold w-full justify-center py-3.5">Get Started</Link>
+              <Link href="https://accounts.jktl.com.ng/" className="btn-gold w-full justify-center py-3.5">Get Started</Link>
               <a href={"mailto:" + siteConfig.email} className="btn-outline-cream w-full justify-center py-3.5 text-[0.72rem]">
                 {siteConfig.email}
               </a>
