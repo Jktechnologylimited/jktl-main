@@ -1,5 +1,56 @@
+"use client";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { TIERS, OFFERS, PAYOUT, calcCommission, fmtNaira } from "@/lib/affiliate-offers";
+
+const ACCOUNTS_URL = process.env.NEXT_PUBLIC_ACCOUNTS_URL || "https://accounts.jktl.com.ng";
+
+function AffiliateNav() {
+  const [signedIn, setSignedIn] = useState(false);
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/auth/session", { cache: "no-store" })
+      .then(r => r.json())
+      .then(d => { setSignedIn(d.authenticated); setChecked(true); })
+      .catch(() => setChecked(true));
+  }, []);
+
+  return (
+    <nav style={{ background: "var(--navy-950)", padding: "0 clamp(16px,4vw,32px)", display: "flex", alignItems: "center", justifyContent: "space-between", height: 64, position: "sticky", top: 0, zIndex: 100 }}>
+      <a href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
+        <Image src="/logo.png" alt="JK Technology Limited" width={36} height={36} style={{ objectFit: "contain" }} />
+        <div>
+          <p style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 800, fontSize: "0.88rem", color: "#fff", lineHeight: 1 }}>JK Technology</p>
+          <p style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "0.5rem", color: "#C9A84C", letterSpacing: "0.12em" }}>AFFILIATE</p>
+        </div>
+      </a>
+      <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+        {!checked ? null : signedIn ? (
+          <>
+            <Link href="/affiliates/dashboard"
+              style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "8px 16px", borderRadius: 8, fontSize: "0.78rem", fontWeight: 700, background: "rgba(201,168,76,0.1)", color: "#C9A84C", border: "1px solid rgba(201,168,76,0.25)", textDecoration: "none" }}>
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#34D399" }} />
+              My Dashboard
+            </Link>
+          </>
+        ) : (
+          <>
+            <a href={`${ACCOUNTS_URL}/sign-in?return=${encodeURIComponent("https://jktl.com.ng/affiliates/dashboard")}`}
+              style={{ color: "rgba(249,247,240,0.65)", fontSize: "0.8rem", textDecoration: "none", fontFamily: "'Plus Jakarta Sans',sans-serif" }}>
+              Sign In
+            </a>
+            <Link href="/affiliates/join"
+              style={{ display: "inline-flex", padding: "8px 18px", borderRadius: 8, fontSize: "0.78rem", fontWeight: 700, background: "#C9A84C", color: "#060E2A", textDecoration: "none", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+              Join Free
+            </Link>
+          </>
+        )}
+      </div>
+    </nav>
+  );
+}
 
 const HOW_IT_WORKS = [
   { n:"01", title:"Apply in Minutes",        desc:"Fill out a quick application. Tell us how you plan to promote JKTL. We review every application within 24-48 hours." },
@@ -27,16 +78,7 @@ export default function LandingPage() {
     <div style={{ background: "var(--cream-50)", minHeight: "100vh" }}>
 
       {/* NAV */}
-      <nav style={{ background: "var(--navy-950)", padding: "0 32px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 64, position: "sticky", top: 0, zIndex: 100 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 800, fontSize: "1rem", color: "#fff" }}>JK Technology</div>
-          <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "0.6rem", color: "var(--gold-400)", background: "rgba(201,168,76,0.12)", padding: "2px 8px", borderRadius: 2 }}>AFFILIATE</span>
-        </div>
-        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-          <Link href="https://accounts.jktl.com.ng/login"  style={{ color: "rgba(249,247,240,0.65)", fontSize: "0.8rem", textDecoration: "none" }}>Login</Link>
-          <Link href="https://accounts.jktl.com.ng/signup?from=affiliate"   className="btn btn-gold btn-sm">Join Free</Link>
-        </div>
-      </nav>
+      <AffiliateNav />
 
       {/* HERO */}
       <section style={{ background: "var(--navy-950)", padding: "96px 32px 80px", textAlign: "center", position: "relative", overflow: "hidden" }}>
@@ -53,7 +95,7 @@ export default function LandingPage() {
             Refer businesses to JK Technology Limited and earn on every deal that closes. One-time commissions on setup fees. Recurring commissions every month for up to 12 months.
           </p>
           <div className="fade-up fade-up-d2" style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-            <Link href="https://accounts.jktl.com.ng/signup?from=affiliate" className="btn btn-gold btn-lg">Start Earning -- Join Free</Link>
+            <Link href="/affiliates/join" className="btn btn-gold btn-lg">Start Earning -- Join Free</Link>
             <a href="#offers" className="btn btn-ghost btn-lg">View All Offers</a>
           </div>
           <div style={{ display: "flex", gap: 32, justifyContent: "center", flexWrap: "wrap", marginTop: 48, paddingTop: 40, borderTop: "1px solid rgba(201,168,76,0.12)" }}>
@@ -188,7 +230,7 @@ export default function LandingPage() {
           <p className="body-lg" style={{ color: "rgba(249,247,240,0.55)", marginBottom: 32 }}>
             Join free. Get approved in 24-48 hours. Start sharing your link and earning commissions on every JKTL deal you refer.
           </p>
-          <Link href="https://accounts.jktl.com.ng/signup?from=affiliate" className="btn btn-gold btn-lg">Join the Affiliate Program</Link>
+          <Link href="/affiliates/join" className="btn btn-gold btn-lg">Join the Affiliate Program</Link>
           <p style={{ marginTop: 16, fontSize: "0.75rem", color: "rgba(249,247,240,0.3)" }}>Free to join -- No fees, no monthly charges, no catch.</p>
         </div>
       </section>
