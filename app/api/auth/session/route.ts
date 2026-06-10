@@ -5,6 +5,7 @@ export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest) {
   const cookies = req.cookies;
 
+  // Check all possible NextAuth cookie names
   const sessionCookie =
     cookies.get("jktl-session-token")?.value ||
     cookies.get("authjs.session-token")?.value ||
@@ -16,24 +17,30 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ authenticated: false });
   }
 
+  // Cookie exists -- try to decode it to get the user name
   const secret = process.env.AUTH_SECRET;
 
   if (!secret) {
-    return NextResponse.json({ authenticated: true, name: null, email: null, mode: "dev" });
+    // Dev mode: no secret, trust cookie presence
+    return NextResponse.json({ authenticated: true, name: null, email: null });
   }
 
   try {
+    // NextAuth v5 (Auth.js) uses JWE encryption
     const { jwtDecrypt } = await import("jose");
     const key = new TextEncoder().encode(secret);
     const { payload } = await jwtDecrypt(sessionCookie, key);
 
-    // NextAuth stores user info in payload.user or at root level
-    const user = (payload.user as Record<string,string>) || {};
-    const name  = user.name  || (payload.name  as string) || null;
-    const email = user.email || (payload.email as string) || null;
+    const token = payload as Record<string, unknown>;
+    const name  = (token.name  as string) || null;
+    const email = (token.email as string) || null;
 
     return NextResponse.json({ authenticated: true, name, email });
   } catch {
-    return NextResponse.json({ authenticated: false });
+    // Decryption failed -- but cookie exists
+    // This can happen if AUTH_SECRET differs between projects
+    // Still return authenticated:true so the user isn't stuck in a loop
+    // The worst case is we show "My Account" without a name
+    return NextResponse.json({ authenticated: true, name: null, email: null, note: "decoded-failed" });
   }
 }

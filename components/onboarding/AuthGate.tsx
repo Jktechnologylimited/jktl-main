@@ -68,7 +68,9 @@ export function AuthGate({ children, color }: AuthGateProps) {
 
   useEffect(() => {
     if (status !== "redirect") return;
-    const returnUrl = encodeURIComponent(window.location.href);
+    // Strip www to ensure cookie domain matches
+    const cleanUrl = window.location.href.replace("://www.jktl.com.ng", "://jktl.com.ng");
+    const returnUrl = encodeURIComponent(cleanUrl);
     window.location.href = `${ACCOUNTS_URL}/sign-in?return=${returnUrl}`;
   }, [status]);
 
