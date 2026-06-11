@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import Link from "next/link";
 import { siteConfig, companyDetails, productPricing } from "@/data/index";
 
@@ -13,6 +14,58 @@ const FEATURES = [
   { icon: "CR", title: "Customer CRM", desc: "Full history per customer -- every job, every payment, every car. Repeat customers tracked automatically." },
   { icon: "AN", title: "Analytics Dashboard", desc: "Revenue by day/week/month. Best-selling services. Worker performance. Know your numbers." },
 ];
+
+const DETAILDESK_VIDEOS = [
+  { id:"dd-1", title:"DetailDesk Overview", desc:"Bookings, job cards, clients and invoices walkthrough.", duration:"10 min", youtubeId:"", comingSoon:true },
+  { id:"dd-2", title:"Taking & Managing Bookings", desc:"Online bookings, walk-ins and calendar scheduling.", duration:"8 min", youtubeId:"", comingSoon:true },
+  { id:"dd-3", title:"Job Cards & Service Tracking", desc:"Create job cards, track progress, mark complete.", duration:"7 min", youtubeId:"", comingSoon:true },
+  { id:"dd-4", title:"Creating & Sending Invoices", desc:"Professional invoices with payment tracking.", duration:"5 min", youtubeId:"", comingSoon:true },
+  { id:"dd-5", title:"Client Management", desc:"Full client history, vehicles, preferences.", duration:"6 min", youtubeId:"", comingSoon:true },
+  { id:"dd-6", title:"Reports & Revenue", desc:"Monthly revenue, popular services, team performance.", duration:"5 min", youtubeId:"", comingSoon:true },
+];
+
+function VideoCard({ video, color }: { video:{ id:string; title:string; desc:string; duration:string; youtubeId:string; comingSoon:boolean }; color:string }) {
+  const [playing, setPlaying] = useState(false);
+  return (
+    <div style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:10, overflow:"hidden" }}>
+      {/* Thumbnail */}
+      <div style={{ position:"relative", aspectRatio:"16/9", background:"#0B1640", cursor: video.youtubeId ? "pointer" : "default" }}
+        onClick={() => video.youtubeId && setPlaying(true)}>
+        {playing && video.youtubeId ? (
+          <iframe style={{ position:"absolute", inset:0, width:"100%", height:"100%", border:"none" }}
+            src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+        ) : (
+          <div style={{ position:"absolute", inset:0, display:"flex", alignItems:"center", justifyContent:"center",
+            background:`linear-gradient(135deg, ${color}18 0%, #080F25 100%)` }}>
+            {video.comingSoon ? (
+              <div style={{ textAlign:"center" }}>
+                <div style={{ width:40, height:40, borderRadius:"50%", background:"rgba(255,255,255,0.05)", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 8px" }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <p style={{ fontFamily:"monospace", fontSize:"0.55rem", color:"rgba(226,232,240,0.2)", letterSpacing:"0.1em" }}>COMING SOON</p>
+              </div>
+            ) : (
+              <div style={{ width:52, height:52, borderRadius:"50%", background:"rgba(255,255,255,0.12)", border:`2px solid ${color}60`, display:"flex", alignItems:"center", justifyContent:"center" }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+            )}
+          </div>
+        )}
+        {!video.comingSoon && !playing && (
+          <div style={{ position:"absolute", bottom:8, right:8, background:"rgba(0,0,0,0.75)", padding:"2px 8px", borderRadius:4, fontFamily:"monospace", fontSize:"0.62rem", color:"#fff" }}>
+            {video.duration}
+          </div>
+        )}
+      </div>
+      {/* Info */}
+      <div style={{ padding:"13px 14px" }}>
+        <p style={{ fontWeight:700, fontSize:"0.85rem", color: video.comingSoon ? "rgba(226,232,240,0.4)" : "#fff", marginBottom:4, lineHeight:1.3 }}>{video.title}</p>
+        <p style={{ fontSize:"0.73rem", color:"rgba(226,232,240,0.38)", lineHeight:1.5 }}>{video.desc}</p>
+      </div>
+    </div>
+  );
+}
 
 export default function DetailDeskPage() {
   return (
@@ -161,7 +214,29 @@ export default function DetailDeskPage() {
         </div>
       </section>
 
-      {/* FINAL CTA */}
+      
+      {/* WATCH & LEARN */}
+      <section className="px-4 sm:px-6 lg:px-8 py-16" style={{ background:"#080F25" }}>
+        <div className="max-w-[1000px] mx-auto">
+          <div className="mb-10">
+            <p className="font-mono text-[0.62rem] tracking-[0.2em] uppercase mb-3" style={{ color:"#F59E0B" }}>Watch & Learn</p>
+            <h2 className="font-bold text-white mb-3" style={{ fontSize:"clamp(1.3rem,3vw,1.8rem)" }}>
+              See DetailDesk in action
+            </h2>
+            <p className="text-[0.9rem]" style={{ color:"rgba(226,232,240,0.45)", maxWidth:480, lineHeight:1.7 }}>
+              Step-by-step video guides. Watch before you sign up, or use them to train your team.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {DETAILDESK_VIDEOS.map(v => (
+              <VideoCard key={v.id} video={v} color="#F59E0B" />
+            ))}
+          </div>
+        </div>
+      </section>
+
+{/* FINAL CTA */}
       <section className="bg-navy-950 px-4 sm:px-6 lg:px-8 py-14 text-center">
         <div className="max-w-[560px] mx-auto">
           <h2 className="font-display font-light text-white mb-3" style={{ fontSize:"clamp(1.4rem,4vw,2rem)" }}>

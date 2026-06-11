@@ -46,7 +46,8 @@ export default function JoinPage() {
         setChecking(false);
         if (!d.authenticated) {
           // Not signed in -- redirect to sign in first
-          const returnUrl = encodeURIComponent(window.location.href);
+          const cleanUrl = window.location.href.replace("://www.jktl.com.ng", "://jktl.com.ng");
+    const returnUrl = encodeURIComponent(cleanUrl);
           window.location.href = `${ACCOUNTS_URL}/sign-in?return=${returnUrl}`;
           return;
         }

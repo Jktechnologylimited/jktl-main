@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sql, getAffiliateByEmail } from "@/lib/affiliate-db";
 import { generateReferralCode } from "@/lib/affiliate-auth";
+import { sendApplicationReceived, notifyAdminNewApplication } from "@/lib/affiliate-emails";
 
 export const dynamic = "force-dynamic";
 
@@ -13,57 +14,32 @@ export async function POST(req: NextRequest) {
     }
 
     const cleanEmail = email.toLowerCase().trim();
-
-    // Check if already an affiliate
     const existing = await getAffiliateByEmail(cleanEmail);
+
     if (existing) {
-      if (existing.status === "active") {
-        return NextResponse.json({ ok: true, alreadyActive: true });
-      }
-      if (existing.status === "pending") {
-        return NextResponse.json({ ok: true, pending: true });
-      }
-      if (existing.status === "rejected") {
-        return NextResponse.json({ error: "Your previous application was not approved. Contact info@jktl.com.ng." }, { status: 403 });
-      }
+      if (existing.status === "active")   return NextResponse.json({ ok: true, alreadyActive: true });
+      if (existing.status === "pending")  return NextResponse.json({ ok: true, pending: true });
+      if (existing.status === "rejected") return NextResponse.json({ error: "Your previous application was not approved. Contact info@jktl.com.ng." }, { status: 403 });
     }
 
     // Generate unique referral code
     let referralCode = generateReferralCode(firstName, lastName);
-    let attempts = 0;
-    while (attempts < 10) {
+    for (let i = 0; i < 10; i++) {
       const exists = await sql`SELECT id FROM affiliates WHERE referral_code = ${referralCode} LIMIT 1`;
       if (exists.length === 0) break;
       referralCode = generateReferralCode(firstName, lastName);
-      attempts++;
     }
 
     await sql`
-      INSERT INTO affiliates
-        (first_name, last_name, email, phone, referral_code, business_name, how_promote, status, tier)
-      VALUES
-        (${firstName.trim()}, ${lastName.trim()}, ${cleanEmail}, ${phone.trim()},
-         ${referralCode}, ${businessName || null}, ${howPromote.trim()}, 'pending', 'standard')
+      INSERT INTO affiliates (first_name, last_name, email, phone, referral_code, business_name, how_promote, status, tier)
+      VALUES (${firstName.trim()}, ${lastName.trim()}, ${cleanEmail}, ${phone.trim()}, ${referralCode}, ${businessName || null}, ${howPromote.trim()}, 'pending', 'standard')
     `;
 
-    // Notify admin via Resend
-    const resendKey = process.env.RESEND_API_KEY;
-    if (resendKey) {
-      await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json" },
-        body: JSON.stringify({
-          from: "JKTL System <verify-accounts-jktl@mail.ibiz.name.ng>",
-          to: ["info@jktl.com.ng"],
-          subject: `New Affiliate Application: ${firstName} ${lastName}`,
-          html: `<p><strong>Name:</strong> ${firstName} ${lastName}</p>
-                 <p><strong>Email:</strong> ${cleanEmail}</p>
-                 <p><strong>Phone:</strong> ${phone}</p>
-                 <p><strong>How they plan to promote:</strong> ${howPromote}</p>
-                 <p><a href="https://admin.jktl.com.ng/dashboard/affiliates">Review in Command Centre</a></p>`,
-        }),
-      }).catch(() => {});
-    }
+    // Send emails (non-blocking)
+    await Promise.allSettled([
+      sendApplicationReceived(cleanEmail, firstName.trim()),
+      notifyAdminNewApplication(firstName.trim(), lastName.trim(), cleanEmail, howPromote.trim()),
+    ]);
 
     return NextResponse.json({ ok: true });
   } catch (err) {

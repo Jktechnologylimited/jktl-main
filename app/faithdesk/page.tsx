@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import Link from "next/link";
 import { deskPlans, siteConfig, companyDetails, productPricing } from "@/data/index";
 
@@ -21,6 +22,59 @@ const PROOF_STATS = [
   { value: "24hr", label: "Setup time" },
   { value: "30 days", label: "Money-back guarantee" },
 ];
+
+const FAITHDESK_VIDEOS = [
+  { id:"fd-1", title:"FaithDesk Overview", desc:"A complete walkthrough -- members, tithes, events and more.", duration:"12 min", youtubeId:"", comingSoon:true },
+  { id:"fd-2", title:"Managing Church Members", desc:"Add, organise and search your congregation.", duration:"8 min", youtubeId:"", comingSoon:true },
+  { id:"fd-3", title:"Recording Tithes & Offerings", desc:"Track every contribution with automatic receipts.", duration:"6 min", youtubeId:"", comingSoon:true },
+  { id:"fd-4", title:"Planning Events", desc:"Create events, track attendance, send reminders.", duration:"7 min", youtubeId:"", comingSoon:true },
+  { id:"fd-5", title:"SMS & Announcements", desc:"Broadcast to members or specific groups.", duration:"5 min", youtubeId:"", comingSoon:true },
+  { id:"fd-6", title:"Reports & Analytics", desc:"Monthly giving, attendance charts, all exportable.", duration:"6 min", youtubeId:"", comingSoon:true },
+];
+
+function VideoCard({ video, color }: { video:{ id:string; title:string; desc:string; duration:string; youtubeId:string; comingSoon:boolean }; color:string }) {
+  const [playing, setPlaying] = useState(false);
+  return (
+    <div style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:10, overflow:"hidden" }}>
+      {/* Thumbnail */}
+      <div style={{ position:"relative", aspectRatio:"16/9", background:"#0B1640", cursor: video.youtubeId ? "pointer" : "default" }}
+        onClick={() => video.youtubeId && setPlaying(true)}>
+        {playing && video.youtubeId ? (
+          <iframe style={{ position:"absolute", inset:0, width:"100%", height:"100%", border:"none" }}
+            src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+        ) : (
+          <div style={{ position:"absolute", inset:0, display:"flex", alignItems:"center", justifyContent:"center",
+            background:`linear-gradient(135deg, ${color}18 0%, #080F25 100%)` }}>
+            {video.comingSoon ? (
+              <div style={{ textAlign:"center" }}>
+                <div style={{ width:40, height:40, borderRadius:"50%", background:"rgba(255,255,255,0.05)", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 8px" }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <p style={{ fontFamily:"monospace", fontSize:"0.55rem", color:"rgba(226,232,240,0.2)", letterSpacing:"0.1em" }}>COMING SOON</p>
+              </div>
+            ) : (
+              <div style={{ width:52, height:52, borderRadius:"50%", background:"rgba(255,255,255,0.12)", border:`2px solid ${color}60`, display:"flex", alignItems:"center", justifyContent:"center" }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+            )}
+          </div>
+        )}
+        {!video.comingSoon && !playing && (
+          <div style={{ position:"absolute", bottom:8, right:8, background:"rgba(0,0,0,0.75)", padding:"2px 8px", borderRadius:4, fontFamily:"monospace", fontSize:"0.62rem", color:"#fff" }}>
+            {video.duration}
+          </div>
+        )}
+      </div>
+      {/* Info */}
+      <div style={{ padding:"13px 14px" }}>
+        <p style={{ fontWeight:700, fontSize:"0.85rem", color: video.comingSoon ? "rgba(226,232,240,0.4)" : "#fff", marginBottom:4, lineHeight:1.3 }}>{video.title}</p>
+        <p style={{ fontSize:"0.73rem", color:"rgba(226,232,240,0.38)", lineHeight:1.5 }}>{video.desc}</p>
+      </div>
+    </div>
+  );
+}
+
 
 export default function FaithDeskPage() {
   return (
@@ -248,6 +302,28 @@ export default function FaithDeskPage() {
                 Ask on WhatsApp
               </a>
             </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* WATCH & LEARN */}
+      <section className="px-4 sm:px-6 lg:px-8 py-16" style={{ background:"#080F25" }}>
+        <div className="max-w-[1000px] mx-auto">
+          <div className="mb-10">
+            <p className="font-mono text-[0.62rem] tracking-[0.2em] uppercase mb-3" style={{ color:"#8B5CF6" }}>Watch & Learn</p>
+            <h2 className="font-bold text-white mb-3" style={{ fontSize:"clamp(1.3rem,3vw,1.8rem)" }}>
+              See FaithDesk in action
+            </h2>
+            <p className="text-[0.9rem]" style={{ color:"rgba(226,232,240,0.45)", maxWidth:480, lineHeight:1.7 }}>
+              Step-by-step video guides. Watch before you sign up, or after -- use them to train your team.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {FAITHDESK_VIDEOS.map(v => (
+              <VideoCard key={v.id} video={v} color="#8B5CF6" />
+            ))}
           </div>
         </div>
       </section>
