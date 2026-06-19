@@ -3,7 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { deskProducts, siteConfig, companyDetails } from "@/data/index";
+import { siteConfig, companyDetails } from "@/data/index";
+import { useDeskProducts } from "@/hooks/useDeskProducts";
 
 const ACCOUNTS_URL = process.env.NEXT_PUBLIC_ACCOUNTS_URL || "https://accounts.jktl.com.ng";
 
@@ -14,6 +15,7 @@ interface SessionData {
 }
 
 export default function Navbar() {
+  const deskProducts = useDeskProducts();
   const [deskOpen,    setDeskOpen]    = useState(false);
   const [menuOpen,    setMenuOpen]    = useState(false);
   const [userOpen,    setUserOpen]    = useState(false);

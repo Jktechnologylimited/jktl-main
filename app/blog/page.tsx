@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { blogPosts, siteConfig } from "@/data/index";
+import { siteConfig } from "@/data/index";
 import { CTA } from "@/components/sections/Sections";
 import { sql } from "@/lib/db";
 
@@ -34,17 +34,11 @@ export default async function BlogPage() {
     } catch { dbPosts = []; }
   }
 
-  const merged = [
-    ...dbPosts.map((p) => ({
-      slug: p.slug, title: p.title, excerpt: p.excerpt || "",
-      category: p.type === "news" ? "News" : "Insights",
-      meta: [p.author, fmtDate(p.published_at)].filter(Boolean).join(" | "),
-    })),
-    ...blogPosts.map((p) => ({
-      slug: p.slug, title: p.title, excerpt: p.excerpt,
-      category: p.category, meta: `${p.readTime} read | ${p.date}`,
-    })),
-  ];
+  const merged = dbPosts.map((p) => ({
+    slug: p.slug, title: p.title, excerpt: p.excerpt || "",
+    category: p.type === "news" ? "News" : "Insights",
+    meta: [p.author, fmtDate(p.published_at)].filter(Boolean).join(" | "),
+  }));
 
   const featured = merged[0];
   const rest = merged.slice(1);

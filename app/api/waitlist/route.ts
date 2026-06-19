@@ -26,6 +26,14 @@ export async function POST(req: NextRequest) {
       `;
     }
 
+    // Mirror into the Command Centre so all leads land in one place
+    const { saveInquiry } = await import("@/lib/inquiries");
+    await saveInquiry({
+      email, phone, businessName: school, service: product,
+      message: `Waitlist signup for ${product}`, source: "waitlist",
+      meta: { product, school },
+    });
+
     // Notify via Resend
     if (process.env.RESEND_API_KEY) {
       await fetch("https://api.resend.com/emails", {

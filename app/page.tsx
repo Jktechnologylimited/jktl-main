@@ -1,10 +1,12 @@
 "use client";
 import Link from "next/link";
-import { deskProducts, siteConfig, companyDetails, businessSuiteRoadmap } from "@/data/index";
+import { siteConfig, companyDetails, businessSuiteRoadmap } from "@/data/index";
+import { useDeskProducts } from "@/hooks/useDeskProducts";
 
 function fmtN(n: number) { return "N" + n.toLocaleString("en-NG"); }
 
 export default function HomePage() {
+  const deskProducts = useDeskProducts();
   return (
     <div className="bg-cream-50">
 

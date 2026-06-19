@@ -4,7 +4,11 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "JK Technology Limited | Business Infrastructure Ecosystem -- Nigeria",
+  metadataBase: new URL("https://jktl.com.ng"),
+  title: {
+    default: "JK Technology Limited | Business Infrastructure Ecosystem -- Nigeria",
+    template: "%s | JK Technology Limited",
+  },
   description:
     "JK Technology builds modular digital infrastructure and business operating systems that help African businesses attract customers, run operations efficiently, collect payments, and scale sustainably.",
   keywords:
@@ -37,6 +41,37 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                name: "JK Technology Limited",
+                url: "https://jktl.com.ng",
+                logo: "https://jktl.com.ng/logo.png",
+                description:
+                  "JK Technology builds modular digital infrastructure and business operating systems for African businesses.",
+                sameAs: [],
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                name: "JK Technology Limited",
+                url: "https://jktl.com.ng",
+                potentialAction: {
+                  "@type": "SearchAction",
+                  target: {
+                    "@type": "EntryPoint",
+                    urlTemplate: "https://jktl.com.ng/blog?q={search_term_string}",
+                  },
+                  "query-input": "required name=search_term_string",
+                },
+              },
+            ]),
+          }}
+        />
         <Navbar />
         <main>{children}</main>
         <Footer />

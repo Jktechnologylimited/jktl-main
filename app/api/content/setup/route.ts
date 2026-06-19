@@ -132,6 +132,26 @@ export async function GET() {
     )
   `);
 
+  await run("service_inquiries", `
+    CREATE TABLE IF NOT EXISTS service_inquiries (
+      id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      name          TEXT,
+      email         TEXT,
+      phone         TEXT,
+      business_name TEXT,
+      service       TEXT,
+      budget        TEXT,
+      timeline      TEXT,
+      message       TEXT,
+      source        TEXT NOT NULL DEFAULT 'inquiry',
+      meta          JSONB DEFAULT '{}',
+      status        TEXT NOT NULL DEFAULT 'new',
+      created_at    TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_inquiries_status", `CREATE INDEX IF NOT EXISTS idx_inquiries_status ON service_inquiries(status)`);
+  await run("idx_inquiries_created", `CREATE INDEX IF NOT EXISTS idx_inquiries_created ON service_inquiries(created_at DESC)`);
+
   await run("idx_jobs_status",      `CREATE INDEX IF NOT EXISTS idx_jobs_status      ON jobs(status)`);
   await run("idx_services_slug",    `CREATE INDEX IF NOT EXISTS idx_services_slug    ON agency_services(slug)`);
   await run("idx_products_slug",    `CREATE INDEX IF NOT EXISTS idx_products_slug    ON desk_products(slug)`);
@@ -146,7 +166,7 @@ export async function GET() {
     const rows = await sql.query(`
       SELECT table_name FROM information_schema.tables
       WHERE table_schema = 'public'
-      AND table_name IN ('jobs','job_applications','posts','case_studies','agency_services','desk_products')
+      AND table_name IN ('jobs','job_applications','posts','case_studies','agency_services','desk_products','service_inquiries')
       ORDER BY table_name
     `);
     existing = rows.map((r: Record<string, unknown>) => r.table_name as string);

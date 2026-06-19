@@ -1,8 +1,11 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
-import { siteConfig, deskProducts } from "@/data/index";
+import { siteConfig } from "@/data/index";
+import { useDeskProducts } from "@/hooks/useDeskProducts";
 
 export default function Footer() {
+  const deskProducts = useDeskProducts();
   const year = new Date().getFullYear();
   return (
     <footer style={{ background:"var(--navy-950)", borderTop:"1px solid rgba(249,247,240,0.06)", padding:"clamp(40px,6vw,56px) clamp(16px,4vw,32px) 28px" }}>
