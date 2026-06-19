@@ -45,21 +45,8 @@ export async function GET(req: NextRequest) {
         const padded = b64 + "=".repeat((4 - b64.length % 4) % 4);
         const decoded = JSON.parse(Buffer.from(padded,"base64").toString("utf-8"));
         email = decoded.email || decoded?.user?.email || null;
+        if (email) console.log("[affiliate/me] Got email from base64 fallback");
       }
-    } catch {}
-  }
-
-  // Last resort: call accounts session API to get email
-  if (!email) {
-    try {
-      const accountsUrl = process.env.NEXT_PUBLIC_ACCOUNTS_URL || "https://accounts.jktl.com.ng";
-      const cookieHeader = req.headers.get("cookie") || "";
-      const accountsRes = await fetch(`${accountsUrl}/api/auth/session`, {
-        headers: { cookie: cookieHeader },
-        cache: "no-store",
-      });
-      const accountsData = await accountsRes.json();
-      if (accountsData.email) email = accountsData.email;
     } catch {}
   }
 

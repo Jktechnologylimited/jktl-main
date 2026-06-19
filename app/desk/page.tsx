@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { deskProducts, deskPlans, productPricing, businessSuiteRoadmap, siteConfig, companyDetails, ACCOUNTS_URL } from "@/data/index";
+import { deskPlans, productPricing, businessSuiteRoadmap, siteConfig, companyDetails, ACCOUNTS_URL } from "@/data/index";
+import { getDeskProducts } from "@/lib/content";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Desk by JK Technology | Vertical Software for African Businesses",
@@ -10,7 +13,8 @@ export const metadata: Metadata = {
 
 function fmtN(n: number) { return "N" + n.toLocaleString("en-NG"); }
 
-export default function DeskPage() {
+export default async function DeskPage() {
+  const deskProducts = await getDeskProducts();
   return (
     <div className="bg-cream-50">
 

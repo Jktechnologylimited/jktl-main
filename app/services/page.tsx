@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { services, flagshipPackage, siteConfig, companyDetails } from "@/data/index";
+import { flagshipPackage, siteConfig, companyDetails } from "@/data/index";
+import { getAgencyServices } from "@/lib/content";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Agency Services | JK Technology Limited",
   description: "Custom digital systems for Nigerian businesses. Websites, SEO, CRM, email automation, payment infrastructure, AI chatbots. Scoped, built, and delivered by JKTL.",
 };
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const services = await getAgencyServices();
   return (
     <div className="bg-cream-50">
       <section className="bg-navy-950" style={{ paddingTop: "clamp(88px,12vw,120px)", paddingBottom: "64px" }}>

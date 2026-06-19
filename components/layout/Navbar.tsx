@@ -124,9 +124,11 @@ export default function Navbar() {
               )}
             </div>
 
-            <Link href="/services"   className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors rounded-lg">Services</Link>
-            <Link href="/affiliates" className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors rounded-lg">Affiliates</Link>
-            <Link href="/about"      className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors rounded-lg">About</Link>
+            <Link href="/services"     className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors rounded-lg">Services</Link>
+            <Link href="/case-studies" className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors rounded-lg">Work</Link>
+            <Link href="/blog"         className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors rounded-lg">Insights</Link>
+            <Link href="/affiliates"   className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors rounded-lg">Affiliates</Link>
+            <Link href="/about"        className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors rounded-lg">About</Link>
           </div>
 
           {/* Right side */}
@@ -257,6 +259,9 @@ export default function Navbar() {
             {[
               { l: "Desk Overview",  h: "/desk"       },
               { l: "Services",       h: "/services"   },
+              { l: "Work",           h: "/case-studies" },
+              { l: "Insights",       h: "/blog"       },
+              { l: "Careers",        h: "/careers"    },
               { l: "Affiliates",     h: "/affiliates" },
               { l: "About",          h: "/about"      },
               { l: "Contact",        h: "/contact"    },
