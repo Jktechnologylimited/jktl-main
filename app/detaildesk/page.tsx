@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
+import { useWatchVideos } from "@/hooks/useWatchVideos";
+import { WATCH_VIDEOS_DEFAULTS } from "@/data/watch-videos-defaults";
 import Link from "next/link";
-import { siteConfig, companyDetails, productPricing } from "@/data/index";
+import { siteConfig, companyDetails } from "@/data/index";
+import { useProductPricing } from "@/hooks/useProductPricing";
 
-const pricing = productPricing.detaildesk;
 function fmtN(n: number) { return "N" + n.toLocaleString("en-NG"); }
 
 const FEATURES = [
@@ -15,14 +17,6 @@ const FEATURES = [
   { icon: "AN", title: "Analytics Dashboard", desc: "Revenue by day/week/month. Best-selling services. Worker performance. Know your numbers." },
 ];
 
-const DETAILDESK_VIDEOS = [
-  { id:"dd-1", title:"DetailDesk Overview", desc:"Bookings, job cards, clients and invoices walkthrough.", duration:"10 min", youtubeId:"", comingSoon:true },
-  { id:"dd-2", title:"Taking & Managing Bookings", desc:"Online bookings, walk-ins and calendar scheduling.", duration:"8 min", youtubeId:"", comingSoon:true },
-  { id:"dd-3", title:"Job Cards & Service Tracking", desc:"Create job cards, track progress, mark complete.", duration:"7 min", youtubeId:"", comingSoon:true },
-  { id:"dd-4", title:"Creating & Sending Invoices", desc:"Professional invoices with payment tracking.", duration:"5 min", youtubeId:"", comingSoon:true },
-  { id:"dd-5", title:"Client Management", desc:"Full client history, vehicles, preferences.", duration:"6 min", youtubeId:"", comingSoon:true },
-  { id:"dd-6", title:"Reports & Revenue", desc:"Monthly revenue, popular services, team performance.", duration:"5 min", youtubeId:"", comingSoon:true },
-];
 
 function VideoCard({ video, color }: { video:{ id:string; title:string; desc:string; duration:string; youtubeId:string; comingSoon:boolean }; color:string }) {
   const [playing, setPlaying] = useState(false);
@@ -68,6 +62,8 @@ function VideoCard({ video, color }: { video:{ id:string; title:string; desc:str
 }
 
 export default function DetailDeskPage() {
+  const videos = useWatchVideos("detaildesk", WATCH_VIDEOS_DEFAULTS.detaildesk);
+  const pricing = useProductPricing("detaildesk");
   return (
     <div className="bg-cream-50">
 
@@ -103,7 +99,7 @@ export default function DetailDeskPage() {
           {/* CRAZY OFFER */}
           <div className="rounded border border-amber-500/30 bg-amber-500/08 p-5 sm:p-6 mb-8">
             <p className="font-mono text-[0.62rem] tracking-widest text-amber-400 uppercase mb-3">The DetailDesk Offer</p>
-            <p className="text-white font-bold text-lg mb-2">Pay {fmtN(pricing.setup)} setup fee. Get all of this free:</p>
+            <p className="text-white font-bold text-lg mb-2">Pay {fmtN(pricing.setup!)} setup fee. Get all of this free:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
               {[
                 "Online booking system for your shop",
@@ -128,7 +124,7 @@ export default function DetailDeskPage() {
           <div className="flex flex-col sm:flex-row gap-3">
             <Link href="/get-started/detaildesk"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 font-bold text-[0.78rem] uppercase tracking-widest rounded-sm no-underline bg-amber-500 text-navy-900">
-              Get Started -- {fmtN(pricing.setup)} Setup
+              Get Started -- {fmtN(pricing.setup!)} Setup
             </Link>
             <a href={companyDetails.whatsappLink} target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-6 py-4 font-bold text-[0.72rem] uppercase tracking-wide rounded-sm no-underline"
@@ -184,11 +180,11 @@ export default function DetailDeskPage() {
             </div>
             <div className="flex flex-col sm:flex-row sm:items-end gap-4 mb-6">
               <div>
-                <p className="font-display font-light text-[3rem] text-navy-900 leading-none">{fmtN(pricing.setup)}</p>
+                <p className="font-display font-light text-[3rem] text-navy-900 leading-none">{fmtN(pricing.setup!)}</p>
                 <p className="text-black/40 text-[0.72rem]">one-time setup fee</p>
               </div>
               <div className="sm:ml-4 sm:pb-1">
-                <p className="font-bold text-[1.2rem] text-navy-900">+ {fmtN(pricing.monthly)}<span className="text-[0.85rem] font-normal text-black/40">/month</span></p>
+                <p className="font-bold text-[1.2rem] text-navy-900">+ {fmtN(pricing.monthly!)}<span className="text-[0.85rem] font-normal text-black/40">/month</span></p>
               </div>
             </div>
             <div className="rounded p-4 mb-6 flex items-start gap-3 bg-amber-500/06 border border-amber-500/20">
@@ -229,7 +225,7 @@ export default function DetailDeskPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {DETAILDESK_VIDEOS.map(v => (
+            {videos.map(v => (
               <VideoCard key={v.id} video={v} color="#F59E0B" />
             ))}
           </div>
@@ -248,7 +244,7 @@ export default function DetailDeskPage() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/get-started/detaildesk"
               className="inline-flex items-center justify-center px-8 py-4 font-bold text-[0.78rem] uppercase tracking-widest rounded-sm no-underline bg-amber-500 text-navy-900">
-              Get DetailDesk -- {fmtN(pricing.setup)}
+              Get DetailDesk -- {fmtN(pricing.setup!)}
             </Link>
             <a href={"mailto:"+siteConfig.email}
               className="inline-flex items-center justify-center px-6 py-4 font-bold text-[0.72rem] uppercase tracking-wide rounded-sm no-underline"

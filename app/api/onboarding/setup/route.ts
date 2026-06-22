@@ -44,9 +44,18 @@ export async function GET() {
       affiliate_code   TEXT,
       created_at       TIMESTAMPTZ DEFAULT NOW(),
       activated_at     TIMESTAMPTZ,
+      features         JSONB DEFAULT '{}',
+      database_url     TEXT,
+      cloudinary_folder TEXT,
       notes            TEXT
     )
   `);
+
+  // Per-tenant feature flags / config for existing databases
+  await run("organisations.features", `ALTER TABLE organisations ADD COLUMN IF NOT EXISTS features JSONB DEFAULT '{}'`);
+  // Per-tenant data isolation (SchoolDesk option C): each tenant's own database + asset folder
+  await run("organisations.database_url",      `ALTER TABLE organisations ADD COLUMN IF NOT EXISTS database_url      TEXT`);
+  await run("organisations.cloudinary_folder", `ALTER TABLE organisations ADD COLUMN IF NOT EXISTS cloudinary_folder TEXT`);
 
   await run("onboarding_sessions", `
     CREATE TABLE IF NOT EXISTS onboarding_sessions (

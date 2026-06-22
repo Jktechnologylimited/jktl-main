@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
+import { useWatchVideos } from "@/hooks/useWatchVideos";
+import { WATCH_VIDEOS_DEFAULTS } from "@/data/watch-videos-defaults";
 import Link from "next/link";
-import { deskPlans, siteConfig, companyDetails, productPricing } from "@/data/index";
+import { deskPlans, siteConfig, companyDetails } from "@/data/index";
+import { useProductPricing } from "@/hooks/useProductPricing";
 
-const pricing = productPricing.faithdesk;
 
 function fmtN(n: number) { return "N" + n.toLocaleString("en-NG"); }
 
@@ -23,14 +25,6 @@ const PROOF_STATS = [
   { value: "30 days", label: "Money-back guarantee" },
 ];
 
-const FAITHDESK_VIDEOS = [
-  { id:"fd-1", title:"FaithDesk Overview", desc:"A complete walkthrough -- members, tithes, events and more.", duration:"12 min", youtubeId:"", comingSoon:true },
-  { id:"fd-2", title:"Managing Church Members", desc:"Add, organise and search your congregation.", duration:"8 min", youtubeId:"", comingSoon:true },
-  { id:"fd-3", title:"Recording Tithes & Offerings", desc:"Track every contribution with automatic receipts.", duration:"6 min", youtubeId:"", comingSoon:true },
-  { id:"fd-4", title:"Planning Events", desc:"Create events, track attendance, send reminders.", duration:"7 min", youtubeId:"", comingSoon:true },
-  { id:"fd-5", title:"SMS & Announcements", desc:"Broadcast to members or specific groups.", duration:"5 min", youtubeId:"", comingSoon:true },
-  { id:"fd-6", title:"Reports & Analytics", desc:"Monthly giving, attendance charts, all exportable.", duration:"6 min", youtubeId:"", comingSoon:true },
-];
 
 function VideoCard({ video, color }: { video:{ id:string; title:string; desc:string; duration:string; youtubeId:string; comingSoon:boolean }; color:string }) {
   const [playing, setPlaying] = useState(false);
@@ -77,6 +71,8 @@ function VideoCard({ video, color }: { video:{ id:string; title:string; desc:str
 
 
 export default function FaithDeskPage() {
+  const videos = useWatchVideos("faithdesk", WATCH_VIDEOS_DEFAULTS.faithdesk);
+  const pricing = useProductPricing("faithdesk");
   return (
     <div className="bg-cream-50">
 
@@ -113,7 +109,7 @@ export default function FaithDeskPage() {
           {/* CRAZY OFFER FRAMING */}
           <div className="rounded border border-[#8B5CF6]/30 bg-[#8B5CF6]/08 p-5 sm:p-6 mb-8">
             <p className="font-mono text-[0.62rem] tracking-widest text-[#A78BFA] uppercase mb-3">The FaithDesk Offer</p>
-            <p className="text-white font-bold text-lg mb-2">Pay {fmtN(pricing.setup)} setup fee. Get all of this free:</p>
+            <p className="text-white font-bold text-lg mb-2">Pay {fmtN(pricing.setup!)} setup fee. Get all of this free:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
               {[
                 "Full member CRM and database",
@@ -131,7 +127,7 @@ export default function FaithDeskPage() {
               ))}
             </div>
             <p className="text-[0.78rem] text-white/40 italic">
-              The {fmtN(pricing.setup)} covers the software setup. The member portal, migration support, and 30-day support -- those are our gift.
+              The {fmtN(pricing.setup!)} covers the software setup. The member portal, migration support, and 30-day support -- those are our gift.
             </p>
           </div>
 
@@ -139,7 +135,7 @@ export default function FaithDeskPage() {
             <Link href="/get-started/faithdesk"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 font-bold text-[0.78rem] uppercase tracking-widest rounded-sm no-underline"
               style={{ background:"#8B5CF6", color:"#fff" }}>
-              Get Started -- {fmtN(pricing.setup)} Setup
+              Get Started -- {fmtN(pricing.setup!)} Setup
             </Link>
             <a href={companyDetails.whatsappLink} target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-6 py-4 font-bold text-[0.72rem] uppercase tracking-wide rounded-sm no-underline"
@@ -254,11 +250,11 @@ export default function FaithDeskPage() {
             </div>
             <div className="flex flex-col sm:flex-row sm:items-end gap-4 mb-6">
               <div>
-                <p className="font-display font-light text-[3rem] text-navy-900 leading-none">{fmtN(pricing.setup)}</p>
+                <p className="font-display font-light text-[3rem] text-navy-900 leading-none">{fmtN(pricing.setup!)}</p>
                 <p className="text-black/40 text-[0.72rem]">one-time setup fee</p>
               </div>
               <div className="sm:ml-4 sm:pb-1">
-                <p className="font-bold text-[1.2rem] text-navy-900">+ {fmtN(pricing.monthly)}<span className="text-[0.85rem] font-normal text-black/40">/month</span></p>
+                <p className="font-bold text-[1.2rem] text-navy-900">+ {fmtN(pricing.monthly!)}<span className="text-[0.85rem] font-normal text-black/40">/month</span></p>
                 <p className="text-black/40 text-[0.72rem]">cancel anytime</p>
               </div>
             </div>
@@ -321,7 +317,7 @@ export default function FaithDeskPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {FAITHDESK_VIDEOS.map(v => (
+            {videos.map(v => (
               <VideoCard key={v.id} video={v} color="#8B5CF6" />
             ))}
           </div>
@@ -342,7 +338,7 @@ export default function FaithDeskPage() {
             <Link href="/get-started/faithdesk"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 font-bold text-[0.78rem] uppercase tracking-widest rounded-sm no-underline"
               style={{ background:"#8B5CF6", color:"#fff" }}>
-              Get FaithDesk -- {fmtN(pricing.setup)}
+              Get FaithDesk -- {fmtN(pricing.setup!)}
             </Link>
             <a href={"mailto:" + siteConfig.email}
               className="inline-flex items-center justify-center gap-2 px-6 py-4 font-bold text-[0.72rem] uppercase tracking-wide rounded-sm no-underline"

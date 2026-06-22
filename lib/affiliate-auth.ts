@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 const JWT_SECRET = process.env.JWT_SECRET || "jktl-affiliate-dev-secret";
 export const COOKIE_NAME = "jktl_aff_token";
@@ -40,26 +40,29 @@ export function generateReferralCode(firstName: string, lastName: string): strin
   return `${base}${rand}`;
 }
 
-//  EMAIL 
-function getTransporter() {
-  return nodemailer.createTransport({
-    host: process.env.SMTP_HOST || "smtp.gmail.com",
-    port: Number(process.env.SMTP_PORT) || 587,
-    secure: false,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
+//  EMAIL  (Resend)
+const FROM = process.env.RESEND_FROM || "JK Technology Limited <noreply@jktl.com.ng>";
+
+// Lazy init so a missing key never breaks the build; sends are no-ops until configured.
+function getResend(): Resend | null {
+  const key = process.env.RESEND_API_KEY;
+  return key ? new Resend(key) : null;
+}
+
+async function sendEmail(opts: { to: string; subject: string; html: string; from?: string }) {
+  const resend = getResend();
+  if (!resend) return; // not configured -> skip silently
+  try {
+    await resend.emails.send({ from: opts.from || FROM, to: opts.to, subject: opts.subject, html: opts.html });
+  } catch (err) {
+    console.error("Resend send failed:", err);
+  }
 }
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "https://affiliate.jktl.com.ng";
 
 export async function sendApprovalEmail(email: string, firstName: string) {
-  if (!process.env.SMTP_USER) return;
-  const transporter = getTransporter();
-  await transporter.sendMail({
-    from: `"JK Technology Limited" <${process.env.SMTP_USER}>`,
+  await sendEmail({
     to: email,
     subject: "Your JKTL Affiliate Account is Approved!",
     html: `
@@ -75,10 +78,7 @@ export async function sendApprovalEmail(email: string, firstName: string) {
 }
 
 export async function sendRejectionEmail(email: string, firstName: string) {
-  if (!process.env.SMTP_USER) return;
-  const transporter = getTransporter();
-  await transporter.sendMail({
-    from: `"JK Technology Limited" <${process.env.SMTP_USER}>`,
+  await sendEmail({
     to: email,
     subject: "Update on Your JKTL Affiliate Application",
     html: `
@@ -93,11 +93,8 @@ export async function sendRejectionEmail(email: string, firstName: string) {
 }
 
 export async function sendNewApplicationEmail(affiliateName: string, affiliateEmail: string) {
-  if (!process.env.SMTP_USER) return;
-  const transporter = getTransporter();
-  await transporter.sendMail({
-    from: `"JKTL Affiliate System" <${process.env.SMTP_USER}>`,
-    to: process.env.SMTP_USER,
+  await sendEmail({
+    to: process.env.ADMIN_NOTIFY_EMAIL || "info@jktl.com.ng",
     subject: `New Affiliate Application: ${affiliateName}`,
     html: `
       <div style="font-family:sans-serif;max-width:560px;margin:0 auto;padding:32px;">
@@ -111,11 +108,8 @@ export async function sendNewApplicationEmail(affiliateName: string, affiliateEm
 }
 
 export async function sendPasswordResetEmail(email: string, firstName: string, token: string) {
-  if (!process.env.SMTP_USER) return;
-  const transporter = getTransporter();
   const resetUrl = `${APP_URL}/reset-password?token=${token}`;
-  await transporter.sendMail({
-    from: `"JK Technology Limited" <${process.env.SMTP_USER}>`,
+  await sendEmail({
     to: email,
     subject: "Reset Your JKTL Affiliate Password",
     html: `

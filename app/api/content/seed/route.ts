@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
-import { services, deskProducts } from "@/data/index";
+import { services, deskProducts, productPricing } from "@/data/index";
 
 export const dynamic = "force-dynamic";
 
@@ -40,16 +40,17 @@ export async function GET() {
       const p = deskProducts[i] as Record<string, unknown>;
       const exists = await sql`SELECT id FROM desk_products WHERE product_key = ${p.id as string} LIMIT 1`;
       if (exists.length > 0) continue;
+      const pr = (productPricing as Record<string, { setup: number | null; monthly: number | null; waitlistNote?: string }>)[p.id as string] || { setup: null, monthly: null };
       await sql`
         INSERT INTO desk_products
           (product_key, name, tagline, description, status, color, slug, href, get_started_href,
-           icon, features, domains, use_cases, sort_order)
+           icon, features, domains, use_cases, setup_price, monthly_price, price_note, sort_order)
         VALUES
           (${p.id as string}, ${p.name as string}, ${(p.tagline as string) || ""},
            ${(p.description as string) || ""}, ${(p.status as string) || "live"}, ${(p.color as string) || "#8B5CF6"},
            ${p.slug as string}, ${(p.href as string) || ""}, ${(p.getStartedHref as string) || ""},
            ${(p.icon as string) || ""}, ${JSON.stringify(p.features || [])}, ${JSON.stringify(p.domains || [])},
-           ${JSON.stringify(p.useCases || [])}, ${i})
+           ${JSON.stringify(p.useCases || [])}, ${pr.setup}, ${pr.monthly}, ${pr.waitlistNote || ""}, ${i})
       `;
       result.products++;
     }

@@ -40,6 +40,7 @@ export async function getDeskProducts(): Promise<DeskProduct[]> {
       status: r.status, color: r.color, slug: r.slug, href: r.href,
       getStartedHref: r.get_started_href, icon: r.icon,
       features: r.features || [], domains: r.domains || [], useCases: r.use_cases || [],
+      setupPrice: r.setup_price, monthlyPrice: r.monthly_price, priceNote: r.price_note,
     })) as unknown as DeskProduct[];
   } catch {
     return staticDeskProducts;

@@ -2,11 +2,14 @@
 import Link from "next/link";
 import { siteConfig, companyDetails, businessSuiteRoadmap } from "@/data/index";
 import { useDeskProducts } from "@/hooks/useDeskProducts";
+import { useSiteContent, useTestimonials } from "@/hooks/useSiteContent";
 
 function fmtN(n: number) { return "N" + n.toLocaleString("en-NG"); }
 
 export default function HomePage() {
   const deskProducts = useDeskProducts();
+  const c = useSiteContent();
+  const testimonials = useTestimonials();
   return (
     <div className="bg-cream-50">
 
@@ -20,25 +23,24 @@ export default function HomePage() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-gold-400/10 border border-gold-400/25 px-4 py-1.5 rounded-sm mb-7">
             <span className="w-1.5 h-1.5 rounded-full bg-gold-400 shrink-0" />
-            <span className="label-xs text-gold-400">JK Technology Limited -- Nigerian Software Company -- CAC Registered</span>
+            <span className="label-xs text-gold-400">{c.hero.badge}</span>
           </div>
 
           {/* Giant Promise Headline */}
           <h1 className="display-hero text-white mb-5 leading-[1.04]" style={{ maxWidth: 820 }}>
-            Vertical Software Built<br className="hidden sm:block" />
-            <span className="text-gold-400"> for African Businesses.</span>
+            {c.hero.headlineLine1}<br className="hidden sm:block" />
+            <span className="text-gold-400"> {c.hero.headlineAccent}</span>
           </h1>
           <p className="body-lg text-white/55 mb-4" style={{ maxWidth: 580 }}>
-            The Desk suite -- industry-specific management systems for churches, schools, and auto detailing businesses.
-            Self-service onboarding. Real-time deployment. Subscription billing.
+            {c.hero.subhead}
           </p>
           <p className="text-white/30 text-sm mb-9 font-mono">
-            No developer needed. No IT consultant. Go live the same day.
+            {c.hero.note}
           </p>
 
           <div className="flex flex-wrap gap-3 mb-12">
-            <Link href="/desk" className="btn-gold px-7 py-3.5 text-sm">Explore Desk Products</Link>
-            <Link href="/get-started" className="btn-outline-cream px-7 py-3.5 text-sm">Get Started Today</Link>
+            <Link href={c.hero.primaryCta.href} className="btn-gold px-7 py-3.5 text-sm">{c.hero.primaryCta.label}</Link>
+            <Link href={c.hero.secondaryCta.href} className="btn-outline-cream px-7 py-3.5 text-sm">{c.hero.secondaryCta.label}</Link>
             <a href={companyDetails.whatsappLink} target="_blank" rel="noopener noreferrer"
               className="btn-ghost px-5 py-3.5 text-sm flex items-center gap-2">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.556 4.118 1.528 5.845L0 24l6.335-1.652A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.652-.493-5.188-1.357l-.371-.214-3.861 1.007 1.028-3.752-.233-.387A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
@@ -78,8 +80,8 @@ export default function HomePage() {
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="order-2 lg:order-1">
             <span className="gold-rule block mb-4" />
-            <h2 className="display-lg text-cream-50 mb-5 leading-snug">
-              Built by a Nigerian founder,<br />for African businesses.
+            <h2 className="display-lg text-cream-50 mb-5 leading-snug" style={{ whiteSpace: "pre-line" }}>
+              {c.founder.heading}
             </h2>
             <p className="body-md text-white/55 mb-4 leading-[1.8]">
               JK Technology Limited is a registered Nigerian software company (CAC: {companyDetails.cac}), founded in 2019.
@@ -117,8 +119,8 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
             <div>
               <span className="gold-rule block mb-3" />
-              <h2 className="display-lg text-navy-900">The Desk Suite</h2>
-              <p className="body-md text-black/50 mt-1.5">Industry-specific software. Self-service onboarding. Live today.</p>
+              <h2 className="display-lg text-navy-900">{c.deskSuite.heading}</h2>
+              <p className="body-md text-black/50 mt-1.5">{c.deskSuite.subhead}</p>
             </div>
             <Link href="/desk" className="btn-outline-navy text-xs px-4 py-2 self-start sm:self-auto shrink-0">View all products</Link>
           </div>
@@ -199,8 +201,8 @@ export default function HomePage() {
       <section className="bg-navy-900 px-4 sm:px-6 lg:px-8 py-16">
         <div className="max-w-[900px] mx-auto">
           <div className="text-center mb-10">
-            <h2 className="display-lg text-cream-50 mb-2">Go live in under 10 minutes.</h2>
-            <p className="text-white/40 text-[0.9rem]">Self-service. No developer. No waiting.</p>
+            <h2 className="display-lg text-cream-50 mb-2">{c.howItWorks.heading}</h2>
+            <p className="text-white/40 text-[0.9rem]">{c.howItWorks.subhead}</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.06]">
             {[
@@ -232,10 +234,9 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-8 items-start sm:items-center justify-between mb-8">
             <div>
               <span className="gold-rule block mb-3" />
-              <h2 className="display-lg text-navy-900 mb-2">Agency Services</h2>
+              <h2 className="display-lg text-navy-900 mb-2">{c.agencyServices.heading}</h2>
               <p className="body-md text-black/55" style={{ maxWidth: 500 }}>
-                Custom digital systems for businesses that need something specific -- websites, SEO, CRM, AI chatbots, payment infrastructure, email automation.
-                Not self-service. Scoped, built, and delivered by our team.
+                {c.agencyServices.subhead}
               </p>
             </div>
             <div className="flex flex-col gap-2 shrink-0">
@@ -298,12 +299,43 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/*  TESTIMONIALS  */}
+      {testimonials.length > 0 && (
+        <section className="bg-cream-50 px-4 sm:px-6 lg:px-8 py-16">
+          <div className="max-w-[1200px] mx-auto">
+            <div className="text-center mb-10">
+              <span className="gold-rule block mb-3 mx-auto" style={{ width: 40 }} />
+              <h2 className="display-lg text-navy-900">{c.testimonials.heading}</h2>
+              {c.testimonials.subhead && <p className="body-md text-black/50 mt-1.5">{c.testimonials.subhead}</p>}
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {testimonials.map(t => (
+                <figure key={t.id} className="bg-white border border-cream-300 rounded p-7 flex flex-col">
+                  <div className="text-gold-400 mb-3" style={{ letterSpacing: 2 }}>{"\u2605".repeat(Math.max(1, Math.min(5, t.rating || 5)))}</div>
+                  <blockquote className="text-[0.92rem] text-black/70 leading-relaxed flex-1">&ldquo;{t.quote}&rdquo;</blockquote>
+                  <figcaption className="mt-5 flex items-center gap-3">
+                    {t.avatar_url
+                      // eslint-disable-next-line @next/next/no-img-element
+                      ? <img src={t.avatar_url} alt={t.author_name} className="w-10 h-10 rounded-full object-cover shrink-0" />
+                      : <div className="w-10 h-10 rounded-full bg-navy-900 flex items-center justify-center shrink-0"><span className="font-mono text-[0.7rem] font-bold text-gold-400">{t.author_name.slice(0, 2).toUpperCase()}</span></div>}
+                    <div>
+                      <p className="font-bold text-[0.85rem] text-navy-900">{t.author_name}</p>
+                      <p className="text-[0.72rem] text-black/45">{[t.author_role, t.company].filter(Boolean).join(", ")}</p>
+                    </div>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/*  FINAL CTA  */}
       <section className="bg-cream-100 px-4 sm:px-6 lg:px-8 py-16 text-center">
         <div className="max-w-lg mx-auto">
-          <h2 className="display-lg text-navy-900 mb-3">Ready to get started?</h2>
+          <h2 className="display-lg text-navy-900 mb-3">{c.finalCta.heading}</h2>
           <p className="body-md text-black/50 mb-8">
-            Pick a product and go live today. Or tell us what you need and we will build it for you.
+            {c.finalCta.subhead}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap">
             <Link href="/get-started" className="btn-gold px-8 py-3.5">Choose a Product</Link>

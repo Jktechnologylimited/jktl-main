@@ -127,10 +127,18 @@ export async function GET() {
       features         JSONB DEFAULT '[]',
       domains          JSONB DEFAULT '[]',
       use_cases        JSONB DEFAULT '[]',
+      setup_price      BIGINT,
+      monthly_price    BIGINT,
+      price_note       TEXT,
       sort_order       INT DEFAULT 0,
       created_at       TIMESTAMPTZ DEFAULT NOW()
     )
   `);
+
+  // Migrations for existing databases (CREATE IF NOT EXISTS won't add new columns)
+  await run("desk_products.setup_price",   `ALTER TABLE desk_products ADD COLUMN IF NOT EXISTS setup_price   BIGINT`);
+  await run("desk_products.monthly_price", `ALTER TABLE desk_products ADD COLUMN IF NOT EXISTS monthly_price BIGINT`);
+  await run("desk_products.price_note",    `ALTER TABLE desk_products ADD COLUMN IF NOT EXISTS price_note    TEXT`);
 
   await run("service_inquiries", `
     CREATE TABLE IF NOT EXISTS service_inquiries (
@@ -152,6 +160,141 @@ export async function GET() {
   await run("idx_inquiries_status", `CREATE INDEX IF NOT EXISTS idx_inquiries_status ON service_inquiries(status)`);
   await run("idx_inquiries_created", `CREATE INDEX IF NOT EXISTS idx_inquiries_created ON service_inquiries(created_at DESC)`);
 
+  await run("site_content", `
+    CREATE TABLE IF NOT EXISTS site_content (
+      key        TEXT PRIMARY KEY,
+      value      JSONB NOT NULL DEFAULT '{}',
+      updated_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+
+  await run("testimonials", `
+    CREATE TABLE IF NOT EXISTS testimonials (
+      id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      quote       TEXT NOT NULL,
+      author_name TEXT NOT NULL,
+      author_role TEXT,
+      company     TEXT,
+      avatar_url  TEXT,
+      rating      INT DEFAULT 5,
+      status      TEXT NOT NULL DEFAULT 'published',
+      sort_order  INT DEFAULT 0,
+      created_at  TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+
+  await run("watch_videos", `
+    CREATE TABLE IF NOT EXISTS watch_videos (
+      id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      page_key    TEXT NOT NULL,
+      title       TEXT NOT NULL,
+      description TEXT,
+      duration    TEXT,
+      youtube_id  TEXT,
+      coming_soon BOOLEAN DEFAULT FALSE,
+      sort_order  INT DEFAULT 0,
+      created_at  TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_videos_page", `CREATE INDEX IF NOT EXISTS idx_videos_page ON watch_videos(page_key, sort_order)`);
+
+  // ---- Staff / team (BDRs, sales reps) + their tasks and targets ----
+  await run("staff", `
+    CREATE TABLE IF NOT EXISTS staff (
+      id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      name          TEXT NOT NULL,
+      email         TEXT UNIQUE NOT NULL,
+      password_hash TEXT,
+      role          TEXT NOT NULL DEFAULT 'bdr',
+      phone         TEXT,
+      active        BOOLEAN DEFAULT TRUE,
+      created_at    TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("staff_tasks", `
+    CREATE TABLE IF NOT EXISTS staff_tasks (
+      id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      staff_id    UUID NOT NULL REFERENCES staff(id) ON DELETE CASCADE,
+      title       TEXT NOT NULL,
+      description TEXT,
+      status      TEXT NOT NULL DEFAULT 'todo',
+      due_date    DATE,
+      created_at  TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("staff_targets", `
+    CREATE TABLE IF NOT EXISTS staff_targets (
+      id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      staff_id      UUID NOT NULL REFERENCES staff(id) ON DELETE CASCADE,
+      label         TEXT NOT NULL,
+      metric        TEXT,
+      target_value  NUMERIC DEFAULT 0,
+      current_value NUMERIC DEFAULT 0,
+      period        TEXT,
+      created_at    TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_staff_tasks",   `CREATE INDEX IF NOT EXISTS idx_staff_tasks   ON staff_tasks(staff_id)`);
+  await run("idx_staff_targets", `CREATE INDEX IF NOT EXISTS idx_staff_targets ON staff_targets(staff_id)`);
+
+  // ---- Daily KPI tracking (BDR / sales outreach metrics) ----
+  await run("kpi_entries", `
+    CREATE TABLE IF NOT EXISTS kpi_entries (
+      id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      staff_id        UUID NOT NULL REFERENCES staff(id) ON DELETE CASCADE,
+      entry_date      DATE NOT NULL,
+      messages_sent   INT DEFAULT 0,
+      conversations   INT DEFAULT 0,
+      qualified_leads INT DEFAULT 0,
+      demos_booked    INT DEFAULT 0,
+      follow_ups      INT DEFAULT 0,
+      created_at      TIMESTAMPTZ DEFAULT NOW(),
+      updated_at      TIMESTAMPTZ DEFAULT NOW(),
+      UNIQUE (staff_id, entry_date)
+    )
+  `);
+  await run("idx_kpi_staff_date", `CREATE INDEX IF NOT EXISTS idx_kpi_staff_date ON kpi_entries(staff_id, entry_date DESC)`);
+
+  // ---- Team / staff (BDRs, marketers) with role-based access ----
+  await run("staff", `
+    CREATE TABLE IF NOT EXISTS staff (
+      id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      name          TEXT NOT NULL,
+      email         TEXT UNIQUE NOT NULL,
+      password_hash TEXT NOT NULL,
+      role          TEXT NOT NULL DEFAULT 'bdr',
+      phone         TEXT,
+      active        BOOLEAN DEFAULT TRUE,
+      created_at    TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("staff_tasks", `
+    CREATE TABLE IF NOT EXISTS staff_tasks (
+      id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      staff_id    UUID REFERENCES staff(id) ON DELETE CASCADE,
+      title       TEXT NOT NULL,
+      description TEXT,
+      status      TEXT NOT NULL DEFAULT 'todo',
+      due_date    DATE,
+      created_at  TIMESTAMPTZ DEFAULT NOW(),
+      updated_at  TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("staff_targets", `
+    CREATE TABLE IF NOT EXISTS staff_targets (
+      id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      staff_id      UUID REFERENCES staff(id) ON DELETE CASCADE,
+      label         TEXT NOT NULL,
+      metric        TEXT,
+      target_value  NUMERIC DEFAULT 0,
+      current_value NUMERIC DEFAULT 0,
+      period        TEXT,
+      created_at    TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_tasks_staff",   `CREATE INDEX IF NOT EXISTS idx_tasks_staff   ON staff_tasks(staff_id, status)`);
+  await run("idx_targets_staff", `CREATE INDEX IF NOT EXISTS idx_targets_staff ON staff_targets(staff_id)`);
+
   await run("idx_jobs_status",      `CREATE INDEX IF NOT EXISTS idx_jobs_status      ON jobs(status)`);
   await run("idx_services_slug",    `CREATE INDEX IF NOT EXISTS idx_services_slug    ON agency_services(slug)`);
   await run("idx_products_slug",    `CREATE INDEX IF NOT EXISTS idx_products_slug    ON desk_products(slug)`);
@@ -166,7 +309,7 @@ export async function GET() {
     const rows = await sql.query(`
       SELECT table_name FROM information_schema.tables
       WHERE table_schema = 'public'
-      AND table_name IN ('jobs','job_applications','posts','case_studies','agency_services','desk_products','service_inquiries')
+      AND table_name IN ('jobs','job_applications','posts','case_studies','agency_services','desk_products','service_inquiries','site_content','testimonials','watch_videos')
       ORDER BY table_name
     `);
     existing = rows.map((r: Record<string, unknown>) => r.table_name as string);
