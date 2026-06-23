@@ -248,11 +248,22 @@ export async function GET() {
       qualified_leads INT DEFAULT 0,
       demos_booked    INT DEFAULT 0,
       follow_ups      INT DEFAULT 0,
+      candidates_sourced INT DEFAULT 0,
+      screens         INT DEFAULT 0,
+      interviews      INT DEFAULT 0,
+      offers          INT DEFAULT 0,
+      hires           INT DEFAULT 0,
       created_at      TIMESTAMPTZ DEFAULT NOW(),
       updated_at      TIMESTAMPTZ DEFAULT NOW(),
       UNIQUE (staff_id, entry_date)
     )
   `);
+  // Recruitment metric columns for existing databases
+  await run("kpi.candidates_sourced", `ALTER TABLE kpi_entries ADD COLUMN IF NOT EXISTS candidates_sourced INT DEFAULT 0`);
+  await run("kpi.screens",    `ALTER TABLE kpi_entries ADD COLUMN IF NOT EXISTS screens    INT DEFAULT 0`);
+  await run("kpi.interviews", `ALTER TABLE kpi_entries ADD COLUMN IF NOT EXISTS interviews INT DEFAULT 0`);
+  await run("kpi.offers",     `ALTER TABLE kpi_entries ADD COLUMN IF NOT EXISTS offers     INT DEFAULT 0`);
+  await run("kpi.hires",      `ALTER TABLE kpi_entries ADD COLUMN IF NOT EXISTS hires      INT DEFAULT 0`);
   await run("idx_kpi_staff_date", `CREATE INDEX IF NOT EXISTS idx_kpi_staff_date ON kpi_entries(staff_id, entry_date DESC)`);
 
   // ---- Team / staff (BDRs, marketers) with role-based access ----
