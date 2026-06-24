@@ -51,11 +51,17 @@ function getResend(): Resend | null {
 
 async function sendEmail(opts: { to: string; subject: string; html: string; from?: string }) {
   const resend = getResend();
-  if (!resend) return; // not configured -> skip silently
+  if (!resend) {
+    console.warn("[email] RESEND_API_KEY not set — skipping send to", opts.to, "subject:", opts.subject);
+    return;
+  }
   try {
-    await resend.emails.send({ from: opts.from || FROM, to: opts.to, subject: opts.subject, html: opts.html });
+    const r = await resend.emails.send({ from: opts.from || FROM, to: opts.to, subject: opts.subject, html: opts.html });
+    if ((r as { error?: unknown }).error) {
+      console.error("[email] Resend rejected send:", (r as { error?: unknown }).error, "from:", opts.from || FROM);
+    }
   } catch (err) {
-    console.error("Resend send failed:", err);
+    console.error("[email] Resend send failed:", err, "from:", opts.from || FROM);
   }
 }
 
@@ -108,7 +114,8 @@ export async function sendNewApplicationEmail(affiliateName: string, affiliateEm
 }
 
 export async function sendPasswordResetEmail(email: string, firstName: string, token: string) {
-  const resetUrl = `${APP_URL}/reset-password?token=${token}`;
+  const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://jktl.com.ng";
+  const resetUrl = `${SITE}/affiliates/reset-password?token=${token}`;
   await sendEmail({
     to: email,
     subject: "Reset Your JKTL Affiliate Password",

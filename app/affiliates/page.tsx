@@ -4,16 +4,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { TIERS, OFFERS, PAYOUT, calcCommission, fmtNaira } from "@/lib/affiliate-offers";
 
-const ACCOUNTS_URL = process.env.NEXT_PUBLIC_ACCOUNTS_URL || "https://accounts.jktl.com.ng";
 
 function AffiliateNav() {
   const [signedIn, setSignedIn] = useState(false);
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    fetch("/api/auth/session", { cache: "no-store" })
+    fetch("/api/affiliates/me", { cache: "no-store" })
       .then(r => r.json())
-      .then(d => { setSignedIn(d.authenticated); setChecked(true); })
+      .then(d => { setSignedIn(!!(d.authenticated && d.isAffiliate)); setChecked(true); })
       .catch(() => setChecked(true));
   }, []);
 
@@ -37,7 +36,7 @@ function AffiliateNav() {
           </>
         ) : (
           <>
-            <a href={`${ACCOUNTS_URL}/sign-in?return=${encodeURIComponent("https://jktl.com.ng/affiliates/dashboard")}`}
+            <a href="/affiliates/login"
               style={{ color: "rgba(249,247,240,0.65)", fontSize: "0.8rem", textDecoration: "none", fontFamily: "'Plus Jakarta Sans',sans-serif" }}>
               Sign In
             </a>

@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import DashboardShell from "./DashboardShell";
 
-const ACCOUNTS_URL = process.env.NEXT_PUBLIC_ACCOUNTS_URL || "https://accounts.jktl.com.ng";
 
 interface AffiliateData {
   firstName: string;
@@ -26,13 +25,11 @@ export default function ClientDashboardLayout({ children }: { children: React.Re
     async function check() {
       attempts++;
       try {
-        const res = await fetch(`${ACCOUNTS_URL}/api/affiliate-me`, { credentials: "include", cache: "no-store" });
+        const res = await fetch("/api/affiliates/me", { cache: "no-store" });
         const data = await res.json();
 
         if (!data.authenticated) {
-          // Not signed in to JKTL at all
-          const returnUrl = encodeURIComponent("https://jktl.com.ng/affiliates/dashboard");
-          window.location.href = `${ACCOUNTS_URL}/sign-in?return=${returnUrl}`;
+          window.location.href = "/affiliates/login";
           return;
         }
 
@@ -103,7 +100,7 @@ export default function ClientDashboardLayout({ children }: { children: React.Re
             If you applied with a different email, sign out and sign back in with that address. Otherwise you can apply, or contact us at info@jktl.com.ng.
           </p>
           <div style={{ display:"flex", gap:10, justifyContent:"center", flexWrap:"wrap" }}>
-            <a href={`${ACCOUNTS_URL}/sign-out`}
+            <a href="/api/affiliates/logout"
               style={{ display:"inline-block", background:"#C9A84C", color:"#060E2A", fontWeight:700, fontSize:"0.76rem", textTransform:"uppercase", letterSpacing:"0.08em", padding:"11px 22px", borderRadius:8, textDecoration:"none" }}>
               Sign out &amp; switch email
             </a>
@@ -125,7 +122,7 @@ export default function ClientDashboardLayout({ children }: { children: React.Re
           <p style={{ color:"rgba(226,232,240,0.5)", fontSize:"0.85rem", marginBottom:20, lineHeight:1.6 }}>
             Please sign out and sign back in to continue.
           </p>
-          <a href={`${ACCOUNTS_URL}/sign-out`}
+          <a href="/api/affiliates/logout"
             style={{ display:"inline-block", background:"#C9A84C", color:"#060E2A", fontWeight:700, fontSize:"0.78rem", textTransform:"uppercase", letterSpacing:"0.08em", padding:"12px 28px", borderRadius:8, textDecoration:"none" }}>
             Sign Out
           </a>

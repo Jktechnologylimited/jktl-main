@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-const ACCOUNTS_URL = process.env.NEXT_PUBLIC_ACCOUNTS_URL || "https://accounts.jktl.com.ng";
 
 interface SessionData { authenticated: boolean; name: string | null; email: string | null; }
 
@@ -23,7 +22,7 @@ const labelStyle: React.CSSProperties = {
 export default function JoinPage() {
   const router = useRouter();
   const [session, setSession] = useState<SessionData | null>(null);
-  const [checking, setChecking] = useState(true);
+  const [checking, setChecking] = useState(false);
 
   // Form fields
   const [firstName, setFirstName] = useState("");
@@ -32,40 +31,21 @@ export default function JoinPage() {
   const [phone,     setPhone]     = useState("");
   const [business,  setBusiness]  = useState("");
   const [howPromote,setHowPromote]= useState("");
+  const [password,  setPassword]  = useState("");
+  const [confirm,   setConfirm]   = useState("");
   const [agree,     setAgree]     = useState(false);
 
   const [loading,   setLoading]   = useState(false);
   const [error,     setError]     = useState("");
 
-  // Check JKTL session on load
-  useEffect(() => {
-    fetch("/api/auth/session", { cache: "no-store" })
-      .then(r => r.json())
-      .then(d => {
-        setSession(d);
-        setChecking(false);
-        if (!d.authenticated) {
-          // Not signed in -- redirect to sign in first
-          const cleanUrl = window.location.href.replace("://www.jktl.com.ng", "://jktl.com.ng");
-    const returnUrl = encodeURIComponent(cleanUrl);
-          window.location.href = `${ACCOUNTS_URL}/sign-in?return=${returnUrl}`;
-          return;
-        }
-        // Pre-fill from session
-        if (d.name) {
-          const parts = d.name.split(" ");
-          setFirstName(parts[0] || "");
-          setLastName(parts.slice(1).join(" ") || "");
-        }
-        if (d.email) setEmail(d.email);
-      })
-      .catch(() => setChecking(false));
-  }, []);
+  useEffect(() => { setChecking(false); }, []);
 
   async function handleSubmit() {
     if (!firstName || !lastName || !email || !phone || !howPromote) {
       setError("Please fill in all required fields"); return;
     }
+    if (password.length < 8) { setError("Choose a password of at least 8 characters"); return; }
+    if (password !== confirm) { setError("Passwords do not match"); return; }
     if (!agree) { setError("You must agree to the terms"); return; }
 
     setLoading(true); setError("");
@@ -73,13 +53,13 @@ export default function JoinPage() {
       const res = await fetch("/api/affiliates/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ firstName, lastName, email, phone, businessName: business, howPromote }),
+        body: JSON.stringify({ firstName, lastName, email, phone, businessName: business, howPromote, password }),
       });
       const data = await res.json();
       if (!res.ok) {
         // If already an affiliate, redirect to dashboard
         if (data.error?.includes("already exists") || data.error?.includes("already registered")) {
-          router.push("/affiliates/dashboard");
+          router.push("/affiliates/login");
           return;
         }
         setError(data.error || "Something went wrong");
@@ -153,7 +133,7 @@ export default function JoinPage() {
               <input style={{ ...inputStyle, opacity: session?.email ? 0.7 : 1 }}
                 type="email" value={email}
                 onChange={e => setEmail(e.target.value)}
-                readOnly={!!session?.email}
+                readOnly={false}
                 placeholder="your@email.com" />
               {session?.email && (
                 <p style={{ fontSize: "0.68rem", color: "rgba(226,232,240,0.3)", marginTop: 4 }}>
@@ -172,6 +152,18 @@ export default function JoinPage() {
             <div>
               <label style={labelStyle}>Business / Brand Name (optional)</label>
               <input style={inputStyle} value={business} onChange={e => setBusiness(e.target.value)} placeholder="Your business name if applicable" />
+            </div>
+
+            {/* Password */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+              <div>
+                <label style={labelStyle}>Password *</label>
+                <input style={inputStyle} type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="At least 8 characters" />
+              </div>
+              <div>
+                <label style={labelStyle}>Confirm password *</label>
+                <input style={inputStyle} type="password" value={confirm} onChange={e => setConfirm(e.target.value)} placeholder="Repeat password" />
+              </div>
             </div>
 
             {/* How promote */}

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import bcrypt from "bcryptjs";
 import { sql, getAffiliateByEmail } from "@/lib/affiliate-db";
 import { generateReferralCode } from "@/lib/affiliate-auth";
 import { sendApplicationReceived, notifyAdminNewApplication } from "@/lib/affiliate-emails";
@@ -7,10 +8,13 @@ export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
   try {
-    const { firstName, lastName, email, phone, businessName, howPromote } = await req.json();
+    const { firstName, lastName, email, phone, businessName, howPromote, password } = await req.json();
 
     if (!firstName || !lastName || !email || !phone || !howPromote) {
       return NextResponse.json({ error: "All required fields must be filled" }, { status: 400 });
+    }
+    if (!password || String(password).length < 8) {
+      return NextResponse.json({ error: "Please choose a password of at least 8 characters" }, { status: 400 });
     }
 
     const cleanEmail = email.toLowerCase().trim();
@@ -30,9 +34,10 @@ export async function POST(req: NextRequest) {
       referralCode = generateReferralCode(firstName, lastName);
     }
 
+    const passwordHash = await bcrypt.hash(String(password), 10);
     await sql`
-      INSERT INTO affiliates (first_name, last_name, email, phone, referral_code, business_name, how_promote, status, tier)
-      VALUES (${firstName.trim()}, ${lastName.trim()}, ${cleanEmail}, ${phone.trim()}, ${referralCode}, ${businessName || null}, ${howPromote.trim()}, 'pending', 'standard')
+      INSERT INTO affiliates (first_name, last_name, email, phone, referral_code, business_name, how_promote, password_hash, status, tier)
+      VALUES (${firstName.trim()}, ${lastName.trim()}, ${cleanEmail}, ${phone.trim()}, ${referralCode}, ${businessName || null}, ${howPromote.trim()}, ${passwordHash}, 'pending', 'standard')
     `;
 
     // Send emails (non-blocking)

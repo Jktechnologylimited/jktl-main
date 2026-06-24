@@ -1,38 +1,25 @@
-import { NextRequest, NextResponse } from "next/server";
-import { sql } from "@/lib/affiliate-db";
-import { getSsoSession } from "@/lib/sso";
+import { NextResponse } from "next/server";
+import { getSession } from "@/lib/affiliate-auth";
+import { getAffiliateByEmail } from "@/lib/affiliate-db";
 
 export const dynamic = "force-dynamic";
 
-// Reads the shared JKTL SSO session and returns the matching affiliate record.
-export async function GET(req: NextRequest) {
-  const hasCookie =
-    req.cookies.get("jktl-session-token")?.value ||
-    req.cookies.get("__Secure-jktl-session-token")?.value ||
-    req.cookies.get("authjs.session-token")?.value ||
-    req.cookies.get("__Secure-authjs.session-token")?.value;
-
-  if (!hasCookie) {
-    return NextResponse.json({ authenticated: false, reason: "no_cookie" });
+// Standalone affiliate session: reads the jktl_aff_token cookie (set at login).
+export async function GET() {
+  const session = await getSession();
+  if (!session) {
+    return NextResponse.json({ authenticated: false });
   }
 
-  const session = await getSsoSession(req);
-  if (!session?.email) {
-    // Cookie present but undecodable — almost always an AUTH_SECRET mismatch
-    // between this app and accounts.jktl.com.ng.
-    return NextResponse.json({ authenticated: true, hasSession: true, reason: "cant_read_email" });
-  }
-
-  const email = session.email.trim().toLowerCase();
-
+  // Re-read the live record so status changes (approval/suspension) take effect.
   try {
-    const rows = await sql`SELECT id, first_name, last_name, email, referral_code, tier, status FROM affiliates WHERE email = ${email} LIMIT 1`;
-    const aff = rows[0];
-    if (!aff) return NextResponse.json({ authenticated: true, email, isAffiliate: false });
-
+    const aff = await getAffiliateByEmail(session.email.toLowerCase().trim());
+    if (!aff) {
+      return NextResponse.json({ authenticated: true, email: session.email, isAffiliate: false });
+    }
     return NextResponse.json({
       authenticated: true,
-      email,
+      email: aff.email,
       isAffiliate: true,
       status: aff.status,
       firstName: aff.first_name,
@@ -40,7 +27,17 @@ export async function GET(req: NextRequest) {
       referralCode: aff.referral_code,
       tier: aff.tier,
     });
-  } catch (err) {
-    return NextResponse.json({ authenticated: true, email, error: String(err) });
+  } catch {
+    // Fall back to token contents if the lookup fails
+    return NextResponse.json({
+      authenticated: true,
+      email: session.email,
+      isAffiliate: true,
+      status: session.status,
+      firstName: session.firstName,
+      lastName: session.lastName,
+      referralCode: session.referralCode,
+      tier: session.tier,
+    });
   }
 }
