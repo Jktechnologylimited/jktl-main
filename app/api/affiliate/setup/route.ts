@@ -125,6 +125,48 @@ export async function GET() {
     )
   `);
 
+  // ---- Schema alignment: ensure every column the app reads exists ----
+  // Idempotent. Brings older/divergent tables up to what the current code expects,
+  // without dropping data. Safe to run repeatedly.
+  const migrations: [string, string][] = [
+    // affiliates (bonus + auth + profile)
+    ["affiliates.signup_bonus",     `ALTER TABLE affiliates ADD COLUMN IF NOT EXISTS signup_bonus NUMERIC(12,2) DEFAULT 20000`],
+    ["affiliates.bonus_unlocked",   `ALTER TABLE affiliates ADD COLUMN IF NOT EXISTS bonus_unlocked BOOLEAN DEFAULT FALSE`],
+    ["affiliates.bonus_expires_at", `ALTER TABLE affiliates ADD COLUMN IF NOT EXISTS bonus_expires_at TIMESTAMPTZ DEFAULT NOW() + INTERVAL '90 days'`],
+    ["affiliates.last_active_at",   `ALTER TABLE affiliates ADD COLUMN IF NOT EXISTS last_active_at TIMESTAMPTZ DEFAULT NOW()`],
+    ["affiliates.bank_holder",      `ALTER TABLE affiliates ADD COLUMN IF NOT EXISTS bank_holder TEXT`],
+    ["affiliates.business_name",    `ALTER TABLE affiliates ADD COLUMN IF NOT EXISTS business_name TEXT`],
+    ["affiliates.how_promote",      `ALTER TABLE affiliates ADD COLUMN IF NOT EXISTS how_promote TEXT`],
+    // referral_clicks
+    ["referral_clicks.ip_address",   `ALTER TABLE referral_clicks ADD COLUMN IF NOT EXISTS ip_address TEXT`],
+    ["referral_clicks.user_agent",   `ALTER TABLE referral_clicks ADD COLUMN IF NOT EXISTS user_agent TEXT`],
+    ["referral_clicks.landing_page", `ALTER TABLE referral_clicks ADD COLUMN IF NOT EXISTS landing_page TEXT`],
+    ["referral_clicks.campaign",     `ALTER TABLE referral_clicks ADD COLUMN IF NOT EXISTS campaign TEXT`],
+    // referral_leads
+    ["referral_leads.ref_name",  `ALTER TABLE referral_leads ADD COLUMN IF NOT EXISTS ref_name TEXT`],
+    ["referral_leads.ref_email", `ALTER TABLE referral_leads ADD COLUMN IF NOT EXISTS ref_email TEXT`],
+    ["referral_leads.ref_phone", `ALTER TABLE referral_leads ADD COLUMN IF NOT EXISTS ref_phone TEXT`],
+    ["referral_leads.service",   `ALTER TABLE referral_leads ADD COLUMN IF NOT EXISTS service TEXT`],
+    ["referral_leads.notes",     `ALTER TABLE referral_leads ADD COLUMN IF NOT EXISTS notes TEXT`],
+    ["referral_leads.status",    `ALTER TABLE referral_leads ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'new'`],
+    // commissions
+    ["commissions.lead_id",      `ALTER TABLE commissions ADD COLUMN IF NOT EXISTS lead_id UUID`],
+    ["commissions.service_name", `ALTER TABLE commissions ADD COLUMN IF NOT EXISTS service_name TEXT`],
+    ["commissions.deal_value",   `ALTER TABLE commissions ADD COLUMN IF NOT EXISTS deal_value NUMERIC(12,2) DEFAULT 0`],
+    ["commissions.rate",         `ALTER TABLE commissions ADD COLUMN IF NOT EXISTS rate NUMERIC(5,2) DEFAULT 10`],
+    ["commissions.amount",       `ALTER TABLE commissions ADD COLUMN IF NOT EXISTS amount NUMERIC(12,2) DEFAULT 0`],
+    ["commissions.type",         `ALTER TABLE commissions ADD COLUMN IF NOT EXISTS type TEXT DEFAULT 'one-time'`],
+    ["commissions.status",       `ALTER TABLE commissions ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'pending'`],
+    ["commissions.paid_at",      `ALTER TABLE commissions ADD COLUMN IF NOT EXISTS paid_at TIMESTAMPTZ`],
+    // payout_requests
+    ["payout_requests.bank_holder", `ALTER TABLE payout_requests ADD COLUMN IF NOT EXISTS bank_holder TEXT`],
+    ["payout_requests.paid_at",     `ALTER TABLE payout_requests ADD COLUMN IF NOT EXISTS paid_at TIMESTAMPTZ`],
+    // campaign_links
+    ["campaign_links.service_slug", `ALTER TABLE campaign_links ADD COLUMN IF NOT EXISTS service_slug TEXT`],
+    ["campaign_links.clicks",       `ALTER TABLE campaign_links ADD COLUMN IF NOT EXISTS clicks INT DEFAULT 0`],
+  ];
+  for (const [name, q] of migrations) await run(name, q);
+
   await run("idx_affiliates_email",  `CREATE INDEX IF NOT EXISTS idx_affiliates_email  ON affiliates(email)`);
   await run("idx_affiliates_code",   `CREATE INDEX IF NOT EXISTS idx_affiliates_code   ON affiliates(referral_code)`);
   await run("idx_clicks_affiliate",  `CREATE INDEX IF NOT EXISTS idx_clicks_affiliate  ON referral_clicks(affiliate_id)`);

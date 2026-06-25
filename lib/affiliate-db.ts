@@ -129,19 +129,26 @@ export async function getAffiliateByCode(code: string) {
   return rows[0] || null;
 }
 
+// Run a query, returning [] if it fails (e.g. a column the DB doesn't have yet).
+// Keeps the dashboard rendering instead of hard-crashing on schema drift.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function safeRows(fn: () => Promise<any[]>): Promise<any[]> {
+  try { return await fn(); } catch (err) { console.error("[affiliate-db] query failed:", err); return []; }
+}
+
 export async function getDashboardStats(affiliateId: string) {
   const [clicks, leads, commissions, affiliate] = await Promise.all([
-    sql`SELECT COUNT(*) as total FROM referral_clicks WHERE affiliate_id = ${affiliateId}`,
-    sql`SELECT COUNT(*) as total FROM referral_leads WHERE affiliate_id = ${affiliateId}`,
-    sql`
+    safeRows(() => sql`SELECT COUNT(*) as total FROM referral_clicks WHERE affiliate_id = ${affiliateId}`),
+    safeRows(() => sql`SELECT COUNT(*) as total FROM referral_leads WHERE affiliate_id = ${affiliateId}`),
+    safeRows(() => sql`
       SELECT
         COALESCE(SUM(CASE WHEN status = 'pending'  THEN amount ELSE 0 END), 0) as pending,
         COALESCE(SUM(CASE WHEN status = 'approved' THEN amount ELSE 0 END), 0) as approved,
         COALESCE(SUM(CASE WHEN status = 'paid'     THEN amount ELSE 0 END), 0) as paid,
         COALESCE(SUM(amount), 0) as total
       FROM commissions WHERE affiliate_id = ${affiliateId}
-    `,
-    sql`SELECT signup_bonus, bonus_unlocked, bonus_expires_at, last_active_at FROM affiliates WHERE id = ${affiliateId} LIMIT 1`,
+    `),
+    safeRows(() => sql`SELECT signup_bonus, bonus_unlocked, bonus_expires_at, last_active_at FROM affiliates WHERE id = ${affiliateId} LIMIT 1`),
   ]);
 
   const aff = affiliate[0];
@@ -169,8 +176,8 @@ export async function getDashboardStats(affiliateId: string) {
 
 export async function getRecentActivity(affiliateId: string) {
   const [clicks, commissions] = await Promise.all([
-    sql`SELECT 'click' as type, created_at, landing_page as detail FROM referral_clicks WHERE affiliate_id = ${affiliateId} ORDER BY created_at DESC LIMIT 5`,
-    sql`SELECT 'commission' as type, created_at, service_name as detail, amount, status FROM commissions WHERE affiliate_id = ${affiliateId} ORDER BY created_at DESC LIMIT 5`,
+    safeRows(() => sql`SELECT 'click' as type, created_at, landing_page as detail FROM referral_clicks WHERE affiliate_id = ${affiliateId} ORDER BY created_at DESC LIMIT 5`),
+    safeRows(() => sql`SELECT 'commission' as type, created_at, service_name as detail, amount, status FROM commissions WHERE affiliate_id = ${affiliateId} ORDER BY created_at DESC LIMIT 5`),
   ]);
   return [...clicks, ...commissions].sort((a, b) =>
     new Date(b.created_at).getTime() - new Date(a.created_at).getTime()

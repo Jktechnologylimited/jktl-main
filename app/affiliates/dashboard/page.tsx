@@ -1,4 +1,5 @@
 import { getSession } from "@/lib/affiliate-auth";
+import CopyButton from "./CopyButton";
 import { getDashboardStats, getRecentActivity, getMonthlyEarnings } from "@/lib/affiliate-db";
 import { TIERS, PAYOUT } from "@/lib/affiliate-offers";
 import Link from "next/link";
@@ -58,7 +59,7 @@ export default async function DashboardPage() {
             <p className="label-xs" style={{ color: "var(--gold-400)", marginBottom: 8 }}>Your Referral Link</p>
             <div className="copy-box">
               <span className="copy-box-text">{mainLink}</span>
-              <button className="copy-box-btn" onClick={() => {}}>Copy</button>
+              <CopyButton text={mainLink} />
             </div>
           </div>
           <Link href="/affiliates/dashboard/links" className="btn btn-ghost btn-sm" style={{ flexShrink: 0 }}>

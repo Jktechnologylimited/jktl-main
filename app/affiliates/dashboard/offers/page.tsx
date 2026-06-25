@@ -1,4 +1,5 @@
 import { getSession } from "@/lib/affiliate-auth";
+import CopyButton from "../CopyButton";
 import { OFFERS, TIERS, calcCommission, fmtNaira } from "@/lib/affiliate-offers";
 import Link from "next/link";
 
@@ -78,7 +79,7 @@ export default async function OffersPage() {
                     {/* Copy link */}
                     <div className="copy-box" style={{ marginBottom: 8 }}>
                       <span className="copy-box-text">{refLink}</span>
-                      <button className="copy-box-btn" onClick={() => {}}>Copy</button>
+                      <CopyButton text={refLink} />
                     </div>
 
                     <a href={`https://jktl.com.ng/${offer.slug}`} target="_blank" rel="noopener noreferrer"
