@@ -41,7 +41,7 @@ export function generateReferralCode(firstName: string, lastName: string): strin
 }
 
 //  EMAIL  (Resend)
-const FROM = process.env.RESEND_FROM || "JK Technology Limited <noreply@jktl.com.ng>";
+const FROM = process.env.RESEND_FROM || "JK Technology Limited <noreply@mail.ibiz.name.ng>";
 
 // Lazy init so a missing key never breaks the build; sends are no-ops until configured.
 function getResend(): Resend | null {

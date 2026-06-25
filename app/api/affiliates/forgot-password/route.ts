@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     if (aff) {
       const token = randomBytes(32).toString("hex");
       const expires = new Date(Date.now() + 60 * 60 * 1000).toISOString(); // 1 hour
-      await sql`INSERT INTO password_resets (affiliate_id, token, expires_at) VALUES (${aff.id}, ${token}, ${expires})`;
+      await sql`INSERT INTO password_resets (email, token, expires_at) VALUES (${aff.email}, ${token}, ${expires})`;
       await sendPasswordResetEmail(aff.email, aff.first_name, token);
     }
     return NextResponse.json({ ok: true });

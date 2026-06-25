@@ -99,9 +99,8 @@ CREATE TABLE IF NOT EXISTS campaign_links (
 
 CREATE TABLE IF NOT EXISTS password_resets (
   id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  affiliate_id  UUID REFERENCES affiliates(id) ON DELETE CASCADE,
+  email         TEXT NOT NULL,
   token         TEXT UNIQUE NOT NULL,
-  used          BOOLEAN DEFAULT FALSE,
   expires_at    TIMESTAMPTZ NOT NULL,
   created_at    TIMESTAMPTZ DEFAULT NOW()
 );
