@@ -37,10 +37,13 @@ export async function GET() {
       bank_account       TEXT,
       bank_code          TEXT,
       welcome_bonus_paid BOOLEAN DEFAULT FALSE,
+      password_hash      TEXT,
       created_at         TIMESTAMPTZ DEFAULT NOW(),
       updated_at         TIMESTAMPTZ DEFAULT NOW()
     )
   `);
+  // Migration for existing affiliate tables created before standalone auth
+  await run("affiliates.password_hash", `ALTER TABLE affiliates ADD COLUMN IF NOT EXISTS password_hash TEXT`);
 
   await run("referral_clicks", `
     CREATE TABLE IF NOT EXISTS referral_clicks (
