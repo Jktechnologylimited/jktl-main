@@ -7,7 +7,7 @@ import { deskPlans, siteConfig, companyDetails } from "@/data/index";
 import { useProductPricing } from "@/hooks/useProductPricing";
 
 
-function fmtN(n: number) { return "N" + n.toLocaleString("en-NG"); }
+function fmtN(n: number) { return "₦" + n.toLocaleString("en-NG"); }
 
 const FEATURES = [
   { icon: "MB", title: "Member CRM", desc: "Every member profile, contact, family unit, attendance history in one searchable database." },

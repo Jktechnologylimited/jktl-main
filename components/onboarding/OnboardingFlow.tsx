@@ -273,11 +273,11 @@ export default function OnboardingFlow({ config }: { config: ProductConfig }) {
                     <div className="text-right shrink-0">
                       <p className="font-display font-light text-[1.5rem] leading-none mb-0.5"
                         style={{ color: data.plan === plan.id ? config.color : "rgba(249,247,240,0.5)" }}>
-                        N{plan.setupFee.toLocaleString()}
+                        ₦{plan.setupFee.toLocaleString()}
                       </p>
                       <p className="text-white/35 text-[0.65rem]">setup</p>
                       <p className="font-bold text-[0.82rem] text-white/70 mt-0.5">
-                        N{plan.monthlyFee.toLocaleString()}<span className="font-normal text-white/35">/mo</span>
+                        ₦{plan.monthlyFee.toLocaleString()}<span className="font-normal text-white/35">/mo</span>
                       </p>
                     </div>
                   </div>
@@ -548,10 +548,10 @@ export default function OnboardingFlow({ config }: { config: ProductConfig }) {
                 </div>
                 <div className="text-right">
                   <p className="font-display font-light text-[2rem] leading-none" style={{ color: config.color }}>
-                    N{(selectedPlan?.setupFee || 0).toLocaleString()}
+                    ₦{(selectedPlan?.setupFee || 0).toLocaleString()}
                   </p>
                   <p className="text-white/40 text-[0.7rem]">
-                    then N{(selectedPlan?.monthlyFee || 0).toLocaleString()}/month
+                    then ₦{(selectedPlan?.monthlyFee || 0).toLocaleString()}/month
                   </p>
                 </div>
               </div>
@@ -577,7 +577,7 @@ export default function OnboardingFlow({ config }: { config: ProductConfig }) {
                   </>
                 ) : (
                   <>
-                    Pay N{(selectedPlan?.setupFee || 0).toLocaleString()} via Paystack
+                    Pay ₦{(selectedPlan?.setupFee || 0).toLocaleString()} via Paystack
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                   </>
                 )}

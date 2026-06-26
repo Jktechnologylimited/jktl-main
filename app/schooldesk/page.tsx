@@ -6,7 +6,7 @@ import Link from "next/link";
 import { siteConfig, companyDetails } from "@/data/index";
 import { useProductPricing } from "@/hooks/useProductPricing";
 
-function fmtN(n: number) { return "N" + n.toLocaleString("en-NG"); }
+function fmtN(n: number) { return "₦" + n.toLocaleString("en-NG"); }
 
 const FEATURES = [
   { icon: "FE", title: "Fees & Receipts", desc: "Collect school fees online via Paystack. Automatic receipts. See who has paid and who is owing, per term, at a glance." },

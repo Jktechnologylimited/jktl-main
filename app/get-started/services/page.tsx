@@ -4,7 +4,7 @@ import Link from "next/link";
 import { siteConfig } from "@/data/index";
 
 const SERVICES = ["Website & Landing Page","Lead Generation","Email Automation","SEO & Google Visibility","CRM & Business Operations","Payment Infrastructure","AI Chatbot & Automation","Full Business System","Not sure yet"];
-const BUDGETS = ["Under N200,000","N200,000 -- N500,000","N500,000 -- N1,000,000","N1,000,000 -- N3,000,000","N3,000,000+"];
+const BUDGETS = ["Under ₦200,000","₦200,000 -- ₦500,000","₦500,000 -- ₦1,000,000","₦1,000,000 -- ₦3,000,000","₦3,000,000+"];
 const TIMELINES = ["ASAP","Within 1 month","1-3 months","3-6 months","Just exploring"];
 
 interface Form {

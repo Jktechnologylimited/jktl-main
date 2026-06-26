@@ -4,7 +4,7 @@ import { siteConfig, companyDetails, businessSuiteRoadmap } from "@/data/index";
 import { useDeskProducts } from "@/hooks/useDeskProducts";
 import { useSiteContent, useTestimonials } from "@/hooks/useSiteContent";
 
-function fmtN(n: number) { return "N" + n.toLocaleString("en-NG"); }
+function fmtN(n: number) { return "₦" + n.toLocaleString("en-NG"); }
 
 export default function HomePage() {
   const deskProducts = useDeskProducts();
@@ -246,14 +246,14 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
-              { icon: "WS", label: "Website Systems",   desc: "From N150,000" },
-              { icon: "LG", label: "Lead Generation",   desc: "From N100,000" },
-              { icon: "EM", label: "Email Automation",  desc: "From N100,000" },
-              { icon: "SE", label: "SEO & Google",      desc: "From N150,000" },
-              { icon: "CR", label: "CRM & Operations",  desc: "From N300,000" },
-              { icon: "PY", label: "Payment Systems",   desc: "From N100,000" },
-              { icon: "AI", label: "AI & Automation",   desc: "From N250,000" },
-              { icon: "PK", label: "Full Packages",     desc: "From N800,000" },
+              { icon: "WS", label: "Website Systems",   desc: "From ₦150,000" },
+              { icon: "LG", label: "Lead Generation",   desc: "From ₦100,000" },
+              { icon: "EM", label: "Email Automation",  desc: "From ₦100,000" },
+              { icon: "SE", label: "SEO & Google",      desc: "From ₦150,000" },
+              { icon: "CR", label: "CRM & Operations",  desc: "From ₦300,000" },
+              { icon: "PY", label: "Payment Systems",   desc: "From ₦100,000" },
+              { icon: "AI", label: "AI & Automation",   desc: "From ₦250,000" },
+              { icon: "PK", label: "Full Packages",     desc: "From ₦800,000" },
             ].map(s => (
               <Link key={s.icon} href="/services" className="bg-white border border-cream-300 rounded p-4 no-underline hover:border-navy-600 transition-colors">
                 <div className="w-9 h-9 rounded-sm bg-navy-900 flex items-center justify-center mb-3">
@@ -277,10 +277,10 @@ export default function HomePage() {
             </h2>
             <div className="flex flex-wrap gap-6 mb-4">
               {[
-                { v: "N10,000", l: "Welcome bonus" },
+                { v: "₦10,000", l: "Welcome bonus" },
                 { v: "5%",      l: "On setup fees" },
                 { v: "2% x 3", l: "Monthly recurring" },
-                { v: "N100k",   l: "Min payout" },
+                { v: "₦100k",   l: "Min payout" },
               ].map(s => (
                 <div key={s.l}>
                   <p className="font-bold text-lg text-white leading-none">{s.v}</p>

@@ -35,7 +35,7 @@ export default function EarningsPage() {
     });
     const data = await res.json();
     setLoading(false);
-    if (res.ok) { setPayoutMsg(`Payout of N${Number(data.amount).toLocaleString()} requested successfully!`); setShowPayoutForm(false); }
+    if (res.ok) { setPayoutMsg(`Payout of ₦${Number(data.amount).toLocaleString()} requested successfully!`); setShowPayoutForm(false); }
     else setPayoutMsg(data.error || "Error requesting payout");
   }
 
@@ -55,10 +55,10 @@ export default function EarningsPage() {
         {/* Summary */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(180px,1fr))", gap: 10, marginBottom: 24 }}>
           {stats && [
-            { l: "Total Earned",   v: `N${stats.totalEarned.toLocaleString()}`, c: "#C9A84C" },
-            { l: "Pending",        v: `N${stats.pending.toLocaleString()}`,   c: "#D97706" },
-            { l: "Approved",       v: `N${stats.approved.toLocaleString()}`,  c: "#059669" },
-            { l: "Paid Out",       v: `N${stats.paid.toLocaleString()}`,      c: "#1A4A8A" },
+            { l: "Total Earned",   v: `₦${stats.totalEarned.toLocaleString()}`, c: "#C9A84C" },
+            { l: "Pending",        v: `₦${stats.pending.toLocaleString()}`,   c: "#D97706" },
+            { l: "Approved",       v: `₦${stats.approved.toLocaleString()}`,  c: "#059669" },
+            { l: "Paid Out",       v: `₦${stats.paid.toLocaleString()}`,      c: "#1A4A8A" },
           ].map(s => (
             <div key={s.l} className="stat-card" style={{ borderTop: `3px solid ${s.c}` }}>
               <p style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 300, fontSize: "1.75rem", color: s.c, lineHeight: 1, marginBottom: 4 }}>{s.v}</p>
@@ -74,7 +74,7 @@ export default function EarningsPage() {
               <div>
                 <p style={{ fontWeight: 700, fontSize: "0.9rem", color: "#fff", marginBottom: 4 }}>Request Payout</p>
                 <p style={{ fontSize: "0.78rem", color: "rgba(249,247,240,0.5)" }}>
-                  Available: <strong style={{ color: "#fff" }}>N{stats.approved.toLocaleString()}</strong> -- Minimum: N{PAYOUT.minimum.toLocaleString()} -- Paid monthly
+                  Available: <strong style={{ color: "#fff" }}>₦{stats.approved.toLocaleString()}</strong> -- Minimum: ₦{PAYOUT.minimum.toLocaleString()} -- Paid monthly
                 </p>
               </div>
               {stats.approved >= PAYOUT.minimum ? (
@@ -83,7 +83,7 @@ export default function EarningsPage() {
                 </button>
               ) : (
                 <span style={{ fontSize: "0.75rem", color: "rgba(249,247,240,0.4)" }}>
-                  N{(PAYOUT.minimum - stats.approved).toLocaleString()} more to reach minimum
+                  ₦{(PAYOUT.minimum - stats.approved).toLocaleString()} more to reach minimum
                 </span>
               )}
             </div>
@@ -104,7 +104,7 @@ export default function EarningsPage() {
                   ))}
                 </div>
                 <button onClick={requestPayout} disabled={loading} className="btn btn-gold btn-sm">
-                  {loading ? "Submitting..." : `Confirm -- Request N${stats.approved.toLocaleString()}`}
+                  {loading ? "Submitting..." : `Confirm -- Request ₦${stats.approved.toLocaleString()}`}
                 </button>
                 {payoutMsg && <p style={{ fontSize: "0.78rem", color: payoutMsg.includes("success") ? "#34D399" : "#F87171", marginTop: 8 }}>{payoutMsg}</p>}
               </div>
@@ -131,9 +131,9 @@ export default function EarningsPage() {
                   {commissions.map(c => (
                     <tr key={c.id}>
                       <td style={{ fontWeight: 600 }}>{c.service_name}</td>
-                      <td>N{Number(c.deal_value).toLocaleString()}</td>
+                      <td>₦{Number(c.deal_value).toLocaleString()}</td>
                       <td>{c.rate}%</td>
-                      <td style={{ fontWeight: 700, color: "#059669" }}>N{Number(c.amount).toLocaleString()}</td>
+                      <td style={{ fontWeight: 700, color: "#059669" }}>₦{Number(c.amount).toLocaleString()}</td>
                       <td><span className="badge" style={{ background: "var(--cream-200)", color: "var(--navy-700)" }}>{c.type}</span></td>
                       <td>{statusBadge(c.status)}</td>
                       <td style={{ fontSize: "0.75rem" }}>{new Date(c.created_at).toLocaleDateString("en-NG")}</td>
@@ -156,7 +156,7 @@ export default function EarningsPage() {
               <tbody>
                 {payouts.map(p => (
                   <tr key={p.id}>
-                    <td style={{ fontWeight: 700, color: "#059669" }}>N{Number(p.amount).toLocaleString()}</td>
+                    <td style={{ fontWeight: 700, color: "#059669" }}>₦{Number(p.amount).toLocaleString()}</td>
                     <td>{p.bank_name}</td>
                     <td>{statusBadge(p.status)}</td>
                     <td style={{ fontSize: "0.75rem" }}>{new Date(p.created_at).toLocaleDateString("en-NG")}</td>

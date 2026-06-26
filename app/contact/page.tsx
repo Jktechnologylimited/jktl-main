@@ -112,7 +112,7 @@ export default function ContactPage() {
               <div className="bg-white border border-cream-300 rounded p-6">
                 <p className="label-xs text-black/35 mb-4">Affiliate Programme</p>
                 <p className="text-[0.82rem] text-black/55 mb-4 leading-[1.65]">
-                  Interested in earning commissions by referring businesses to Desk? Join our affiliate programme -- free to join, N10,000 welcome bonus.
+                  Interested in earning commissions by referring businesses to Desk? Join our affiliate programme -- free to join, ₦10,000 welcome bonus.
                 </p>
                 <Link href="/affiliates" className="btn-outline-navy text-sm w-full justify-center py-3">
                   Join Affiliate Programme

@@ -1,6 +1,7 @@
 import { getSession } from "@/lib/affiliate-auth";
 import CopyButton from "./CopyButton";
 import { getDashboardStats, getRecentActivity, getMonthlyEarnings } from "@/lib/affiliate-db";
+import { getDeskProducts } from "@/lib/content";
 import { TIERS, PAYOUT } from "@/lib/affiliate-offers";
 import Link from "next/link";
 
@@ -8,10 +9,11 @@ export default async function DashboardPage() {
   const session = await getSession();
   if (!session) return null;
 
-  const [stats, activity, monthly] = await Promise.all([
+  const [stats, activity, monthly, products] = await Promise.all([
     getDashboardStats(session.id),
     getRecentActivity(session.id),
     getMonthlyEarnings(session.id),
+    getDeskProducts(),
   ]);
 
   const tier = TIERS[session.tier as keyof typeof TIERS] || TIERS.standard;
@@ -26,10 +28,10 @@ export default async function DashboardPage() {
   const statCards = [
     { label: "Total Clicks",        value: stats.clicks,                              color: "#1A4A8A", sub: "on your referral links" },
     { label: "Total Referrals",     value: stats.leads,                               color: "#7C3AED", sub: "leads generated" },
-    { label: "Pending Commission",  value: `N${stats.pending.toLocaleString()}`,       color: "#D97706", sub: "awaiting approval" },
-    { label: "Approved",            value: `N${stats.approved.toLocaleString()}`,      color: "#059669", sub: "ready for payout" },
-    { label: "Signup Bonus",        value: `N${stats.signupBonus.toLocaleString()}`,   color: stats.bonusUnlocked ? "#C9A84C" : stats.bonusExpired ? "#DC2626" : "#6B7280", sub: stats.bonusUnlocked ? "Unlocked -- added to balance" : stats.bonusExpired ? "Expired -- refer a client to earn" : "Unlocks on first referral" },
-    { label: "Available to Withdraw", value: `N${stats.availableForPayout.toLocaleString()}`, color: "#059669", sub: `Min. N${PAYOUT.minimum.toLocaleString()} -- paid on 28th` },
+    { label: "Pending Commission",  value: `₦${stats.pending.toLocaleString()}`,       color: "#D97706", sub: "awaiting approval" },
+    { label: "Approved",            value: `₦${stats.approved.toLocaleString()}`,      color: "#059669", sub: "ready for payout" },
+    { label: "Signup Bonus",        value: `₦${stats.signupBonus.toLocaleString()}`,   color: stats.bonusUnlocked ? "#C9A84C" : stats.bonusExpired ? "#DC2626" : "#6B7280", sub: stats.bonusUnlocked ? "Unlocked -- added to balance" : stats.bonusExpired ? "Expired -- refer a client to earn" : "Unlocks on first referral" },
+    { label: "Available to Withdraw", value: `₦${stats.availableForPayout.toLocaleString()}`, color: "#059669", sub: `Min. ₦${PAYOUT.minimum.toLocaleString()} -- paid on 28th` },
   ];
 
   return (
@@ -78,6 +80,35 @@ export default async function DashboardPage() {
           ))}
         </div>
 
+        {/* Promote our products */}
+        {products && products.length > 0 && (
+          <div style={{ marginBottom: 28 }}>
+            <div style={{ marginBottom: 12 }}>
+              <p style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--navy-900)" }}>Promote Our Products</p>
+              <p className="body-sm" style={{ color: "rgba(28,28,30,0.45)" }}>Share these links. You earn commission on every client who signs up through you.</p>
+            </div>
+            <div className="product-ref-grid">
+              {(products as { id?: string; name?: string; tagline?: string; slug?: string; href?: string; color?: string; status?: string }[]).map((pr, i) => {
+                const path = pr.href && String(pr.href).startsWith("/") ? pr.href : `/desk/${pr.slug || ""}`;
+                const link = `https://jktl.com.ng${path}?ref=${session.referralCode}`;
+                return (
+                  <div key={pr.id || i} className="product-ref-card">
+                    <div className="prc-accent" style={{ background: pr.color || "#1A4A8A" }} />
+                    <div>
+                      <p style={{ fontWeight: 700, fontSize: "0.92rem", color: "var(--navy-900)" }}>{pr.name}{pr.status && pr.status !== "live" ? <span className="badge badge-pending" style={{ marginLeft: 8, verticalAlign: "middle" }}>{pr.status}</span> : null}</p>
+                      {pr.tagline && <p className="body-sm" style={{ color: "rgba(28,28,30,0.45)" }}>{pr.tagline}</p>}
+                    </div>
+                    <div className="copy-box light">
+                      <span className="copy-box-text">{link}</span>
+                      <CopyButton text={link} />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         {/* Tier progress */}
         {nextTier && (
           <div style={{ background: "#fff", border: "1px solid var(--cream-300)", borderRadius: 4, padding: "20px 24px", marginBottom: 24 }}>
@@ -102,7 +133,7 @@ export default async function DashboardPage() {
         )}
 
         {/* Two columns: activity + payout */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 320px", gap: 16, alignItems: "start" }}>
+        <div className="dash-two-col" style={{ display: "grid", gridTemplateColumns: "1fr 320px", gap: 16, alignItems: "start" }}>
 
           {/* Recent activity */}
           <div style={{ background: "#fff", border: "1px solid var(--cream-300)", borderRadius: 4 }}>
@@ -132,7 +163,7 @@ export default async function DashboardPage() {
                       </p>
                     </div>
                     {item.amount && (
-                      <span style={{ fontWeight: 700, fontSize: "0.85rem", color: "#059669" }}>N{Number(item.amount).toLocaleString()}</span>
+                      <span style={{ fontWeight: 700, fontSize: "0.85rem", color: "#059669" }}>₦{Number(item.amount).toLocaleString()}</span>
                     )}
                   </div>
                 ))}
@@ -145,10 +176,10 @@ export default async function DashboardPage() {
             <div style={{ background: "var(--navy-900)", borderRadius: 4, padding: "20px" }}>
               <p className="label-xs" style={{ color: "var(--gold-400)", marginBottom: 14 }}>Payout Summary</p>
               {[
-                { l: "Earned Commission", v: `N${stats.approved.toLocaleString()}`,           c: "#059669" },
-                { l: "Signup Bonus",      v: `N${stats.bonusUnlocked ? stats.signupBonus.toLocaleString() : "0"}`, c: stats.bonusUnlocked ? "#C9A84C" : "#6B7280" },
-                { l: "Available",         v: `N${stats.availableForPayout.toLocaleString()}`, c: "#fff" },
-                { l: "Paid Out",          v: `N${stats.paid.toLocaleString()}`,               c: "rgba(249,247,240,0.4)" },
+                { l: "Earned Commission", v: `₦${stats.approved.toLocaleString()}`,           c: "#059669" },
+                { l: "Signup Bonus",      v: `₦${stats.bonusUnlocked ? stats.signupBonus.toLocaleString() : "0"}`, c: stats.bonusUnlocked ? "#C9A84C" : "#6B7280" },
+                { l: "Available",         v: `₦${stats.availableForPayout.toLocaleString()}`, c: "#fff" },
+                { l: "Paid Out",          v: `₦${stats.paid.toLocaleString()}`,               c: "rgba(249,247,240,0.4)" },
               ].map(r => (
                 <div key={r.l} style={{ display: "flex", justifyContent: "space-between", padding: "8px 0", borderBottom: "1px solid rgba(249,247,240,0.06)" }}>
                   <span style={{ fontSize: "0.8rem", color: "rgba(249,247,240,0.5)" }}>{r.l}</span>
@@ -157,7 +188,7 @@ export default async function DashboardPage() {
               ))}
               {!stats.bonusUnlocked && !stats.bonusExpired && (
                 <p style={{ fontSize: "0.68rem", color: "rgba(201,168,76,0.6)", marginTop: 10, lineHeight: 1.5 }}>
-                  Your N20,000 bonus unlocks when your first referral closes.
+                  Your ₦20,000 bonus unlocks when your first referral closes.
                   {stats.bonusExpiresAt && ` Expires ${new Date(stats.bonusExpiresAt).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" })}.`}
                 </p>
               )}
@@ -169,7 +200,7 @@ export default async function DashboardPage() {
                 ) : (
                   <div>
                     <p style={{ fontSize: "0.72rem", color: "rgba(249,247,240,0.3)", marginBottom: 8, textAlign: "center" }}>
-                      N{(PAYOUT.minimum - stats.availableForPayout).toLocaleString()} more to reach minimum payout
+                      ₦{(PAYOUT.minimum - stats.availableForPayout).toLocaleString()} more to reach minimum payout
                     </p>
                     <div className="progress-bar">
                       <div className="progress-fill" style={{ width: `${Math.min((stats.availableForPayout / PAYOUT.minimum) * 100, 100)}%` }} />

@@ -97,7 +97,7 @@ export default function JoinPage() {
           </h1>
           <p style={{ fontSize: "0.88rem", color: "rgba(226,232,240,0.45)", lineHeight: 1.6 }}>
             Earn commissions promoting JKTL Desk products.
-            N10,000 welcome bonus. 5% on setup fees. 2% recurring.
+            ₦10,000 welcome bonus. 5% on setup fees. 2% recurring.
           </p>
         </div>
 

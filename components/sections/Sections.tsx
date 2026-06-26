@@ -58,7 +58,7 @@ export function Hero() {
             { value:"2019",  label:"Year founded" },
             { value:"6+",    label:"Years experience" },
             { value:"8",     label:"Service systems" },
-            { value:"N500k", label:"Avg. setup fee" },
+            { value:"₦500k", label:"Avg. setup fee" },
             { value:"70%+",  label:"Profit margin at scale" },
             { value:"4",     label:"Free tools" },
           ].map((s) => (

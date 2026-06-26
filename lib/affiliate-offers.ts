@@ -66,7 +66,7 @@ export const OFFERS = [
   // SERVICES
   {
     id: "svc-website", category: "Service", featured: false,
-    name: "Website & Landing Page System", subtitle: "From N150,000",
+    name: "Website & Landing Page System", subtitle: "From ₦150,000",
     description: "Professional business website 5-8 pages, SEO setup, mobile-responsive, contact forms.",
     priceMin: 150000, priceMax: 800000, type: "one-time",
     commissionType: "one-time", color: "#1A4A8A",
@@ -74,7 +74,7 @@ export const OFFERS = [
   },
   {
     id: "svc-leads", category: "Service", featured: false,
-    name: "Lead Generation Landing Page", subtitle: "From N100,000",
+    name: "Lead Generation Landing Page", subtitle: "From ₦100,000",
     description: "High-converting landing page for paid ad campaigns with CRM integration and tracking.",
     priceMin: 100000, priceMax: 500000, type: "one-time",
     commissionType: "one-time", color: "#1A6E3C",
@@ -82,7 +82,7 @@ export const OFFERS = [
   },
   {
     id: "svc-email", category: "Service", featured: false,
-    name: "Email & Follow-up Automation", subtitle: "From N100,000 + N20,000/mo",
+    name: "Email & Follow-up Automation", subtitle: "From ₦100,000 + ₦20,000/mo",
     description: "Automated email sequences, lead follow-up, payment confirmations, missed inquiry recovery.",
     priceMin: 100000, priceMax: 400000, type: "one-time + monthly",
     commissionType: "both", color: "#7C3AED",
@@ -90,7 +90,7 @@ export const OFFERS = [
   },
   {
     id: "svc-seo", category: "Service", featured: true,
-    name: "SEO & Google Visibility", subtitle: "From N150,000 + N50,000/mo",
+    name: "SEO & Google Visibility", subtitle: "From ₦150,000 + ₦50,000/mo",
     description: "Google Business optimisation, local SEO, keyword targeting, map rankings, monthly reports.",
     priceMin: 150000, priceMax: 700000, type: "one-time + monthly",
     commissionType: "both", color: "#DC2626",
@@ -98,7 +98,7 @@ export const OFFERS = [
   },
   {
     id: "svc-crm", category: "Service", featured: false,
-    name: "CRM & Business Operations", subtitle: "From N300,000 + N30,000/mo",
+    name: "CRM & Business Operations", subtitle: "From ₦300,000 + ₦30,000/mo",
     description: "Lead tracking, customer database, sales pipeline, staff tracking, analytics dashboard.",
     priceMin: 300000, priceMax: 2000000, type: "one-time + monthly",
     commissionType: "both", color: "#D97706",
@@ -106,7 +106,7 @@ export const OFFERS = [
   },
   {
     id: "svc-payments", category: "Service", featured: false,
-    name: "Payment & Business Infrastructure", subtitle: "From N100,000",
+    name: "Payment & Business Infrastructure", subtitle: "From ₦100,000",
     description: "Payment links, QR codes, online checkout, subscription billing, invoice generation.",
     priceMin: 100000, priceMax: 600000, type: "one-time",
     commissionType: "one-time", color: "#059669",
@@ -114,7 +114,7 @@ export const OFFERS = [
   },
   {
     id: "svc-ai", category: "Service", featured: false,
-    name: "AI & Automation Systems", subtitle: "From N250,000 + N50,000/mo",
+    name: "AI & Automation Systems", subtitle: "From ₦250,000 + ₦50,000/mo",
     description: "AI chatbot, WhatsApp auto-replies, FAQ automation, customer onboarding, workflow automation.",
     priceMin: 250000, priceMax: 1500000, type: "one-time + monthly",
     commissionType: "both", color: "#0F172A",
@@ -143,7 +143,7 @@ export function calcCommission(priceMin: number, priceMax: number, rate: number)
 }
 
 export function fmtNaira(amount: number) {
-  return "N" + amount.toLocaleString("en-NG");
+  return "₦" + amount.toLocaleString("en-NG");
 }
 
 export function tierFromReferrals(count: number): keyof typeof TIERS {

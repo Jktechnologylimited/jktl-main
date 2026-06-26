@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 interface Ticket { id: string; subject: string; message: string; status: string; created_at: string; }
 
 const FAQS = [
-  { q: "When will my commission be paid?", a: "Commissions are paid on the last business day of each month. The minimum payout is N20,000. Payment is via bank transfer to any Nigerian bank account." },
+  { q: "When will my commission be paid?", a: "Commissions are paid on the last business day of each month. The minimum payout is ₦20,000. Payment is via bank transfer to any Nigerian bank account." },
   { q: "How do I know if my referral converted?", a: "Once JKTL confirms a deal closed from your referral, a commission entry appears in your Earnings page with 'pending' status. We update it to 'approved' once payment is received from the client." },
   { q: "What is the cookie duration?", a: "30 days. If someone clicks your link and signs up within 30 days, you get the commission -- even if they did not convert on the first visit." },
   { q: "Can I promote on any platform?", a: "Yes -- WhatsApp, Instagram, LinkedIn, Facebook, YouTube, email, in person. Just do not spam, misrepresent JKTL's services, or use paid ads that could conflict with JKTL's own campaigns without permission." },
@@ -149,8 +149,8 @@ export default function SupportPage() {
               <p className="label-xs" style={{ color: "rgba(28,28,30,0.4)", marginBottom: 8 }}>Quick info</p>
               {[
                 { l: "Payout date",    v: "28th of every month" },
-                { l: "Minimum payout", v: "N50,000" },
-                { l: "Signup bonus",   v: "N20,000 (unlocks on 1st referral)" },
+                { l: "Minimum payout", v: "₦50,000" },
+                { l: "Signup bonus",   v: "₦20,000 (unlocks on 1st referral)" },
                 { l: "Bonus expiry",   v: "90 days from signup" },
                 { l: "Cookie window",  v: "30 days" },
                 { l: "Standard rate",  v: "10% commission" },

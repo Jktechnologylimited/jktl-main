@@ -108,21 +108,21 @@ Try their free demos -- no login needed: ${refLink}`,
           text: `- Most clients search Google when they need a plumber or electrician urgently. If you are not on page 1, you miss those jobs.
 - JKTL builds the website, sets up the SEO, and adds WhatsApp automation so every missed call gets a follow-up message.
 - Businesses on our system average 10-20 new inbound leads per month from Google alone.
-- Cost: from N150,000 setup. First new client from Google usually pays for it within 30 days.`,
+- Cost: from ₦150,000 setup. First new client from Google usually pays for it within 30 days.`,
         },
         {
           key: "tp2", label: "For clinics and health practices",
           text: `- Manual appointment booking and WhatsApp scheduling leads to double-bookings and high no-show rates.
 - Our clinic system adds automated booking, patient reminders, and a CRM that tracks every patient.
 - Clinics using it have reduced no-shows by over 60% within 60 days.
-- Cost: from N300,000 setup + N30,000/month. ROI is typically within 3-4 months.`,
+- Cost: from ₦300,000 setup + ₦30,000/month. ROI is typically within 3-4 months.`,
         },
         {
           key: "tp3", label: "For consultants and agencies",
           text: `- Consultants lose clients because they look unprofessional online or have no system for following up with leads.
 - JKTL builds a website that positions you as an authority, a landing page for your flagship offer, and email automation that nurtures every prospect.
 - You close more deals because the system pre-qualifies clients before they even contact you.
-- Growth package from N500,000 -- typically 2x ROI within 6 months.`,
+- Growth package from ₦500,000 -- typically 2x ROI within 6 months.`,
         },
       ],
     },

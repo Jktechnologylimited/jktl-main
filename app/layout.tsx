@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import HideOnDashboard from "@/components/HideOnDashboard";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jktl.com.ng"),
@@ -72,9 +73,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             ]),
           }}
         />
-        <Navbar />
+        <HideOnDashboard><Navbar /></HideOnDashboard>
         <main>{children}</main>
-        <Footer />
+        <HideOnDashboard><Footer /></HideOnDashboard>
       </body>
     </html>
   );

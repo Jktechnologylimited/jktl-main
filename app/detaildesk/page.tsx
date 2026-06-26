@@ -6,7 +6,7 @@ import Link from "next/link";
 import { siteConfig, companyDetails } from "@/data/index";
 import { useProductPricing } from "@/hooks/useProductPricing";
 
-function fmtN(n: number) { return "N" + n.toLocaleString("en-NG"); }
+function fmtN(n: number) { return "₦" + n.toLocaleString("en-NG"); }
 
 const FEATURES = [
   { icon: "ST", title: "Online Store & Booking", desc: "Customers book and pay online 24/7. No calls, no WhatsApp back-and-forth. Jobs go straight into your queue." },
@@ -117,7 +117,7 @@ export default function DetailDeskPage() {
               ))}
             </div>
             <p className="text-[0.78rem] text-white/40 italic">
-              A separate website alone costs N50,000--N150,000. With DetailDesk, it comes free.
+              A separate website alone costs ₦50,000--₦150,000. With DetailDesk, it comes free.
             </p>
           </div>
 

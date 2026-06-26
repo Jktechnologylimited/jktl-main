@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
 
   if (available < PAYOUT.minimum) {
     return NextResponse.json({
-      error: `Minimum payout is N${PAYOUT.minimum.toLocaleString()}. You have N${available.toLocaleString()} available.`,
+      error: `Minimum payout is ₦${PAYOUT.minimum.toLocaleString()}. You have ₦${available.toLocaleString()} available.`,
     }, { status: 400 });
   }
 

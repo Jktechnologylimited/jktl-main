@@ -319,3 +319,103 @@ body {
   .btn-outline-navy,
   .btn-outline-cream { padding: 14px 24px; font-size: 0.68rem; }
 }
+
+/* ===== Affiliate dashboard components ===== */
+.page-header { padding: 22px clamp(16px,4vw,32px); border-bottom: 1px solid var(--cream-300); background: var(--cream-50); }
+.page-body { padding: clamp(16px,4vw,32px); }
+
+.copy-box { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); border-radius: 4px; padding: 6px 6px 6px 12px; }
+.copy-box-text { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #fff; }
+.copy-box-btn { flex-shrink: 0; background: var(--gold-400); color: var(--navy-900); border: none; border-radius: 3px; padding: 7px 14px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; cursor: pointer; transition: background 0.15s; white-space: nowrap; }
+.copy-box-btn:hover { background: var(--gold-300); }
+/* copy-box on a light background */
+.copy-box.light { background: var(--cream-100); border-color: var(--cream-300); }
+.copy-box.light .copy-box-text { color: var(--navy-800); }
+
+.stat-card { background: #fff; border: 1px solid var(--cream-300); border-radius: 4px; padding: 16px 18px; }
+
+.badge { display: inline-block; padding: 3px 10px; border-radius: 2px; font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.badge-pending { background: #FEF3C7; color: #92400E; }
+.badge-active, .badge-approved { background: #DCFCE7; color: #166534; }
+
+.progress-bar { height: 7px; background: rgba(0,0,0,0.10); border-radius: 4px; overflow: hidden; }
+.progress-fill { display: block; height: 100%; background: linear-gradient(90deg, var(--gold-400), var(--gold-300)); border-radius: 4px; transition: width 0.4s ease; }
+
+.label-xs { font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; display: block; }
+.body-sm { font-size: 0.82rem; line-height: 1.5; }
+
+/* button variants used across the dashboard */
+.btn-sm { padding: 8px 16px; font-size: 0.76rem; }
+.btn-ghost { background: transparent; border: 1px solid rgba(249,247,240,0.25); color: #F9F7F0; }
+.btn-ghost:hover { background: rgba(249,247,240,0.08); }
+.btn-gold { background: var(--gold-400); color: var(--navy-900); border: none; }
+.btn-gold:hover { background: var(--gold-300); }
+
+/* product referral cards */
+.product-ref-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.product-ref-card { background: #fff; border: 1px solid var(--cream-300); border-radius: 6px; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+.product-ref-card .prc-accent { width: 36px; height: 4px; border-radius: 2px; }
+
+@media (max-width: 760px) {
+  /* collapse the dashboard two-column area on phones */
+  .dash-two-col { grid-template-columns: 1fr !important; }
+  .dash-two-col > div:last-child { order: -1; }
+}
+
+/* ===== Affiliate dashboard shell (layout + sidebar + nav) ===== */
+.layout { display: flex; min-height: 100vh; background: var(--cream-50); }
+
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  height: 100vh;
+  background: var(--navy-900);
+  color: #F9F7F0;
+  overflow-y: auto;
+}
+@media (min-width: 768px) {
+  .sidebar { position: sticky; top: 0; }
+}
+
+.main-content { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 20px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: rgba(249,247,240,0.62);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.nav-item:hover { background: rgba(249,247,240,0.05); color: #F9F7F0; }
+.nav-item.active {
+  background: rgba(201,168,76,0.10);
+  color: var(--gold-400);
+  box-shadow: inset 2px 0 0 var(--gold-400);
+}
+
+/* ===== Dashboard sidebar — guaranteed top-level (drawer was rendering unstyled on mobile) ===== */
+.layout { display: flex; min-height: 100vh; background: var(--cream-50); }
+.sidebar {
+  width: 260px; flex-shrink: 0; height: 100vh;
+  background: var(--navy-900); color: #F9F7F0; overflow-y: auto;
+}
+.main-content { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.nav-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 20px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.88rem; font-weight: 500; line-height: 1.2;
+  color: rgba(249,247,240,0.62); text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.nav-item:hover { background: rgba(249,247,240,0.05); color: #F9F7F0; }
+.nav-item.active {
+  background: rgba(201,168,76,0.10); color: var(--gold-400);
+  box-shadow: inset 2px 0 0 var(--gold-400);
+}

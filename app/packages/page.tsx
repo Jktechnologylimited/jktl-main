@@ -6,7 +6,7 @@ import TryDemoButton from "@/components/ui/TryDemoButton";
 
 export const metadata: Metadata = {
   title: "Packages & Pricing | JK Technology Limited",
-  description: "Transparent pricing for digital systems -- websites, landing pages, SEO, CRM, email automation, AI. Starter from N150,000. Enterprise systems to N5,000,000+.",
+  description: "Transparent pricing for digital systems -- websites, landing pages, SEO, CRM, email automation, AI. Starter from ₦150,000. Enterprise systems to ₦5,000,000+.",
   alternates: { canonical: "https://jktl.com.ng/packages" },
 };
 
@@ -25,7 +25,7 @@ export default function PackagesPage() {
             Every project is scoped before we begin. You know what you&apos;re getting, what it costs, and when it will be delivered.
           </p>
           <p className="label-xs" style={{ color:"rgba(249,247,240,0.3)" }}>
-            All prices in Nigerian Naira (N) | 50% deposit to begin | Instalment plans available
+            All prices in Nigerian Naira (₦) | 50% deposit to begin | Instalment plans available
           </p>
         </div>
       </section>
@@ -156,7 +156,7 @@ export default function PackagesPage() {
           <h2 className="display-lg mb-8 text-center" style={{ color:"var(--navy-900)" }}>Pricing Questions</h2>
           <div style={{ display:"flex", flexDirection:"column", gap:"6px" }}>
             {[
-              { q:"Do I pay everything upfront?", a:"No. Standard projects require 50% upfront and 50% on delivery. Larger projects (N500,000+) can use a 40/40/20 split: 40% to start, 40% at design approval, 20% on launch. Monthly retainers are billed monthly." },
+              { q:"Do I pay everything upfront?", a:"No. Standard projects require 50% upfront and 50% on delivery. Larger projects (₦500,000+) can use a 40/40/20 split: 40% to start, 40% at design approval, 20% on launch. Monthly retainers are billed monthly." },
               { q:"What if I want to start small and scale up?", a:"That's common and it's exactly why we have the Starter package. Many clients begin with a basic website, then add SEO, then add CRM as their budget grows. We build everything to be upgradeable from day one." },
               { q:"Do you work with businesses outside Lagos or Port Harcourt?", a:"Yes -- 100% remote delivery. We work with businesses across all Nigerian states, as well as the UK. We have never needed to meet a client in person to deliver excellent results." },
               { q:"Is the discovery call really free?", a:"Yes, entirely. We review your current situation, identify your top opportunities, and give you a specific recommendation. If there's no fit, we'll tell you honestly. No pitch at the end -- just useful advice." },

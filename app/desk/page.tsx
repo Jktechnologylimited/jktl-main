@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://jktl.com.ng/desk" },
 };
 
-function fmtN(n: number) { return "N" + n.toLocaleString("en-NG"); }
+function fmtN(n: number) { return "₦" + n.toLocaleString("en-NG"); }
 
 export default async function DeskPage() {
   const deskProducts = await getDeskProducts();

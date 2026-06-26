@@ -60,9 +60,9 @@ const HOW_IT_WORKS = [
 
 const FAQS = [
   { q:"How does tracking work?",              a:"Every click on your referral link is tracked with a 30-day cookie. If the prospect converts within 30 days, you get the commission." },
-  { q:"When do I get paid?",                  a:"Commissions are paid on the 28th of every month. Minimum payout is N50,000. Payment is via bank transfer to any Nigerian bank." },
-  { q:"What is the N20,000 signup bonus?",    a:"Every approved affiliate gets N20,000 credited to their account. It unlocks and becomes withdrawable as soon as your first referral closes. If you have not referred anyone within 90 days, the bonus expires." },
-  { q:"What is the minimum payout?",          a:"N50,000. Once your balance (earned commissions + unlocked bonus) reaches N50,000, you can request a payout. It will be processed on the 28th." },
+  { q:"When do I get paid?",                  a:"Commissions are paid on the 28th of every month. Minimum payout is ₦50,000. Payment is via bank transfer to any Nigerian bank." },
+  { q:"What is the ₦20,000 signup bonus?",    a:"Every approved affiliate gets ₦20,000 credited to their account. It unlocks and becomes withdrawable as soon as your first referral closes. If you have not referred anyone within 90 days, the bonus expires." },
+  { q:"What is the minimum payout?",          a:"₦50,000. Once your balance (earned commissions + unlocked bonus) reaches ₦50,000, you can request a payout. It will be processed on the 28th." },
   { q:"What if a client buys multiple services?", a:"You earn commission on the total deal value, including all services in the package." },
   { q:"How long are approvals taking?",       a:"We review all applications within 24-48 hours. You will receive an email notification when your account is approved." },
   { q:"Can I promote on social media?",       a:"Yes -- Instagram, LinkedIn, Facebook, WhatsApp, X, YouTube. We provide ready-made templates for all platforms." },
@@ -100,8 +100,8 @@ export default function LandingPage() {
           <div style={{ display: "flex", gap: 32, justifyContent: "center", flexWrap: "wrap", marginTop: 48, paddingTop: 40, borderTop: "1px solid rgba(201,168,76,0.12)" }}>
             {[
               { v: "Up to 15%",  l: "Commission rate" },
-              { v: "N20,000",    l: "Signup bonus" },
-              { v: "N50,000",    l: "Minimum payout" },
+              { v: "₦20,000",    l: "Signup bonus" },
+              { v: "₦50,000",    l: "Minimum payout" },
               { v: "28th",       l: "Monthly payout date" },
             ].map(s => (
               <div key={s.l} style={{ textAlign: "center" }}>
