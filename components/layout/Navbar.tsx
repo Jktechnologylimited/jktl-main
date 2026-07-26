@@ -8,6 +8,11 @@ import { useDeskProducts } from "@/hooks/useDeskProducts";
 
 const ACCOUNTS_URL = process.env.NEXT_PUBLIC_ACCOUNTS_URL || "https://accounts.jktl.com.ng";
 
+const WEBSITE_PRODUCTS = [
+  { id: "business-websites", name: "Business Websites", tagline: "From N9,900/month, billed annually", color: "#C9A84C", icon: "BW", href: "/business-websites" },
+  { id: "law-firm-websites", name: "Law Firm Websites",  tagline: "From N9,900/month, billed annually", color: "#C9A84C", icon: "LF", href: "/law-firm-websites" },
+];
+
 interface SessionData {
   authenticated: boolean;
   name: string | null;
@@ -68,6 +73,7 @@ export default function Navbar() {
     { label: "Billing",        href: `${ACCOUNTS_URL}/dashboard/billing`,  desc: "Subscriptions and payments" },
     { label: "Profile",        href: `${ACCOUNTS_URL}/dashboard/profile`,  desc: "Edit name and password" },
     { label: "divider" },
+    { label: "Get SchoolDesk",  href: "/get-started/schooldesk",       desc: "School management software" },
     { label: "Get FaithDesk",  href: "/get-started/faithdesk",             desc: "Ministry management software" },
     { label: "Get DetailDesk", href: "/get-started/detaildesk",            desc: "Auto detailing business software" },
     { label: "divider" },
@@ -100,7 +106,26 @@ export default function Navbar() {
               </button>
               {deskOpen && (
                 <div className="absolute top-full left-0 mt-1 rounded-xl shadow-2xl z-50 overflow-hidden"
-                  style={{ background: "#0B1640", border: "1px solid rgba(255,255,255,0.08)", minWidth: 260 }}>
+                  style={{ background: "#0B1640", border: "1px solid rgba(255,255,255,0.08)", minWidth: 280 }}>
+                  <div className="px-4 pt-3 pb-1">
+                    <p className="font-mono text-[0.58rem] tracking-widest text-white/30 uppercase">Websites</p>
+                  </div>
+                  {WEBSITE_PRODUCTS.map(p => (
+                    <Link key={p.id} href={p.href}
+                      className="flex items-center gap-3 px-4 py-3 no-underline hover:bg-white/[0.05] transition-colors">
+                      <div className="w-7 h-7 rounded-md flex items-center justify-center shrink-0"
+                        style={{ background: p.color + "20", border: `1px solid ${p.color}40` }}>
+                        <span className="font-mono text-[0.58rem] font-bold" style={{ color: p.color }}>{p.icon}</span>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-bold text-[0.82rem] text-white">{p.name}</p>
+                        <p className="text-[0.68rem] text-white/35 truncate">{p.tagline}</p>
+                      </div>
+                    </Link>
+                  ))}
+                  <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }} className="px-4 pt-3 pb-1">
+                    <p className="font-mono text-[0.58rem] tracking-widest text-white/30 uppercase">Software</p>
+                  </div>
                   {deskProducts.map(p => (
                     <Link key={p.id} href={p.href}
                       className="flex items-center gap-3 px-4 py-3 no-underline hover:bg-white/[0.05] transition-colors">
@@ -238,8 +263,25 @@ export default function Navbar() {
           style={{ background: "#060E2A" }}>
           <div className="px-5 py-6 flex flex-col gap-1 pb-12">
 
+            {/* Websites */}
+            <p className="font-mono text-[0.58rem] text-white/20 tracking-[0.15em] uppercase px-3 pt-2 pb-1.5">Websites</p>
+            {WEBSITE_PRODUCTS.map(p => (
+              <Link key={p.id} href={p.href}
+                className="flex items-center gap-3 px-3 py-3 no-underline rounded-lg"
+                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)", marginBottom: 6 }}>
+                <div className="w-9 h-9 rounded-md flex items-center justify-center shrink-0"
+                  style={{ background: p.color + "20", border: `1px solid ${p.color}40` }}>
+                  <span className="font-mono text-[0.65rem] font-bold" style={{ color: p.color }}>{p.icon}</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-bold text-[0.9rem] text-white">{p.name}</p>
+                  <p className="text-[0.72rem] text-white/35">{p.tagline}</p>
+                </div>
+              </Link>
+            ))}
+
             {/* Products */}
-            <p className="font-mono text-[0.58rem] text-white/20 tracking-[0.15em] uppercase px-3 pt-2 pb-1.5">Products</p>
+            <p className="font-mono text-[0.58rem] text-white/20 tracking-[0.15em] uppercase px-3 pt-4 pb-1.5">Software</p>
             {deskProducts.map(p => (
               <Link key={p.id} href={p.href}
                 className="flex items-center gap-3 px-3 py-3 no-underline rounded-lg"

@@ -85,10 +85,15 @@ export default async function DeskPage() {
                           <p className="text-[0.68rem] text-black/35 mb-1">setup fee</p>
                           <p className="font-bold text-[0.9rem] text-navy-700">{fmtN(pp.monthly)}<span className="font-normal text-[0.75rem] text-black/35">/mo</span></p>
                         </>
+                      ) : pp && "annual" in pp && pp.annual ? (
+                        <>
+                          <p className="font-bold text-[1.4rem] text-navy-900 leading-none">{fmtN(pp.annual)}</p>
+                          <p className="text-[0.68rem] text-black/35 mb-1">from, per year</p>
+                          <p className="text-[0.72rem] text-black/40">billed annually</p>
+                        </>
                       ) : (
                         <>
-                          <p className="font-bold text-[1rem] text-navy-900">Waitlist</p>
-                          <p className="text-[0.72rem] text-black/40">lock in {fmtN((pp as {monthly:number}).monthly)}/mo</p>
+                          <p className="font-bold text-[1rem] text-navy-900">Coming Soon</p>
                         </>
                       )}
                     </div>

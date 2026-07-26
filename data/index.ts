@@ -21,7 +21,10 @@ export const siteConfig = {
 
 // --- NAVIGATION ---------------------------------------------------------------
 export const navLinks = [
-  { href: "/services", label: "Services", children: [
+  { href: "/business-websites", label: "Business Websites", children: null },
+  { href: "/law-firm-websites", label: "Law Firm Websites", children: null },
+  { href: "/schooldesk",        label: "SchoolDesk",         children: null },
+  { href: "/services", label: "Add-on Services", children: [
     { href: "/services/website-systems",        label: "Website & Landing Page Systems" },
     { href: "/services/lead-generation",        label: "Lead Generation Landing Pages" },
     { href: "/services/email-automation",       label: "Email & Follow-up Automation" },
@@ -1023,7 +1026,7 @@ export const deskProducts = [
     name: "SchoolDesk",
     tagline: "School Administration Software",
     description: "End-to-end school management. Fee collection, student portal, staff management, public website -- built for Nigerian schools.",
-    status: "coming-soon",
+    status: "live",
     color: "#10B981",
     slug: "schooldesk",
     href: "/schooldesk",
@@ -1035,7 +1038,7 @@ export const deskProducts = [
       "Public school website",
       "Staff management",
       "Analytics and reporting",
-      "Waitlist -- coming soon",
+      "From ₦153,000/year, billed annually",
     ],
     domains: [
       { label: "Public Website", example: "graceschool.com",        type: "public" },
@@ -1135,6 +1138,162 @@ export const deskPlans = [
   },
 ];
 
+//  WEBSITE SUBSCRIPTIONS -- Business & Law Firm (2 focused product lines) 
+// Billing is annual. The monthly figure is shown first as the familiar
+// reference price; the actual annual charge (at a discount vs monthly x12)
+// is stated right beneath it. Keep these two in sync unless pricing diverges.
+export type WebsiteTier = {
+  name: string;
+  monthly: number;
+  annual: number;
+  tagline: string;
+  features: string[];
+  highlight?: boolean;
+};
+
+export const businessWebsiteTiers: WebsiteTier[] = [
+  {
+    name: "Starter",
+    monthly: 9900,
+    annual: 99000,
+    tagline: "Perfect for startups and small businesses.",
+    features: [
+      "Custom business website",
+      "Mobile responsive design",
+      "Free hosting",
+      "SSL security",
+      "Business email",
+      "Contact form",
+      "WhatsApp integration",
+      "Unlimited content updates",
+      "Technical support",
+    ],
+  },
+  {
+    name: "Growth",
+    monthly: 19900,
+    annual: 199000,
+    tagline: "For businesses ready to attract more customers.",
+    highlight: true,
+    features: [
+      "Everything in Starter, plus:",
+      "More pages",
+      "Blog/News section",
+      "Basic SEO",
+      "Google Analytics",
+      "Faster performance",
+      "Priority support",
+    ],
+  },
+  {
+    name: "Pro",
+    monthly: 39900,
+    annual: 399000,
+    tagline: "For established brands that want a premium online presence.",
+    features: [
+      "Everything in Growth, plus:",
+      "Premium design",
+      "Booking/appointment system",
+      "Advanced SEO",
+      "Custom integrations",
+      "Performance optimization",
+      "Dedicated support",
+    ],
+  },
+];
+
+export const lawFirmWebsiteTiers: WebsiteTier[] = [
+  {
+    name: "Starter",
+    monthly: 9900,
+    annual: 99000,
+    tagline: "A professional online presence for your practice.",
+    features: [
+      "Professional law firm website",
+      "Attorney profile pages",
+      "Practice areas",
+      "Contact & consultation form",
+      "Business email",
+      "Hosting & SSL",
+      "Unlimited updates",
+    ],
+  },
+  {
+    name: "Growth",
+    monthly: 19900,
+    annual: 199000,
+    tagline: "Build authority and get found by more clients.",
+    highlight: true,
+    features: [
+      "Everything in Starter, plus:",
+      "Blog for legal articles",
+      "Team pages",
+      "Google Maps",
+      "SEO optimization",
+      "Case results/testimonials",
+      "Priority support",
+    ],
+  },
+  {
+    name: "Pro",
+    monthly: 39900,
+    annual: 399000,
+    tagline: "A premium presence for established firms.",
+    features: [
+      "Everything in Growth, plus:",
+      "Premium custom design",
+      "Appointment scheduling",
+      "Client intake forms",
+      "Advanced SEO",
+      "Custom integrations",
+      "Dedicated support",
+    ],
+  },
+];
+
+//  SCHOOLDESK PRICING -- annual tiers by student count 
+// NOTE: only annual figures were specified for SchoolDesk (no separate
+// monthly anchor price like the website products have), so these show the
+// annual price directly rather than an invented monthly figure.
+export type SchoolDeskTier = {
+  name: string;
+  studentRange: string;
+  annual: number;
+  features: string[];
+  highlight?: boolean;
+};
+
+export const schoolDeskTiers: SchoolDeskTier[] = [
+  {
+    name: "Lite",
+    studentRange: "Up to 100 students",
+    annual: 153000,
+    features: [
+      "Student Management", "Attendance", "Results", "Fees",
+      "Parent Portal", "Teacher Portal", "School Website", "Admin Dashboard",
+    ],
+  },
+  {
+    name: "Standard",
+    studentRange: "101–300 students",
+    annual: 250000,
+    highlight: true,
+    features: ["Everything in Lite", "Support for larger schools", "Additional capacity"],
+  },
+  {
+    name: "Pro",
+    studentRange: "301–700 students",
+    annual: 500000,
+    features: ["Everything in Standard", "Advanced reporting", "Granular permissions", "Priority support"],
+  },
+  {
+    name: "Enterprise",
+    studentRange: "701–2,000 students",
+    annual: 2000000,
+    features: ["Everything in Pro", "Enterprise-scale management", "Dedicated onboarding", "Premium support"],
+  },
+];
+
 //  PER-PRODUCT PRICING (overrides plans for display) 
 export const productPricing = {
   faithdesk: {
@@ -1149,9 +1308,9 @@ export const productPricing = {
   },
   schooldesk: {
     setup: null,
-    monthly: 25000,
-    label: "Waitlist -- lock in N25k/mo",
-    waitlistNote: "Join now to lock in launch pricing before the price goes up.",
+    monthly: null,
+    annual: 153000,
+    label: "From N153,000/year",
   },
 };
 
