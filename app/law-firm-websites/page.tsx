@@ -1,20 +1,55 @@
 import type { Metadata } from "next";
-import { lawFirmWebsiteTiers, companyDetails } from "@/data/index";
+import { companyDetails } from "@/data/index";
 import { CTA } from "@/components/sections/Sections";
-import WebsiteTierPricing from "@/components/sections/WebsiteTierPricing";
+import FlagshipPricing from "@/components/sections/FlagshipPricing";
 
 export const metadata: Metadata = {
-  title: "Law Firm Websites | Subscription Websites from ₦9,900/month | JK Technology",
+  title: "Law Firm Growth Platform | Managed Digital Platform for Law Firms | JK Technology",
   description:
-    "A professional website for your law firm — attorney profiles, practice areas, and consultation forms, built and hosted for you. From ₦9,900/month (billed annually).",
+    "A fully managed digital platform designed to attract clients, strengthen credibility, and support long-term growth for your law firm. Strategy, design, and build, plus ongoing Platform Management.",
   alternates: { canonical: "https://jktl.com.ng/law-firm-websites" },
 };
 
 const FEATURES = [
   { title: "Built for practices", desc: "Attorney profiles, practice areas, and consultation forms — not a generic template." },
-  { title: "Hosting included", desc: "Free hosting and SSL security, no separate hosting bill to manage." },
-  { title: "Always up to date", desc: "Unlimited content updates included — send us the change, we make it." },
-  { title: "Client-ready", desc: "Consultation and intake forms built to bring new clients straight to you." },
+  { title: "Fully managed", desc: "Hosting, security, and performance handled for you, year-round." },
+  { title: "Always current", desc: "Platform Management keeps it running — send us the change, we make it." },
+  { title: "Client-ready", desc: "Consultation intake forms built to bring new clients straight to you." },
+];
+
+const BUILD_ITEMS = [
+  "Strategy Workshop",
+  "Custom UI/UX Design",
+  "Custom Full-Stack Website",
+  "Secure Admin Dashboard",
+  "Blog & Content Management",
+  "Lawyer & Practice Area Management",
+  "Consultation Request Forms",
+  "Technical SEO Foundation",
+  "Google Analytics & Search Console Setup",
+  "Training Session",
+];
+
+const MANAGEMENT_ITEMS = [
+  "Premium Hosting",
+  "Domain Renewal",
+  "SSL Certificate",
+  "Platform Maintenance",
+  "Security Monitoring",
+  "Daily Backups",
+  "Performance Monitoring",
+  "Technical Support",
+  "Minor Content Updates",
+  "Continuous Improvements",
+];
+
+const ADDONS = [
+  "Business Email",
+  "AI Chat Assistant",
+  "Content Writing",
+  "Monthly SEO",
+  "Additional Integrations",
+  "Enterprise Custom Development",
 ];
 
 export default function LawFirmWebsitesPage() {
@@ -26,19 +61,19 @@ export default function LawFirmWebsitesPage() {
           style={{ backgroundImage: "linear-gradient(rgba(201,168,76,1) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,1) 1px,transparent 1px)", backgroundSize: "64px 64px" }} />
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="inline-flex items-center gap-2 bg-gold-400/10 border border-gold-400/20 px-4 py-1.5 rounded-sm mb-6">
-            <span className="label-xs text-gold-400">jktl.com.ng / law-firm-websites</span>
+            <span className="label-xs text-gold-400">The Law Firm Growth Platform</span>
           </div>
           <h1 className="display-hero text-white mb-4" style={{ maxWidth: 700 }}>
-            Law Firm Websites. <span className="text-gold-400">From ₦9,900/month.</span>
+            A digital platform built to <span className="text-gold-400">win your firm more clients.</span>
           </h1>
-          <p className="body-lg text-white/50 mb-3" style={{ maxWidth: 540 }}>
-            A professional website built around your practice — attorney profiles, practice areas, and a consultation form that brings in new clients.
+          <p className="body-lg text-white/50 mb-3" style={{ maxWidth: 560 }}>
+            Not a website. A fully managed digital platform designed to attract clients, strengthen credibility, and support your firm&apos;s long-term growth.
           </p>
           <p className="font-mono text-[0.72rem] text-white/25 mb-8">
-            Billed annually. Cancel anytime.
+            One flagship engagement. Everything included.
           </p>
           <div className="flex flex-wrap gap-3">
-            <a href="#pricing" className="btn-gold px-7 py-3.5">See Pricing</a>
+            <a href="#investment" className="btn-gold px-7 py-3.5">See Your Investment</a>
             <a href={companyDetails.whatsappLink} target="_blank" rel="noopener noreferrer" className="btn-ghost px-5 py-3.5 flex items-center gap-2 text-sm">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" /><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.556 4.118 1.528 5.845L0 24l6.335-1.652A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.652-.493-5.188-1.357l-.371-.214-3.861 1.007 1.028-3.752-.233-.387A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" /></svg>
               Ask on WhatsApp
@@ -59,22 +94,23 @@ export default function LawFirmWebsitesPage() {
         </div>
       </section>
 
-      {/* Pricing */}
-      <section id="pricing" className="bg-cream-100 px-4 sm:px-6 lg:px-8 py-16">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="mb-10 text-center">
-            <span className="gold-rule mb-4" style={{ display: "block", margin: "0 auto" }} />
-            <h2 className="display-lg text-navy-900 mb-2">Simple, Transparent Pricing</h2>
-            <p className="body-sm text-black/50">Shown as a monthly rate for reference — billed once a year at the discounted annual price.</p>
-          </div>
-          <WebsiteTierPricing tiers={lawFirmWebsiteTiers} ctaHref="/contact" />
-        </div>
-      </section>
-
-      <CTA
-        heading="Ready for a website your clients trust?"
-        subtext="Tell us about your practice. We'll recommend the right tier and have your site live in days, not months."
+      <FlagshipPricing
+        platformName="Law Firm Growth Platform"
+        tagline="One engagement. Everything your firm needs to launch and grow."
+        buildPrice="₦990,000"
+        buildItems={BUILD_ITEMS}
+        managementPrice="₦290,000/yr"
+        managementItems={MANAGEMENT_ITEMS}
+        addons={ADDONS}
+        ctaHref="#investment-cta"
       />
+
+      <div id="investment-cta">
+        <CTA
+          heading="Ready for a platform your clients trust?"
+          subtext="Book a strategy call. We'll walk through your firm's goals and confirm scope before anything begins."
+        />
+      </div>
     </div>
   );
 }

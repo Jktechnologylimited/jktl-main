@@ -22,7 +22,7 @@ export default function Footer() {
               </div>
             </Link>
             <p className="body-sm" style={{ color:"rgba(249,247,240,0.3)", lineHeight:1.7, marginBottom:14, fontSize:"0.78rem" }}>
-              Vertical software for African businesses. Self-service. Real tools.
+              Enterprise software for African businesses, law firms, and schools.
             </p>
             <div style={{ display:"flex", flexDirection:"column", gap:4 }}>
               <a href={"mailto:"+siteConfig.email} style={{ fontSize:"0.75rem", color:"rgba(249,247,240,0.35)", textDecoration:"none" }}>{siteConfig.email}</a>

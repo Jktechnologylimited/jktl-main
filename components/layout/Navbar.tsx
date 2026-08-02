@@ -9,8 +9,8 @@ import { useDeskProducts } from "@/hooks/useDeskProducts";
 const ACCOUNTS_URL = process.env.NEXT_PUBLIC_ACCOUNTS_URL || "https://accounts.jktl.com.ng";
 
 const WEBSITE_PRODUCTS = [
-  { id: "business-websites", name: "Business Websites", tagline: "From N9,900/month, billed annually", color: "#C9A84C", icon: "BW", href: "/business-websites" },
-  { id: "law-firm-websites", name: "Law Firm Websites",  tagline: "From N9,900/month, billed annually", color: "#C9A84C", icon: "LF", href: "/law-firm-websites" },
+  { id: "business-websites", name: "Business Websites", tagline: "Business Growth Platform — N990,000", color: "#C9A84C", icon: "BW", href: "/business-websites" },
+  { id: "law-firm-websites", name: "Law Firm Websites",  tagline: "Law Firm Growth Platform — N990,000", color: "#C9A84C", icon: "LF", href: "/law-firm-websites" },
 ];
 
 interface SessionData {

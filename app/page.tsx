@@ -204,26 +204,23 @@ export default function HomePage() {
             <h2 className="display-lg text-cream-50 mb-2">{c.howItWorks.heading}</h2>
             <p className="text-white/40 text-[0.9rem]">{c.howItWorks.subhead}</p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.06]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-px bg-white/[0.06]">
             {[
-              { n: "01", t: "Create Account", d: "Sign up on accounts.jktl.com.ng. Google or email." },
-              { n: "02", t: "Enter Details",   d: "Organisation name, size, address. 2 minutes." },
-              { n: "03", t: "Pick Subdomain",  d: "yourchurch.jktl.com.ng. Real-time check." },
-              { n: "04", t: "Upload Branding", d: "Logo and brand colour. Live preview." },
-              { n: "05", t: "Choose Plan",     d: "Standard, Pro, or Enterprise." },
-              { n: "06", t: "Pay via Paystack",d: "Secure card. Setup fee charged once." },
-              { n: "07", t: "Auto Deploy",     d: "System provisioned. Credentials emailed." },
-              { n: "08", t: "Go Live", d: "Your system is live. Support on WhatsApp." },
+              { n: "01", t: "You Reach Out",      d: "A short form or a WhatsApp message. Tell us what you need." },
+              { n: "02", t: "We Review & Scope",  d: "We look at your goals and confirm the right plan for you." },
+              { n: "03", t: "We Build It",        d: "Your platform is set up and configured by our team." },
+              { n: "04", t: "You Go Live",        d: "Your site or system goes live, credentials sent to you." },
+              { n: "05", t: "We Keep It Running", d: "Ongoing support and maintenance, included." },
             ].map((s, i) => (
-              <div key={s.n} className="bg-navy-800 p-5" style={{ borderTop: i === 7 ? "2px solid #34D399" : undefined }}>
-                <p className="font-mono text-[0.65rem] font-bold mb-2" style={{ color: i === 7 ? "#34D399" : "#C9A84C" }}>{s.n}</p>
+              <div key={s.n} className="bg-navy-800 p-5" style={{ borderTop: i === 4 ? "2px solid #34D399" : undefined }}>
+                <p className="font-mono text-[0.65rem] font-bold mb-2" style={{ color: i === 4 ? "#34D399" : "#C9A84C" }}>{s.n}</p>
                 <p className="font-bold text-[0.85rem] text-white mb-1">{s.t}</p>
                 <p className="text-[0.75rem] text-white/40 leading-relaxed">{s.d}</p>
               </div>
             ))}
           </div>
           <div className="flex justify-center mt-8">
-            <Link href="/get-started" className="btn-gold px-8 py-3.5">Start Onboarding Now</Link>
+            <Link href="/contact" className="btn-gold px-8 py-3.5">Book a Strategy Call</Link>
           </div>
         </div>
       </section>

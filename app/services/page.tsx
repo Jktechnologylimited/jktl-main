@@ -27,7 +27,7 @@ export default async function ServicesPage() {
             You deal directly with the founder -- not a helpdesk or outsourced developer.
           </p>
           <p className="font-mono text-[0.72rem] text-white/25 mb-8">
-            Serving Nigeria and Africa since 2019. 50+ systems delivered.
+            Serving Nigeria and Africa since 2019. Multiple systems delivered.
           </p>
           <div className="flex flex-wrap gap-3">
             <Link href="/get-started/services" className="btn-gold px-6 py-3.5">Submit an Inquiry</Link>
@@ -65,7 +65,7 @@ export default async function ServicesPage() {
         <div className="max-w-[1200px] mx-auto">
           <div className="mb-10">
             <span className="gold-rule block mb-3" />
-            <h2 className="display-lg text-navy-900">8 Service Categories</h2>
+            <h2 className="display-lg text-navy-900">Service Categories</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {services.map(s => (
