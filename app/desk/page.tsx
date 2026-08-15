@@ -79,22 +79,24 @@ export default async function DeskPage() {
                       <p className="body-md text-black/55 leading-[1.7]">{p.description}</p>
                     </div>
                     <div className="shrink-0 text-right">
-                      {pp && pp.setup ? (
+                      {pp && pp.setup && pp.monthly ? (
                         <>
                           <p className="font-bold text-[1.4rem] text-navy-900 leading-none">{fmtN(pp.setup)}</p>
                           <p className="text-[0.68rem] text-black/35 mb-1">setup fee</p>
                           <p className="font-bold text-[0.9rem] text-navy-700">{fmtN(pp.monthly)}<span className="font-normal text-[0.75rem] text-black/35">/mo</span></p>
                         </>
-                      ) : pp && "annual" in pp && pp.annual ? (
+                      ) : pp && pp.setup ? (
                         <>
-                          <p className="font-bold text-[1.4rem] text-navy-900 leading-none">{fmtN(pp.annual)}</p>
-                          <p className="text-[0.68rem] text-black/35 mb-1">from, per year</p>
-                          <p className="text-[0.72rem] text-black/40">billed annually</p>
+                          <p className="font-bold text-[1.4rem] text-navy-900 leading-none">{fmtN(pp.setup)}</p>
+                          <p className="text-[0.68rem] text-black/35">{p.status === "live" ? "one-time" : "starting from"}</p>
+                        </>
+                      ) : pp && pp.monthly ? (
+                        <>
+                          <p className="font-bold text-[1rem] text-navy-900">Waitlist</p>
+                          <p className="text-[0.72rem] text-black/40">lock in {fmtN(pp.monthly)}/mo</p>
                         </>
                       ) : (
-                        <>
-                          <p className="font-bold text-[1rem] text-navy-900">Coming Soon</p>
-                        </>
+                        <p className="font-bold text-[1rem] text-navy-900">Waitlist</p>
                       )}
                     </div>
                   </div>

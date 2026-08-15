@@ -17,14 +17,18 @@ export const siteConfig = {
   vision: "To be the #1 provider of business infrastructure systems for African SMEs and enterprises.",
   values: ["Innovation", "Integrity", "Customer Success", "Excellence"],
   promise: "We don't just build software. We build systems that businesses rely on to grow, every single day.",
+  // Real social URLs -- empty until provided. The footer only renders an icon when a URL is set here.
+  socials: {
+    facebook: "",
+    instagram: "",
+    linkedin: "",
+    twitter: "",
+  },
 };
 
 // --- NAVIGATION ---------------------------------------------------------------
 export const navLinks = [
-  { href: "/business-websites", label: "Business Websites", children: null },
-  { href: "/law-firm-websites", label: "Law Firm Websites", children: null },
-  { href: "/schooldesk",        label: "SchoolDesk",         children: null },
-  { href: "/services", label: "Add-on Services", children: [
+  { href: "/services", label: "Services", children: [
     { href: "/services/website-systems",        label: "Website & Landing Page Systems" },
     { href: "/services/lead-generation",        label: "Lead Generation Landing Pages" },
     { href: "/services/email-automation",       label: "Email & Follow-up Automation" },
@@ -1026,7 +1030,7 @@ export const deskProducts = [
     name: "SchoolDesk",
     tagline: "School Administration Software",
     description: "End-to-end school management. Fee collection, student portal, staff management, public website -- built for Nigerian schools.",
-    status: "live",
+    status: "coming-soon",
     color: "#10B981",
     slug: "schooldesk",
     href: "/schooldesk",
@@ -1038,7 +1042,7 @@ export const deskProducts = [
       "Public school website",
       "Staff management",
       "Analytics and reporting",
-      "From ₦153,000/year, billed annually",
+      "Waitlist -- coming soon",
     ],
     domains: [
       { label: "Public Website", example: "graceschool.com",        type: "public" },
@@ -1081,6 +1085,126 @@ export const deskProducts = [
       "Assign jobs to workers with one click",
       "Track every job from order to delivery",
       "See revenue, staff performance, analytics",
+    ],
+  },
+  {
+    id: "insurancedesk",
+    name: "InsuranceDesk",
+    tagline: "Insurance Business Management Platform",
+    description: "Complete operating system for insurance agencies and brokers. Policy management, claims tracking, client portal and renewals -- all in one place.",
+    status: "coming-soon",
+    color: "#2563EB",
+    slug: "insurancedesk",
+    href: "/insurancedesk",
+    getStartedHref: "/get-started/insurancedesk",
+    icon: "ID",
+    features: [
+      "Policy and client management",
+      "Claims tracking and status updates",
+      "Renewal reminders and automation",
+      "Client self-service portal",
+      "Analytics and reporting",
+      "Waitlist -- coming soon",
+    ],
+    domains: [
+      { label: "Public Website", example: "shieldinsurance.com",       type: "public" },
+      { label: "Admin Panel",    example: "admin.shieldinsurance.com", type: "admin" },
+      { label: "Client Portal",  example: "portal.shieldinsurance.com", type: "portal" },
+    ],
+    useCases: [
+      "Track every policy from quote to renewal",
+      "Manage claims from filing to payout",
+      "Give clients a self-service portal",
+      "Automate renewal reminders",
+    ],
+  },
+  {
+    id: "constructiondesk",
+    name: "ConstructionDesk",
+    tagline: "Project & Operations Management Platform",
+    description: "End-to-end project management for construction and contracting companies. Site tracking, procurement, budgets and client updates in one system.",
+    status: "coming-soon",
+    color: "#EA580C",
+    slug: "constructiondesk",
+    href: "/constructiondesk",
+    getStartedHref: "/get-started/constructiondesk",
+    icon: "CD",
+    features: [
+      "Project and site tracking",
+      "Budget and procurement management",
+      "Team and subcontractor management",
+      "Client progress updates",
+      "Analytics and reporting",
+      "Waitlist -- coming soon",
+    ],
+    domains: [
+      { label: "Public Website", example: "buildright.com",       type: "public" },
+      { label: "Admin Panel",    example: "admin.buildright.com", type: "admin" },
+    ],
+    useCases: [
+      "Track every project from bid to handover",
+      "Manage budgets and procurement in one place",
+      "Keep clients updated on site progress",
+      "Coordinate teams and subcontractors",
+    ],
+  },
+  {
+    id: "gasstationdesk",
+    name: "GasStationDesk",
+    tagline: "Filling Station & Fuel Business Platform",
+    description: "Management platform built for filling stations and fuel businesses. Inventory, sales, attendant shifts and multi-station reporting.",
+    status: "coming-soon",
+    color: "#DC2626",
+    slug: "gasstationdesk",
+    href: "/gasstationdesk",
+    getStartedHref: "/get-started/gasstationdesk",
+    icon: "GD",
+    features: [
+      "Fuel inventory and stock tracking",
+      "Sales and shift reconciliation",
+      "Attendant and staff management",
+      "Multi-station reporting",
+      "Analytics and reporting",
+      "Waitlist -- coming soon",
+    ],
+    domains: [
+      { label: "Admin Panel", example: "admin.yourstation.com", type: "admin" },
+    ],
+    useCases: [
+      "Track fuel stock across tanks and stations",
+      "Reconcile sales at the end of every shift",
+      "Manage attendants across multiple stations",
+      "See performance across your whole network",
+    ],
+  },
+  {
+    id: "businessdesk",
+    name: "BusinessDesk",
+    tagline: "Business Management & Growth Platform",
+    description: "General-purpose management and growth platform for companies that don't fit a single industry mould. CRM, operations and analytics in one system.",
+    status: "coming-soon",
+    color: "#7C3AED",
+    slug: "businessdesk",
+    href: "/businessdesk",
+    getStartedHref: "/get-started/businessdesk",
+    icon: "BD",
+    features: [
+      "Customer and operations CRM",
+      "Team and task management",
+      "Invoicing and payment tracking",
+      "Analytics and reporting",
+      "Custom fields for your business",
+      "Waitlist -- coming soon",
+    ],
+    domains: [
+      { label: "Public Website", example: "yourbusiness.com",       type: "public" },
+      { label: "Admin Panel",    example: "admin.yourbusiness.com", type: "admin" },
+    ],
+    useCases: [
+      "Run day-to-day operations from one dashboard",
+      "Track customers, deals and follow-ups",
+      "Send invoices and track payments",
+      "See the numbers that matter to your business",
     ],
   },
 ];
@@ -1138,162 +1262,6 @@ export const deskPlans = [
   },
 ];
 
-//  WEBSITE SUBSCRIPTIONS -- Business & Law Firm (2 focused product lines) 
-// Billing is annual. The monthly figure is shown first as the familiar
-// reference price; the actual annual charge (at a discount vs monthly x12)
-// is stated right beneath it. Keep these two in sync unless pricing diverges.
-export type WebsiteTier = {
-  name: string;
-  monthly: number;
-  annual: number;
-  tagline: string;
-  features: string[];
-  highlight?: boolean;
-};
-
-export const businessWebsiteTiers: WebsiteTier[] = [
-  {
-    name: "Starter",
-    monthly: 9900,
-    annual: 99000,
-    tagline: "Perfect for startups and small businesses.",
-    features: [
-      "Custom business website",
-      "Mobile responsive design",
-      "Free hosting",
-      "SSL security",
-      "Business email",
-      "Contact form",
-      "WhatsApp integration",
-      "Unlimited content updates",
-      "Technical support",
-    ],
-  },
-  {
-    name: "Growth",
-    monthly: 19900,
-    annual: 199000,
-    tagline: "For businesses ready to attract more customers.",
-    highlight: true,
-    features: [
-      "Everything in Starter, plus:",
-      "More pages",
-      "Blog/News section",
-      "Basic SEO",
-      "Google Analytics",
-      "Faster performance",
-      "Priority support",
-    ],
-  },
-  {
-    name: "Pro",
-    monthly: 39900,
-    annual: 399000,
-    tagline: "For established brands that want a premium online presence.",
-    features: [
-      "Everything in Growth, plus:",
-      "Premium design",
-      "Booking/appointment system",
-      "Advanced SEO",
-      "Custom integrations",
-      "Performance optimization",
-      "Dedicated support",
-    ],
-  },
-];
-
-export const lawFirmWebsiteTiers: WebsiteTier[] = [
-  {
-    name: "Starter",
-    monthly: 9900,
-    annual: 99000,
-    tagline: "A professional online presence for your practice.",
-    features: [
-      "Professional law firm website",
-      "Attorney profile pages",
-      "Practice areas",
-      "Contact & consultation form",
-      "Business email",
-      "Hosting & SSL",
-      "Unlimited updates",
-    ],
-  },
-  {
-    name: "Growth",
-    monthly: 19900,
-    annual: 199000,
-    tagline: "Build authority and get found by more clients.",
-    highlight: true,
-    features: [
-      "Everything in Starter, plus:",
-      "Blog for legal articles",
-      "Team pages",
-      "Google Maps",
-      "SEO optimization",
-      "Case results/testimonials",
-      "Priority support",
-    ],
-  },
-  {
-    name: "Pro",
-    monthly: 39900,
-    annual: 399000,
-    tagline: "A premium presence for established firms.",
-    features: [
-      "Everything in Growth, plus:",
-      "Premium custom design",
-      "Appointment scheduling",
-      "Client intake forms",
-      "Advanced SEO",
-      "Custom integrations",
-      "Dedicated support",
-    ],
-  },
-];
-
-//  SCHOOLDESK PRICING -- annual tiers by student count 
-// NOTE: only annual figures were specified for SchoolDesk (no separate
-// monthly anchor price like the website products have), so these show the
-// annual price directly rather than an invented monthly figure.
-export type SchoolDeskTier = {
-  name: string;
-  studentRange: string;
-  annual: number;
-  features: string[];
-  highlight?: boolean;
-};
-
-export const schoolDeskTiers: SchoolDeskTier[] = [
-  {
-    name: "Lite",
-    studentRange: "Up to 100 students",
-    annual: 153000,
-    features: [
-      "Student Management", "Attendance", "Results", "Fees",
-      "Parent Portal", "Teacher Portal", "School Website", "Admin Dashboard",
-    ],
-  },
-  {
-    name: "Standard",
-    studentRange: "101–300 students",
-    annual: 250000,
-    highlight: true,
-    features: ["Everything in Lite", "Support for larger schools", "Additional capacity"],
-  },
-  {
-    name: "Pro",
-    studentRange: "301–700 students",
-    annual: 500000,
-    features: ["Everything in Standard", "Advanced reporting", "Granular permissions", "Priority support"],
-  },
-  {
-    name: "Enterprise",
-    studentRange: "701–2,000 students",
-    annual: 2000000,
-    features: ["Everything in Pro", "Enterprise-scale management", "Dedicated onboarding", "Premium support"],
-  },
-];
-
 //  PER-PRODUCT PRICING (overrides plans for display) 
 export const productPricing = {
   faithdesk: {
@@ -1308,11 +1276,48 @@ export const productPricing = {
   },
   schooldesk: {
     setup: null,
+    monthly: 25000,
+    label: "Waitlist -- lock in N25k/mo",
+    waitlistNote: "Join now to lock in launch pricing before the price goes up.",
+  },
+  // New industry platforms -- flat "starting from" pricing, waitlist until built.
+  insurancedesk: {
+    setup: 5000000,
     monthly: null,
-    annual: 153000,
-    label: "From N153,000/year",
+    label: "From N5,000,000",
+    waitlistNote: "Join the waitlist to be first in line and lock in launch pricing.",
+  },
+  constructiondesk: {
+    setup: 5000000,
+    monthly: null,
+    label: "From N5,000,000",
+    waitlistNote: "Join the waitlist to be first in line and lock in launch pricing.",
+  },
+  gasstationdesk: {
+    setup: 5000000,
+    monthly: null,
+    label: "From N5,000,000",
+    waitlistNote: "Join the waitlist to be first in line and lock in launch pricing.",
+  },
+  businessdesk: {
+    setup: 3500000,
+    monthly: null,
+    label: "From N3,500,000",
+    waitlistNote: "Join the waitlist to be first in line and lock in launch pricing.",
   },
 };
+
+//  AGENCY SERVICES TEASER (used on homepage + Solutions tabs) 
+export const agencyServicesTeaser = [
+  { icon: "WS", label: "Website Systems",   desc: "From \u20a6150,000" },
+  { icon: "LG", label: "Lead Generation",   desc: "From \u20a6100,000" },
+  { icon: "EM", label: "Email Automation",  desc: "From \u20a6100,000" },
+  { icon: "SE", label: "SEO & Google",      desc: "From \u20a6150,000" },
+  { icon: "CR", label: "CRM & Operations",  desc: "From \u20a6300,000" },
+  { icon: "PY", label: "Payment Systems",   desc: "From \u20a6100,000" },
+  { icon: "AI", label: "AI & Automation",   desc: "From \u20a6250,000" },
+  { icon: "PK", label: "Full Packages",     desc: "From \u20a6800,000" },
+];
 
 //  BUSINESS SUITE ROADMAP 
 export const businessSuiteRoadmap = [

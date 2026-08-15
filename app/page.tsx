@@ -1,350 +1,165 @@
-"use client";
 import Link from "next/link";
-import { siteConfig, companyDetails, businessSuiteRoadmap } from "@/data/index";
-import { useDeskProducts } from "@/hooks/useDeskProducts";
-import { useSiteContent, useTestimonials } from "@/hooks/useSiteContent";
+import TrustBadges from "@/components/home/TrustBadges";
+import HeroMockup from "@/components/home/HeroMockup";
+import OurProcess from "@/components/home/OurProcess";
+import OurServicesTeaser from "@/components/home/OurServicesTeaser";
+import AboutVideo from "@/components/home/AboutVideo";
+import ServiceLocations from "@/components/home/ServiceLocations";
+import HomeTestimonials from "@/components/home/HomeTestimonials";
 
-function fmtN(n: number) { return "₦" + n.toLocaleString("en-NG"); }
+// Static homepage content -- no live API/DB calls. Swap the arrays below (or
+// reintroduce the useSiteContent/useTestimonials/useCaseStudies/usePosts hooks)
+// once the backend/content layer is reconnected.
+const HERO = {
+  line1: "Grow Your", accent: "Business Online",
+  subhead: "We build high-performing digital systems that attract customers, generate leads and grow your business.",
+};
+
+const PAST_WORK = [
+  { title: "Example School",     category: "Education" },
+  { title: "Example Church",     category: "Faith & Ministry" },
+  { title: "Example Insurer",    category: "Insurance" },
+  { title: "Example Business",   category: "General Business" },
+];
+
+const BLOG_POSTS = [
+  { title: "10 Must-Have Features Every Business Website Needs", cat: "Website Design", excerpt: "Discover the essential features that can transform your website into a powerful business tool." },
+  { title: "How SEO Helps You Attract More Customers Online",    cat: "SEO",             excerpt: "Learn how search engine optimisation can increase your visibility and drive quality traffic." },
+  { title: "7 Digital Marketing Strategies That Actually Work",  cat: "Digital Marketing", excerpt: "Proven strategies to help you reach your audience, generate leads and grow your business." },
+];
 
 export default function HomePage() {
-  const deskProducts = useDeskProducts();
-  const c = useSiteContent();
-  const testimonials = useTestimonials();
   return (
     <div className="bg-cream-50">
 
       {/*  HERO  */}
-      <section className="bg-navy-950 relative overflow-hidden"
-        style={{ paddingTop: "clamp(88px,12vw,120px)", paddingBottom: 0 }}>
+      <section className="bg-navy-950 relative overflow-hidden" style={{ paddingTop: "clamp(88px,12vw,120px)", paddingBottom: "clamp(56px,8vw,88px)" }}>
         <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
           style={{ backgroundImage: "linear-gradient(rgba(201,168,76,1) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,1) 1px,transparent 1px)", backgroundSize: "64px 64px" }} />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-gold-400/10 border border-gold-400/25 px-4 py-1.5 rounded-sm mb-7">
-            <span className="w-1.5 h-1.5 rounded-full bg-gold-400 shrink-0" />
-            <span className="label-xs text-gold-400">{c.hero.badge}</span>
-          </div>
-
-          {/* Giant Promise Headline */}
-          <h1 className="display-hero text-white mb-5 leading-[1.04]" style={{ maxWidth: 820 }}>
-            {c.hero.headlineLine1}<br className="hidden sm:block" />
-            <span className="text-gold-400"> {c.hero.headlineAccent}</span>
-          </h1>
-          <p className="body-lg text-white/55 mb-4" style={{ maxWidth: 580 }}>
-            {c.hero.subhead}
-          </p>
-          <p className="text-white/30 text-sm mb-9 font-mono">
-            {c.hero.note}
-          </p>
-
-          <div className="flex flex-wrap gap-3 mb-12">
-            <Link href={c.hero.primaryCta.href} className="btn-gold px-7 py-3.5 text-sm">{c.hero.primaryCta.label}</Link>
-            <Link href={c.hero.secondaryCta.href} className="btn-outline-cream px-7 py-3.5 text-sm">{c.hero.secondaryCta.label}</Link>
-            <a href={companyDetails.whatsappLink} target="_blank" rel="noopener noreferrer"
-              className="btn-ghost px-5 py-3.5 text-sm flex items-center gap-2">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.556 4.118 1.528 5.845L0 24l6.335-1.652A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.652-.493-5.188-1.357l-.371-.214-3.861 1.007 1.028-3.752-.233-.387A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-              WhatsApp Us
-            </a>
-          </div>
-
-          {/* Product cards strip */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-0.5 bg-white/[0.06]">
-            {deskProducts.map(p => (
-              <Link key={p.id} href={p.href} className="block no-underline p-6 bg-navy-900 hover:bg-navy-800 transition-colors"
-                style={{ borderTop: `2px solid ${p.color}` }}>
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-9 h-9 rounded-sm flex items-center justify-center shrink-0"
-                    style={{ background: p.color + "20", border: `1px solid ${p.color}40` }}>
-                    <span className="font-mono text-[0.65rem] font-bold" style={{ color: p.color }}>{p.icon}</span>
-                  </div>
-                  <div>
-                    <p className="font-bold text-[0.95rem] text-white leading-none mb-1">{p.name}</p>
-                    <span className="font-mono text-[0.55rem] tracking-widest"
-                      style={{ color: p.status === "live" ? "#34D399" : "#F59E0B" }}>
-                      {p.status === "live" ? "LIVE" : "COMING SOON"}
-                    </span>
-                  </div>
-                </div>
-                <p className="text-[0.8rem] text-white/45 leading-relaxed mb-3">{p.description}</p>
-                <p className="font-mono text-[0.62rem] font-bold" style={{ color: p.color }}>
-                  {p.status === "live" ? "Get started" : "Join waitlist"} {"->"}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/*  FOUNDER SECTION  */}
-      <section className="bg-navy-900 px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          <div className="order-2 lg:order-1">
-            <span className="gold-rule block mb-4" />
-            <h2 className="display-lg text-cream-50 mb-5 leading-snug" style={{ whiteSpace: "pre-line" }}>
-              {c.founder.heading}
-            </h2>
-            <p className="body-md text-white/55 mb-4 leading-[1.8]">
-              JK Technology Limited is a registered Nigerian software company (CAC: {companyDetails.cac}), founded in 2019.
-              We have been building digital systems for businesses since then. Desk is the product we always wanted to exist --
-              vertical software that actually fits how African businesses operate. Not adapted from foreign tools. Built from scratch, in Nigeria, for Nigeria.
-            </p>
-            <p className="body-md text-white/55 mb-7 leading-[1.8]">
-              Every product has Paystack integrated, works with Nigerian phone numbers, and is priced in Naira.
-              Our support team answers on WhatsApp. We understand your context because we live in it.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Link href="/about" className="btn-gold text-xs px-5 py-2.5">Our Story</Link>
-              <a href={companyDetails.whatsappLink} target="_blank" rel="noopener noreferrer"
-                className="btn-ghost text-xs px-5 py-2.5 flex items-center gap-2">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.556 4.118 1.528 5.845L0 24l6.335-1.652A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.652-.493-5.188-1.357l-.371-.214-3.861 1.007 1.028-3.752-.233-.387A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-                WhatsApp the founder
-              </a>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left: copy */}
+            <div>
+              <h1 className="display-hero text-white mb-5 leading-[1.05] uppercase">
+                {HERO.line1} <span className="text-gold-400">{HERO.accent}</span>
+              </h1>
+              <p className="body-lg text-white/55 mb-9" style={{ maxWidth: 480 }}>
+                {HERO.subhead}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link href="/get-started" className="btn-gold px-7 py-3.5 text-sm uppercase tracking-wide">Get Started</Link>
+                <Link href="/services" className="btn-outline-cream px-7 py-3.5 text-sm uppercase tracking-wide">Learn More</Link>
+              </div>
             </div>
-          </div>
-          <div className="order-1 lg:order-2 relative rounded overflow-hidden bg-navy-800 w-full max-w-[320px] mx-auto lg:max-w-none"
-            style={{ aspectRatio: "9/16", maxHeight: 480 }}>
-            <video src="/founder-video.mov" autoPlay loop muted playsInline className="w-full h-full object-cover block" />
-            <div className="absolute bottom-0 left-0 right-0 px-5 pb-4 pt-10"
-              style={{ background: "linear-gradient(transparent,rgba(6,14,42,0.88))" }}>
-              <p className="font-bold text-[0.88rem] text-white">John K.</p>
-              <p className="text-[0.72rem] text-white/50">Founder, JK Technology Limited</p>
+
+            {/* Right: image / mockup */}
+            <div className="flex justify-center">
+              <HeroMockup />
             </div>
           </div>
         </div>
       </section>
 
-      {/*  DESK SUITE  */}
+      {/*  REVIEWS / TESTIMONIALS  */}
+      <section id="testimonials" className="bg-cream-50 px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <div className="max-w-[1200px] mx-auto">
+          <h2 className="display-lg text-navy-900 text-center mb-10">Reviews / Testimonials</h2>
+          <HomeTestimonials />
+        </div>
+      </section>
+
+      {/*  TRUST BADGES  */}
+      <section className="bg-white px-4 sm:px-6 lg:px-8 py-14 border-y border-cream-300">
+        <div className="max-w-[1200px] mx-auto">
+          <h2 className="display-lg text-navy-900 text-center mb-8">Trust Badges</h2>
+          <TrustBadges />
+        </div>
+      </section>
+
+      {/*  PAST WORK  */}
       <section className="bg-cream-50 px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         <div className="max-w-[1200px] mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
-            <div>
-              <span className="gold-rule block mb-3" />
-              <h2 className="display-lg text-navy-900">{c.deskSuite.heading}</h2>
-              <p className="body-md text-black/50 mt-1.5">{c.deskSuite.subhead}</p>
-            </div>
-            <Link href="/desk" className="btn-outline-navy text-xs px-4 py-2 self-start sm:self-auto shrink-0">View all products</Link>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {deskProducts.map(p => (
-              <div key={p.id} className="bg-white rounded border border-cream-300 p-7 flex flex-col"
-                style={{ borderTop: `3px solid ${p.color}` }}>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-sm flex items-center justify-center shrink-0"
-                    style={{ background: p.color + "15", border: `1px solid ${p.color}30` }}>
-                    <span className="font-mono text-[0.72rem] font-bold" style={{ color: p.color }}>{p.icon}</span>
-                  </div>
-                  <div>
-                    <p className="font-bold text-[1rem] text-navy-900">{p.name}</p>
-                    <p className="text-[0.72rem] text-black/40">{p.tagline}</p>
-                  </div>
+          <h2 className="display-lg text-navy-900 text-center mb-10">Past Work</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {PAST_WORK.map(w => (
+              <div key={w.title}>
+                <div className="rounded overflow-hidden border border-cream-300 mb-3 bg-white flex items-center justify-center" style={{ aspectRatio: "4/3" }}>
+                  <span className="font-mono text-[0.6rem] text-black/20">{w.category.toUpperCase()}</span>
                 </div>
-                <p className="body-sm text-black/58 mb-4 flex-1">{p.description}</p>
-                <ul className="flex flex-col gap-1.5 mb-5">
-                  {p.features.slice(0, 4).map(f => (
-                    <li key={f} className="flex gap-2 text-[0.78rem] text-black/60 items-start">
-                      <span className="shrink-0 mt-0.5" style={{ color: p.color }}>&#10003;</span>{f}
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex gap-2">
-                  {p.status === "live" ? (
-                    <>
-                      <Link href={p.getStartedHref}
-                        className="flex-1 py-2.5 text-center text-white text-[0.72rem] font-bold rounded-sm uppercase tracking-wide no-underline"
-                        style={{ background: p.color }}>
-                        Get Started
-                      </Link>
-                      <Link href={p.href}
-                        className="px-3.5 py-2.5 bg-transparent border border-cream-300 text-black/60 text-[0.72rem] font-semibold rounded-sm no-underline">
-                        Learn More
-                      </Link>
-                    </>
-                  ) : (
-                    <Link href={p.href}
-                      className="flex-1 py-2.5 text-center bg-cream-100 border border-cream-300 text-black/50 text-[0.72rem] font-bold rounded-sm no-underline">
-                      Join Waitlist
-                    </Link>
-                  )}
-                </div>
+                <p className="font-bold text-[0.88rem] text-navy-900">{w.title}</p>
               </div>
             ))}
           </div>
-
-          {/* Business Suite Roadmap teaser */}
-          <div className="mt-8 bg-cream-100 border border-cream-300 rounded p-6">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="font-mono text-[0.6rem] bg-amber-500/15 text-amber-600 px-2 py-0.5 rounded tracking-widest uppercase font-bold">Roadmap</span>
-                  <p className="font-bold text-[0.9rem] text-navy-900">Business Suite -- Coming Later</p>
-                </div>
-                <p className="text-[0.82rem] text-black/55">
-                  {businessSuiteRoadmap.map(p => p.name).join(" and ")} -- free tools with platform-fee revenue model. Built on the same SSO infrastructure.
-                </p>
-              </div>
-              <div className="flex gap-3 shrink-0 flex-wrap">
-                {businessSuiteRoadmap.map(p => (
-                  <div key={p.id} className="flex items-center gap-2 px-3 py-2 rounded border border-cream-300 bg-white">
-                    <span className="font-mono text-[0.6rem] font-bold px-1.5 py-0.5 rounded"
-                      style={{ background: p.color + "20", color: p.color }}>{p.icon}</span>
-                    <span className="text-[0.78rem] font-semibold text-navy-900">{p.name}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="text-center mt-8">
+            <Link href="/case-studies" className="font-mono text-[0.72rem] font-bold text-navy-900 no-underline">View All Case Studies &#8594;</Link>
           </div>
         </div>
       </section>
 
-      {/*  HOW IT WORKS  */}
-      <section className="bg-navy-900 px-4 sm:px-6 lg:px-8 py-16">
-        <div className="max-w-[900px] mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="display-lg text-cream-50 mb-2">{c.howItWorks.heading}</h2>
-            <p className="text-white/40 text-[0.9rem]">{c.howItWorks.subhead}</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-px bg-white/[0.06]">
-            {[
-              { n: "01", t: "You Reach Out",      d: "A short form or a WhatsApp message. Tell us what you need." },
-              { n: "02", t: "We Review & Scope",  d: "We look at your goals and confirm the right plan for you." },
-              { n: "03", t: "We Build It",        d: "Your platform is set up and configured by our team." },
-              { n: "04", t: "You Go Live",        d: "Your site or system goes live, credentials sent to you." },
-              { n: "05", t: "We Keep It Running", d: "Ongoing support and maintenance, included." },
-            ].map((s, i) => (
-              <div key={s.n} className="bg-navy-800 p-5" style={{ borderTop: i === 4 ? "2px solid #34D399" : undefined }}>
-                <p className="font-mono text-[0.65rem] font-bold mb-2" style={{ color: i === 4 ? "#34D399" : "#C9A84C" }}>{s.n}</p>
-                <p className="font-bold text-[0.85rem] text-white mb-1">{s.t}</p>
-                <p className="text-[0.75rem] text-white/40 leading-relaxed">{s.d}</p>
-              </div>
-            ))}
-          </div>
-          <div className="flex justify-center mt-8">
-            <Link href="/contact" className="btn-gold px-8 py-3.5">Book a Strategy Call</Link>
-          </div>
+      {/*  OUR PROCESS  */}
+      <section className="bg-navy-900 px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <div className="max-w-[1000px] mx-auto">
+          <h2 className="display-lg text-cream-50 text-center mb-14">Our Process</h2>
+          <OurProcess />
         </div>
       </section>
 
-      {/*  AGENCY SERVICES  */}
-      <section className="bg-cream-50 px-4 sm:px-6 lg:px-8 py-16">
+      {/*  OUR SERVICES  */}
+      <section className="bg-cream-50 px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         <div className="max-w-[1200px] mx-auto">
-          <div className="flex flex-col sm:flex-row gap-8 items-start sm:items-center justify-between mb-8">
+          <h2 className="display-lg text-navy-900 text-center mb-10">Our Services</h2>
+          <OurServicesTeaser />
+        </div>
+      </section>
+
+      {/*  ABOUT US  */}
+      <section className="bg-white px-4 sm:px-6 lg:px-8 py-16 sm:py-20 border-y border-cream-300">
+        <div className="max-w-[1200px] mx-auto">
+          <h2 className="display-lg text-navy-900 text-center mb-10">About Us</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+            <AboutVideo />
             <div>
-              <span className="gold-rule block mb-3" />
-              <h2 className="display-lg text-navy-900 mb-2">{c.agencyServices.heading}</h2>
-              <p className="body-md text-black/55" style={{ maxWidth: 500 }}>
-                {c.agencyServices.subhead}
+              <p className="body-md text-black/60 leading-relaxed mb-3">Built by a Nigerian founder, for African businesses.</p>
+              <p className="body-sm text-black/50 leading-relaxed mb-6">
+                We are a team of strategists, designers and developers passionate about building high-performing digital systems that help businesses grow.
               </p>
-            </div>
-            <div className="flex flex-col gap-2 shrink-0">
-              <Link href="/get-started/services" className="btn-gold text-sm px-6 py-3 text-center">Submit an Inquiry</Link>
-              <Link href="/services" className="btn-outline-navy text-sm px-6 py-3 text-center">View All Services</Link>
+              <Link href="/about" className="btn-outline-navy px-7 py-3 inline-block text-sm uppercase tracking-wide">Learn More</Link>
             </div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {[
-              { icon: "WS", label: "Website Systems",   desc: "From ₦150,000" },
-              { icon: "LG", label: "Lead Generation",   desc: "From ₦100,000" },
-              { icon: "EM", label: "Email Automation",  desc: "From ₦100,000" },
-              { icon: "SE", label: "SEO & Google",      desc: "From ₦150,000" },
-              { icon: "CR", label: "CRM & Operations",  desc: "From ₦300,000" },
-              { icon: "PY", label: "Payment Systems",   desc: "From ₦100,000" },
-              { icon: "AI", label: "AI & Automation",   desc: "From ₦250,000" },
-              { icon: "PK", label: "Full Packages",     desc: "From ₦800,000" },
-            ].map(s => (
-              <Link key={s.icon} href="/services" className="bg-white border border-cream-300 rounded p-4 no-underline hover:border-navy-600 transition-colors">
-                <div className="w-9 h-9 rounded-sm bg-navy-900 flex items-center justify-center mb-3">
-                  <span className="font-mono text-[0.62rem] font-bold text-gold-400">{s.icon}</span>
+        </div>
+      </section>
+
+      {/*  BLOG  */}
+      <section className="bg-cream-50 px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <div className="max-w-[1200px] mx-auto">
+          <h2 className="display-lg text-navy-900 text-center mb-10">Blog</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {BLOG_POSTS.map(p => (
+              <div key={p.title} className="bg-white border border-cream-300 rounded overflow-hidden">
+                <div className="w-full h-40 bg-cream-100 flex items-center justify-center"><span className="font-mono text-[0.6rem] text-black/20">{p.cat.toUpperCase()}</span></div>
+                <div className="p-5">
+                  <p className="font-bold text-[0.95rem] text-navy-900 mb-2 leading-snug">{p.title}</p>
+                  <p className="text-[0.82rem] text-black/45 leading-relaxed mb-3 line-clamp-2">{p.excerpt}</p>
+                  <span className="font-mono text-[0.68rem] font-bold text-navy-700 uppercase tracking-wide">Read More &#8594;</span>
                 </div>
-                <p className="font-bold text-[0.85rem] text-navy-900 mb-0.5">{s.label}</p>
-                <p className="text-[0.72rem] text-black/40">{s.desc}</p>
-              </Link>
+              </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/*  AFFILIATE BANNER  */}
-      <section className="bg-navy-950 px-4 sm:px-6 lg:px-8 py-14">
-        <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row gap-8 sm:items-center sm:justify-between">
-          <div style={{ maxWidth: 560 }}>
-            <p className="label-xs text-gold-400 mb-3">Affiliate Program -- Open Now</p>
-            <h2 className="font-display font-light text-cream-50 mb-3" style={{ fontSize: "clamp(1.4rem,3vw,2rem)" }}>
-              Earn by referring businesses to Desk.
-            </h2>
-            <div className="flex flex-wrap gap-6 mb-4">
-              {[
-                { v: "₦10,000", l: "Welcome bonus" },
-                { v: "5%",      l: "On setup fees" },
-                { v: "2% x 3", l: "Monthly recurring" },
-                { v: "₦100k",   l: "Min payout" },
-              ].map(s => (
-                <div key={s.l}>
-                  <p className="font-bold text-lg text-white leading-none">{s.v}</p>
-                  <p className="text-[0.68rem] text-white/35 uppercase tracking-wide font-mono">{s.l}</p>
-                </div>
-              ))}
-            </div>
-            <p className="text-white/40 text-[0.82rem]">
-              Promote to churches, schools, auto shops. New products auto-included at same rates. 60-day cookie attribution.
-            </p>
-          </div>
-          <div className="flex flex-col gap-3 shrink-0">
-            <Link href="/affiliates" className="btn-gold px-8 py-3.5 text-center">Join Free</Link>
-            <Link href="/affiliates" className="btn-ghost px-8 py-3 text-center text-sm">Learn More</Link>
+          <div className="text-center mt-8">
+            <Link href="/blog" className="font-mono text-[0.72rem] font-bold text-navy-900 no-underline">View All Articles &#8594;</Link>
           </div>
         </div>
       </section>
 
-      {/*  TESTIMONIALS  */}
-      {testimonials.length > 0 && (
-        <section className="bg-cream-50 px-4 sm:px-6 lg:px-8 py-16">
-          <div className="max-w-[1200px] mx-auto">
-            <div className="text-center mb-10">
-              <span className="gold-rule block mb-3 mx-auto" style={{ width: 40 }} />
-              <h2 className="display-lg text-navy-900">{c.testimonials.heading}</h2>
-              {c.testimonials.subhead && <p className="body-md text-black/50 mt-1.5">{c.testimonials.subhead}</p>}
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {testimonials.map(t => (
-                <figure key={t.id} className="bg-white border border-cream-300 rounded p-7 flex flex-col">
-                  <div className="text-gold-400 mb-3" style={{ letterSpacing: 2 }}>{"\u2605".repeat(Math.max(1, Math.min(5, t.rating || 5)))}</div>
-                  <blockquote className="text-[0.92rem] text-black/70 leading-relaxed flex-1">&ldquo;{t.quote}&rdquo;</blockquote>
-                  <figcaption className="mt-5 flex items-center gap-3">
-                    {t.avatar_url
-                      // eslint-disable-next-line @next/next/no-img-element
-                      ? <img src={t.avatar_url} alt={t.author_name} className="w-10 h-10 rounded-full object-cover shrink-0" />
-                      : <div className="w-10 h-10 rounded-full bg-navy-900 flex items-center justify-center shrink-0"><span className="font-mono text-[0.7rem] font-bold text-gold-400">{t.author_name.slice(0, 2).toUpperCase()}</span></div>}
-                    <div>
-                      <p className="font-bold text-[0.85rem] text-navy-900">{t.author_name}</p>
-                      <p className="text-[0.72rem] text-black/45">{[t.author_role, t.company].filter(Boolean).join(", ")}</p>
-                    </div>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/*  FINAL CTA  */}
-      <section className="bg-cream-100 px-4 sm:px-6 lg:px-8 py-16 text-center">
-        <div className="max-w-lg mx-auto">
-          <h2 className="display-lg text-navy-900 mb-3">{c.finalCta.heading}</h2>
-          <p className="body-md text-black/50 mb-8">
-            {c.finalCta.subhead}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap">
-            <Link href="/get-started" className="btn-gold px-8 py-3.5">Choose a Product</Link>
-            <Link href="/get-started/services" className="btn-outline-navy px-8 py-3.5">Custom Project Inquiry</Link>
-            <a href={companyDetails.whatsappLink} target="_blank" rel="noopener noreferrer"
-              className="btn-ghost px-6 py-3.5 flex items-center gap-2">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.556 4.118 1.528 5.845L0 24l6.335-1.652A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.652-.493-5.188-1.357l-.371-.214-3.861 1.007 1.028-3.752-.233-.387A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-              WhatsApp Us
-            </a>
-          </div>
+      {/*  SERVICE LOCATIONS  */}
+      <section className="bg-white px-4 sm:px-6 lg:px-8 py-14 border-y border-cream-300">
+        <div className="max-w-[1200px] mx-auto">
+          <h2 className="display-lg text-navy-900 text-center mb-8">Service Locations</h2>
+          <ServiceLocations />
         </div>
       </section>
+
     </div>
   );
 }

@@ -4,14 +4,19 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { siteConfig, companyDetails } from "@/data/index";
-import { useDeskProducts } from "@/hooks/useDeskProducts";
+
+// Static Industries list -- matches /app/industries -- no live API call.
+// Swap back to useDeskProducts() once the backend/content layer is reconnected.
+const INDUSTRIES_NAV = [
+  { id: "schooldesk",      name: "Education",       tagline: "School operating systems",       href: "/schooldesk",      color: "#7C9A6C", icon: "ED", status: "live" },
+  { id: "faithdesk",       name: "Faith & Ministry", tagline: "Ministry management platforms",  href: "/faithdesk",       color: "#8B5CF6", icon: "FA", status: "live" },
+  { id: "insurancedesk",   name: "Insurance",        tagline: "Policy & claims management",     href: "/insurancedesk",   color: "#2563EB", icon: "IN", status: "coming-soon" },
+  { id: "constructiondesk",name: "Construction",     tagline: "Project & operations management", href: "/constructiondesk",color: "#EA580C", icon: "CO", status: "coming-soon" },
+  { id: "gasstationdesk",  name: "Fuel & Retail",    tagline: "Inventory & sales management",   href: "/gasstationdesk",  color: "#DC2626", icon: "FL", status: "coming-soon" },
+  { id: "businessdesk",    name: "General Business", tagline: "CRM & operations for any business", href: "/businessdesk", color: "#7C3AED", icon: "BU", status: "coming-soon" },
+];
 
 const ACCOUNTS_URL = process.env.NEXT_PUBLIC_ACCOUNTS_URL || "https://accounts.jktl.com.ng";
-
-const WEBSITE_PRODUCTS = [
-  { id: "business-websites", name: "Business Websites", tagline: "Business Growth Platform — N990,000", color: "#C9A84C", icon: "BW", href: "/business-websites" },
-  { id: "law-firm-websites", name: "Law Firm Websites",  tagline: "Law Firm Growth Platform — N990,000", color: "#C9A84C", icon: "LF", href: "/law-firm-websites" },
-];
 
 interface SessionData {
   authenticated: boolean;
@@ -20,7 +25,7 @@ interface SessionData {
 }
 
 export default function Navbar() {
-  const deskProducts = useDeskProducts();
+  const deskProducts = INDUSTRIES_NAV;
   const [deskOpen,    setDeskOpen]    = useState(false);
   const [menuOpen,    setMenuOpen]    = useState(false);
   const [userOpen,    setUserOpen]    = useState(false);
@@ -73,7 +78,6 @@ export default function Navbar() {
     { label: "Billing",        href: `${ACCOUNTS_URL}/dashboard/billing`,  desc: "Subscriptions and payments" },
     { label: "Profile",        href: `${ACCOUNTS_URL}/dashboard/profile`,  desc: "Edit name and password" },
     { label: "divider" },
-    { label: "Get SchoolDesk",  href: "/get-started/schooldesk",       desc: "School management software" },
     { label: "Get FaithDesk",  href: "/get-started/faithdesk",             desc: "Ministry management software" },
     { label: "Get DetailDesk", href: "/get-started/detaildesk",            desc: "Auto detailing business software" },
     { label: "divider" },
@@ -93,12 +97,16 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden lg:flex items-center gap-1">
-            {/* Products dropdown */}
+          <div className="hidden xl:flex items-center gap-0.5">
+            <Link href="/" className="px-3 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors rounded-lg whitespace-nowrap">Home</Link>
+            <Link href="/about" className="px-3 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors rounded-lg whitespace-nowrap">About</Link>
+            <Link href="/services" className="px-3 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors rounded-lg whitespace-nowrap">Services</Link>
+
+            {/* Industries dropdown (our Desk products) */}
             <div ref={dropRef} className="relative">
               <button onClick={() => setDeskOpen(!deskOpen)}
-                className="flex items-center gap-1.5 px-3.5 py-2 bg-transparent border-none text-white/60 text-[0.82rem] font-semibold cursor-pointer rounded-lg hover:text-white transition-colors">
-                Products
+                className="flex items-center gap-1.5 px-3 py-2 bg-transparent border-none text-white/60 text-[0.82rem] font-semibold cursor-pointer rounded-lg hover:text-white transition-colors whitespace-nowrap">
+                Industries
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
                   className={`transition-transform duration-150 ${deskOpen ? "rotate-180" : ""}`}>
                   <path d="M6 9l6 6 6-6" />
@@ -106,26 +114,7 @@ export default function Navbar() {
               </button>
               {deskOpen && (
                 <div className="absolute top-full left-0 mt-1 rounded-xl shadow-2xl z-50 overflow-hidden"
-                  style={{ background: "#0B1640", border: "1px solid rgba(255,255,255,0.08)", minWidth: 280 }}>
-                  <div className="px-4 pt-3 pb-1">
-                    <p className="font-mono text-[0.58rem] tracking-widest text-white/30 uppercase">Websites</p>
-                  </div>
-                  {WEBSITE_PRODUCTS.map(p => (
-                    <Link key={p.id} href={p.href}
-                      className="flex items-center gap-3 px-4 py-3 no-underline hover:bg-white/[0.05] transition-colors">
-                      <div className="w-7 h-7 rounded-md flex items-center justify-center shrink-0"
-                        style={{ background: p.color + "20", border: `1px solid ${p.color}40` }}>
-                        <span className="font-mono text-[0.58rem] font-bold" style={{ color: p.color }}>{p.icon}</span>
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-bold text-[0.82rem] text-white">{p.name}</p>
-                        <p className="text-[0.68rem] text-white/35 truncate">{p.tagline}</p>
-                      </div>
-                    </Link>
-                  ))}
-                  <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }} className="px-4 pt-3 pb-1">
-                    <p className="font-mono text-[0.58rem] tracking-widest text-white/30 uppercase">Software</p>
-                  </div>
+                  style={{ background: "#0B1640", border: "1px solid rgba(255,255,255,0.08)", minWidth: 260 }}>
                   {deskProducts.map(p => (
                     <Link key={p.id} href={p.href}
                       className="flex items-center gap-3 px-4 py-3 no-underline hover:bg-white/[0.05] transition-colors">
@@ -143,19 +132,17 @@ export default function Navbar() {
                     </Link>
                   ))}
                   <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }} className="px-4 py-2">
-                    <Link href="/desk" className="text-[0.75rem] text-white/40 no-underline hover:text-white/70 transition-colors">
-                      View all products {"->"}
+                    <Link href="/industries" className="text-[0.75rem] text-white/40 no-underline hover:text-white/70 transition-colors">
+                      View all industries {"->"}
                     </Link>
                   </div>
                 </div>
               )}
             </div>
 
-            <Link href="/services"     className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors rounded-lg">Services</Link>
-            <Link href="/case-studies" className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors rounded-lg">Work</Link>
-            <Link href="/blog"         className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors rounded-lg">Insights</Link>
-            <Link href="/affiliates"   className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors rounded-lg">Affiliates</Link>
-            <Link href="/about"        className="px-3.5 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors rounded-lg">About</Link>
+            <Link href="/case-studies" className="px-3 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors rounded-lg whitespace-nowrap">Work</Link>
+            <Link href="/blog" className="px-3 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors rounded-lg whitespace-nowrap">Blog</Link>
+            <Link href="/contact" className="px-3 py-2 text-white/60 text-[0.82rem] font-semibold no-underline hover:text-white transition-colors rounded-lg whitespace-nowrap">Contact</Link>
           </div>
 
           {/* Right side */}
@@ -247,7 +234,7 @@ export default function Navbar() {
 
             {/* Hamburger -- mobile */}
             <button onClick={() => setMenuOpen(!menuOpen)}
-              className="lg:hidden flex items-center justify-center w-9 h-9 bg-transparent border-none cursor-pointer text-white/70">
+              className="xl:hidden flex items-center justify-center w-9 h-9 bg-transparent border-none cursor-pointer text-white/70">
               {menuOpen
                 ? <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 : <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -259,29 +246,12 @@ export default function Navbar() {
 
       {/*  MOBILE MENU  */}
       {menuOpen && (
-        <div className="fixed top-[68px] left-0 right-0 bottom-0 z-[99] overflow-y-auto lg:hidden"
+        <div className="fixed top-[68px] left-0 right-0 bottom-0 z-[99] overflow-y-auto xl:hidden"
           style={{ background: "#060E2A" }}>
           <div className="px-5 py-6 flex flex-col gap-1 pb-12">
 
-            {/* Websites */}
-            <p className="font-mono text-[0.58rem] text-white/20 tracking-[0.15em] uppercase px-3 pt-2 pb-1.5">Websites</p>
-            {WEBSITE_PRODUCTS.map(p => (
-              <Link key={p.id} href={p.href}
-                className="flex items-center gap-3 px-3 py-3 no-underline rounded-lg"
-                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)", marginBottom: 6 }}>
-                <div className="w-9 h-9 rounded-md flex items-center justify-center shrink-0"
-                  style={{ background: p.color + "20", border: `1px solid ${p.color}40` }}>
-                  <span className="font-mono text-[0.65rem] font-bold" style={{ color: p.color }}>{p.icon}</span>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-bold text-[0.9rem] text-white">{p.name}</p>
-                  <p className="text-[0.72rem] text-white/35">{p.tagline}</p>
-                </div>
-              </Link>
-            ))}
-
             {/* Products */}
-            <p className="font-mono text-[0.58rem] text-white/20 tracking-[0.15em] uppercase px-3 pt-4 pb-1.5">Software</p>
+            <p className="font-mono text-[0.58rem] text-white/20 tracking-[0.15em] uppercase px-3 pt-2 pb-1.5">Products</p>
             {deskProducts.map(p => (
               <Link key={p.id} href={p.href}
                 className="flex items-center gap-3 px-3 py-3 no-underline rounded-lg"
@@ -301,14 +271,18 @@ export default function Navbar() {
             {/* Nav links */}
             <p className="font-mono text-[0.58rem] text-white/20 tracking-[0.15em] uppercase px-3 pt-4 pb-1.5">Navigation</p>
             {[
-              { l: "Desk Overview",  h: "/desk"       },
-              { l: "Services",       h: "/services"   },
-              { l: "Work",           h: "/case-studies" },
-              { l: "Insights",       h: "/blog"       },
-              { l: "Careers",        h: "/careers"    },
-              { l: "Affiliates",     h: "/affiliates" },
-              { l: "About",          h: "/about"      },
-              { l: "Contact",        h: "/contact"    },
+              { l: "Home",           h: "/"              },
+              { l: "About",          h: "/about"         },
+              { l: "Services",       h: "/services"      },
+              { l: "Industries",     h: "/industries"     },
+              { l: "Work",           h: "/case-studies"  },
+              { l: "Blog",           h: "/blog"          },
+              { l: "Contact",        h: "/contact"       },
+              { l: "Service Areas",  h: "/service-areas" },
+              { l: "Testimonials",   h: "/#testimonials" },
+              { l: "Investments",    h: "/investments"   },
+              { l: "Careers",        h: "/careers"       },
+              { l: "Affiliates",     h: "/affiliates"    },
             ].map(link => (
               <Link key={link.l} href={link.h}
                 className="block px-4 py-3.5 text-[0.9rem] font-semibold text-white/65 no-underline rounded-lg hover:bg-white/[0.04] transition-colors">

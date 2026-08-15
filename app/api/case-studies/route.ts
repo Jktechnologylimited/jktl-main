@@ -8,7 +8,7 @@ export async function GET() {
   if (!sql) return NextResponse.json({ caseStudies: [] });
   try {
     const caseStudies = await sql`
-      SELECT id, client_name, product, slug, cover_image, published_at
+      SELECT id, client_name, product, slug, cover_image, results, published_at
       FROM case_studies WHERE status = 'published'
       ORDER BY published_at DESC NULLS LAST
     `;

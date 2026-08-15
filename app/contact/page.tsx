@@ -1,127 +1,143 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { siteConfig, companyDetails, deskProducts } from "@/data/index";
+"use client";
+import { useState } from "react";
+import { siteConfig } from "@/data/index";
+import PageHero from "@/components/shared/PageHero";
+import CTABanner from "@/components/shared/CTABanner";
 
-export const metadata: Metadata = {
-  title: "Contact | JK Technology Limited",
-  description: "Contact JK Technology Limited. WhatsApp, email, or submit an inquiry. We respond within 24 hours.",
+const WAYS = [
+  { icon: "call",  title: "Call Us",   line1: siteConfig.phone,  line2: "We respond within 24 hours" },
+  { icon: "mail",  title: "Email Us",  line1: siteConfig.email,  line2: "We reply within 24 hours" },
+  { icon: "pin",   title: "Visit Us",  line1: siteConfig.location, line2: "By appointment" },
+  { icon: "clock", title: "Response Time", line1: "Within 24 Hours", line2: "WhatsApp is fastest" },
+];
+
+const ICONS: Record<string, React.ReactNode> = {
+  call: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" /></svg>,
+  mail: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M22 6l-10 7L2 6" /></svg>,
+  pin: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>,
+  clock: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>,
 };
 
+const FAQS = [
+  { q: "How long does it take to build a system?", a: "Timelines vary by scope -- a marketing website typically takes 2-4 weeks, while a full platform like SchoolDesk or a custom system can take longer. We'll give you a clear timeline before work begins." },
+  { q: "Can you help with domain and hosting?",     a: "Yes -- we can register domains, set up hosting and manage deployment as part of your project." },
+  { q: "What information do you need to get started?", a: "Just tell us about your business, goals and what you're trying to achieve. We'll scope the rest with you." },
+  { q: "Will my system be mobile-friendly?",        a: "Always. Every platform we build is fully responsive across phones, tablets and desktops." },
+  { q: "Do you provide ongoing maintenance?",       a: "Yes -- we offer maintenance and support plans to keep your platform updated, secure and running smoothly." },
+  { q: "Do you work with businesses in my industry?", a: "We build both industry-specific platforms (schools, churches, insurance, construction and more) and custom systems for any industry. Reach out and we'll tell you exactly how we can help." },
+];
+
+const inputCls = "w-full px-4 py-3 rounded-sm border border-cream-300 bg-white text-[0.85rem] text-navy-900 placeholder:text-black/30 outline-none focus:border-navy-600 transition-colors";
+
 export default function ContactPage() {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [sent, setSent] = useState(false);
+
   return (
     <div className="bg-cream-50">
-      <section className="bg-navy-950" style={{ paddingTop: "clamp(88px,12vw,120px)", paddingBottom: "64px" }}>
-        <div className="max-w-[900px] mx-auto px-4 sm:px-6 lg:px-8">
-          <span className="gold-rule block mb-5" />
-          <h1 className="display-hero text-white mb-4">Get in touch.</h1>
-          <p className="body-lg text-white/50">We respond within 24 hours. WhatsApp is fastest.</p>
+      <PageHero
+        eyebrow="Contact Us"
+        heading="Let's Build Something Great Together"
+        subhead="Have a project in mind or need help growing your business online? We'd love to hear from you."
+        primaryLabel="Get in Touch"
+        primaryHref="#form"
+        secondaryLabel="WhatsApp Us"
+        secondaryHref={`https://wa.me/${siteConfig.whatsapp}`}
+        imageNode={<div className="w-full h-full flex items-center justify-center"><span className="font-mono text-[0.65rem] text-white/20 tracking-widest">CONTACT</span></div>}
+      />
+
+      {/* WAYS TO REACH US */}
+      <section className="bg-white px-4 sm:px-6 lg:px-8 py-14 border-y border-cream-300">
+        <div className="max-w-[1200px] mx-auto">
+          <h2 className="display-lg text-navy-900 text-center mb-10">Ways To Reach Us</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {WAYS.map(w => (
+              <div key={w.title} className="bg-cream-50 border border-cream-300 rounded p-6 text-center">
+                <div className="w-11 h-11 rounded-sm border border-cream-300 flex items-center justify-center mx-auto mb-4 text-navy-800">
+                  {ICONS[w.icon]}
+                </div>
+                <p className="font-bold text-[0.88rem] text-navy-900 mb-1.5">{w.title}</p>
+                <p className="text-[0.82rem] text-navy-800 font-semibold mb-0.5">{w.line1}</p>
+                <p className="text-[0.72rem] text-black/40">{w.line2}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="bg-cream-50 px-4 sm:px-6 lg:px-8 py-14">
-        <div className="max-w-[900px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-            {/* Direct contact */}
-            <div className="flex flex-col gap-4">
-              <div className="bg-navy-900 rounded p-6">
-                <p className="label-xs text-gold-400 mb-4">Fastest Response</p>
-                <a href={companyDetails.whatsappLink} target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 rounded no-underline transition-colors"
-                  style={{ background: "rgba(37,211,102,0.08)", border: "1px solid rgba(37,211,102,0.2)" }}>
-                  <div className="w-12 h-12 rounded-full bg-green-500/15 flex items-center justify-center shrink-0">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="#16a34a"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.556 4.118 1.528 5.845L0 24l6.335-1.652A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.652-.493-5.188-1.357l-.371-.214-3.861 1.007 1.028-3.752-.233-.387A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-                  </div>
-                  <div>
-                    <p className="font-bold text-[1rem] text-white">WhatsApp</p>
-                    <p className="text-[0.82rem] text-white/50">{companyDetails.whatsapp}</p>
-                    <p className="text-[0.72rem] text-green-400 font-mono mt-0.5">Typically responds within 2 hours</p>
-                  </div>
-                </a>
+      {/* FORM + LOCATION */}
+      <section id="form" className="bg-cream-50 px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
+          {/* Form */}
+          <div>
+            <h2 className="display-lg text-navy-900 mb-2">Send Us a Message</h2>
+            <p className="body-sm text-black/50 mb-7">Fill out the form and we'll get back to you as soon as possible.</p>
+            {sent ? (
+              <div className="bg-white border border-cream-300 rounded p-8 text-center">
+                <p className="font-bold text-navy-900 mb-1">Message ready &#10003;</p>
+                <p className="text-[0.82rem] text-black/50">This form isn't wired to a live inbox yet -- it'll send for real once the backend is reconnected.</p>
               </div>
-
-              <div className="bg-white border border-cream-300 rounded p-6">
-                <p className="label-xs text-black/35 mb-4">Email & Phone</p>
-                <div className="flex flex-col gap-4">
-                  <a href={"mailto:" + siteConfig.email}
-                    className="flex items-center gap-3 no-underline">
-                    <div className="w-10 h-10 rounded-sm bg-navy-900 flex items-center justify-center shrink-0">
-                      <span className="font-mono text-[0.58rem] font-bold text-gold-400">EM</span>
-                    </div>
-                    <div>
-                      <p className="font-bold text-[0.88rem] text-navy-900">{siteConfig.email}</p>
-                      <p className="text-[0.72rem] text-black/40">Responds within 24 hours</p>
-                    </div>
-                  </a>
-                  <a href={"tel:" + siteConfig.phone.replace(/ /g, "")}
-                    className="flex items-center gap-3 no-underline">
-                    <div className="w-10 h-10 rounded-sm bg-navy-900 flex items-center justify-center shrink-0">
-                      <span className="font-mono text-[0.58rem] font-bold text-gold-400">PH</span>
-                    </div>
-                    <div>
-                      <p className="font-bold text-[0.88rem] text-navy-900">{siteConfig.phone}</p>
-                      <p className="text-[0.72rem] text-black/40">Lagos, Nigeria</p>
-                    </div>
-                  </a>
+            ) : (
+              <form onSubmit={e => { e.preventDefault(); setSent(true); }} className="flex flex-col gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <input required type="text" placeholder="Full Name *" className={inputCls} />
+                  <input required type="email" placeholder="Email Address *" className={inputCls} />
                 </div>
-              </div>
+                <input type="tel" placeholder="Phone Number" className={inputCls} />
+                <input type="text" placeholder="Company / Business Name" className={inputCls} />
+                <input type="text" placeholder="Subject" className={inputCls} />
+                <textarea required placeholder="How can we help you? *" rows={5} className={inputCls} style={{ resize: "vertical" }} />
+                <button type="submit" className="btn-primary py-3.5 text-sm uppercase tracking-wide flex items-center justify-center gap-2">
+                  Send Message
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13" /><path d="M22 2l-7 20-4-9-9-4 20-7z" /></svg>
+                </button>
+              </form>
+            )}
+          </div>
 
-              <div className="bg-cream-100 border border-cream-300 rounded p-5">
-                <p className="font-bold text-[0.88rem] text-navy-900 mb-2">What happens after you contact us?</p>
-                <div className="flex flex-col gap-2">
-                  {["You describe what you need","We review and respond within 24 hours","We send a scoped proposal and price","You approve -- project begins"].map((s, i) => (
-                    <div key={s} className="flex gap-3 text-[0.8rem] text-black/60">
-                      <span className="font-mono text-[0.65rem] font-bold text-gold-400 shrink-0 mt-0.5">0{i+1}</span>{s}
-                    </div>
-                  ))}
-                </div>
-              </div>
+          {/* Location */}
+          <div>
+            <h2 className="display-lg text-navy-900 mb-2">Our Location</h2>
+            <p className="body-sm text-black/50 mb-7">&nbsp;</p>
+            <div className="rounded border border-cream-300 overflow-hidden bg-cream-100 flex items-center justify-center mb-4" style={{ aspectRatio: "4/3" }}>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="var(--navy-900)"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3.5" fill="white" /></svg>
             </div>
-
-            {/* What to contact us about */}
-            <div className="flex flex-col gap-4">
-              <div className="bg-white border border-cream-300 rounded p-6">
-                <p className="label-xs text-black/35 mb-4">Desk Products</p>
-                <div className="flex flex-col gap-3">
-                  {deskProducts.map(p => (
-                    <Link key={p.id} href={p.status === "live" ? p.getStartedHref : p.href}
-                      className="flex items-center gap-3 no-underline">
-                      <div className="w-9 h-9 rounded-sm flex items-center justify-center shrink-0"
-                        style={{ background: p.color + "15", border: `1px solid ${p.color}30` }}>
-                        <span className="font-mono text-[0.6rem] font-bold" style={{ color: p.color }}>{p.icon}</span>
-                      </div>
-                      <div>
-                        <p className="font-bold text-[0.85rem] text-navy-900">{p.name}</p>
-                        <p className="text-[0.72rem] text-black/40">{p.status === "live" ? "Self-service -- go live today" : "Join waitlist"}</p>
-                      </div>
-                    </Link>
-                  ))}
+            <div className="bg-white border border-cream-300 rounded p-5 flex items-center justify-between gap-4 flex-wrap">
+              <div className="flex items-center gap-3">
+                <span className="text-navy-800 shrink-0">{ICONS.pin}</span>
+                <div>
+                  <p className="font-bold text-[0.85rem] text-navy-900">Our Office</p>
+                  <p className="text-[0.78rem] text-black/45">{siteConfig.location}</p>
                 </div>
               </div>
-
-              <div className="bg-white border border-cream-300 rounded p-6">
-                <p className="label-xs text-black/35 mb-4">Agency Services</p>
-                <p className="text-[0.82rem] text-black/55 mb-4 leading-[1.65]">
-                  Need a custom website, SEO, CRM, payment system, AI chatbot, or email automation? Submit a discovery form and we will scope and quote within 24 hours.
-                </p>
-                <Link href="/get-started/services" className="btn-gold text-sm w-full justify-center py-3">
-                  Submit Service Inquiry
-                </Link>
-              </div>
-
-              <div className="bg-white border border-cream-300 rounded p-6">
-                <p className="label-xs text-black/35 mb-4">Affiliate Programme</p>
-                <p className="text-[0.82rem] text-black/55 mb-4 leading-[1.65]">
-                  Interested in earning commissions by referring businesses to Desk? Join our affiliate programme -- free to join, ₦10,000 welcome bonus.
-                </p>
-                <Link href="/affiliates" className="btn-outline-navy text-sm w-full justify-center py-3">
-                  Join Affiliate Programme
-                </Link>
-              </div>
+              <a href={`https://wa.me/${siteConfig.whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn-outline-navy px-4 py-2 text-[0.72rem] uppercase tracking-wide">Get Directions</a>
             </div>
           </div>
         </div>
       </section>
+
+      {/* FAQ */}
+      <section className="bg-white px-4 sm:px-6 lg:px-8 py-16 sm:py-20 border-y border-cream-300">
+        <div className="max-w-[1000px] mx-auto">
+          <h2 className="display-lg text-navy-900 text-center mb-10">Frequently Asked Questions</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {FAQS.map((f, i) => (
+              <div key={f.q} className="bg-cream-50 border border-cream-300 rounded overflow-hidden self-start">
+                <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="w-full flex items-center justify-between gap-3 px-5 py-4 bg-transparent border-none text-left cursor-pointer">
+                  <span className="font-semibold text-[0.85rem] text-navy-900">{f.q}</span>
+                  <span className="text-navy-900 text-lg shrink-0">{openFaq === i ? "\u2212" : "+"}</span>
+                </button>
+                {openFaq === i && (
+                  <p className="px-5 pb-4 text-[0.8rem] text-black/55 leading-relaxed">{f.a}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <CTABanner heading="Ready to Grow Your Business Online?" subhead="Let's discuss your project and create a powerful digital solution that delivers real results." />
     </div>
   );
 }

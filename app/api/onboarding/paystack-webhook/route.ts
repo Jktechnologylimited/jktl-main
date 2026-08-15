@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
       // Auto-provision SchoolDesk tenants: create DB, seed admin + branding, apply tier, activate.
       let provision: { ok?: boolean; tempPassword?: string; adminEmail?: string; error?: string } | null = null;
       if (product === "schooldesk") {
-        const ADMIN = process.env.SCHOOLDESK_ADMIN_URL;
+        const ADMIN = (process.env.SCHOOLDESK_ADMIN_URL || "").replace(/\/+$/, "").replace(/\/login$/i, "");
         const SECRET = process.env.PROVISION_SECRET;
         if (ADMIN && SECRET) {
           try {

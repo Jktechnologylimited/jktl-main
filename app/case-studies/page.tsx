@@ -1,80 +1,133 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { sql } from "@/lib/db";
-import { CTA } from "@/components/sections/Sections";
+"use client";
+import { useState } from "react";
+import PageHero from "@/components/shared/PageHero";
+import StatsRow from "@/components/shared/StatsRow";
+import CTABanner from "@/components/shared/CTABanner";
 
-export const dynamic = "force-dynamic";
+// Example project entries -- placeholder content for frontend review.
+// Swap for real case studies from the database once the backend is reconnected.
+const PROJECTS = [
+  { client: "Example School",       category: "Education",   type: "School Platform",       desc: "A complete school operating system for a growing K-12 institution." },
+  { client: "Example Church",       category: "Faith",       type: "Ministry Platform",      desc: "A digital management platform for a multi-branch faith organisation." },
+  { client: "Example Insurer",      category: "Finance",     type: "Insurance Platform",     desc: "A policy and claims management system for an insurance brokerage." },
+  { client: "Example Contractor",   category: "Other",       type: "Construction Platform",  desc: "A project and site-tracking system for a construction company." },
+  { client: "Example Retailer",     category: "E-Commerce",  type: "Online Store",           desc: "An online store that delivers a seamless shopping experience." },
+  { client: "Example Detailer",     category: "Other",       type: "Booking Platform",       desc: "A booking and job-tracking system for an auto detailing business." },
+  { client: "Example Agency",       category: "Websites",    type: "Business Website",       desc: "A high-performing marketing website built to generate leads." },
+  { client: "Example Station",      category: "Other",       type: "Operations Platform",    desc: "An inventory and shift-management platform for a fuel retailer." },
+];
 
-export const metadata: Metadata = {
-  title: "Case Studies | JK Technology Limited",
-  description: "Real results for real businesses. See how JK Technology Limited has helped clients grow with websites, automation and growth systems.",
-  alternates: { canonical: "https://jktl.com.ng/case-studies" },
-};
+const FILTERS = ["All Projects", "Websites", "E-Commerce", "Education", "Finance", "Other"];
 
-type CaseStudy = {
-  client_name: string; product: string | null; slug: string;
-  cover_image: string | null; published_at: string | null;
-};
+const STATS = [
+  { v: "200+", l: "Projects Completed" },
+  { v: "100+", l: "Happy Clients" },
+  { v: "6+",   l: "Industries Served" },
+  { v: "6+",   l: "Years Experience" },
+  { v: "24/7", l: "Support" },
+];
 
-export default async function CaseStudiesPage() {
-  let cases: CaseStudy[] = [];
-  if (sql) {
-    try {
-      cases = (await sql`
-        SELECT client_name, product, slug, cover_image, published_at
-        FROM case_studies WHERE status = 'published'
-        ORDER BY published_at DESC NULLS LAST
-      `) as CaseStudy[];
-    } catch { cases = []; }
-  }
+const TESTIMONIALS = [
+  { quote: "Their team understood our needs perfectly and delivered a platform that has significantly increased our enquiries.", name: "Client Name", role: "CEO, Example Company" },
+  { quote: "Professional, responsive and highly skilled. Our new system looks great and performs even better.", name: "Client Name", role: "Managing Partner, Example Co." },
+  { quote: "Our operations have improved since we launched. Highly recommended.", name: "Client Name", role: "Founder, Example Business" },
+];
+
+export default function CaseStudiesPage() {
+  const [filter, setFilter] = useState("All Projects");
+  const [t, setT] = useState(0);
 
   return (
-    <>
-      <section style={{ background: "var(--navy-950)", paddingTop: "120px", paddingBottom: "80px" }}>
-        <div className="max-w-7xl mx-auto px-8">
-          <span className="gold-rule mb-6" style={{ display: "block" }} />
-          <h1 className="display-hero mb-4" style={{ color: "var(--cream-50)", maxWidth: "700px" }}>
-            The work,<br /><em className="not-italic gold-text">and the results.</em>
-          </h1>
-          <p className="body-lg" style={{ color: "rgba(249,247,240,0.55)", maxWidth: "520px" }}>
-            We measure success in outcomes, not deliverables. Here&apos;s what that looks like for the businesses we work with.
-          </p>
+    <div className="bg-cream-50">
+      <PageHero
+        eyebrow="Our Work"
+        heading="Systems That Drive Results For Our Clients"
+        subhead="Explore a selection of our recent projects. Each one designed with purpose, built for performance, and crafted to help businesses grow."
+        primaryLabel="View Case Studies"
+        primaryHref="#projects"
+        secondaryLabel="Start Your Project"
+        secondaryHref="/get-started"
+        imageNode={<div className="w-full h-full flex items-center justify-center"><span className="font-mono text-[0.65rem] text-white/20 tracking-widest">OUR WORK</span></div>}
+      />
+
+      {/* FILTER TABS + PROJECTS */}
+      <section id="projects" className="bg-white px-4 sm:px-6 lg:px-8 py-14 border-y border-cream-300">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="flex items-center gap-2 mb-10 overflow-x-auto pb-1">
+            {FILTERS.map(f => (
+              <button key={f} onClick={() => setFilter(f)}
+                className="px-4 py-2.5 text-[0.78rem] font-semibold rounded-sm whitespace-nowrap border transition-colors"
+                style={{ background: filter === f ? "var(--navy-900)" : "transparent", color: filter === f ? "#fff" : "rgba(6,14,42,0.5)", borderColor: filter === f ? "var(--navy-900)" : "var(--cream-300)" }}>
+                {f}
+              </button>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+            {PROJECTS.filter(p => filter === "All Projects" || p.category === filter).map(p => (
+              <div key={p.client} className="bg-cream-50 border border-cream-300 rounded overflow-hidden">
+                <div className="bg-navy-950" style={{ aspectRatio: "4/3" }} />
+                <div className="p-5">
+                  <p className="font-bold text-[0.9rem] text-navy-900 mb-0.5">{p.client}</p>
+                  <p className="text-[0.72rem] text-black/40 mb-2">{p.type}</p>
+                  <p className="text-[0.8rem] text-black/55 leading-relaxed mb-3">{p.desc}</p>
+                  <span className="font-mono text-[0.66rem] font-bold text-navy-700 uppercase tracking-wide">View Project &#8594;</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <button className="btn-outline-navy px-6 py-3 text-sm uppercase tracking-wide">Load More Projects</button>
+          </div>
         </div>
       </section>
 
-      <section className="section-pad" style={{ background: "var(--cream-50)" }}>
-        <div className="max-w-5xl mx-auto px-8">
-          {cases.length === 0 ? (
-            <div style={{ textAlign: "center", padding: "60px 0" }}>
-              <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 400, fontSize: "1.8rem", color: "var(--navy-900)" }}>
-                Case studies coming soon.
-              </h2>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 gap-6">
-              {cases.map((c) => (
-                <Link key={c.slug} href={`/case-studies/${c.slug}`} style={{ textDecoration: "none" }}>
-                  <div className="card-light" style={{ overflow: "hidden", height: "100%", display: "flex", flexDirection: "column" }}>
-                    {c.cover_image && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={c.cover_image} alt={c.client_name} style={{ display: "block", width: "100%", height: "200px", objectFit: "cover" }} />
-                    )}
-                    <div style={{ padding: "28px", flex: 1, display: "flex", flexDirection: "column" }}>
-                      {c.product && <p className="label-xs" style={{ color: "var(--gold-400)", marginBottom: "10px" }}>{c.product}</p>}
-                      <h3 style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 400, fontSize: "1.5rem", color: "var(--navy-900)", lineHeight: 1.25 }}>
-                        {c.client_name}
-                      </h3>
-                      <p className="label-xs" style={{ color: "var(--navy-600)", marginTop: "auto", paddingTop: "18px" }}>Read the case study →</p>
-                    </div>
+      {/* RESULTS STATS */}
+      <section className="bg-cream-50 px-4 sm:px-6 lg:px-8 py-16">
+        <div className="max-w-[1200px] mx-auto">
+          <h2 className="display-lg text-navy-900 text-center mb-10">Our Work Delivers Real Results</h2>
+          <StatsRow stats={STATS} />
+        </div>
+      </section>
+
+      {/* TESTIMONIALS CAROUSEL */}
+      <section className="bg-white px-4 sm:px-6 lg:px-8 py-16 border-y border-cream-300">
+        <div className="max-w-[1200px] mx-auto">
+          <h2 className="display-lg text-navy-900 text-center mb-10">Trusted By Businesses Like Yours</h2>
+          <div className="flex items-center gap-3">
+            <button aria-label="Previous" onClick={() => setT(i => (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
+              className="hidden md:flex items-center justify-center w-10 h-10 rounded-full border border-cream-300 shrink-0">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></svg>
+            </button>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 flex-1">
+              {[0, 1, 2].map(off => {
+                const item = TESTIMONIALS[(t + off) % TESTIMONIALS.length];
+                return (
+                  <div key={off} className="bg-cream-50 border border-cream-300 rounded p-6">
+                    <div className="w-10 h-10 rounded-full bg-navy-900 mb-4" />
+                    <p className="text-[0.85rem] text-black/65 leading-relaxed mb-4">&ldquo;{item.quote}&rdquo;</p>
+                    <p className="font-bold text-[0.82rem] text-navy-900">{item.name}</p>
+                    <p className="text-[0.72rem] text-black/40">{item.role}</p>
                   </div>
-                </Link>
-              ))}
+                );
+              })}
             </div>
-          )}
+            <button aria-label="Next" onClick={() => setT(i => (i + 1) % TESTIMONIALS.length)}
+              className="hidden md:flex items-center justify-center w-10 h-10 rounded-full border border-cream-300 shrink-0">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6" /></svg>
+            </button>
+          </div>
+          <div className="flex items-center justify-center gap-2 mt-6">
+            {TESTIMONIALS.map((_, i) => (
+              <button key={i} aria-label={`Go to ${i + 1}`} onClick={() => setT(i)} className="rounded-full transition-all"
+                style={{ width: i === t ? 20 : 7, height: 7, background: i === t ? "#C9A84C" : "rgba(6,14,42,0.15)" }} />
+            ))}
+          </div>
         </div>
       </section>
 
-      <CTA heading="Want to be our next success story?" subtext="Book a free 30-minute call and we'll map out exactly what would move the needle for your business." />
-    </>
+      <CTABanner heading="Ready to Build Your Success Story?" subhead="Let's create a system that helps your business grow and stand out online." />
+    </div>
   );
 }

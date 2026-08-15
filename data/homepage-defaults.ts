@@ -22,43 +22,43 @@ export type HomepageContent = {
 
 export const homepageDefaults: HomepageContent = {
   hero: {
-    badge: "JK Technology Limited \u2014 Enterprise Software \u2014 CAC Registered",
-    headlineLine1: "Enterprise Software,",
-    headlineAccent: "Built for Growth.",
+    badge: "JK Technology Limited \u2014 Nigerian Software Company \u2014 CAC Registered",
+    headlineLine1: "Vertical Software Built",
+    headlineAccent: "for African Businesses.",
     subhead:
-      "We design, build, and manage software platforms for law firms, businesses, and schools \u2014 helping you automate operations and scale with confidence.",
-    note: "Managed end-to-end \u2014 from strategy to launch to ongoing support.",
-    primaryCta: { label: "Book a Strategy Call", href: "/contact" },
-    secondaryCta: { label: "View Solutions", href: "/desk" },
+      "The Desk suite \u2014 industry-specific management systems for churches, schools, and auto detailing businesses. Self-service onboarding. Real-time deployment. Subscription billing.",
+    note: "No developer needed. No IT consultant. Go live the same day.",
+    primaryCta: { label: "Explore Desk Products", href: "/desk" },
+    secondaryCta: { label: "Get Started Today", href: "/get-started" },
   },
   founder: {
     heading: "Built by a Nigerian founder,\nfor African businesses.",
     body1:
-      "JK Technology Limited is a registered Nigerian software company, founded in 2019. We build and manage the platforms that businesses, law firms, and schools run on \u2014 not adapted from foreign templates, but built from scratch, in Nigeria, for Nigeria.",
+      "JK Technology Limited is a registered Nigerian software company, founded in 2019. We have been building digital systems for businesses since then. Desk is the product we always wanted to exist \u2014 vertical software that actually fits how African businesses operate. Not adapted from foreign tools. Built from scratch, in Nigeria, for Nigeria.",
     body2:
-      "Every platform integrates Paystack, works with Nigerian phone numbers, and is priced in Naira. Our team reviews, builds, and supports every engagement \u2014 we understand your context because we live in it.",
+      "Every product has Paystack integrated, works with Nigerian phone numbers, and is priced in Naira. Our support team answers on WhatsApp. We understand your context because we live in it.",
   },
   deskSuite: {
     heading: "The Desk Suite",
-    subhead: "Industry-specific software, built and managed for you.",
+    subhead: "Industry-specific software. Self-service onboarding. Live today.",
   },
   howItWorks: {
-    heading: "From first conversation to going live.",
-    subhead: "Every platform is reviewed, built, and launched by our team.",
+    heading: "Go live in under 10 minutes.",
+    subhead: "Self-service. No developer. No waiting.",
   },
   agencyServices: {
-    heading: "Custom Platforms",
+    heading: "Agency Services",
     subhead:
-      "Custom digital systems for businesses that need something specific \u2014 websites, SEO, CRM, AI chatbots, payment infrastructure, email automation. Scoped, built, and delivered by our team.",
+      "Custom digital systems for businesses that need something specific \u2014 websites, SEO, CRM, AI chatbots, payment infrastructure, email automation. Not self-service. Scoped, built, and delivered by our team.",
   },
   testimonials: {
     heading: "What our clients say",
     subhead: "Real businesses, real results.",
   },
   finalCta: {
-    heading: "Let's Build Your Next Platform",
+    heading: "Ready to get started?",
     subhead:
-      "Book a strategy call, or tell us what you're building \u2014 we'll take it from there.",
+      "Pick a product and go live today. Or tell us what you need and we will build it for you.",
   },
 };
 

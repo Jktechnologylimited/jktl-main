@@ -2,19 +2,13 @@
 import { useState, useEffect } from "react";
 import { productPricing } from "@/data/index";
 
-export type ProductPrice = { setup: number | null; monthly: number | null; annual: number | null; label: string | null; note: string };
+export type ProductPrice = { setup: number | null; monthly: number | null; note: string };
 
 // Returns pricing for a desk product, DB-first with static fallback.
 // Renders the bundled price immediately, then swaps in the DB value on load.
 export function useProductPricing(key: string): ProductPrice {
-  const fallback = (productPricing as Record<string, { setup: number | null; monthly: number | null; annual?: number | null; label?: string; waitlistNote?: string }>)[key] || { setup: null, monthly: null };
-  const [price, setPrice] = useState<ProductPrice>({
-    setup: fallback.setup,
-    monthly: fallback.monthly,
-    annual: fallback.annual ?? null,
-    label: fallback.label ?? null,
-    note: fallback.waitlistNote || "",
-  });
+  const fallback = (productPricing as Record<string, { setup: number | null; monthly: number | null; waitlistNote?: string }>)[key] || { setup: null, monthly: null };
+  const [price, setPrice] = useState<ProductPrice>({ setup: fallback.setup, monthly: fallback.monthly, note: fallback.waitlistNote || "" });
 
   useEffect(() => {
     let active = true;
@@ -27,8 +21,6 @@ export function useProductPricing(key: string): ProductPrice {
           setPrice({
             setup: p.setupPrice ?? fallback.setup,
             monthly: p.monthlyPrice ?? fallback.monthly,
-            annual: fallback.annual ?? null,
-            label: p.priceNote || fallback.label || null,
             note: p.priceNote || fallback.waitlistNote || "",
           });
         }

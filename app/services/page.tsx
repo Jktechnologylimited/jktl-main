@@ -1,132 +1,139 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { flagshipPackage, siteConfig, companyDetails } from "@/data/index";
-import { getAgencyServices } from "@/lib/content";
-
-export const dynamic = "force-dynamic";
+import PageHero from "@/components/shared/PageHero";
+import CTABanner from "@/components/shared/CTABanner";
 
 export const metadata: Metadata = {
-  title: "Agency Services | JK Technology Limited",
-  description: "Custom digital systems for Nigerian businesses. Websites, SEO, CRM, email automation, payment infrastructure, AI chatbots. Scoped, built, and delivered by JKTL.",
+  title: "Our Services | JK Technology Limited",
+  description: "Powerful digital solutions that drive real results -- website design, e-commerce, SEO, content, maintenance and digital marketing.",
+  alternates: { canonical: "https://jktl.com.ng/services" },
 };
 
-export default async function ServicesPage() {
-  const services = await getAgencyServices();
+const HELP = [
+  { title: "Build",   desc: "We build fast, responsive and secure systems that represent your brand." },
+  { title: "Attract", desc: "We use proven strategies to attract the right traffic to your platform." },
+  { title: "Convert", desc: "We design experiences that convert visitors into leads and customers." },
+  { title: "Engage",  desc: "We help you engage your audience and build lasting relationships." },
+  { title: "Grow",    desc: "We provide insights and support to help you scale your business." },
+];
+
+const CORE_SERVICES = [
+  { title: "Website Design & Development", desc: "Custom websites that are modern, fast, responsive and built to convert visitors into customers." },
+  { title: "E-Commerce Solutions",         desc: "Powerful online stores that help you sell products, manage orders and grow revenue." },
+  { title: "Search Engine Optimisation",   desc: "Improve your website ranking, get found by your ideal customers and drive organic traffic." },
+  { title: "Content Writing",              desc: "Engaging and SEO-friendly content that tells your story and builds trust with your audience." },
+  { title: "System Maintenance",           desc: "We keep your platform updated, secure and running smoothly so you can focus on your business." },
+  { title: "Digital Marketing",            desc: "Strategic campaigns that increase your brand visibility, generate leads and boost sales." },
+];
+
+const PROCESS = [
+  { n: "1", title: "Discover", desc: "We learn about your business, goals and target audience." },
+  { n: "2", title: "Plan",     desc: "We create a strategic plan tailored to your needs." },
+  { n: "3", title: "Design",   desc: "We design a stunning, user-friendly experience." },
+  { n: "4", title: "Develop",  desc: "We build your system with clean code and best practices." },
+  { n: "5", title: "Launch & Support", desc: "We launch your platform and provide ongoing support." },
+];
+
+const WHY = [
+  { title: "Results Focused",  desc: "We focus on delivering measurable results that help your business grow and succeed." },
+  { title: "Custom Solutions", desc: "Every business is unique -- we create solutions that are tailored to your goals." },
+  { title: "Expert Team",      desc: "Our team of strategists, designers and developers are passionate about your success." },
+  { title: "Ongoing Support",  desc: "We are with you even after launch to ensure your system continues to perform." },
+];
+
+export default function ServicesPage() {
   return (
     <div className="bg-cream-50">
-      <section className="bg-navy-950" style={{ paddingTop: "clamp(88px,12vw,120px)", paddingBottom: "64px" }}>
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="inline-flex items-center gap-2 bg-gold-400/10 border border-gold-400/20 px-3.5 py-1.5 rounded-sm mb-6">
-            <span className="label-xs text-gold-400">Agency Services -- Custom Scoped Work</span>
-          </div>
-          <h1 className="display-hero text-white mb-4" style={{ maxWidth: 720 }}>
-            Custom Digital Systems<br /><span className="text-gold-400">Built for Your Business.</span>
-          </h1>
-          <p className="body-lg text-white/50 mb-4" style={{ maxWidth: 580 }}>
-            Not self-service. Every project is scoped, quoted, built, and delivered by our team.
-            You deal directly with the founder -- not a helpdesk or outsourced developer.
-          </p>
-          <p className="font-mono text-[0.72rem] text-white/25 mb-8">
-            Serving Nigeria and Africa since 2019. Multiple systems delivered.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/get-started/services" className="btn-gold px-6 py-3.5">Submit an Inquiry</Link>
-            <a href={companyDetails.whatsappLink} target="_blank" rel="noopener noreferrer" className="btn-ghost px-5 py-3.5 flex items-center gap-2 text-sm">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.556 4.118 1.528 5.845L0 24l6.335-1.652A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.652-.493-5.188-1.357l-.371-.214-3.861 1.007 1.028-3.752-.233-.387A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-              WhatsApp Us
-            </a>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Our Services"
+        heading="Powerful Digital Solutions That Drive Real Results"
+        subhead="We offer a wide range of services designed to help businesses build a strong online presence, attract more customers and achieve sustainable growth."
+        primaryLabel="Let's Work Together"
+        primaryHref="/get-started/services"
+        secondaryLabel="View Our Work"
+        secondaryHref="/case-studies"
+        imageNode={<div className="w-full h-full flex items-center justify-center"><span className="font-mono text-[0.65rem] text-white/20 tracking-widest">SERVICES</span></div>}
+      />
 
-      {/* How it works -- agency */}
-      <section className="bg-cream-100 px-4 sm:px-6 lg:px-8 py-10">
+      {/* HOW WE HELP */}
+      <section className="bg-white px-4 sm:px-6 lg:px-8 py-16 border-y border-cream-300">
         <div className="max-w-[1200px] mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-px bg-cream-300">
-            {[
-              { n: "01", t: "Submit Inquiry",   d: "Fill out our discovery form with your needs, budget, and timeline." },
-              { n: "02", t: "Auto-Reply",        d: "You get a confirmation immediately. We respond within 24 hours." },
-              { n: "03", t: "We Review",         d: "Owner reviews your inquiry personally and scopes the work." },
-              { n: "04", t: "Custom Proposal",   d: "You receive a detailed proposal and price within 24 hours." },
-              { n: "05", t: "Pay & Build",        d: "Accepted? Paystack invoice sent. Project begins." },
-            ].map(s => (
-              <div key={s.n} className="bg-cream-50 p-5">
-                <p className="font-mono text-[0.65rem] font-bold text-gold-400 mb-2">{s.n}</p>
-                <p className="font-bold text-[0.85rem] text-navy-900 mb-1">{s.t}</p>
-                <p className="text-[0.75rem] text-black/50 leading-relaxed">{s.d}</p>
+          <h2 className="display-lg text-navy-900 text-center mb-10">How We Help Your Business Grow</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            {HELP.map(h => (
+              <div key={h.title} className="text-center">
+                <div className="w-11 h-11 rounded-sm border border-cream-300 flex items-center justify-center mx-auto mb-4">
+                  <span className="w-2 h-2 rounded-full bg-gold-400" />
+                </div>
+                <p className="font-bold text-[0.9rem] text-navy-900 mb-2">{h.title}</p>
+                <p className="text-[0.78rem] text-black/50 leading-relaxed">{h.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Service cards */}
-      <section className="bg-cream-50 px-4 sm:px-6 lg:px-8 py-16">
+      {/* CORE SERVICES */}
+      <section className="bg-cream-50 px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         <div className="max-w-[1200px] mx-auto">
-          <div className="mb-10">
-            <span className="gold-rule block mb-3" />
-            <h2 className="display-lg text-navy-900">Service Categories</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {services.map(s => (
-              <div key={s.slug} className="bg-white border border-cream-300 rounded p-6 flex flex-col">
-                <div className="w-10 h-10 rounded-sm bg-navy-900 flex items-center justify-center mb-4">
-                  <span className="font-mono text-[0.65rem] font-bold text-gold-400">{s.number}</span>
-                </div>
-                <p className="font-bold text-[0.95rem] text-navy-900 mb-1.5 leading-snug">{s.label}</p>
-                <p className="text-[0.78rem] text-black/50 mb-3 flex-1 leading-relaxed">{s.description}</p>
-                <div className="mb-4">
-                  <p className="font-display font-light text-[1.4rem] text-navy-900 leading-none">{s.priceFrom}</p>
-                  {s.priceTo && s.priceTo !== s.priceFrom && (
-                    <p className="text-[0.72rem] text-black/35">up to {s.priceTo}</p>
-                  )}
-                </div>
-                <div className="flex gap-2">
-                  <Link href={`/services/${s.slug}`}
-                    className="flex-1 py-2.5 text-center bg-navy-900 text-white text-[0.68rem] font-bold rounded-sm uppercase tracking-wide no-underline">
-                    Details
-                  </Link>
-                  <Link href="/get-started/services"
-                    className="px-3.5 py-2.5 border border-cream-300 text-black/60 text-[0.68rem] font-semibold rounded-sm no-underline bg-transparent">
-                    Inquire
-                  </Link>
-                </div>
+          <h2 className="display-lg text-navy-900 text-center mb-10">Our Core Services</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {CORE_SERVICES.map(s => (
+              <div key={s.title} className="bg-white border border-cream-300 rounded p-6">
+                <div className="rounded bg-navy-950 mb-4" style={{ aspectRatio: "16/10" }} />
+                <p className="font-bold text-[0.95rem] text-navy-900 mb-2">{s.title}</p>
+                <p className="text-[0.82rem] text-black/55 leading-relaxed mb-4">{s.desc}</p>
+                <Link href="/get-started/services" className="font-mono text-[0.68rem] font-bold text-navy-700 no-underline uppercase tracking-wide">Learn More &#8594;</Link>
               </div>
             ))}
-
-            {/* Flagship package */}
-            <div className="bg-navy-900 rounded p-6 flex flex-col sm:col-span-2 lg:col-span-1 xl:col-span-1">
-              <div className="w-10 h-10 rounded-sm bg-gold-400/15 border border-gold-400/30 flex items-center justify-center mb-4">
-                <span className="font-mono text-[0.65rem] font-bold text-gold-400">FS</span>
-              </div>
-              <p className="font-bold text-[0.95rem] text-white mb-1.5 leading-snug">{flagshipPackage.name}</p>
-              <p className="text-[0.78rem] text-white/45 mb-3 flex-1 leading-relaxed">{flagshipPackage.tagline}</p>
-              <div className="mb-4">
-                <p className="font-display font-light text-[1.4rem] text-gold-400 leading-none">{flagshipPackage.priceFrom}</p>
-                <p className="text-[0.72rem] text-white/35">up to {flagshipPackage.priceTo}</p>
-              </div>
-              <Link href="/get-started/services"
-                className="w-full py-2.5 text-center bg-gold-400 text-navy-900 text-[0.68rem] font-bold rounded-sm uppercase tracking-wide no-underline">
-                Inquire Now
-              </Link>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-navy-950 px-4 sm:px-6 lg:px-8 py-14 text-center">
-        <div className="max-w-lg mx-auto">
-          <h2 className="display-lg text-cream-50 mb-3">Not sure which service you need?</h2>
-          <p className="text-white/45 text-[0.9rem] mb-7">
-            Submit an inquiry and describe what you are trying to achieve. We will scope the right solution and send a proposal within 24 hours.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/get-started/services" className="btn-gold px-8 py-3.5">Submit an Inquiry</Link>
-            <a href={"mailto:" + siteConfig.email} className="btn-ghost px-7 py-3.5">{siteConfig.email}</a>
+      {/* OUR PROCESS */}
+      <section className="bg-navy-900 px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <div className="max-w-[1100px] mx-auto">
+          <h2 className="display-lg text-cream-50 text-center mb-14">Our Process</h2>
+          <div className="flex flex-col sm:flex-row items-stretch justify-center gap-8 sm:gap-3">
+            {PROCESS.map((s, i) => (
+              <div key={s.n} className="flex flex-col sm:flex-row items-center sm:items-start flex-1" style={{ maxWidth: 220 }}>
+                <div className="text-center flex-1">
+                  <div className="w-9 h-9 rounded-full border border-gold-400/40 flex items-center justify-center mx-auto mb-3">
+                    <span className="font-bold text-gold-400 text-[0.85rem]">{s.n}</span>
+                  </div>
+                  <p className="font-bold text-[0.85rem] text-white uppercase tracking-wide mb-2">{s.title}</p>
+                  <p className="text-[0.76rem] text-white/45 leading-relaxed">{s.desc}</p>
+                </div>
+                {i < PROCESS.length - 1 && (
+                  <div className="flex items-center justify-center shrink-0 my-3 sm:my-0 sm:mt-3" style={{ width: 24 }}>
+                    <svg className="hidden sm:block" width="20" height="12" viewBox="0 0 20 12" fill="none" stroke="#C9A84C" strokeWidth="1.5"><path d="M1 6h16M13 1l5 5-5 5" /></svg>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </section>
+
+      {/* WHY CHOOSE US */}
+      <section className="bg-cream-50 px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <div className="max-w-[1200px] mx-auto">
+          <h2 className="display-lg text-navy-900 text-center mb-10">Why Choose Us</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {WHY.map(w => (
+              <div key={w.title} className="text-center">
+                <div className="w-11 h-11 rounded-sm bg-navy-900 flex items-center justify-center mx-auto mb-4">
+                  <span className="w-2 h-2 rounded-full bg-gold-400" />
+                </div>
+                <p className="font-bold text-[0.92rem] text-navy-900 mb-2">{w.title}</p>
+                <p className="text-[0.8rem] text-black/50 leading-relaxed">{w.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <CTABanner heading="Ready to take your business to the next level?" subhead="Let's build a powerful online presence that drives real growth." />
     </div>
   );
 }

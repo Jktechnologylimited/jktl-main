@@ -266,6 +266,15 @@ export async function GET() {
   await run("kpi.hires",      `ALTER TABLE kpi_entries ADD COLUMN IF NOT EXISTS hires      INT DEFAULT 0`);
   await run("idx_kpi_staff_date", `CREATE INDEX IF NOT EXISTS idx_kpi_staff_date ON kpi_entries(staff_id, entry_date DESC)`);
 
+  // ---- Newsletter signups (homepage footer) ----
+  await run("newsletter_subscribers", `
+    CREATE TABLE IF NOT EXISTS newsletter_subscribers (
+      id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      email        TEXT UNIQUE NOT NULL,
+      subscribed_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+
   // ---- Team / staff (BDRs, marketers) with role-based access ----
   await run("staff", `
     CREATE TABLE IF NOT EXISTS staff (

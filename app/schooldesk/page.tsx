@@ -3,7 +3,8 @@ import { useState } from "react";
 import { useWatchVideos } from "@/hooks/useWatchVideos";
 import { WATCH_VIDEOS_DEFAULTS } from "@/data/watch-videos-defaults";
 import Link from "next/link";
-import { siteConfig, companyDetails, schoolDeskTiers } from "@/data/index";
+import { siteConfig, companyDetails } from "@/data/index";
+import { useProductPricing } from "@/hooks/useProductPricing";
 
 function fmtN(n: number) { return "₦" + n.toLocaleString("en-NG"); }
 
@@ -60,6 +61,7 @@ function VideoCard({ video, color }: { video:{ id:string; title:string; desc:str
 
 export default function SchoolDeskPage() {
   const videos = useWatchVideos("schooldesk", WATCH_VIDEOS_DEFAULTS.schooldesk);
+  const pricing = useProductPricing("schooldesk");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [school, setSchool] = useState("");
@@ -92,7 +94,7 @@ export default function SchoolDeskPage() {
         <div className="max-w-[900px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="inline-flex items-center gap-2 border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1.5 rounded-sm mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0 animate-pulse" />
-            <span className="font-mono text-[0.6rem] tracking-widest text-emerald-400 uppercase">SchoolDesk &mdash; School Management Software &mdash; Live for Nigerian Schools</span>
+            <span className="font-mono text-[0.6rem] tracking-widest text-emerald-400 uppercase">SchoolDesk &mdash; School Management Software &mdash; Coming Soon &middot; Waitlist Open</span>
           </div>
 
           {/* GIANT PROMISE */}
@@ -114,8 +116,8 @@ export default function SchoolDeskPage() {
 
           {/* OFFER */}
           <div className="rounded border border-emerald-500/30 bg-emerald-500/08 p-5 sm:p-6 mb-8">
-            <p className="font-mono text-[0.62rem] tracking-widest text-emerald-400 uppercase mb-3">Everything Your School Needs</p>
-            <p className="text-white font-bold text-lg mb-2">One system, priced by school size — starting at {fmtN(schoolDeskTiers[0].annual)}/year:</p>
+            <p className="font-mono text-[0.62rem] tracking-widest text-emerald-400 uppercase mb-3">The Founding-School Offer</p>
+            <p className="text-white font-bold text-lg mb-2">Join the waitlist and lock in launch pricing &mdash; setup fee waived:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
               {[
                 "Online fee collection with receipts",
@@ -133,14 +135,14 @@ export default function SchoolDeskPage() {
               ))}
             </div>
             <p className="text-[0.78rem] text-white/40 italic">
-              Pricing scales with your student count — see the tier that fits your school below.
+              {pricing.note}
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3">
-            <a href="#pricing"
+            <a href="#waitlist"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 font-bold text-[0.78rem] uppercase tracking-widest rounded-sm no-underline bg-emerald-500 text-navy-900">
-              See Pricing by School Size
+              Join the Waitlist &mdash; Lock in {fmtN(pricing.monthly!)}/mo
             </a>
             <a href={companyDetails.whatsappLink} target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-6 py-4 font-bold text-[0.72rem] uppercase tracking-wide rounded-sm no-underline"
@@ -155,7 +157,7 @@ export default function SchoolDeskPage() {
       {/* BENEFIT BAR */}
       <div className="px-4 py-3 bg-emerald-500">
         <div className="max-w-[900px] mx-auto flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
-          {["No setup fee","Free public school website included","CAC Registered: "+companyDetails.cac,"Paystack fee collection"].map(item => (
+          {["Setup fee waived for waitlist schools","Free public website included","CAC Registered: "+companyDetails.cac,"Paystack fee collection"].map(item => (
             <div key={item} className="flex items-center gap-1.5 text-[0.72rem] font-bold text-navy-900 uppercase tracking-wide">
               <span>&#10003;</span> {item}
             </div>
@@ -187,47 +189,41 @@ export default function SchoolDeskPage() {
       </section>
 
       {/* PRICING */}
-      <section className="bg-cream-100 px-4 sm:px-6 lg:px-8 py-16">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="mb-10 text-center">
-            <h2 className="font-display font-light text-navy-900 mb-2" style={{ fontSize: "clamp(1.5rem,4vw,2.2rem)" }}>
-              Pricing by School Size
-            </h2>
-            <p className="body-sm text-black/50">Billed annually. Choose the tier that matches your student count.</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {schoolDeskTiers.map((t) => (
-              <div
-                key={t.name}
-                className={`flex flex-col p-6 rounded-sm border ${
-                  t.highlight ? "bg-navy-950 border-emerald-500" : "bg-white border-black/10"
-                }`}
-              >
-                {t.highlight && <div className="label-xs text-emerald-400 mb-2">Most Popular</div>}
-                <p className={`font-bold text-[0.9rem] mb-1 ${t.highlight ? "text-white" : "text-navy-900"}`}>{t.name}</p>
-                <p className={`text-[0.72rem] mb-5 ${t.highlight ? "text-white/45" : "text-black/45"}`}>{t.studentRange}</p>
-                <p className={`font-display font-light text-[1.9rem] leading-none mb-1 ${t.highlight ? "text-white" : "text-navy-900"}`}>
-                  {fmtN(t.annual)}
-                </p>
-                <p className={`text-[0.7rem] font-mono mb-6 ${t.highlight ? "text-emerald-400" : "text-emerald-600"}`}>per year</p>
-                <ul className="flex-1 space-y-2 mb-6">
-                  {t.features.map((f) => (
-                    <li key={f} className={`text-[0.76rem] flex items-start gap-1.5 leading-relaxed ${t.highlight ? "text-white/65" : "text-black/60"}`}>
-                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke={t.highlight ? "#10B981" : "#10B981"} strokeWidth="3" className="shrink-0 mt-1"><path d="M20 6L9 17l-5-5" /></svg>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="#waitlist"
-                  className={`text-center py-3 text-[0.7rem] font-bold uppercase tracking-widest rounded-sm no-underline ${
-                    t.highlight ? "bg-emerald-500 text-navy-900" : "border border-navy-900 text-navy-900"
-                  }`}
-                >
-                  Get Started
-                </a>
+      <section className="bg-cream-100 px-4 sm:px-6 lg:px-8 py-14">
+        <div className="max-w-[700px] mx-auto text-center">
+          <h2 className="font-display font-light text-navy-900 mb-8" style={{ fontSize:"clamp(1.5rem,4vw,2.2rem)" }}>Launch Pricing</h2>
+          <div className="bg-white border-2 border-emerald-500 rounded p-8 text-left relative">
+            <div className="absolute -top-3 left-6 bg-emerald-500 text-navy-900 font-mono text-[0.6rem] font-bold tracking-widest uppercase px-3 py-1 rounded-sm">
+              SchoolDesk Founding School
+            </div>
+            <div className="flex flex-col sm:flex-row sm:items-end gap-4 mb-6">
+              <div>
+                <p className="font-display font-light text-[3rem] text-navy-900 leading-none">{fmtN(pricing.monthly!)}</p>
+                <p className="text-black/40 text-[0.72rem]">per month &mdash; locked in for waitlist schools</p>
               </div>
-            ))}
+              <div className="sm:ml-4 sm:pb-1">
+                <p className="font-bold text-[1.2rem] text-emerald-600">Setup fee<span className="text-[0.85rem] font-normal text-black/40"> waived</span></p>
+              </div>
+            </div>
+            <div className="rounded p-4 mb-6 flex items-start gap-3 bg-emerald-500/06 border border-emerald-500/20">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2" className="shrink-0 mt-0.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <div>
+                <p className="font-bold text-[0.85rem] text-navy-900 mb-0.5">Founding-school guarantee</p>
+                <p className="text-[0.78rem] text-black/55">
+                  Waitlist schools lock in {fmtN(pricing.monthly!)}/month for life and pay no setup fee &mdash; even after public pricing goes up at launch.
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <a href="#waitlist"
+                className="flex-1 py-4 text-center font-bold text-[0.78rem] uppercase tracking-widest rounded-sm no-underline bg-emerald-500 text-navy-900">
+                Join the Waitlist
+              </a>
+              <a href={companyDetails.whatsappLink} target="_blank" rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 px-6 py-4 font-bold text-[0.72rem] uppercase tracking-wide rounded-sm no-underline border border-emerald-500 text-emerald-600">
+                Ask on WhatsApp
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -241,7 +237,7 @@ export default function SchoolDeskPage() {
               See SchoolDesk in action
             </h2>
             <p className="text-[0.9rem]" style={{ color:"rgba(226,232,240,0.45)", maxWidth:480, lineHeight:1.7 }}>
-              Step-by-step video guides are on the way — check back soon.
+              Step-by-step video guides are on the way. Join the waitlist and we will send them as soon as they go live.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -252,16 +248,16 @@ export default function SchoolDeskPage() {
         </div>
       </section>
 
-      {/* GET STARTED */}
+      {/* WAITLIST */}
       <section id="waitlist" className="bg-navy-950 px-4 sm:px-6 lg:px-8 py-16">
         <div className="max-w-[560px] mx-auto">
           <div className="text-center mb-8">
-            <p className="font-mono text-[0.62rem] tracking-[0.2em] uppercase mb-3 text-emerald-400">Get Started</p>
+            <p className="font-mono text-[0.62rem] tracking-[0.2em] uppercase mb-3 text-emerald-400">Waitlist</p>
             <h2 className="font-display font-light text-white mb-3" style={{ fontSize:"clamp(1.4rem,4vw,2rem)" }}>
               Be ready before the new term.
             </h2>
             <p className="text-white/45 text-[0.9rem]">
-              Tell us about your school and we&apos;ll set you up on the tier that fits your student count.
+              Join the SchoolDesk waitlist to lock in founding pricing and get first access at launch.
             </p>
           </div>
 
@@ -270,9 +266,9 @@ export default function SchoolDeskPage() {
               <div className="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-4">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#34D399" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
               </div>
-              <p className="text-white font-bold text-lg mb-1">Got it.</p>
+              <p className="text-white font-bold text-lg mb-1">You are on the list.</p>
               <p className="text-white/50 text-[0.88rem]">
-                Thank you. We will reach out to {school || "your school"} shortly to get you set up.
+                Thank you. We will reach out to {school || "your school"} before launch with your founding-school pricing.
               </p>
             </div>
           ) : (
@@ -294,7 +290,7 @@ export default function SchoolDeskPage() {
               </div>
               <button onClick={joinWaitlist} disabled={loading || !email || !school}
                 className="w-full py-4 font-bold text-[0.78rem] uppercase tracking-widest rounded-sm bg-emerald-500 text-navy-900 disabled:opacity-50 disabled:cursor-not-allowed">
-                {loading ? "Sending..." : "Get Started — We'll Set Up Your School"}
+                {loading ? "Joining..." : `Join the Waitlist — Lock in ${fmtN(pricing.monthly!)}/mo`}
               </button>
               <p className="text-center text-white/30 text-[0.72rem]">
                 Prefer to talk first? <a href={"mailto:"+siteConfig.email} className="text-emerald-400 underline">Email us</a>.

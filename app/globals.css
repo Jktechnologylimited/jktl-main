@@ -419,3 +419,11 @@ body {
   background: rgba(201,168,76,0.10); color: var(--gold-400);
   box-shadow: inset 2px 0 0 var(--gold-400);
 }
+
+/* Footer grid: 5 columns desktop -> 2 -> 1 on small screens */
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: repeat(2,1fr) !important; }
+}
+@media (max-width: 480px) {
+  .footer-grid { grid-template-columns: 1fr !important; }
+}
