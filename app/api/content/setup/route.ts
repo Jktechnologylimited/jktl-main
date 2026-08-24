@@ -158,7 +158,29 @@ export async function GET() {
     )
   `);
   await run("idx_inquiries_status", `CREATE INDEX IF NOT EXISTS idx_inquiries_status ON service_inquiries(status)`);
+
+  // Defensive backfill: every column above was written straight into
+  // CREATE TABLE with no ALTER backup, so any database where this table
+  // already existed before a given column was added to the code never
+  // got it (CREATE TABLE IF NOT EXISTS is a no-op once the table exists,
+  // regardless of column differences -- confirmed by a real "column source
+  // does not exist" error on a pre-existing database). Making every base
+  // column explicitly additive closes that gap for good.
+  await run("inquiries.name",          `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS name TEXT`);
+  await run("inquiries.email",         `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS email TEXT`);
+  await run("inquiries.phone",         `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS phone TEXT`);
+  await run("inquiries.business_name", `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS business_name TEXT`);
+  await run("inquiries.service",       `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS service TEXT`);
+  await run("inquiries.budget",        `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS budget TEXT`);
+  await run("inquiries.timeline",      `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS timeline TEXT`);
+  await run("inquiries.message",       `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS message TEXT`);
+  await run("inquiries.source",        `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS source TEXT NOT NULL DEFAULT 'inquiry'`);
+  await run("inquiries.meta",          `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS meta JSONB DEFAULT '{}'`);
+  await run("inquiries.status",        `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'new'`);
+  await run("inquiries.created_at",    `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ DEFAULT NOW()`);
+
   await run("idx_inquiries_created", `CREATE INDEX IF NOT EXISTS idx_inquiries_created ON service_inquiries(created_at DESC)`);
+
 
   await run("site_content", `
     CREATE TABLE IF NOT EXISTS site_content (
@@ -300,6 +322,95 @@ export async function GET() {
       updated_at  TIMESTAMPTZ DEFAULT NOW()
     )
   `);
+  // Batch 03: staff_tasks becomes reusable for lead-scoped follow-ups
+  // (nullable lead_id keeps existing personal staff tasks working unchanged).
+  // service_inquiries becomes the real Leads entity -- additive only, `name`
+  // stays intact for the public website's existing insert; first_name/last_name
+  // are used by CRM-created leads. Placed here (not earlier) because these
+  // columns/tables reference staff(id), which must exist first.
+  await run("leads.first_name",      `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS first_name TEXT`);
+  await run("leads.last_name",       `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS last_name TEXT`);
+  await run("leads.owner_staff_id",  `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS owner_staff_id UUID REFERENCES staff(id) ON DELETE SET NULL`);
+  await run("leads.industry",        `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS industry TEXT`);
+  await run("leads.employees",       `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS employees TEXT`);
+  await run("leads.website",         `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS website TEXT`);
+  await run("leads.tags",            `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS tags JSONB DEFAULT '[]'`);
+  await run("leads.next_follow_up",  `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS next_follow_up TIMESTAMPTZ`);
+  await run("leads.converted_at",    `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS converted_at TIMESTAMPTZ`);
+  await run("leads.conversion_data", `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS conversion_data JSONB`);
+  await run("idx_leads_owner",  `CREATE INDEX IF NOT EXISTS idx_leads_owner ON service_inquiries(owner_staff_id)`);
+  await run("idx_leads_source", `CREATE INDEX IF NOT EXISTS idx_leads_source ON service_inquiries(source)`);
+
+  // Lead timeline -- created/email/call/note/status_change events. A "note"
+  // is simply an activity of type 'note', so Notes and Activity share one model.
+  // Batch 04 (CRM -- Opportunities & Sales). New entity: a lead converts
+  // into a real opportunity here (see /api/leads/[id]/convert, which both
+  // sets conversion_data on the lead AND creates the row below).
+  await run("opportunities", `
+    CREATE TABLE IF NOT EXISTS opportunities (
+      id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      lead_id             UUID REFERENCES service_inquiries(id) ON DELETE SET NULL,
+      name                TEXT NOT NULL,
+      customer_name       TEXT NOT NULL,
+      contact_name        TEXT,
+      contact_email       TEXT,
+      contact_phone       TEXT,
+      industry            TEXT,
+      company_size        TEXT,
+      location            TEXT,
+      pipeline            TEXT NOT NULL DEFAULT 'New Business Pipeline',
+      stage               TEXT NOT NULL DEFAULT 'Qualification',
+      probability         INT DEFAULT 50,
+      estimated_value     NUMERIC(14,2) DEFAULT 0,
+      expected_close_date DATE,
+      actual_value        NUMERIC(14,2),
+      won_date            DATE,
+      close_reason        TEXT,
+      source              TEXT,
+      owner_staff_id      UUID REFERENCES staff(id) ON DELETE SET NULL,
+      description         TEXT,
+      tags                JSONB DEFAULT '[]',
+      products            JSONB DEFAULT '[]',
+      status              TEXT NOT NULL DEFAULT 'open',
+      project_requested   BOOLEAN DEFAULT FALSE,
+      created_at          TIMESTAMPTZ DEFAULT NOW(),
+      updated_at          TIMESTAMPTZ DEFAULT NOW(),
+      closed_at           TIMESTAMPTZ
+    )
+  `);
+  await run("idx_opportunities_stage",  `CREATE INDEX IF NOT EXISTS idx_opportunities_stage ON opportunities(stage)`);
+  await run("idx_opportunities_owner",  `CREATE INDEX IF NOT EXISTS idx_opportunities_owner ON opportunities(owner_staff_id)`);
+  await run("idx_opportunities_status", `CREATE INDEX IF NOT EXISTS idx_opportunities_status ON opportunities(status)`);
+
+  await run("lead_activities", `
+    CREATE TABLE IF NOT EXISTS lead_activities (
+      id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      lead_id        UUID NOT NULL REFERENCES service_inquiries(id) ON DELETE CASCADE,
+      type           TEXT NOT NULL DEFAULT 'note',
+      title          TEXT NOT NULL,
+      body           TEXT,
+      actor_staff_id UUID REFERENCES staff(id) ON DELETE SET NULL,
+      created_at     TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_lead_activities_lead", `CREATE INDEX IF NOT EXISTS idx_lead_activities_lead ON lead_activities(lead_id, created_at DESC)`);
+
+  // Batch 04: lead_activities becomes dual-purpose (leads AND opportunities)
+  // rather than building a parallel opportunity_activities table -- same
+  // reuse pattern as staff_tasks.lead_id in Batch 03. The name stays
+  // "lead_activities" (renaming an existing table is avoided) but an
+  // activity now has exactly one of lead_id / opportunity_id set.
+  await run("lead_activities.opportunity_id", `ALTER TABLE lead_activities ADD COLUMN IF NOT EXISTS opportunity_id UUID REFERENCES opportunities(id) ON DELETE CASCADE`);
+  await run("lead_activities.lead_id_nullable", `ALTER TABLE lead_activities ALTER COLUMN lead_id DROP NOT NULL`);
+  await run("idx_lead_activities_opportunity", `CREATE INDEX IF NOT EXISTS idx_lead_activities_opportunity ON lead_activities(opportunity_id, created_at DESC)`);
+
+  await run("staff_tasks.lead_id",  `ALTER TABLE staff_tasks ADD COLUMN IF NOT EXISTS lead_id UUID REFERENCES service_inquiries(id) ON DELETE CASCADE`);
+  await run("staff_tasks.priority", `ALTER TABLE staff_tasks ADD COLUMN IF NOT EXISTS priority TEXT DEFAULT 'medium'`);
+  await run("idx_staff_tasks_lead", `CREATE INDEX IF NOT EXISTS idx_staff_tasks_lead ON staff_tasks(lead_id)`);
+
+  // Batch 04: same reuse pattern for opportunity-scoped follow-up tasks.
+  await run("staff_tasks.opportunity_id", `ALTER TABLE staff_tasks ADD COLUMN IF NOT EXISTS opportunity_id UUID REFERENCES opportunities(id) ON DELETE CASCADE`);
+  await run("idx_staff_tasks_opportunity", `CREATE INDEX IF NOT EXISTS idx_staff_tasks_opportunity ON staff_tasks(opportunity_id)`);
   await run("staff_targets", `
     CREATE TABLE IF NOT EXISTS staff_targets (
       id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
