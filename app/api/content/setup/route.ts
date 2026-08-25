@@ -411,6 +411,195 @@ export async function GET() {
   // Batch 04: same reuse pattern for opportunity-scoped follow-up tasks.
   await run("staff_tasks.opportunity_id", `ALTER TABLE staff_tasks ADD COLUMN IF NOT EXISTS opportunity_id UUID REFERENCES opportunities(id) ON DELETE CASCADE`);
   await run("idx_staff_tasks_opportunity", `CREATE INDEX IF NOT EXISTS idx_staff_tasks_opportunity ON staff_tasks(opportunity_id)`);
+
+  // Batch 05 (Proposal System). Line items/deliverables are stored as JSONB
+  // rather than separate line-item tables -- each proposal customizes its own
+  // set (per the wireframe's Add Offerings / Pricing steps), and nothing else
+  // in the platform needs to query into individual line items relationally.
+  // access_token secures the public client-facing accept page on jktl-website
+  // (jktl.com.ng/proposal/[token]) -- admin.jktl.com.ng is internal-only by
+  // design, so the client never logs into it to view/accept a proposal.
+  await run("proposals", `
+    CREATE TABLE IF NOT EXISTS proposals (
+      id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      proposal_number     TEXT UNIQUE NOT NULL,
+      opportunity_id      UUID REFERENCES opportunities(id) ON DELETE SET NULL,
+      customer_name       TEXT NOT NULL,
+      contact_name        TEXT,
+      contact_email       TEXT,
+      name                TEXT NOT NULL,
+      currency            TEXT NOT NULL DEFAULT 'NGN',
+      valid_until         DATE,
+      prepared_by_staff_id UUID REFERENCES staff(id) ON DELETE SET NULL,
+      notes_internal      TEXT,
+      line_items          JSONB DEFAULT '[]',
+      client_note         TEXT,
+      subtotal            NUMERIC(14,2) DEFAULT 0,
+      discount_total      NUMERIC(14,2) DEFAULT 0,
+      tax_pct             NUMERIC(5,2) DEFAULT 0,
+      total               NUMERIC(14,2) DEFAULT 0,
+      deliverables        JSONB DEFAULT '[]',
+      start_date          DATE,
+      duration_weeks      INT,
+      end_date            DATE,
+      payment_terms       TEXT,
+      maintenance_terms   TEXT,
+      status              TEXT NOT NULL DEFAULT 'draft',
+      sent_to             JSONB DEFAULT '[]',
+      sent_cc             JSONB DEFAULT '[]',
+      sent_subject        TEXT,
+      sent_message         TEXT,
+      sent_at             TIMESTAMPTZ,
+      request_acceptance  BOOLEAN DEFAULT TRUE,
+      expiry_date         DATE,
+      access_token        TEXT UNIQUE,
+      accepted_at         TIMESTAMPTZ,
+      accepted_by_name    TEXT,
+      declined_at         TIMESTAMPTZ,
+      decline_reason      TEXT,
+      owner_staff_id      UUID REFERENCES staff(id) ON DELETE SET NULL,
+      created_at          TIMESTAMPTZ DEFAULT NOW(),
+      updated_at          TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_proposals_status",      `CREATE INDEX IF NOT EXISTS idx_proposals_status ON proposals(status)`);
+  await run("idx_proposals_opportunity", `CREATE INDEX IF NOT EXISTS idx_proposals_opportunity ON proposals(opportunity_id)`);
+  await run("idx_proposals_token",       `CREATE INDEX IF NOT EXISTS idx_proposals_token ON proposals(access_token)`);
+
+  // Batch 06 (Customers / Customer 360). `customers` is the top-level CRM
+  // account -- distinct from `organisations` (product-tenant purchases,
+  // owned by /api/onboarding/setup). A customer can have multiple
+  // `businesses` (subsidiaries/divisions, per the wireframe's "TechNova Ltd
+  // has 2 businesses") and multiple `customer_contacts`. `organisations`,
+  // `opportunities`, `proposals` and `lead_activities` all get an additive
+  // nullable customer_id link -- real relationships, not text-matching.
+  await run("customers", `
+    CREATE TABLE IF NOT EXISTS customers (
+      id                    UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      customer_number       TEXT UNIQUE NOT NULL,
+      name                  TEXT NOT NULL,
+      status                TEXT NOT NULL DEFAULT 'active',
+      rating                INT DEFAULT 0,
+      primary_contact_name  TEXT,
+      primary_contact_role  TEXT,
+      primary_contact_email TEXT,
+      primary_contact_phone TEXT,
+      location              TEXT,
+      customer_since        DATE DEFAULT NOW(),
+      owner_staff_id        UUID REFERENCES staff(id) ON DELETE SET NULL,
+      opportunity_id        UUID REFERENCES opportunities(id) ON DELETE SET NULL,
+      notes_internal        TEXT,
+      created_at            TIMESTAMPTZ DEFAULT NOW(),
+      updated_at            TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_customers_status", `CREATE INDEX IF NOT EXISTS idx_customers_status ON customers(status)`);
+  await run("idx_customers_owner",  `CREATE INDEX IF NOT EXISTS idx_customers_owner ON customers(owner_staff_id)`);
+
+  await run("businesses", `
+    CREATE TABLE IF NOT EXISTS businesses (
+      id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      customer_id UUID NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
+      name        TEXT NOT NULL,
+      is_primary  BOOLEAN DEFAULT FALSE,
+      industry    TEXT,
+      employees   TEXT,
+      website     TEXT,
+      status      TEXT NOT NULL DEFAULT 'active',
+      created_at  TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_businesses_customer", `CREATE INDEX IF NOT EXISTS idx_businesses_customer ON businesses(customer_id)`);
+
+  await run("customer_contacts", `
+    CREATE TABLE IF NOT EXISTS customer_contacts (
+      id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      customer_id UUID NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
+      name        TEXT NOT NULL,
+      position    TEXT,
+      email       TEXT,
+      phone       TEXT,
+      is_primary  BOOLEAN DEFAULT FALSE,
+      created_at  TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_customer_contacts_customer", `CREATE INDEX IF NOT EXISTS idx_customer_contacts_customer ON customer_contacts(customer_id)`);
+
+  await run("opportunities.customer_id",   `ALTER TABLE opportunities ADD COLUMN IF NOT EXISTS customer_id UUID REFERENCES customers(id) ON DELETE SET NULL`);
+  await run("leads.customer_id",           `ALTER TABLE service_inquiries ADD COLUMN IF NOT EXISTS customer_id UUID REFERENCES customers(id) ON DELETE SET NULL`);
+  await run("proposals.customer_id",       `ALTER TABLE proposals ADD COLUMN IF NOT EXISTS customer_id UUID REFERENCES customers(id) ON DELETE SET NULL`);
+  await run("lead_activities.customer_id", `ALTER TABLE lead_activities ADD COLUMN IF NOT EXISTS customer_id UUID REFERENCES customers(id) ON DELETE CASCADE`);
+  await run("idx_lead_activities_customer", `CREATE INDEX IF NOT EXISTS idx_lead_activities_customer ON lead_activities(customer_id, created_at DESC)`);
+  // Defensive: organisations is owned by /api/onboarding/setup, which may not
+  // have run yet on a brand-new database -- this is non-fatal (shows in the
+  // errors array) and resolves once both setup endpoints have been run.
+  await run("organisations.customer_id", `ALTER TABLE organisations ADD COLUMN IF NOT EXISTS customer_id UUID REFERENCES customers(id) ON DELETE SET NULL`);
+
+  // Batch 07 (Projects). New entity, but wired to consume the intent flags
+  // every prior batch left for it: Batch 04's opportunities.project_requested,
+  // Batch 05's proposal-accepted "Create Project" step, and Batch 06's
+  // customer_id link -- a project can trace back to the deal that created it.
+  await run("projects", `
+    CREATE TABLE IF NOT EXISTS projects (
+      id                       UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      project_number           TEXT UNIQUE NOT NULL,
+      name                     TEXT NOT NULL,
+      customer_id              UUID REFERENCES customers(id) ON DELETE SET NULL,
+      opportunity_id           UUID REFERENCES opportunities(id) ON DELETE SET NULL,
+      proposal_id              UUID REFERENCES proposals(id) ON DELETE SET NULL,
+      type                     TEXT NOT NULL DEFAULT 'website',
+      status                   TEXT NOT NULL DEFAULT 'not_started',
+      start_date               DATE,
+      due_date                 DATE,
+      completed_at             TIMESTAMPTZ,
+      project_manager_staff_id UUID REFERENCES staff(id) ON DELETE SET NULL,
+      description              TEXT,
+      project_value            NUMERIC(14,2) DEFAULT 0,
+      paid_amount              NUMERIC(14,2) DEFAULT 0,
+      currency                 TEXT NOT NULL DEFAULT 'NGN',
+      created_at               TIMESTAMPTZ DEFAULT NOW(),
+      updated_at               TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_projects_status",   `CREATE INDEX IF NOT EXISTS idx_projects_status ON projects(status)`);
+  await run("idx_projects_customer", `CREATE INDEX IF NOT EXISTS idx_projects_customer ON projects(customer_id)`);
+  await run("idx_projects_pm",       `CREATE INDEX IF NOT EXISTS idx_projects_pm ON projects(project_manager_staff_id)`);
+
+  await run("project_milestones", `
+    CREATE TABLE IF NOT EXISTS project_milestones (
+      id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      project_id   UUID NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+      name         TEXT NOT NULL,
+      description  TEXT,
+      start_date   DATE,
+      due_date     DATE,
+      status       TEXT NOT NULL DEFAULT 'not_started',
+      progress_pct INT DEFAULT 0,
+      sort_order   INT DEFAULT 0,
+      created_at   TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_milestones_project", `CREATE INDEX IF NOT EXISTS idx_milestones_project ON project_milestones(project_id, sort_order)`);
+
+  await run("project_team_members", `
+    CREATE TABLE IF NOT EXISTS project_team_members (
+      id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      project_id   UUID NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+      staff_id     UUID NOT NULL REFERENCES staff(id) ON DELETE CASCADE,
+      project_role TEXT,
+      created_at   TIMESTAMPTZ DEFAULT NOW(),
+      UNIQUE(project_id, staff_id)
+    )
+  `);
+  await run("idx_team_project", `CREATE INDEX IF NOT EXISTS idx_team_project ON project_team_members(project_id)`);
+
+  // Same reuse pattern established in Batch 03/04/06 -- staff_tasks and
+  // lead_activities become project-aware too, rather than new parallel tables.
+  await run("staff_tasks.project_id",      `ALTER TABLE staff_tasks ADD COLUMN IF NOT EXISTS project_id UUID REFERENCES projects(id) ON DELETE CASCADE`);
+  await run("idx_staff_tasks_project",     `CREATE INDEX IF NOT EXISTS idx_staff_tasks_project ON staff_tasks(project_id)`);
+  await run("lead_activities.project_id",  `ALTER TABLE lead_activities ADD COLUMN IF NOT EXISTS project_id UUID REFERENCES projects(id) ON DELETE CASCADE`);
+  await run("idx_lead_activities_project", `CREATE INDEX IF NOT EXISTS idx_lead_activities_project ON lead_activities(project_id, created_at DESC)`);
+
   await run("staff_targets", `
     CREATE TABLE IF NOT EXISTS staff_targets (
       id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
