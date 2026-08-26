@@ -600,6 +600,92 @@ export async function GET() {
   await run("lead_activities.project_id",  `ALTER TABLE lead_activities ADD COLUMN IF NOT EXISTS project_id UUID REFERENCES projects(id) ON DELETE CASCADE`);
   await run("idx_lead_activities_project", `CREATE INDEX IF NOT EXISTS idx_lead_activities_project ON lead_activities(project_id, created_at DESC)`);
 
+  // Batch 08 (Project Collaboration & Delivery). Designs (Sheet 2) are just
+  // project_files filtered by category='designs', rendered as a grid instead
+  // of a table -- not a second table. Messages/Activity (Sheets 7/8) reuse
+  // lead_activities a fifth time (type='message' for the chat thread,
+  // everything else for the system event log) -- see JKTL_CODEBASE_MAP.md.
+  await run("project_files", `
+    CREATE TABLE IF NOT EXISTS project_files (
+      id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      project_id        UUID NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+      name              TEXT NOT NULL,
+      category          TEXT NOT NULL DEFAULT 'other',
+      design_type       TEXT,
+      file_type         TEXT,
+      file_url          TEXT NOT NULL,
+      size_bytes        BIGINT,
+      uploaded_by_staff_id UUID REFERENCES staff(id) ON DELETE SET NULL,
+      created_at        TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_project_files_project", `CREATE INDEX IF NOT EXISTS idx_project_files_project ON project_files(project_id, created_at DESC)`);
+
+  await run("project_feedback", `
+    CREATE TABLE IF NOT EXISTS project_feedback (
+      id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      project_id   UUID NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+      file_id      UUID REFERENCES project_files(id) ON DELETE SET NULL,
+      title        TEXT NOT NULL,
+      body         TEXT NOT NULL,
+      author_name  TEXT NOT NULL,
+      author_type  TEXT NOT NULL DEFAULT 'client',
+      status       TEXT NOT NULL DEFAULT 'open',
+      logged_by_staff_id UUID REFERENCES staff(id) ON DELETE SET NULL,
+      created_at   TIMESTAMPTZ DEFAULT NOW(),
+      updated_at   TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_feedback_project", `CREATE INDEX IF NOT EXISTS idx_feedback_project ON project_feedback(project_id, created_at DESC)`);
+
+  await run("project_feedback_replies", `
+    CREATE TABLE IF NOT EXISTS project_feedback_replies (
+      id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      feedback_id    UUID NOT NULL REFERENCES project_feedback(id) ON DELETE CASCADE,
+      body           TEXT NOT NULL,
+      author_name    TEXT NOT NULL,
+      author_type    TEXT NOT NULL DEFAULT 'staff',
+      author_staff_id UUID REFERENCES staff(id) ON DELETE SET NULL,
+      created_at     TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_feedback_replies_feedback", `CREATE INDEX IF NOT EXISTS idx_feedback_replies_feedback ON project_feedback_replies(feedback_id, created_at ASC)`);
+
+  await run("project_approvals", `
+    CREATE TABLE IF NOT EXISTS project_approvals (
+      id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      project_id          UUID NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+      item_name           TEXT NOT NULL,
+      type                TEXT NOT NULL DEFAULT 'design',
+      submitted_by_staff_id UUID REFERENCES staff(id) ON DELETE SET NULL,
+      status              TEXT NOT NULL DEFAULT 'pending',
+      notes               TEXT,
+      submitted_at        TIMESTAMPTZ DEFAULT NOW(),
+      reviewed_at         TIMESTAMPTZ
+    )
+  `);
+  await run("idx_approvals_project", `CREATE INDEX IF NOT EXISTS idx_approvals_project ON project_approvals(project_id, submitted_at DESC)`);
+
+  await run("project_handover_items", `
+    CREATE TABLE IF NOT EXISTS project_handover_items (
+      id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      project_id UUID NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+      task       TEXT NOT NULL,
+      status     TEXT NOT NULL DEFAULT 'pending',
+      sort_order INT DEFAULT 0,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_handover_project", `CREATE INDEX IF NOT EXISTS idx_handover_project ON project_handover_items(project_id, sort_order)`);
+
+  await run("projects.target_handover_date", `ALTER TABLE projects ADD COLUMN IF NOT EXISTS target_handover_date DATE`);
+  await run("projects.handover_to",          `ALTER TABLE projects ADD COLUMN IF NOT EXISTS handover_to TEXT`);
+  await run("projects.client_contact",       `ALTER TABLE projects ADD COLUMN IF NOT EXISTS client_contact TEXT`);
+  await run("projects.handover_notes",       `ALTER TABLE projects ADD COLUMN IF NOT EXISTS handover_notes TEXT`);
+  await run("projects.handover_status",      `ALTER TABLE projects ADD COLUMN IF NOT EXISTS handover_status TEXT NOT NULL DEFAULT 'not_ready'`);
+  await run("projects.client_rating",        `ALTER TABLE projects ADD COLUMN IF NOT EXISTS client_rating INT`);
+  await run("projects.client_feedback",      `ALTER TABLE projects ADD COLUMN IF NOT EXISTS client_feedback TEXT`);
+
   await run("staff_targets", `
     CREATE TABLE IF NOT EXISTS staff_targets (
       id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
