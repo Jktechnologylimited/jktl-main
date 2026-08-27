@@ -57,6 +57,14 @@ export async function GET() {
   await run("organisations.database_url",      `ALTER TABLE organisations ADD COLUMN IF NOT EXISTS database_url      TEXT`);
   await run("organisations.cloudinary_folder", `ALTER TABLE organisations ADD COLUMN IF NOT EXISTS cloudinary_folder TEXT`);
 
+  // Real, manually-tracked domain expiry -- no registrar/WHOIS integration
+  // exists in this codebase, so this is genuinely staff-entered (they're the
+  // ones who register/renew these domains and know the real date), not a
+  // fabricated auto-computed one. Hosting/plan renewal, by contrast, IS
+  // computed for real from activated_at + monthly_fee -- see lib/renewals.ts.
+  await run("organisations.domain_registrar",   `ALTER TABLE organisations ADD COLUMN IF NOT EXISTS domain_registrar TEXT`);
+  await run("organisations.domain_expiry_date", `ALTER TABLE organisations ADD COLUMN IF NOT EXISTS domain_expiry_date DATE`);
+
   await run("onboarding_sessions", `
     CREATE TABLE IF NOT EXISTS onboarding_sessions (
       id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
