@@ -26,15 +26,15 @@ export default function MaterialsPage() {
       items: [
         {
           key: "wa1", label: "General introduction",
-          text: `Hi [Name], I wanted to share something that could help your business. I've been working with JK Technology -- they build complete digital systems for businesses in Nigeria. Website, SEO, CRM, AI chatbot, payment systems -- all integrated. They've delivered 50+ projects. You can try their demos for free here: ${refLink}`,
+          text: `Hi [Name], I wanted to share something that could help your business. JKTL Business is a free app for managing customers, bookings/sales, invoicing, and stock -- it also gives you a free website so customers can find and book you online. No cost to start: ${refLink}`,
         },
         {
-          key: "wa2", label: "For law firms",
-          text: `Hi [Name], are you looking to get more corporate clients finding your law firm online? JK Technology builds complete digital systems for law firms -- website, SEO rankings on Google, lead capture. They built the system for K.K. Ubani & Co. in Port Harcourt. Check it out here: ${refLink}`,
+          key: "wa2", label: "For salons, spas & beauty businesses",
+          text: `Hi [Name], are you still tracking bookings and clients in a notebook or your DMs? JKTL Business is a free app built for salons and beauty businesses -- bookings, client history, invoicing with online payment, and a free website customers can book from. Worth a look: ${refLink}`,
         },
         {
-          key: "wa3", label: "For clinics",
-          text: `Hi [Name], I know managing appointments and patient follow-ups manually is exhausting. JK Technology builds clinic management systems -- booking, patient CRM, WhatsApp reminders, payments. Clinics using it have cut no-shows by 70%. See it here: ${refLink}`,
+          key: "wa3", label: "For shops & retailers",
+          text: `Hi [Name], JKTL Business is a free app that tracks your inventory, alerts you before you run low on stock, and lets you invoice customers with online payment via Paystack. It's free to start -- check it out: ${refLink}`,
         },
       ],
     },
@@ -42,16 +42,16 @@ export default function MaterialsPage() {
       category: "Email Templates",
       items: [
         {
-          key: "em1", label: "Cold email -- general",
-          text: `Subject: A digital system your business might need
+          key: "em1", label: "Introduction email -- general",
+          text: `Subject: A free tool that might help [Business Name]
 
 Hi [Name],
 
-I'm reaching out because I recently started working with JK Technology Limited and I think their services could genuinely help [Business Name].
+I wanted to share JKTL Business -- a free, mobile-first app built for Nigerian small businesses.
 
-They build complete digital business systems -- not just websites, but integrated platforms covering website, SEO, CRM, email automation, payment infrastructure, and AI chatbots. Everything your business needs to attract clients, convert leads, and run efficiently.
+It covers customer records, bookings or sales tracking, invoicing with online payment (Paystack), inventory with low-stock alerts, expense tracking, and a free published website on jktl.com.ng. All from your phone.
 
-They've delivered systems for law firms, clinics, service businesses, and retailers across Nigeria.
+Core features are completely free. A paid plan (₦5,000/month) unlocks extra staff seats, more storage, and a custom domain -- but you don't need it to get started.
 
 Worth a look: ${refLink}
 
@@ -60,17 +60,17 @@ Best,
         },
         {
           key: "em2", label: "Follow-up email",
-          text: `Subject: Re: Digital systems for [Business Name]
+          text: `Subject: Re: JKTL Business for [Business Name]
 
 Hi [Name],
 
-Just following up on my earlier message about JK Technology.
+Just following up on my earlier note about JKTL Business.
 
-I know it can be hard to commit to any digital investment without seeing results first -- which is why JKTL has built live, interactive demos for every service they offer. You can try the CRM, invoice generator, AI chatbot, and more before spending a single naira.
+It's free to sign up and set up -- no card required. You get a working business website and can start tracking customers, bookings/sales, and invoices the same day.
 
-Try here: ${refLink}/demos
+Try it here: ${refLink}
 
-If you want to discuss how they'd approach your specific situation, they respond within 24 hours.
+Happy to walk you through it if useful.
 
 Best,
 [Your Name]`,
@@ -82,21 +82,19 @@ Best,
       items: [
         {
           key: "sm1", label: "LinkedIn -- professional",
-          text: `If your business is still relying on word-of-mouth and WhatsApp to get clients, you are leaving significant revenue on the table.
+          text: `If you're running a small or medium business in Nigeria and still tracking customers, bookings, and invoices by hand, there's a free tool worth knowing about.
 
-JK Technology Limited builds complete digital business systems -- website, SEO, CRM, automation, AI chatbot, payment infrastructure -- all integrated and working together.
+JKTL Business gives you customer records, bookings/sales tracking, invoicing with online payment, inventory tracking, and a free business website -- all from your phone. Free to start, no card required.
 
-They've delivered 50+ systems for businesses across Nigeria in law, healthcare, auto, consulting, retail, and more.
-
-See what your business could look like with the right digital infrastructure: ${refLink}`,
+See it here: ${refLink}`,
         },
         {
           key: "sm2", label: "Instagram / Facebook",
-          text: `Does your business have a website that actually gets clients? Not just a pretty page -- a SYSTEM that attracts, captures, and converts leads automatically while you focus on your work.
+          text: `Running your business from WhatsApp and a notebook? There's a better way.
 
-JK Technology builds digital systems for Nigerian businesses. Website + SEO + CRM + AI + Payments. All connected.
+JKTL Business is a FREE app for Nigerian businesses -- track customers, take bookings, send invoices customers can pay online, manage stock, and get a free website. All from your phone.
 
-Try their free demos -- no login needed: ${refLink}`,
+Check it out (free): ${refLink}`,
         },
       ],
     },
@@ -104,25 +102,24 @@ Try their free demos -- no login needed: ${refLink}`,
       category: "Key Talking Points",
       items: [
         {
-          key: "tp1", label: "For service businesses (plumbers, electricians, etc.)",
-          text: `- Most clients search Google when they need a plumber or electrician urgently. If you are not on page 1, you miss those jobs.
-- JKTL builds the website, sets up the SEO, and adds WhatsApp automation so every missed call gets a follow-up message.
-- Businesses on our system average 10-20 new inbound leads per month from Google alone.
-- Cost: from ₦150,000 setup. First new client from Google usually pays for it within 30 days.`,
+          key: "tp1", label: "For beauty, fitness & wellness businesses",
+          text: `- Bookings that don't double-book, plus a searchable history of every client.
+- Invoice a client and let them pay online via Paystack, right on the invoice.
+- Every business gets a free published website customers can book from directly.
+- Core plan is completely free. Paid plan is ₦5,000/mo for extra staff seats and a custom domain.`,
         },
         {
-          key: "tp2", label: "For clinics and health practices",
-          text: `- Manual appointment booking and WhatsApp scheduling leads to double-bookings and high no-show rates.
-- Our clinic system adds automated booking, patient reminders, and a CRM that tracks every patient.
-- Clinics using it have reduced no-shows by over 60% within 60 days.
-- Cost: from ₦300,000 setup + ₦30,000/month. ROI is typically within 3-4 months.`,
+          key: "tp2", label: "For retail, food & trade businesses",
+          text: `- Track stock and get alerted before anything runs low.
+- Sales tracking instead of appointments -- built for how retail actually works.
+- Expense tracking so the owner always knows real numbers, not guesses.
+- Free to start. No setup fee, no contract.`,
         },
         {
-          key: "tp3", label: "For consultants and agencies",
-          text: `- Consultants lose clients because they look unprofessional online or have no system for following up with leads.
-- JKTL builds a website that positions you as an authority, a landing page for your flagship offer, and email automation that nurtures every prospect.
-- You close more deals because the system pre-qualifies clients before they even contact you.
-- Growth package from ₦500,000 -- typically 2x ROI within 6 months.`,
+          key: "tp3", label: "Why it's cheaper than the alternatives",
+          text: `- Free core plan; paid plan is ₦5,000/month or ₦50,000/year (about 17% cheaper paying yearly).
+- Undercuts Nigerian tools like Bumpa and Catlog, and costs a fraction of international tools like GlossGenius, Square, Vagaro, Booksy or Fresha.
+- No long-term contract -- cancel anytime.`,
         },
       ],
     },
@@ -146,7 +143,7 @@ Try their free demos -- no login needed: ${refLink}`,
                 <div key={item.key} style={{ background: "#fff", border: "1px solid var(--cream-300)", borderRadius: 4 }}>
                   <div style={{ padding: "12px 18px", borderBottom: "1px solid var(--cream-200)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <p style={{ fontWeight: 600, fontSize: "0.85rem", color: "var(--navy-900)" }}>{item.label}</p>
-                    <button onClick={() => copy(item.text, item.key)} className="btn btn-outline btn-sm">
+                    <button onClick={() => copy(item.text, item.key)} className="btn-outline-navy btn-sm">
                       {copied === item.key ? "Copied!" : "Copy"}
                     </button>
                   </div>

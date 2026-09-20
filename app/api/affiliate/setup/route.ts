@@ -104,6 +104,14 @@ export async function GET() {
       created_at   TIMESTAMPTZ DEFAULT NOW()
     )
   `);
+  // Defensive backfill: this table name collides with the customer-facing
+  // support_tickets created by /api/content/setup (Batch 10) -- CREATE TABLE
+  // IF NOT EXISTS is a no-op against whichever one runs second, so without
+  // this, one system's columns would silently be missing depending on run
+  // order. Same fix already applied to the Batch 10 side of this collision.
+  await run("support_tickets.affiliate_id", `ALTER TABLE support_tickets ADD COLUMN IF NOT EXISTS affiliate_id UUID REFERENCES affiliates(id) ON DELETE CASCADE`);
+  await run("support_tickets.subject_aff",  `ALTER TABLE support_tickets ADD COLUMN IF NOT EXISTS subject TEXT`);
+  await run("support_tickets.message_aff",  `ALTER TABLE support_tickets ADD COLUMN IF NOT EXISTS message TEXT`);
 
   await run("campaign_links", `
     CREATE TABLE IF NOT EXISTS campaign_links (
@@ -130,9 +138,15 @@ export async function GET() {
   // without dropping data. Safe to run repeatedly.
   const migrations: [string, string][] = [
     // affiliates (bonus + auth + profile)
-    ["affiliates.signup_bonus",     `ALTER TABLE affiliates ADD COLUMN IF NOT EXISTS signup_bonus NUMERIC(12,2) DEFAULT 20000`],
+    ["affiliates.signup_bonus",     `ALTER TABLE affiliates ADD COLUMN IF NOT EXISTS signup_bonus NUMERIC(12,2) DEFAULT 2000`],
+    ["affiliates.signup_bonus.default", `ALTER TABLE affiliates ALTER COLUMN signup_bonus SET DEFAULT 2000`],
     ["affiliates.bonus_unlocked",   `ALTER TABLE affiliates ADD COLUMN IF NOT EXISTS bonus_unlocked BOOLEAN DEFAULT FALSE`],
-    ["affiliates.bonus_expires_at", `ALTER TABLE affiliates ADD COLUMN IF NOT EXISTS bonus_expires_at TIMESTAMPTZ DEFAULT NOW() + INTERVAL '90 days'`],
+    // JKTL Business terms: the welcome bonus has no time limit, it simply
+    // unlocks once the affiliate's first referral upgrades to a paid plan.
+    // Column kept (nullable) for backward compatibility with any
+    // already-recorded expiry dates; new affiliates get no expiry.
+    ["affiliates.bonus_expires_at", `ALTER TABLE affiliates ADD COLUMN IF NOT EXISTS bonus_expires_at TIMESTAMPTZ`],
+    ["affiliates.bonus_expires_at.default", `ALTER TABLE affiliates ALTER COLUMN bonus_expires_at DROP DEFAULT`],
     ["affiliates.last_active_at",   `ALTER TABLE affiliates ADD COLUMN IF NOT EXISTS last_active_at TIMESTAMPTZ DEFAULT NOW()`],
     ["affiliates.bank_holder",      `ALTER TABLE affiliates ADD COLUMN IF NOT EXISTS bank_holder TEXT`],
     ["affiliates.business_name",    `ALTER TABLE affiliates ADD COLUMN IF NOT EXISTS business_name TEXT`],
@@ -153,7 +167,8 @@ export async function GET() {
     ["commissions.lead_id",      `ALTER TABLE commissions ADD COLUMN IF NOT EXISTS lead_id UUID`],
     ["commissions.service_name", `ALTER TABLE commissions ADD COLUMN IF NOT EXISTS service_name TEXT`],
     ["commissions.deal_value",   `ALTER TABLE commissions ADD COLUMN IF NOT EXISTS deal_value NUMERIC(12,2) DEFAULT 0`],
-    ["commissions.rate",         `ALTER TABLE commissions ADD COLUMN IF NOT EXISTS rate NUMERIC(5,2) DEFAULT 10`],
+    ["commissions.rate",         `ALTER TABLE commissions ADD COLUMN IF NOT EXISTS rate NUMERIC(5,2) DEFAULT 20`],
+    ["commissions.rate.default", `ALTER TABLE commissions ALTER COLUMN rate SET DEFAULT 20`],
     ["commissions.amount",       `ALTER TABLE commissions ADD COLUMN IF NOT EXISTS amount NUMERIC(12,2) DEFAULT 0`],
     ["commissions.type",         `ALTER TABLE commissions ADD COLUMN IF NOT EXISTS type TEXT DEFAULT 'one-time'`],
     ["commissions.status",       `ALTER TABLE commissions ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'pending'`],
@@ -173,6 +188,21 @@ export async function GET() {
   await run("idx_leads_affiliate",   `CREATE INDEX IF NOT EXISTS idx_leads_affiliate   ON referral_leads(affiliate_id)`);
   await run("idx_commissions_aff",   `CREATE INDEX IF NOT EXISTS idx_commissions_aff   ON commissions(affiliate_id)`);
   await run("idx_payouts_affiliate", `CREATE INDEX IF NOT EXISTS idx_payouts_affiliate ON payout_requests(affiliate_id)`);
+
+  // Batch 13 (Affiliate System, admin side). Real, Cloudinary-backed --
+  // reuses the exact upload pattern already built for Project Files
+  // (Batch 08), not a new upload mechanism.
+  await run("marketing_materials", `
+    CREATE TABLE IF NOT EXISTS marketing_materials (
+      id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      name       TEXT NOT NULL,
+      category   TEXT NOT NULL DEFAULT 'banner',
+      file_url   TEXT NOT NULL,
+      dimensions TEXT,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_marketing_materials_category", `CREATE INDEX IF NOT EXISTS idx_marketing_materials_category ON marketing_materials(category)`);
 
   let existing: string[] = [];
   try {

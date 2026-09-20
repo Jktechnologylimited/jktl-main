@@ -3,20 +3,20 @@ import Link from "next/link";
 import { siteConfig } from "@/data/index";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | JK Technology Limited",
-  description: "How JK Technology Limited collects and protects your personal information.",
+  title: "Privacy Policy",
+  description: "How JKTL Business collects and protects your personal and business information.",
 };
 
 export default function PrivacyPage() {
   const sections = [
-    { title:"1. Information We Collect", body:"When you submit our contact form or communicate with us, we may collect your name, email address, business name, website URL, and project details. We also collect standard analytics data (page views, session duration, device type) via Google Analytics 4." },
-    { title:"2. How We Use Your Information", body:"We use your information to respond to enquiries, deliver our services, send project updates and proposals, and -- only if you opt in -- share periodic business insights. We never sell your data to third parties." },
-    { title:"3. Data Sharing", body:"We share data only with trusted service providers necessary to deliver our services (email delivery, analytics). We may disclose information if required by law. We do not sell or rent your personal data." },
-    { title:"4. Data Retention", body:"Enquiry data is retained for up to 24 months. Client project data is retained for up to 5 years for accounting and legal compliance. You may request deletion at any time by emailing info@jktl.com.ng." },
-    { title:"5. Cookies", body:"We use essential cookies (required for basic functionality) and analytics cookies (Google Analytics 4). You may opt out of analytics cookies via your browser settings or the Google Analytics opt-out add-on." },
+    { title:"1. Information We Collect", body:"On jktl.com.ng, we collect information you submit through our contact form (name, email, message) and standard analytics data (page views, device type). Inside the JKTL Business app itself (business.jktl.com.ng), we collect account information, business details, and the customer, booking, invoice, and inventory data you enter to run your business -- that data belongs to you and the business you manage." },
+    { title:"2. How We Use Your Information", body:"We use this information to operate the JKTL Business app, process payments via Paystack, respond to enquiries, send account and service notifications, and improve the product. We never sell your data to third parties." },
+    { title:"3. Data Sharing", body:"We share data only with service providers necessary to operate JKTL Business -- for example, Paystack for payment processing, and our hosting and email providers. We may disclose information if required by law. We do not sell or rent personal or business data." },
+    { title:"4. Data Retention", body:"Account and business data is retained for as long as your account is active, and for a reasonable period afterward for accounting and legal compliance. You may request deletion of your account and data at any time by emailing info@jktl.com.ng." },
+    { title:"5. Cookies", body:"We use essential cookies (required for basic site functionality and, for affiliates, referral tracking) and analytics cookies. You may control cookies via your browser settings." },
     { title:"6. Your Rights", body:`You may request access to, correction of, or deletion of your personal data at any time by emailing ${siteConfig.email}. We will respond within 30 days.` },
-    { title:"7. Security", body:"We use SSL/TLS encryption and appropriate technical safeguards. No transmission method is 100% secure, but we take commercially reasonable measures to protect your information." },
-    { title:"8. Changes", body:"We may update this policy periodically. Updates will be posted on this page with a revised date. Continued use of our website constitutes acceptance of changes." },
+    { title:"7. Security", body:"We use SSL/TLS encryption and appropriate technical safeguards to protect your data and your customers' data. No transmission method is 100% secure, but we take commercially reasonable measures to protect your information." },
+    { title:"8. Changes", body:"We may update this policy periodically. Updates will be posted on this page with a revised date. Continued use of jktl.com.ng or JKTL Business constitutes acceptance of changes." },
   ];
 
   return (
@@ -32,7 +32,7 @@ export default function PrivacyPage() {
         <div className="max-w-4xl mx-auto px-8">
           <div style={{ background:"var(--cream-100)", border:"1px solid var(--cream-300)", borderRadius:"4px", padding:"20px 24px", marginBottom:"36px" }}>
             <p className="body-md" style={{ color:"rgba(28,28,30,0.65)" }}>
-              JK Technology Limited (&quot;JKTL&quot;, &quot;we&quot;, &quot;us&quot;) is committed to protecting your privacy. This policy explains how we collect, use, and safeguard your information when you use jktl.com.ng or engage our services.
+              JK Technology Limited (&quot;JKTL&quot;, &quot;we&quot;, &quot;us&quot;) is committed to protecting your privacy. This policy explains how we collect, use, and safeguard your information when you use jktl.com.ng or the JKTL Business app.
             </p>
           </div>
           <div style={{ display:"flex", flexDirection:"column", gap:"28px" }}>

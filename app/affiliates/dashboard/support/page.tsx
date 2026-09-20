@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 interface Ticket { id: string; subject: string; message: string; status: string; created_at: string; }
 
 const FAQS = [
-  { q: "When will my commission be paid?", a: "Commissions are paid on the last business day of each month. The minimum payout is ₦20,000. Payment is via bank transfer to any Nigerian bank account." },
-  { q: "How do I know if my referral converted?", a: "Once JKTL confirms a deal closed from your referral, a commission entry appears in your Earnings page with 'pending' status. We update it to 'approved' once payment is received from the client." },
+  { q: "When will my commission be paid?", a: "Commissions are paid on the 28th of each month. The minimum payout is ₦50,000. Payment is via bank transfer to any Nigerian bank account." },
+  { q: "How do I know if my referral converted?", a: "Once JKTL confirms a business you referred has subscribed to a paid plan, a commission entry appears in your Earnings page with 'pending' status. We update it to 'approved' once payment is confirmed." },
   { q: "What is the cookie duration?", a: "30 days. If someone clicks your link and signs up within 30 days, you get the commission -- even if they did not convert on the first visit." },
-  { q: "Can I promote on any platform?", a: "Yes -- WhatsApp, Instagram, LinkedIn, Facebook, YouTube, email, in person. Just do not spam, misrepresent JKTL's services, or use paid ads that could conflict with JKTL's own campaigns without permission." },
-  { q: "How do I move to Silver or Gold tier?", a: "Silver unlocks automatically after 3 successful referrals (deals that closed). Gold unlocks after 8. Your tier updates in your dashboard within 24 hours of qualification." },
-  { q: "Who counts as a referral?", a: "Anyone who clicks your referral link and contacts JKTL within the 30-day window, and whose deal ultimately closes. JKTL reserves the right to verify referrals." },
+  { q: "Can I promote on any platform?", a: "Yes -- WhatsApp, Instagram, TikTok, LinkedIn, Facebook, YouTube, email, in person. Just do not spam, misrepresent JKTL Business, or use paid ads that could conflict with JKTL's own campaigns without permission." },
+  { q: "Does the commission rate ever change?", a: "No -- every affiliate earns the same 20% recurring commission from their very first referral. There are no tiers to unlock." },
+  { q: "Who counts as a referral?", a: "Anyone who clicks your referral link within the 30-day window and whose business ultimately subscribes to a paid JKTL Business plan. JKTL reserves the right to verify referrals." },
 ];
 
 export default function SupportPage() {
@@ -89,7 +89,7 @@ export default function SupportPage() {
                     <textarea className="input" rows={4} value={form.message} onChange={e => setForm(p => ({ ...p, message: e.target.value }))} placeholder="Describe your question or issue in detail..." style={{ resize: "none" }} />
                   </div>
                   {error && <p style={{ color: "var(--red)", fontSize: "0.78rem" }}>{error}</p>}
-                  <button onClick={submit} disabled={sending} className="btn btn-navy" style={{ alignSelf: "flex-start" }}>
+                  <button onClick={submit} disabled={sending} className="btn-primary" style={{ alignSelf: "flex-start" }}>
                     {sending ? "Sending..." : "Submit Ticket"}
                   </button>
                 </div>
@@ -148,13 +148,11 @@ export default function SupportPage() {
             <div style={{ background: "#fff", border: "1px solid var(--cream-300)", borderRadius: 4, padding: "16px 18px" }}>
               <p className="label-xs" style={{ color: "rgba(28,28,30,0.4)", marginBottom: 8 }}>Quick info</p>
               {[
-                { l: "Payout date",    v: "28th of every month" },
-                { l: "Minimum payout", v: "₦50,000" },
-                { l: "Signup bonus",   v: "₦20,000 (unlocks on 1st referral)" },
-                { l: "Bonus expiry",   v: "90 days from signup" },
-                { l: "Cookie window",  v: "30 days" },
-                { l: "Standard rate",  v: "10% commission" },
-                { l: "Gold rate",      v: "15% commission" },
+                { l: "Payout date",     v: "28th of every month" },
+                { l: "Minimum payout",  v: "₦50,000" },
+                { l: "Welcome bonus",   v: "₦2,000 (unlocks on 1st referral upgrade)" },
+                { l: "Cookie window",   v: "30 days" },
+                { l: "Commission rate", v: "20% recurring, for every affiliate" },
               ].map(r => (
                 <div key={r.l} style={{ display: "flex", justifyContent: "space-between", padding: "5px 0", borderBottom: "1px solid var(--cream-100)", fontSize: "0.78rem" }}>
                   <span style={{ color: "rgba(28,28,30,0.45)" }}>{r.l}</span>

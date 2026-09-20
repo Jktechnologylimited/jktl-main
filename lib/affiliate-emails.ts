@@ -66,7 +66,7 @@ export async function sendApplicationApproved(email: string, firstName: string, 
           </div>
           <h2 style="font-size:20px;font-weight:700;color:#fff;margin:0 0 12px;text-align:center;">You are Approved, ${firstName}!</h2>
           <p style="font-size:15px;color:rgba(226,232,240,0.6);margin:0 0 24px;line-height:1.6;text-align:center;">
-            Welcome to the JKTL Affiliate Programme. You can now start earning by referring businesses to our Desk products.
+            Welcome to the JKTL Affiliate Programme. You can now start earning 20% recurring commission by referring businesses to JKTL Business.
           </p>
           <div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);border-radius:8px;padding:16px 20px;margin-bottom:24px;">
             <p style="font-size:11px;font-family:monospace;color:rgba(226,232,240,0.4);text-transform:uppercase;letter-spacing:0.1em;margin:0 0 6px;">Your Referral Code</p>

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { TIERS } from "@/lib/affiliate-offers";
+import { COMMISSION } from "@/lib/affiliate-offers";
 
 interface Props {
   session: { firstName: string; lastName: string; email: string; referralCode: string; tier: string; };
@@ -11,7 +11,6 @@ interface Props {
 
 const NAV = [
   { href: "/affiliates/dashboard",            label: "Overview",    icon: "OV" },
-  { href: "/affiliates/dashboard/offers",     label: "Offers",      icon: "OF" },
   { href: "/affiliates/dashboard/links",      label: "My Links",    icon: "LK" },
   { href: "/affiliates/dashboard/referrals",  label: "Referrals",   icon: "RF" },
   { href: "/affiliates/dashboard/earnings",   label: "Earnings",    icon: "ER" },
@@ -24,7 +23,6 @@ export default function DashboardShell({ session, children }: Props) {
   const pathname = usePathname();
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const tier = TIERS[session.tier as keyof typeof TIERS] || TIERS.standard;
   const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "https://affiliate.jktl.com.ng";
   const refLink = `${APP_URL}?ref=${session.referralCode}`;
 
@@ -55,9 +53,9 @@ export default function DashboardShell({ session, children }: Props) {
             <p style={{ fontWeight: 600, fontSize: "0.82rem", color: "#fff", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
               {session.firstName} {session.lastName}
             </p>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 4, background: `${tier.color}20`, padding: "1px 8px", borderRadius: 2, marginTop: 2 }}>
-              <span style={{ width: 5, height: 5, borderRadius: "50%", background: tier.color, flexShrink: 0 }} />
-              <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "0.58rem", fontWeight: 700, color: tier.color, textTransform: "uppercase", letterSpacing: "0.1em" }}>{tier.label}</span>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 4, background: "rgba(201,168,76,0.2)", padding: "1px 8px", borderRadius: 2, marginTop: 2 }}>
+              <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#C9A84C", flexShrink: 0 }} />
+              <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "0.58rem", fontWeight: 700, color: "#C9A84C", textTransform: "uppercase", letterSpacing: "0.1em" }}>{COMMISSION.rate}% Affiliate</span>
             </div>
           </div>
         </div>

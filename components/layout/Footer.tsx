@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { siteConfig } from "@/data/index";
+import { siteConfig, industries, appSignupUrl } from "@/data/index";
+import FooterQuickLinks from "@/components/layout/FooterQuickLinks";
 
 const SOCIAL_ICONS: Record<string, JSX.Element> = {
   facebook: <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.13 8.44 9.88v-6.99h-2.54V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99C18.34 21.13 22 16.99 22 12z"/></svg>,
@@ -9,57 +10,30 @@ const SOCIAL_ICONS: Record<string, JSX.Element> = {
   twitter: <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.5 8.6L23.3 22h-6.9l-5.4-6.9L4.7 22H1.5l8-9.2L1 2h7l4.9 6.4L18.9 2zm-1.2 18h1.9L7.4 4H5.4l12.3 16z"/></svg>,
 };
 
-// Static Industries list -- no live DB call. Swap back to getDeskProducts()
-// once the backend/content layer is reconnected.
-const INDUSTRIES_LIST = [
-  { id: "schooldesk",       name: "Education",        href: "/schooldesk" },
-  { id: "faithdesk",        name: "Faith & Ministry",  href: "/faithdesk" },
-  { id: "insurancedesk",    name: "Insurance",         href: "/insurancedesk" },
-  { id: "constructiondesk", name: "Construction",      href: "/constructiondesk" },
-  { id: "gasstationdesk",   name: "Fuel & Retail",     href: "/gasstationdesk" },
-  { id: "businessdesk",     name: "General Business",  href: "/businessdesk" },
-];
-
 export default function Footer() {
   const year = new Date().getFullYear();
-  const deskProducts = INDUSTRIES_LIST;
-
-  const quickLinks = [
-    { l: "Home", h: "/" },
-    { l: "About Us", h: "/about" },
-    { l: "Services", h: "/services" },
-    { l: "Industries", h: "/desk" },
-    { l: "Work", h: "/case-studies" },
-    { l: "Blog", h: "/blog" },
-    { l: "Contact", h: "/contact" },
-    { l: "Service Areas", h: "/service-areas" },
-    { l: "Affiliate Program", h: "/affiliates" },
-    { l: "Investments", h: "/investments" },
-  ];
-
-  const services = ["Website Systems", "Lead Generation", "SEO & Digital Marketing", "Email Automation", "CRM & Operations", "Payment Systems"];
-
   const socials = Object.entries(siteConfig.socials || {}).filter(([, url]) => url);
 
   return (
     <footer style={{ background: "var(--navy-950)", borderTop: "1px solid rgba(249,247,240,0.06)", padding: "clamp(40px,6vw,56px) clamp(16px,4vw,32px) 28px" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1.4fr repeat(4,1fr)", gap: "clamp(24px,4vw,40px)", marginBottom: 40 }} className="footer-grid">
+        <div style={{ display: "grid", gridTemplateColumns: "1.4fr repeat(3,1fr)", gap: "clamp(24px,4vw,40px)", marginBottom: 40 }} className="footer-grid">
 
           {/* Brand */}
           <div>
             <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
-              <Image src="/logo.png" alt="JK Technology" width={32} height={32} style={{ objectFit: "contain" }} />
+              <Image src="/logo.png" alt="JKTL Business" width={32} height={32} style={{ objectFit: "contain" }} />
               <div>
-                <p style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 800, fontSize: "0.85rem", color: "#fff" }}>JK Technology Limited</p>
-                <p style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "0.5rem", color: "var(--gold-400)", letterSpacing: "0.15em" }}>DESK SUITE</p>
+                <p style={{ fontFamily: "'Plus Jakarta Sans',sans-serif", fontWeight: 800, fontSize: "0.85rem", color: "#fff" }}>JKTL Business</p>
+                <p style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "0.5rem", color: "var(--gold-400)", letterSpacing: "0.15em" }}>BY JK TECHNOLOGY LIMITED</p>
               </div>
             </Link>
             <p className="body-sm" style={{ color: "rgba(249,247,240,0.35)", lineHeight: 1.7, marginBottom: 16, fontSize: "0.8rem" }}>
-              We help businesses grow with smart digital solutions, industry-specific software and proven strategies.
+              {siteConfig.tagline}
             </p>
+            <a href={appSignupUrl()} className="btn-gold" style={{ fontSize: "0.68rem", padding: "10px 18px", display: "inline-flex" }}>Get Started Free</a>
             {socials.length > 0 && (
-              <div style={{ display: "flex", gap: 8 }}>
+              <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
                 {socials.map(([key, url]) => (
                   <a key={key} href={url as string} target="_blank" rel="noopener noreferrer" aria-label={key}
                     style={{ width: 32, height: 32, borderRadius: 6, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(249,247,240,0.6)", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -74,19 +48,7 @@ export default function Footer() {
           <div>
             <p className="label-xs" style={{ color: "rgba(249,247,240,0.22)", marginBottom: 14 }}>Quick Links</p>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              {quickLinks.map(link => (
-                <Link key={link.l} href={link.h} style={{ fontSize: "0.8rem", color: "rgba(249,247,240,0.4)", textDecoration: "none" }}>{link.l}</Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Our Services */}
-          <div>
-            <p className="label-xs" style={{ color: "rgba(249,247,240,0.22)", marginBottom: 14 }}>Our Services</p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              {services.map(s => (
-                <Link key={s} href="/services" style={{ fontSize: "0.8rem", color: "rgba(249,247,240,0.4)", textDecoration: "none" }}>{s}</Link>
-              ))}
+              <FooterQuickLinks />
             </div>
           </div>
 
@@ -94,8 +56,8 @@ export default function Footer() {
           <div>
             <p className="label-xs" style={{ color: "rgba(249,247,240,0.22)", marginBottom: 14 }}>Industries</p>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              {deskProducts.map(p => (
-                <Link key={p.id} href={p.href} style={{ fontSize: "0.8rem", color: "rgba(249,247,240,0.4)", textDecoration: "none" }}>{p.name}</Link>
+              {industries.slice(0, 8).map(ind => (
+                <Link key={ind.slug} href={`/industries#${ind.slug}`} style={{ fontSize: "0.8rem", color: "rgba(249,247,240,0.4)", textDecoration: "none" }}>{ind.title}</Link>
               ))}
             </div>
           </div>
@@ -109,7 +71,7 @@ export default function Footer() {
                 {siteConfig.phone}
               </a>
               <a href={"mailto:" + siteConfig.email} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: "0.78rem", color: "rgba(249,247,240,0.4)", textDecoration: "none" }}>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--gold-400)" strokeWidth="2" style={{ flexShrink: 0 }}><path d="M4 4h16v16H4z" opacity="0" /><path d="M22 6l-10 7L2 6" /><rect x="2" y="4" width="20" height="16" rx="2" /></svg>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--gold-400)" strokeWidth="2" style={{ flexShrink: 0 }}><path d="M22 6l-10 7L2 6" /><rect x="2" y="4" width="20" height="16" rx="2" /></svg>
                 {siteConfig.email}
               </a>
               <div style={{ display: "flex", alignItems: "flex-start", gap: 8, fontSize: "0.78rem", color: "rgba(249,247,240,0.4)" }}>

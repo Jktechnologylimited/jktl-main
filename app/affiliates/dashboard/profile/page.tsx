@@ -88,7 +88,7 @@ export default function ProfilePage() {
             {error && <p style={{ color: "var(--red)", fontSize: "0.78rem", marginBottom: 10 }}>{error}</p>}
             {saved && <p style={{ color: "#059669", fontSize: "0.78rem", marginBottom: 10 }}>Profile saved successfully.</p>}
 
-            <button onClick={save} disabled={saving} className="btn btn-navy">
+            <button onClick={save} disabled={saving} className="btn-primary">
               {saving ? "Saving..." : "Save Changes"}
             </button>
           </div>
@@ -106,7 +106,7 @@ export default function ProfilePage() {
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                 {[
                   { l: "Referral Code", v: aff.referralCode },
-                  { l: "Tier",          v: aff.tier.charAt(0).toUpperCase() + aff.tier.slice(1) },
+                  { l: "Commission Rate", v: "20% recurring" },
                   { l: "Member since",  v: new Date(aff.createdAt).toLocaleDateString("en-NG", { month: "long", year: "numeric" }) },
                 ].map(r => (
                   <div key={r.l} style={{ display: "flex", justifyContent: "space-between", padding: "6px 0", borderBottom: "1px solid rgba(249,247,240,0.06)", fontSize: "0.78rem" }}>

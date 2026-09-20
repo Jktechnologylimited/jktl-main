@@ -27,14 +27,10 @@ export default function LinksPage() {
 
   const mainSite = `https://jktl.com.ng`;
   const links = [
-    { key: "main",    label: "Main Website",          url: `${mainSite}?ref=${aff.referralCode}`, desc: "General referral -- works for all services" },
-    { key: "pkgs",    label: "Packages Page",          url: `${mainSite}/packages?ref=${aff.referralCode}`, desc: "Direct to packages and pricing" },
-    { key: "website", label: "Website Service",        url: `${mainSite}/services/website-systems?ref=${aff.referralCode}`, desc: "For businesses that need a website" },
-    { key: "seo",     label: "SEO Service",            url: `${mainSite}/services/seo?ref=${aff.referralCode}`, desc: "For businesses that need Google visibility" },
-    { key: "crm",     label: "CRM Service",            url: `${mainSite}/services/crm-operations?ref=${aff.referralCode}`, desc: "For businesses needing operations systems" },
-    { key: "ai",      label: "AI & Automation",        url: `${mainSite}/services/ai-automation?ref=${aff.referralCode}`, desc: "For businesses wanting AI chatbots" },
-    { key: "demos",   label: "Try Demos Page",         url: `${mainSite}/demos?ref=${aff.referralCode}`, desc: "Send prospects to try before they buy" },
-    { key: "solutions", label: "Solutions Page",       url: `${mainSite}/solutions?ref=${aff.referralCode}`, desc: "Industry-specific system solutions" },
+    { key: "main",       label: "Main Website",     url: `${mainSite}?ref=${aff.referralCode}`, desc: "General referral -- your best default link" },
+    { key: "pricing",    label: "Pricing Page",     url: `${mainSite}/pricing?ref=${aff.referralCode}`, desc: "Direct to plans and pricing -- best for warm leads ready to sign up" },
+    { key: "industries", label: "Industries Page",  url: `${mainSite}/industries?ref=${aff.referralCode}`, desc: "Shows how JKTL Business fits their specific type of business" },
+    { key: "how",        label: "How It Works Page",url: `${mainSite}/how-it-works?ref=${aff.referralCode}`, desc: "For prospects who want to understand the features first" },
   ];
 
   return (
@@ -76,7 +72,7 @@ export default function LinksPage() {
         <div style={{ background: "var(--cream-100)", border: "1px solid var(--cream-300)", borderRadius: 4, padding: "16px 20px", marginTop: 20 }}>
           <p className="label-xs" style={{ color: "rgba(28,28,30,0.4)", marginBottom: 6 }}>Tip</p>
           <p className="body-sm" style={{ color: "rgba(28,28,30,0.6)" }}>
-            Use the Demos link when talking to prospects who are unsure -- it lets them try the system before committing. The Packages link works best for warm leads who are ready to see pricing.
+            Use the Industries link when a prospect isn't sure JKTL Business fits their type of business. Use the Pricing link when they're ready to sign up.
           </p>
         </div>
       </div>

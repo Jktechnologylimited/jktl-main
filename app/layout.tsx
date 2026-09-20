@@ -3,17 +3,18 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import HideOnDashboard from "@/components/HideOnDashboard";
+import BizChat from "@/components/shared/BizChat";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jktl.com.ng"),
   title: {
-    default: "JK Technology Limited | Business Infrastructure Ecosystem -- Nigeria",
-    template: "%s | JK Technology Limited",
+    default: "JKTL Business | Business Management App for Nigerian SMEs",
+    template: "%s | JKTL Business",
   },
   description:
-    "JK Technology builds modular digital infrastructure and business operating systems that help African businesses attract customers, run operations efficiently, collect payments, and scale sustainably.",
+    "JKTL Business is a free, mobile-first app for Nigerian small and medium businesses -- CRM, bookings & sales, invoicing with Paystack, inventory, expenses, and a free business website, all in one place.",
   keywords:
-    "digital systems Nigeria, business website Nigeria, SEO Nigeria, CRM system, email automation, AI chatbot, web design Lagos, web design Port Harcourt, invoice generator Nigeria",
+    "business management app Nigeria, booking app Nigeria, invoicing app Nigeria, CRM Nigeria, salon software Nigeria, POS app Nigeria, free business website Nigeria, Paystack invoicing",
   authors: [{ name: "JK Technology Limited", url: "https://jktl.com.ng" }],
   icons: {
     icon: [
@@ -25,11 +26,11 @@ export const metadata: Metadata = {
     shortcut: "/favicon-32.png",
   },
   openGraph: {
-    title: "JK Technology Limited | Business Infrastructure Ecosystem",
+    title: "JKTL Business | Business Management App for Nigerian SMEs",
     description:
-      "We build digital systems that help African businesses get customers, convert leads, and automate operations.",
+      "CRM, bookings & sales, invoicing with Paystack, inventory, expenses, and a free business website -- all in one free, mobile-first app.",
     url: "https://jktl.com.ng",
-    siteName: "JK Technology Limited",
+    siteName: "JKTL Business",
     locale: "en_NG",
     type: "website",
     images: [{ url: "https://jktl.com.ng/logo.png", width: 1080, height: 1080 }],
@@ -49,26 +50,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {
                 "@context": "https://schema.org",
                 "@type": "Organization",
-                name: "JK Technology Limited",
+                name: "JKTL Business",
                 url: "https://jktl.com.ng",
                 logo: "https://jktl.com.ng/logo.png",
                 description:
-                  "JK Technology builds modular digital infrastructure and business operating systems for African businesses.",
+                  "JKTL Business is a free, mobile-first business management app for Nigerian small and medium businesses.",
                 sameAs: [],
               },
               {
                 "@context": "https://schema.org",
                 "@type": "WebSite",
-                name: "JK Technology Limited",
+                name: "JKTL Business",
                 url: "https://jktl.com.ng",
-                potentialAction: {
-                  "@type": "SearchAction",
-                  target: {
-                    "@type": "EntryPoint",
-                    urlTemplate: "https://jktl.com.ng/blog?q={search_term_string}",
-                  },
-                  "query-input": "required name=search_term_string",
-                },
               },
             ]),
           }}
@@ -76,6 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <HideOnDashboard><Navbar /></HideOnDashboard>
         <main>{children}</main>
         <HideOnDashboard><Footer /></HideOnDashboard>
+        <BizChat />
       </body>
     </html>
   );

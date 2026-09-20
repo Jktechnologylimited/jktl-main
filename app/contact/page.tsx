@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
-import { siteConfig } from "@/data/index";
+import Image from "next/image";
+import { siteConfig, pexelsUrl, appSignupUrl } from "@/data/index";
 import PageHero from "@/components/shared/PageHero";
 import CTABanner from "@/components/shared/CTABanner";
 
@@ -19,12 +20,11 @@ const ICONS: Record<string, React.ReactNode> = {
 };
 
 const FAQS = [
-  { q: "How long does it take to build a system?", a: "Timelines vary by scope -- a marketing website typically takes 2-4 weeks, while a full platform like SchoolDesk or a custom system can take longer. We'll give you a clear timeline before work begins." },
-  { q: "Can you help with domain and hosting?",     a: "Yes -- we can register domains, set up hosting and manage deployment as part of your project." },
-  { q: "What information do you need to get started?", a: "Just tell us about your business, goals and what you're trying to achieve. We'll scope the rest with you." },
-  { q: "Will my system be mobile-friendly?",        a: "Always. Every platform we build is fully responsive across phones, tablets and desktops." },
-  { q: "Do you provide ongoing maintenance?",       a: "Yes -- we offer maintenance and support plans to keep your platform updated, secure and running smoothly." },
-  { q: "Do you work with businesses in my industry?", a: "We build both industry-specific platforms (schools, churches, insurance, construction and more) and custom systems for any industry. Reach out and we'll tell you exactly how we can help." },
+  { q: "Is JKTL Business really free to start?", a: "Yes -- customer records, bookings or sales tracking, invoicing with online payment, inventory tracking, and a published business website are all free, no card required." },
+  { q: "Do I need this for the JKTL Business app itself?", a: "No -- for account or product support inside the app, use the help option in your JKTL Business dashboard. This form is for general questions about the product, partnerships, or press." },
+  { q: "Is my type of business supported?", a: "JKTL Business fits most service and product businesses -- see our Industries page, or just ask us here." },
+  { q: "How do I become an affiliate?", a: "Visit our Affiliates page to apply -- it's free to join and approval usually takes 24-48 hours." },
+  { q: "How quickly do you respond?", a: "We reply within 24 hours -- WhatsApp is usually the fastest way to reach us." },
 ];
 
 const inputCls = "w-full px-4 py-3 rounded-sm border border-cream-300 bg-white text-[0.85rem] text-navy-900 placeholder:text-black/30 outline-none focus:border-navy-600 transition-colors";
@@ -37,13 +37,13 @@ export default function ContactPage() {
     <div className="bg-cream-50">
       <PageHero
         eyebrow="Contact Us"
-        heading="Let's Build Something Great Together"
-        subhead="Have a project in mind or need help growing your business online? We'd love to hear from you."
+        heading="Questions About JKTL Business?"
+        subhead="Whether it's about a business plan, partnerships, or press -- we'd love to hear from you."
         primaryLabel="Get in Touch"
         primaryHref="#form"
         secondaryLabel="WhatsApp Us"
         secondaryHref={`https://wa.me/${siteConfig.whatsapp}`}
-        imageNode={<div className="w-full h-full flex items-center justify-center"><span className="font-mono text-[0.65rem] text-white/20 tracking-widest">CONTACT</span></div>}
+        imageNode={<Image src={pexelsUrl(30677594, 900)} alt="Contact JKTL Business" width={900} height={675} className="w-full h-full object-cover" />}
       />
 
       {/* WAYS TO REACH US */}
@@ -137,7 +137,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <CTABanner heading="Ready to Grow Your Business Online?" subhead="Let's discuss your project and create a powerful digital solution that delivers real results." />
+      <CTABanner heading="Ready to Get Started?" subhead="Free to start, no card required." primaryLabel="Get Started Free" primaryHref={appSignupUrl()} />
     </div>
   );
 }

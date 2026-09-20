@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Reveal } from "@/components/shared/Reveal";
 
 export interface PageHeroProps {
   eyebrow: string;
@@ -18,7 +19,7 @@ export default function PageHero({ eyebrow, heading, subhead, primaryLabel, prim
     <section className="bg-white" style={{ paddingTop: "clamp(96px,12vw,128px)", paddingBottom: "56px" }}>
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
+          <Reveal>
             <div className="flex items-center gap-2 mb-3">
               <span style={{ width: 24, height: 2, background: "#C9A84C" }} />
               <p className="font-mono text-[0.68rem] font-bold text-black/40 uppercase tracking-[0.15em]">{eyebrow}</p>
@@ -29,10 +30,10 @@ export default function PageHero({ eyebrow, heading, subhead, primaryLabel, prim
               <Link href={primaryHref} className="btn-primary px-7 py-3.5 text-sm uppercase tracking-wide">{primaryLabel}</Link>
               <Link href={secondaryHref} className="btn-outline-navy px-7 py-3.5 text-sm uppercase tracking-wide">{secondaryLabel}</Link>
             </div>
-          </div>
-          <div className="rounded overflow-hidden border border-cream-300" style={{ aspectRatio: "4/3", background: "#0B1640" }}>
+          </Reveal>
+          <Reveal delay={0.15} y={28} className="rounded overflow-hidden border border-cream-300" style={{ aspectRatio: "4/3", background: "#0B1640" }}>
             {imageNode}
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

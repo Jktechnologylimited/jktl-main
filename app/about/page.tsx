@@ -1,50 +1,26 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import Image from "next/image";
 import PageHero from "@/components/shared/PageHero";
-import StatsRow from "@/components/shared/StatsRow";
 import CTABanner from "@/components/shared/CTABanner";
+import { siteConfig, appSignupUrl, pexelsUrl } from "@/data/index";
 
 export const metadata: Metadata = {
-  title: "About Us | JK Technology Limited",
-  description: "We are a team of strategists, designers and developers passionate about building high-performing digital systems that help businesses grow.",
+  title: "About Us",
+  description: "JKTL Business is built by JK Technology Limited -- a Lagos-based team building business software for Nigerian SMEs.",
   alternates: { canonical: "https://jktl.com.ng/about" },
 };
 
 const VALUES = [
-  {
-    title: "Our Mission",
-    desc: "To empower businesses with powerful digital solutions that drive growth, build credibility and create lasting impact.",
-  },
-  {
-    title: "Our Vision",
-    desc: "To be the leading digital partner for businesses in Africa and beyond, known for innovation, results and exceptional service.",
-  },
-  {
-    title: "Our Values",
-    list: ["Excellence in everything we do", "Integrity and transparency", "Client success is our priority", "Innovation and continuous growth"],
-  },
+  { title: "Mission", desc: siteConfig.mission },
+  { title: "Vision", desc: siteConfig.vision },
+  { title: "Values", list: siteConfig.values },
 ];
 
 const WHY = [
-  { title: "Results Driven",   desc: "We focus on building systems that deliver measurable results for your business." },
-  { title: "Custom Solutions", desc: "Every business is unique. We create tailored solutions that fit your goals." },
-  { title: "Expert Team",      desc: "Skilled designers, developers and strategists working together for you." },
-  { title: "Ongoing Support",  desc: "We're always here to support you even after your project goes live." },
-];
-
-const TEAM = [
-  { name: "Founder & Team",  role: "Leadership" },
-  { name: "Product & Design", role: "Design Team" },
-  { name: "Engineering",     role: "Development Team" },
-  { name: "Client Success",  role: "Support Team" },
-];
-
-const STATS = [
-  { v: "200+", l: "Projects Completed" },
-  { v: "100+", l: "Happy Clients" },
-  { v: "6+",   l: "Industries Served" },
-  { v: "6+",   l: "Years Experience" },
-  { v: "24/7", l: "Support" },
+  { title: "Built for Nigeria", desc: "Naira pricing, Paystack built in, and a design that works on the phones and networks people actually use." },
+  { title: "Free to Start", desc: "The core of what a small business needs shouldn't cost anything. We built the free plan to be genuinely useful, not a limited trial." },
+  { title: "Mobile-First", desc: "Most business owners run their business from a phone, not a laptop. Everything is designed for that first." },
+  { title: "One Flat Price", desc: "No commission on your sales, no surprise fees. Just a simple monthly or yearly plan when you need more." },
 ];
 
 export default function AboutPage() {
@@ -52,13 +28,13 @@ export default function AboutPage() {
     <div className="bg-cream-50">
       <PageHero
         eyebrow="About Us"
-        heading="We Build Systems That Help Businesses Grow"
-        subhead="We are a team of strategists, designers and developers passionate about building high-performing software that attracts customers, generates leads and grows businesses across Nigeria."
-        primaryLabel="Get to Know Us"
-        primaryHref="/contact"
-        secondaryLabel="View Our Work"
-        secondaryHref="/case-studies"
-        imageNode={<div className="w-full h-full flex items-center justify-center"><span className="font-mono text-[0.65rem] text-white/20 tracking-widest">JKTL</span></div>}
+        heading="We Build The Back Office So You Can Run The Business"
+        subhead={`JKTL Business is built by ${siteConfig.name}, a Lagos-based software company founded in ${siteConfig.founded}.`}
+        primaryLabel="Get Started Free"
+        primaryHref={appSignupUrl()}
+        secondaryLabel="Contact Us"
+        secondaryHref="/contact"
+        imageNode={<Image src={pexelsUrl(30689114, 900)} alt="JKTL team" width={900} height={675} className="w-full h-full object-cover" />}
       />
 
       {/* OUR STORY */}
@@ -66,17 +42,16 @@ export default function AboutPage() {
         <div className="max-w-[1200px] mx-auto">
           <h2 className="display-lg text-navy-900 text-center mb-10">Our Story</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-            <div className="rounded overflow-hidden border border-cream-300 bg-navy-950 flex items-center justify-center" style={{ aspectRatio: "4/3" }}>
-              <span className="font-mono text-[0.6rem] text-white/20 tracking-widest">FOUNDED 2019</span>
+            <div className="rounded overflow-hidden border border-cream-300" style={{ aspectRatio: "4/3" }}>
+              <Image src={pexelsUrl(37992489, 800)} alt="Nigerian business owner at work" width={800} height={600} className="w-full h-full object-cover" />
             </div>
             <div>
-              <p className="font-bold text-[1.05rem] text-navy-900 mb-4">Every great business has a beginning.</p>
+              <p className="font-bold text-[1.05rem] text-navy-900 mb-4">Every Nigerian business deserves proper tools, not just a notebook and a WhatsApp group.</p>
               <div className="flex flex-col gap-3 mb-6">
-                <p className="body-sm text-black/55 leading-relaxed">We started with a simple goal -- to help businesses establish a professional online presence that drives real results.</p>
-                <p className="body-sm text-black/55 leading-relaxed">Since 2019, we have worked with businesses across different industries, delivering platforms that not only look great but also perform and convert.</p>
-                <p className="body-sm text-black/55 leading-relaxed">Our journey is built on passion, creativity, and a commitment to excellence in everything we ship.</p>
+                <p className="body-sm text-black/55 leading-relaxed">{siteConfig.name} was founded in {siteConfig.founded} building digital tools for Nigerian businesses.</p>
+                <p className="body-sm text-black/55 leading-relaxed">That work led directly to JKTL Business -- a single, free, mobile-first app that gives any small or medium business the customer management, booking, invoicing and inventory tools that used to be out of reach.</p>
+                <p className="body-sm text-black/55 leading-relaxed">{siteConfig.promise}</p>
               </div>
-              <Link href="/case-studies" className="btn-outline-navy px-6 py-3 inline-block text-sm uppercase tracking-wide">Our Journey</Link>
             </div>
           </div>
         </div>
@@ -85,7 +60,6 @@ export default function AboutPage() {
       {/* MISSION / VISION / VALUES */}
       <section className="bg-cream-50 px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         <div className="max-w-[1200px] mx-auto">
-          <h2 className="display-lg text-navy-900 text-center mb-10">Our Mission, Vision &amp; Values</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {VALUES.map(v => (
               <div key={v.title} className="bg-white border border-cream-300 rounded p-7 text-center">
@@ -112,7 +86,7 @@ export default function AboutPage() {
       {/* WHY CHOOSE US */}
       <section className="bg-white px-4 sm:px-6 lg:px-8 py-16 sm:py-20 border-y border-cream-300">
         <div className="max-w-[1200px] mx-auto">
-          <h2 className="display-lg text-navy-900 text-center mb-10">Why Choose Us</h2>
+          <h2 className="display-lg text-navy-900 text-center mb-10">Why JKTL Business</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {WHY.map(w => (
               <div key={w.title} className="text-center">
@@ -127,34 +101,12 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* MEET OUR TEAM */}
-      <section className="bg-cream-50 px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-        <div className="max-w-[1200px] mx-auto">
-          <h2 className="display-lg text-navy-900 text-center mb-10">Meet Our Team</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {TEAM.map(t => (
-              <div key={t.name} className="bg-white border border-cream-300 rounded p-6 text-center">
-                <div className="rounded bg-navy-950 mb-4 flex items-center justify-center" style={{ aspectRatio: "1/1" }}>
-                  <span className="font-mono text-[0.55rem] text-white/20">{t.name.split(" ")[0].toUpperCase()}</span>
-                </div>
-                <p className="font-bold text-[0.9rem] text-navy-900">{t.name}</p>
-                <p className="text-[0.75rem] text-black/40 mb-3">{t.role}</p>
-              </div>
-            ))}
-          </div>
-          <p className="text-center text-[0.8rem] text-black/35 mt-8">Real team profiles coming soon.</p>
-        </div>
-      </section>
-
-      {/* IMPACT IN NUMBERS */}
-      <section className="bg-white px-4 sm:px-6 lg:px-8 py-16 border-y border-cream-300">
-        <div className="max-w-[1200px] mx-auto">
-          <h2 className="display-lg text-navy-900 text-center mb-10">Our Impact in Numbers</h2>
-          <StatsRow stats={STATS} />
-        </div>
-      </section>
-
-      <CTABanner heading="Ready to grow your business?" subhead="Let's build a system that delivers real results for your business." />
+      <CTABanner
+        heading="Ready to Try It?"
+        subhead="Free to start, no card required."
+        primaryLabel="Get Started Free"
+        primaryHref={appSignupUrl()}
+      />
     </div>
   );
 }

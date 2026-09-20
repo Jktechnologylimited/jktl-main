@@ -19,13 +19,6 @@ export async function POST(req: NextRequest) {
     }, { status: 400 });
   }
 
-  // Check bonus not expired
-  if (!stats.bonusUnlocked && stats.bonusExpired) {
-    return NextResponse.json({
-      error: "Your signup bonus has expired (90 days without a referral). Your earned commissions are still available.",
-    }, { status: 400 });
-  }
-
   const { bankName, bankAccount, bankHolder } = await req.json();
   if (!bankName || !bankAccount || !bankHolder) {
     return NextResponse.json({ error: "Bank details are required for payout" }, { status: 400 });

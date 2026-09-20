@@ -78,7 +78,7 @@ export default function EarningsPage() {
                 </p>
               </div>
               {stats.approved >= PAYOUT.minimum ? (
-                <button onClick={() => setShowPayoutForm(!showPayoutForm)} className="btn btn-gold btn-sm">
+                <button onClick={() => setShowPayoutForm(!showPayoutForm)} className="btn-gold btn-sm">
                   {showPayoutForm ? "Cancel" : "Request Payout"}
                 </button>
               ) : (
@@ -103,7 +103,7 @@ export default function EarningsPage() {
                     </div>
                   ))}
                 </div>
-                <button onClick={requestPayout} disabled={loading} className="btn btn-gold btn-sm">
+                <button onClick={requestPayout} disabled={loading} className="btn-gold btn-sm">
                   {loading ? "Submitting..." : `Confirm -- Request ₦${stats.approved.toLocaleString()}`}
                 </button>
                 {payoutMsg && <p style={{ fontSize: "0.78rem", color: payoutMsg.includes("success") ? "#34D399" : "#F87171", marginTop: 8 }}>{payoutMsg}</p>}

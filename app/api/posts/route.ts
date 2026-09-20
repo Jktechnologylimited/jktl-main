@@ -10,11 +10,11 @@ export async function GET(req: NextRequest) {
     const type = req.nextUrl.searchParams.get("type");
     const posts = type
       ? await sql`
-          SELECT id, title, slug, cover_image, excerpt, author, type, published_at
+          SELECT id, title, slug, cover_image, excerpt, author, type, category, tags, published_at
           FROM posts WHERE status = 'published' AND type = ${type}
           ORDER BY published_at DESC NULLS LAST`
       : await sql`
-          SELECT id, title, slug, cover_image, excerpt, author, type, published_at
+          SELECT id, title, slug, cover_image, excerpt, author, type, category, tags, published_at
           FROM posts WHERE status = 'published'
           ORDER BY published_at DESC NULLS LAST`;
     return NextResponse.json({ posts });

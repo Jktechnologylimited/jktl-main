@@ -1,10 +1,20 @@
+// ---------------------------------------------------------------------------
+//  JKTL BUSINESS -- marketing site data
+// ---------------------------------------------------------------------------
+
+export function pexelsUrl(id: number, w = 1200) {
+  return `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=${w}`;
+}
+
 // --- SITE CONFIG --------------------------------------------------------------
 export const siteConfig = {
   name: "JK Technology Limited",
   short: "JKTL",
-  tagline: "We Build Digital Systems That Help Businesses Get Customers, Convert Leads, and Automate Operations",
-  shortTagline: "Business Infrastructure Ecosystem",
+  product: "JKTL Business",
+  tagline: "The all-in-one app Nigerian businesses use to manage customers, bookings, invoices and payments -- from their phone.",
+  shortTagline: "Business management, made mobile-first",
   url: "https://jktl.com.ng",
+  appUrl: "https://business.jktl.com.ng",
   email: "info@jktl.com.ng",
   phone: "+234 703 658 0994",
   whatsapp: "2347036580994",
@@ -13,11 +23,10 @@ export const siteConfig = {
   founded: "2019",
   experience: "6+",
   markets: "Nigeria & Africa",
-  mission: "Empower businesses with smart digital systems that drive growth, efficiency, and maximise revenue.",
-  vision: "To be the #1 provider of business infrastructure systems for African SMEs and enterprises.",
-  values: ["Innovation", "Integrity", "Customer Success", "Excellence"],
-  promise: "We don't just build software. We build systems that businesses rely on to grow, every single day.",
-  // Real social URLs -- empty until provided. The footer only renders an icon when a URL is set here.
+  mission: "Give every Nigerian business owner the tools a big company has -- CRM, bookings, invoicing, inventory, and a website -- in one free app that works from a phone.",
+  vision: "To be the operating system every small and medium business in Africa runs on.",
+  values: ["Simplicity", "Fairness", "Reliability", "Local-first"],
+  promise: "We build the back office so you can focus on the business.",
   socials: {
     facebook: "",
     instagram: "",
@@ -26,1329 +35,220 @@ export const siteConfig = {
   },
 };
 
+export function appSignupUrl(ref?: string) {
+  return ref ? `${siteConfig.appUrl}/signup?ref=${ref}` : `${siteConfig.appUrl}/signup`;
+}
+export function appLoginUrl() {
+  return `${siteConfig.appUrl}/login`;
+}
+
 // --- NAVIGATION ---------------------------------------------------------------
 export const navLinks = [
-  { href: "/services", label: "Services", children: [
-    { href: "/services/website-systems",        label: "Website & Landing Page Systems" },
-    { href: "/services/lead-generation",        label: "Lead Generation Landing Pages" },
-    { href: "/services/email-automation",       label: "Email & Follow-up Automation" },
-    { href: "/services/seo",                    label: "SEO & Google Visibility" },
-    { href: "/services/crm-operations",         label: "CRM & Business Operations" },
-    { href: "/services/payment-infrastructure", label: "Payment & Business Infrastructure" },
-    { href: "/services/ai-automation",          label: "AI & Automation Systems" },
-  ]},
-  { href: "/solutions", label: "Solutions", children: null },
-  { href: "/tools",     label: "Free Tools", children: null },
-  { href: "/packages",  label: "Packages",  children: null },
-  { href: "/work",      label: "Work",      children: null },
-  { href: "/about",     label: "About",     children: null },
-  { href: "/blog",      label: "Insights",  children: null },
-  { href: "/demos",     label: "Try Demos",  children: null },
-  { href: "/contact",   label: "Contact",    children: null },
+  { href: "/industries", label: "Industries" },
+  { href: "/how-it-works", label: "How It Works" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/affiliates", label: "Affiliates" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
 ];
 
-// --- 8 SERVICES ---------------------------------------------------------------
-export const services = [
+// --- CORE FEATURES (used on Home + How It Works) -------------------------------
+export const features = [
   {
-    slug: "website-systems",
-    demoSlug: "/demos/website",
-    number: "01",
-    icon: "01",
-    label: "Website & Landing Page Systems",
-    shortLabel: "Website Systems",
-    tier: "Foundation",
-    tagline: "Your digital front door -- built to impress, rank, and convert",
-    description: "A complete, professional website built for your specific industry and audience. SEO-ready, mobile-first, and designed to turn visitors into leads from day one.",
-    priceFrom: "N150,000",
-    priceTo: "N800,000",
-    priceAlt: "GBP200 - GBP1,000",
-    deliveryNote: "One-time project",
-    highlight: false,
-    features: [
-      "Business Website (5-8 pages)",
-      "Mobile Responsive Design",
-      "SEO Setup",
-      "Contact Forms",
-      "WhatsApp / Chat Integration",
-      "Google Maps Integration",
-      "Professional copywriting",
-      "Google Analytics setup",
-    ],
-    bestFor: ["Service Businesses", "Consultants", "Law Firms", "Clinics"],
+    icon: "Users",
+    title: "Customer Records (CRM)",
+    desc: "Every customer, their history, notes and preferences, saved automatically -- so every visit feels personal.",
   },
   {
-    slug: "lead-generation",
-    demoSlug: "/demos/lead-generation",
-    number: "02",
-    icon: "02",
-    label: "Lead Generation Landing Pages",
-    shortLabel: "Lead Generation",
-    tier: "Campaign",
-    tagline: "A focused page built for one goal -- converting visitors into leads",
-    description: "High-converting landing pages engineered for paid ad campaigns, service launches, and lead magnets. Every element serves one purpose: get the visitor to take action.",
-    priceFrom: "N100,000",
-    priceTo: "N500,000",
-    priceAlt: "GBP150 - GBP800",
-    deliveryNote: "One-time project",
-    highlight: true,
-    features: [
-      "High-Converting Landing Page",
-      "Ad Integration (Meta / Google)",
-      "Lead Capture System",
-      "Form -> Email / CRM Automation",
-      "Conversion Tracking Setup",
-      "Full copywriting included",
-      "A/B testing ready",
-      "Mobile-first design",
-    ],
-    bestFor: ["Paid Ad Campaigns", "Service Launches", "Lead Magnets", "Email Funnels"],
+    icon: "CalendarCheck",
+    title: "Bookings & Sales Tracking",
+    desc: "Appointments for service businesses, sales tracking for retail and product businesses -- whichever fits how you work.",
   },
   {
-    slug: "email-automation",
-    demoSlug: "/demos/email-automation",
-    number: "03",
-    icon: "03",
-    label: "Email & Follow-up Automation",
-    shortLabel: "Email Automation",
-    tier: "Automation",
-    tagline: "Follow up with every lead automatically -- while you focus on delivery",
-    description: "Automated email systems built on Resend that nurture leads, follow up on enquiries, send payment and booking confirmations, and recover missed opportunities -- 24/7.",
-    priceFrom: "N100,000",
-    priceTo: "N400,000",
-    priceAlt: "Setup",
-    priceMonthly: "N20,000 - N100,000/mo",
-    deliveryNote: "Setup + monthly retainer",
-    highlight: false,
-    features: [
-      "Automated Email System (Resend)",
-      "Lead Follow-up Emails",
-      "Payment & Booking Emails",
-      "Missed Inquiry Recovery",
-      "Domain Email Setup",
-      "CRM integration",
-      "Sequence builder",
-      "Performance reporting",
-    ],
-    bestFor: ["Any Business with Leads", "Appointment-Based Businesses", "E-commerce", "Consultants"],
+    icon: "Receipt",
+    title: "Invoicing & Payments",
+    desc: "Create an invoice in seconds and collect payment online, directly on it, via Paystack. No more chasing bank transfers.",
   },
   {
-    slug: "seo",
-    demoSlug: "/demos/seo",
-    number: "04",
-    icon: "04",
-    label: "SEO & Google Visibility System",
-    shortLabel: "SEO",
-    tier: "Traffic",
-    tagline: "Rank on Google for the searches your customers are already making",
-    description: "A complete SEO and Google visibility system covering local search, keyword targeting, Google Business Profile, and map rankings -- so your ideal clients find you first.",
-    priceFrom: "N150,000",
-    priceTo: "N700,000",
-    priceAlt: "Setup",
-    priceMonthly: "N50,000 - N200,000/mo",
-    deliveryNote: "Setup + monthly retainer",
-    highlight: false,
-    features: [
-      "Google Business Optimisation",
-      "Local SEO Setup",
-      "Keyword Targeting Pages",
-      "Map Ranking Strategy",
-      "Review System Setup",
-      "Technical SEO audit",
-      "Content optimisation",
-      "Monthly ranking report",
-    ],
-    bestFor: ["Local Service Businesses", "Clinics & Salons", "Law Firms", "Retail & Hospitality"],
+    icon: "Package",
+    title: "Inventory Tracking",
+    desc: "Know what's in stock, what's running low, and get alerted before you run out.",
   },
   {
-    slug: "crm-operations",
-    demoSlug: "/demos/crm",
-    number: "05",
-    icon: "05",
-    label: "CRM & Business Operations System",
-    shortLabel: "CRM System",
-    tier: "Operations",
-    tagline: "A single system to track leads, clients, and your entire business pipeline",
-    description: "A custom CRM and operations dashboard that tracks every lead, manages your client database, monitors your sales pipeline, and gives you real-time business analytics.",
-    priceFrom: "N300,000",
-    priceTo: "N2,000,000",
-    priceAlt: "",
-    priceMonthly: "N30,000 - N150,000/mo",
-    deliveryNote: "Setup + monthly support",
-    highlight: false,
-    features: [
-      "Lead Tracking Dashboard",
-      "Customer Database",
-      "Sales Pipeline Management",
-      "Appointment & Staff Tracking",
-      "Reports & Analytics Dashboard",
-      "WhatsApp integration",
-      "Automated follow-up triggers",
-      "Team access controls",
-    ],
-    bestFor: ["Growing Businesses", "Sales Teams", "Agencies", "Multi-staff Operations"],
+    icon: "Wallet",
+    title: "Expense Tracking",
+    desc: "Log business expenses as you spend, so you always know your real numbers.",
   },
   {
-    slug: "payment-infrastructure",
-    demoSlug: "/demos/payments",
-    number: "06",
-    icon: "06",
-    label: "Payment & Business Infrastructure",
-    shortLabel: "Payment Systems",
-    tier: "Infrastructure",
-    tagline: "Accept payments online -- seamlessly, professionally, and automatically",
-    description: "Complete payment and business infrastructure: payment links, QR codes, online checkout, subscription billing, and automated invoice generation.",
-    priceFrom: "N100,000",
-    priceTo: "N600,000",
-    priceAlt: "+ Transaction Charges",
-    deliveryNote: "One-time setup",
-    highlight: false,
-    features: [
-      "Payment Links",
-      "QR Code Payments",
-      "Online Checkout",
-      "Subscription Billing",
-      "Invoice Generation",
-      "Paystack / Flutterwave integration",
-      "Payment confirmation automation",
-      "Revenue dashboard",
-    ],
-    bestFor: ["E-commerce", "Subscription Businesses", "Coaches & Trainers", "Service Firms"],
+    icon: "Globe",
+    title: "Free Business Website",
+    desc: "Every business gets a published website on a jktl.com.ng subdomain -- customers can find you and book or buy online.",
   },
   {
-    slug: "ai-automation",
-    demoSlug: "/demos/ai-chatbot",
-    number: "07",
-    icon: "07",
-    label: "AI & Automation Systems",
-    shortLabel: "AI Systems",
-    tier: "Intelligence",
-    tagline: "Automate the repetitive. Focus on what only you can do.",
-    description: "AI-powered systems that handle routine business tasks automatically -- website chatbots, WhatsApp auto-replies, FAQ automation, customer onboarding, and workflow automation.",
-    priceFrom: "N250,000",
-    priceTo: "N1,500,000",
-    priceAlt: "Setup",
-    priceMonthly: "N50,000 - N300,000/mo",
-    deliveryNote: "Setup + monthly support",
-    highlight: false,
-    features: [
-      "AI Website Chatbot",
-      "WhatsApp Auto-Replies",
-      "FAQ Automation",
-      "Customer Onboarding",
-      "Workflow Automation",
-      "Lead qualification bot",
-      "Appointment scheduling AI",
-      "Performance analytics",
-    ],
-    bestFor: ["High-Volume Businesses", "Customer Service Teams", "E-commerce", "Clinics & Salons"],
+    icon: "Smartphone",
+    title: "Installable App (PWA)",
+    desc: "Add JKTL Business to your home screen like any app. No app store, no update hassle.",
+  },
+  {
+    icon: "UsersRound",
+    title: "Multi-Staff Roles",
+    desc: "Bring your team in with owner, manager and staff roles, each seeing only what they need to.",
   },
 ];
 
-// --- FLAGSHIP PACKAGE ----------------------------------------------------------
-export const flagshipPackage = {
-  name: "Full Business System Package",
-  demoSlug: "/demos",
-  label: "Flagship Offer",
-  number: "08",
-  icon: "08",
-  tagline: "Everything your business needs to grow -- built, integrated, and running.",
-  description: "Our flagship end-to-end solution. Website, landing pages, SEO, CRM, email automation, payment system, AI chatbot, analytics, and ongoing support -- all designed to work together as one integrated growth machine.",
-  priceFrom: "N800,000",
-  priceTo: "N5,000,000",
-  priceAlt: "GBP1,000 - GBP6,000+",
-  deliveryNote: "One-time + monthly",
-  features: [
-    "Website + Landing Pages",
-    "SEO + CRM + Email Automation",
-    "Payment System + AI Chatbot",
-    "Analytics & Reporting",
-    "Ongoing Support & Training",
-    "Full system integration",
-    "Dedicated account manager",
-    "Priority support",
-  ],
-};
-
-// --- 3 PRICING TIERS ----------------------------------------------------------
-export const packages = [
+// --- INDUSTRIES -----------------------------------------------------------------
+export const industries = [
   {
-    name: "Starter",
-    subtitle: "Get Online",
-    price: "N150,000",
-    priceTo: "N500,000",
-    priceNote: "One-time",
-    highlight: false,
-    tagline: "For businesses that need a professional online presence fast",
+    slug: "beauty-personal-care",
+    title: "Beauty & Personal Care",
+    blurb: "Bookings that don't overlap, a client history you can actually search, and a website customers can book from directly.",
+    examples: ["Salons", "Nail techs", "Lash techs", "Nail & lash studios", "Hair vendors", "Wig installers", "Braiders", "Makeup artists", "Beauty studios"],
+    icon: "Scissors",
+    image: pexelsUrl(3993330),
+  },
+  {
+    slug: "fitness-wellness",
+    title: "Fitness & Wellness",
+    blurb: "Class and session bookings, membership customers on file, and invoicing for packages and personal training.",
+    examples: ["Gyms", "Pilates studios", "Spin studios", "Wellness brands"],
+    icon: "Dumbbell",
+    image: pexelsUrl(6455787),
+  },
+  {
+    slug: "med-spas-aesthetics",
+    title: "Med-Spas & Aesthetics",
+    blurb: "Track treatment history per client, manage appointment slots, and take deposits or full payment upfront.",
+    examples: ["IV therapy", "Laser treatment", "Aestheticians", "Cosmetics clinics"],
+    icon: "Sparkles",
+    image: pexelsUrl(3738349),
+  },
+  {
+    slug: "food-hospitality",
+    title: "Food & Hospitality",
+    blurb: "Track orders and sales, manage stock and ingredients, and let customers find and reach you online.",
+    examples: ["Restaurants", "Fine dining", "Cafes", "Brunch spots"],
+    icon: "UtensilsCrossed",
+    image: pexelsUrl(37992489),
+  },
+  {
+    slug: "retail-trade",
+    title: "Retail & Trade",
+    blurb: "Full inventory with low-stock alerts, sales tracking instead of appointments, and invoicing for bigger orders.",
+    examples: ["Auto parts", "Building materials", "Plumbing supplies", "Gas/filling stations", "Personal shoppers", "Luxury resellers", "Errand services"],
+    icon: "Store",
+    image: pexelsUrl(33203798),
+  },
+  {
+    slug: "events",
+    title: "Events",
+    blurb: "Manage client bookings and event dates, track deposits and balances, and keep vendor and client notes in one place.",
+    examples: ["Wedding & event planners", "Florists", "Decorators", "Event venues"],
+    icon: "PartyPopper",
+    image: pexelsUrl(17023110),
+  },
+  {
+    slug: "content-media",
+    title: "Content & Media",
+    blurb: "Book shoots and sessions, invoice clients with online payment, and keep a record of every project and client.",
+    examples: ["Photographers", "Videographers", "Content creators"],
+    icon: "Camera",
+    image: pexelsUrl(34443368),
+  },
+  {
+    slug: "nightlife",
+    title: "Nightlife",
+    blurb: "Track table and event bookings, manage stock behind the bar, and keep a record of regulars and VIP clients.",
+    examples: ["Clubs", "Lounges", "DJs", "Promoters"],
+    icon: "Music",
+    image: pexelsUrl(34009280),
+  },
+  {
+    slug: "travel",
+    title: "Travel",
+    blurb: "Manage client bookings and travel packages, invoice for tickets and packages, and collect payment online.",
+    examples: ["Travel agents", "Hotels", "Airlines", "Tour operators"],
+    icon: "Plane",
+    image: pexelsUrl(3885493),
+  },
+  {
+    slug: "fashion",
+    title: "Fashion",
+    blurb: "Track orders and measurements per customer, manage fabric and stock, and invoice for custom pieces.",
+    examples: ["Designers", "Stylists", "Tailors", "Instagram-based fashion vendors"],
+    icon: "Shirt",
+    image: pexelsUrl(9849297),
+  },
+];
+
+// --- PRICING --------------------------------------------------------------------
+export const pricing = {
+  free: {
+    name: "Free",
+    price: "₦0",
+    period: "forever",
+    tagline: "Everything a business needs to start running better, today.",
     features: [
-      "Basic Website",
-      "Contact Form",
-      "WhatsApp Integration",
-      "Basic SEO Setup",
-      "1 Month Support",
+      "Full customer records (CRM)",
+      "Bookings or sales tracking",
+      "Invoicing with online payment via Paystack",
+      "Inventory tracking with low-stock alerts",
+      "Expense tracking",
+      "Published business website on a jktl.com.ng subdomain",
+      "Installable app (PWA)",
+      "1 staff seat (owner)",
     ],
   },
-  {
-    name: "Growth",
-    subtitle: "Generate & Convert Leads",
-    price: "N500,000",
-    priceTo: "N1,500,000",
-    priceNote: "One-time + Monthly",
-    highlight: true,
-    tagline: "For businesses ready to generate consistent leads and revenue online",
+  paid: {
+    name: "Paid Plan",
+    priceMonthly: "₦5,000",
+    priceYearly: "₦50,000",
+    period: "per month, or ₦50,000/year",
+    savingsNote: "Paying yearly works out about 17% cheaper than monthly.",
+    tagline: "For businesses ready to bring on a team and go further.",
     features: [
-      "Website / Landing Page",
-      "SEO Setup",
-      "Email Automation",
-      "Lead Tracking (CRM)",
-      "3 Months Support",
+      "Everything in Free",
+      "Extra staff seats (manager & staff roles)",
+      "More photo/storage space",
+      "Custom domain for your business website",
     ],
   },
-  {
-    name: "Enterprise",
-    subtitle: "Full Business System",
-    price: "N1,500,000",
-    priceTo: "N5,000,000+",
-    priceNote: "One-time + Monthly",
-    highlight: false,
-    tagline: "Full business system for companies serious about scale",
+  custom: {
+    name: "Custom",
+    price: "Let's talk",
+    period: "tailored to your business",
+    tagline: "For businesses that need more than the app -- a bespoke website, a client or student portal, business email hosting, or a build outside the standard plans.",
     features: [
-      "Full Business System",
-      "CRM & Automation",
-      "Payment Integration",
-      "AI Chatbot",
-      "Ongoing Support",
+      "Custom-built business website beyond the standard template",
+      "Client, student or member portals",
+      "Business email hosting & setup",
+      "Bespoke integrations or features on request",
     ],
-  },
-];
-
-// --- SEO TIERS (kept for /services/seo) ---------------------------------------
-export const seoTiers = [
-  {
-    name: "Starter",
-    price: "N50,000",
-    period: "/month",
-    highlight: false,
-    features: [
-      "Monthly technical audit",
-      "10 keywords tracked",
-      "Google Business management",
-      "Local SEO",
-      "Monthly report",
-    ],
-  },
-  {
-    name: "Growth",
-    price: "N100,000",
-    period: "/month",
-    highlight: true,
-    features: [
-      "Monthly technical audit",
-      "30 keywords tracked",
-      "2 content pieces/month",
-      "Google Business + Maps",
-      "Link building",
-      "Monthly report",
-    ],
-  },
-  {
-    name: "Authority",
-    price: "N200,000",
-    period: "/month",
-    highlight: false,
-    features: [
-      "Bi-weekly audit",
-      "60 keywords tracked",
-      "4 content pieces/month",
-      "Aggressive link building",
-      "Competitor tracking",
-      "Priority support",
-    ],
-  },
-];
-
-// --- PROCESS (5-step client journey) -----------------------------------------
-export const processSteps = [
-  {
-    number: "1",
-    title: "Attract Traffic",
-    subtitle: "Website / Ads / SEO",
-    description: "We build the digital assets that bring the right people to your business -- a professional website, targeted landing pages, and SEO that gets you found on Google.",
-  },
-  {
-    number: "2",
-    title: "Capture Leads",
-    subtitle: "Forms, Landing Pages, Chat",
-    description: "Smart capture systems collect enquiries, bookings, and contact details from every visitor -- whether they arrive from search, social media, or word of mouth.",
-  },
-  {
-    number: "3",
-    title: "Nurture Leads",
-    subtitle: "Email, WhatsApp, Follow-ups",
-    description: "Automated follow-up sequences keep your business in front of prospects who aren't ready to buy today -- so when they are ready, they call you first.",
-  },
-  {
-    number: "4",
-    title: "Convert Leads",
-    subtitle: "Bookings, Payments, Sales",
-    description: "Streamlined booking and payment systems reduce friction at the point of sale -- so interested prospects become paying clients with minimum effort on your part.",
-  },
-  {
-    number: "5",
-    title: "Retain & Grow",
-    subtitle: "CRM, Automation, Analytics",
-    description: "CRM dashboards, retention automations, and performance analytics give you full visibility of your business -- and the systems to grow it month after month.",
-  },
-];
-
-// --- TARGET AUDIENCES ---------------------------------------------------------
-export const targetAudiences = [
-  {
-    icon: "SB",
-    title: "Service-Based Businesses",
-    examples: "Plumbers, Electricians, HVAC, Pest Control, Auto Mechanics, Cleaning, Security",
-  },
-  {
-    icon: "AB",
-    title: "Appointment-Based Businesses",
-    examples: "Clinics, Salons, Gyms, Dentists, Schools, Tutors",
-  },
-  {
-    icon: "HC",
-    title: "High-Competition Businesses",
-    examples: "Real Estate, Loan Companies, Consultants, Training Institutes",
-  },
-  {
-    icon: "SM",
-    title: "SMEs & Growing Companies",
-    examples: "Logistics, Law Firms, Construction, Retail, E-commerce Businesses",
-  },
-];
-
-// --- PROBLEMS WE SOLVE --------------------------------------------------------
-export const problemsSolved = [
-  "Low online visibility",
-  "Lost leads & missed calls",
-  "Poor follow-up & no automation",
-  "Disorganised operations",
-  "No professional systems",
-  "Hard to track sales & customers",
-  "Low conversion from ads",
-];
-
-// --- WHY CHOOSE US ------------------------------------------------------------
-export const whyUs = [
-  {
-    title: "We Focus on Results, Not Just Design",
-    description: "Every system we build is evaluated against one question: will this grow the client's revenue? Beautiful design that doesn't produce results is just expensive decoration.",
-  },
-  {
-    title: "We Build Systems That Increase Revenue",
-    description: "We don't build brochure websites. We build integrated digital systems -- website, SEO, automation, CRM, payments -- working together to bring in and convert clients.",
-  },
-  {
-    title: "We Automate Follow-ups and Save You Time",
-    description: "Most businesses lose leads because nobody followed up. Our automation systems follow up with every prospect automatically -- so no opportunity falls through the cracks.",
-  },
-  {
-    title: "We Provide Ongoing Support and Growth",
-    description: "We don't hand you a website and disappear. We offer ongoing retainer support, monthly reporting, and continuous optimisation to keep your systems performing.",
-  },
-  {
-    title: "6+ Years Experience Across Multiple Industries",
-    description: "Since 2019, we have delivered systems for law firms, solar companies, auto detailing businesses, consultants, and more. We understand what works across different niches.",
-  },
-  {
-    title: "We Understand Local Businesses and Deliver What Works",
-    description: "We know the Nigerian and UK markets. Our systems are built for the real conditions local businesses operate in -- not imported templates from the US.",
-  },
-];
-
-// --- REVENUE MODEL ------------------------------------------------------------
-export const revenueStreams = [
-  { label: "One-time Projects", detail: "Websites, Systems, Setup", color: "#C9A84C" },
-  { label: "Monthly Retainers", detail: "SEO, Maintenance, Automation", color: "#112055" },
-  { label: "SaaS / Subscriptions", detail: "Software Tools, CRM, etc.", color: "#1A316E" },
-  { label: "Product Sales", detail: "Digital Products, Templates", color: "#254387" },
-  { label: "Training & Consulting", detail: "", color: "#3A5FA3" },
-];
-
-// --- VALUATION ROADMAP --------------------------------------------------------
-export const valuationRoadmap = [
-  {
-    stage: "Stage 1",
-    title: "Startup",
-    timeline: "0 - 12 Months",
-    description: "Build, Validate & Get Clients",
-    valuation: "N5M - N30M",
-  },
-  {
-    stage: "Stage 2",
-    title: "Growth",
-    timeline: "12 - 24 Months",
-    description: "Systems, Team & Recurring Revenue",
-    valuation: "N50M - N300M+",
-  },
-  {
-    stage: "Stage 3",
-    title: "Scale",
-    timeline: "24 - 48 Months",
-    description: "SaaS Products, Market Expansion",
-    valuation: "N300M - N1B+",
-  },
-  {
-    stage: "Stage 4",
-    title: "Leadership",
-    timeline: "48+ Months",
-    description: "Ecosystem, Multiple Income Streams",
-    valuation: "N1B - N5B+",
-  },
-];
-
-// --- TESTIMONIAL -- K.K. Ubani & Co. -----------------------------------------
-export const testimonial = {
-  quote: "JK Technology built us far more than a website. They delivered a complete digital system -- a professional online presence that ranks for our key practice areas, positions us clearly for the corporate and commercial clients we serve, and generates consistent inbound enquiries. The quality of those leads is different. They arrive informed, knowing exactly what we do and what we charge. That is what a properly built digital system produces.",
-  name: "Kenneth K. Ubani",
-  role: "Principal Partner",
-  firm: "K.K. Ubani & Co.",
-  location: "Port Harcourt, Nigeria",
-  initials: "KU",
-  metric: "Complete digital system delivered | Page 1 Google rankings | Consistent inbound enquiries",
-  website: "kkubaniandco.com",
-};
-
-// --- CASE STUDIES -- reframed around systems -----------------------------------
-export const caseStudies = [
-  {
-    slug: "kk-ubani-law-firm",
-    client: "K.K. Ubani & Co.",
-    website: "kkubaniandco.com",
-    websiteUrl: "https://kkubaniandco.com",
-    category: "Law Firm",
-    location: "Port Harcourt, Nigeria",
-    service: "Website System + SEO",
-    systemType: "Website & Google Visibility System",
-    niche: "Commercial & Corporate Law",
-    hasSEOScreenshots: true,
-    hasWebsiteScreenshot: false,
-    imageInstructions: "Add SEO before/after screenshots to /public/work/kk-ubani-before.jpg and kk-ubani-after.jpg",
-    overview: "K.K. Ubani & Co. is a full-service commercial and dispute resolution law firm with over 30 years of combined experience. Clients include Ecobank Nigeria, Polaris Bank, and the Industrial Training Fund. Despite their stature, they had no meaningful Google presence and no digital system generating inbound enquiries.",
-    systemDelivered: [
-      "15-page professional website with individual pages for all practice areas",
-      "SEO architecture targeting commercial law keywords across Port Harcourt",
-      "Google Business Profile fully set up and optimised",
-      "Contact and enquiry system to capture and qualify inbound leads",
-      "Schema markup and Search Console configuration",
-    ],
-    before: {
-      title: "Before: A Reputable Firm With No Digital System",
-      points: [
-        "Zero first-page rankings for any practice area keywords",
-        "All 15+ services crammed onto one generic page",
-        "Marquee clients (Ecobank, Polaris Bank) not surfaced anywhere online",
-        "No Google Business Profile -- invisible on Maps",
-        "Corporate clients searching Google could not find the firm",
-      ],
-    },
-    after: {
-      title: "After: Ranked, Visible, Generating Enquiries",
-      points: [
-        "Individual SEO-optimised pages for all 15 practice areas",
-        "First-page Google rankings for core commercial law keywords",
-        "Ecobank, Polaris Bank, and ITF client relationships prominently featured",
-        "Google Business Profile generating map visibility",
-        "Consistent organic enquiries from corporate and institutional clients",
-      ],
-    },
-    results: [
-      { value: "15+", label: "optimised practice area pages" },
-      { value: "Page 1", label: "Google rankings achieved" },
-      { value: "System", label: "generating consistent enquiries" },
-    ],
-    testimonial: {
-      quote: "We have been working with K.K. Ubani & Co. for several years now. Their dedication to providing top-notch legal services has been instrumental in helping us navigate complex legal matters.",
-      name: "Ecobank Nigeria Limited",
-      role: "Client of K.K. Ubani & Co.",
-      initials: "EB",
-    },
-    tags: ["Website System", "SEO", "Law Firm", "Google Visibility", "Lead Capture"],
-    color: "#112055",
-    accentLight: "#EEF2F9",
-  },
-  {
-    slug: "eljards-solar-consulting",
-    client: "Eljards Services Limited",
-    website: "eljardltdservices.com.ng",
-    websiteUrl: "https://eljardltdservices.com.ng",
-    category: "Solar Energy & Business Consulting",
-    location: "Nigeria",
-    service: "Website System",
-    systemType: "Multi-Service Website & Lead Capture System",
-    niche: "Solar Energy & Consulting",
-    hasSEOScreenshots: false,
-    hasWebsiteScreenshot: true,
-    imageInstructions: "Add website screenshot to /public/work/eljards-website.jpg",
-    overview: "Eljards Services Limited operates across two high-growth sectors: solar energy solutions and business consulting. They needed a digital system that communicated both service lines clearly to corporate clients, government agencies, and businesses -- and captured enquiries from each audience separately.",
-    systemDelivered: [
-      "Structured multi-service website separating solar and consulting divisions",
-      "Individual lead capture forms for each service line",
-      "SEO foundations for solar energy and consulting keywords",
-      "Professional presentation for government and corporate client audiences",
-      "Mobile-optimised design for field sales support",
-    ],
-    before: {
-      title: "Before: Two Businesses, One Confusing Message",
-      points: [
-        "No clear separation between solar energy and consulting service lines",
-        "Corporate and government clients confused about what the business offered",
-        "No SEO -- invisible for solar energy or consulting searches",
-        "No lead capture system -- all enquiries had to come through manual contact",
-      ],
-    },
-    after: {
-      title: "After: Clear, Professional, and Capturing Leads",
-      points: [
-        "Distinct sections for Solar Energy and Business Consulting with targeted copy",
-        "Separate lead capture forms routed to the right team for each service",
-        "SEO foundations in place -- ranking building for both verticals",
-        "Professional digital presence that supports enterprise and government sales conversations",
-      ],
-    },
-    results: [
-      { value: "2",       label: "service divisions clearly presented" },
-      { value: "Built",   label: "for corporate & government audiences" },
-      { value: "System",  label: "capturing leads from both verticals" },
-    ],
-    testimonial: null,
-    tags: ["Website System", "Lead Capture", "Multi-Service", "Solar Energy", "Business Consulting"],
-    color: "#1A6E3C",
-    accentLight: "#E8F5EE",
-  },
-  {
-    slug: "refinish-auto-detailing",
-    client: "Refinish",
-    website: "refinishphc.com",
-    websiteUrl: "https://refinishphc.com",
-    category: "Auto Detailing & Car Care",
-    location: "Port Harcourt, Rivers State",
-    service: "Website System + Booking",
-    systemType: "Website, Booking & Review System",
-    niche: "Premium Auto Detailing & Painting",
-    hasSEOScreenshots: false,
-    hasWebsiteScreenshot: true,
-    imageInstructions: "Add website screenshot to /public/work/refinish-website.jpg",
-    overview: "Refinish is Port Harcourt's premium auto care centre -- oven-baked painting, chrome delete, deep cleaning, and body work. With 21+ five-star Google reviews, they had the reputation. They needed a digital system to capture and convert the online demand that reputation was generating.",
-    systemDelivered: [
-      "High-converting website with dedicated pages for all 5 services",
-      "Online booking form integrated and connected to the team's workflow",
-      "21+ Google reviews surfaced prominently as social proof",
-      "Local SEO setup targeting Port Harcourt auto care searches",
-      "WhatsApp integration for instant customer communication",
-    ],
-    before: {
-      title: "Before: Great Reputation, No Digital System",
-      points: [
-        "No website -- all bookings via WhatsApp and word of mouth only",
-        "21+ five-star reviews generating interest with nowhere to send people",
-        "Invisible for 'car detailing Port Harcourt' and related searches",
-        "Every enquiry required manual back-and-forth -- no automated booking",
-      ],
-    },
-    after: {
-      title: "After: Booking Online, Ranking Locally",
-      points: [
-        "All 5 services presented clearly with benefit-led copy and pricing context",
-        "Online booking form -- clients book directly, team wakes up to appointments",
-        "21+ reviews displayed front and centre, building trust on first visit",
-        "Local SEO driving organic traffic from Port Harcourt and Rivers State searches",
-      ],
-    },
-    results: [
-      { value: "21+",    label: "Google reviews integrated" },
-      { value: "5",      label: "service pages with conversion copy" },
-      { value: "Online", label: "booking system live" },
-    ],
-    testimonial: {
-      quote: "My car looks new with no traces of being painted. These guys are genius.",
-      name: "MAIDORC LTD",
-      role: "Refinish Client",
-      initials: "MD",
-    },
-    tags: ["Website System", "Booking System", "Local SEO", "Review Integration", "Port Harcourt"],
-    color: "#1C1C1E",
-    accentLight: "#F0EEE8",
-  },
-];
-
-// --- BLOG POSTS ---------------------------------------------------------------
-export const blogPosts = [
-  {
-    slug: "why-website-gets-no-leads",
-    title: "Why Your Business Website Gets Traffic But No Leads (And How to Fix It)",
-    metaTitle: "Why Your Website Gets No Leads | JKTL",
-    metaDescription: "High traffic but no leads? The 7 conversion killers destroying your results -- and the exact fixes.",
-    excerpt: "You check your analytics. Traffic is there. But your inbox is empty. Here's the diagnosis -- and how to fix it.",
-    category: "Conversion",
-    readTime: "7 min",
-    date: "March 15, 2026",
-    dateISO: "2026-03-15",
-  },
-  {
-    slug: "seo-small-business-2026",
-    title: "The Complete Guide to SEO for Small Businesses in 2026",
-    metaTitle: "SEO for Small Business 2026 | JKTL",
-    metaDescription: "What actually works for small business SEO in 2026. A practical guide for Nigerian and UK service businesses.",
-    excerpt: "Everything that worked in 2023 is table stakes now. This is what moves the needle in 2026.",
-    category: "SEO",
-    readTime: "10 min",
-    date: "February 28, 2026",
-    dateISO: "2026-02-28",
-  },
-  {
-    slug: "landing-page-vs-website",
-    title: "Landing Page vs. Business Website: Which One Does Your Business Actually Need?",
-    metaTitle: "Landing Page vs Website | JKTL",
-    metaDescription: "Landing page or full website? The framework we use with every new client to decide.",
-    excerpt: "They serve completely different purposes. Choosing the wrong one wastes budget. Here's the framework.",
-    category: "Strategy",
-    readTime: "6 min",
-    date: "February 10, 2026",
-    dateISO: "2026-02-10",
-  },
-  {
-    slug: "ai-business-websites-2026",
-    title: "AI Business Systems in 2026: What They Are and Why Your Competitors Are Getting Them",
-    metaTitle: "AI Business Systems 2026 | JKTL",
-    metaDescription: "AI-powered business systems aren't the future -- they're 2026. What they include and who's already using them.",
-    excerpt: "Standard websites sit there. AI-enhanced systems personalise, follow up, and convert on autopilot.",
-    category: "AI & Automation",
-    readTime: "8 min",
-    date: "January 20, 2026",
-    dateISO: "2026-01-20",
-  },
-  {
-    slug: "how-long-does-seo-take",
-    title: "How Long Does SEO Take? A Realistic Timeline for Service Businesses",
-    metaTitle: "How Long Does SEO Take? | JKTL",
-    metaDescription: "The honest answer with real timelines from Nigerian and UK client campaigns.",
-    excerpt: "The honest answer -- with real data from real client campaigns. No vague 'it depends.'",
-    category: "SEO",
-    readTime: "6 min",
-    date: "January 5, 2026",
-    dateISO: "2026-01-05",
-  },
-];
-
-// --- SITEMAP LINKS ------------------------------------------------------------
-export const sitemapLinks = {
-  services: [
-    { label: "Website & Landing Page Systems",    href: "/services/website-systems" },
-    { label: "Lead Generation Landing Pages",     href: "/services/lead-generation" },
-    { label: "Email & Follow-up Automation",      href: "/services/email-automation" },
-    { label: "SEO & Google Visibility",           href: "/services/seo" },
-    { label: "CRM & Business Operations",         href: "/services/crm-operations" },
-    { label: "Payment & Business Infrastructure", href: "/services/payment-infrastructure" },
-    { label: "AI & Automation Systems",           href: "/services/ai-automation" },
-  ],
-  company: [
-    { label: "About JKTL",          href: "/about" },
-    { label: "Our Work",             href: "/work" },
-    { label: "Packages",             href: "/packages" },
-    { label: "Business Solutions",   href: "/solutions" },
-    { label: "Free Tools",           href: "/tools" },
-    { label: "Try Demos",            href: "/demos" },
-    { label: "Insights",             href: "/blog" },
-    { label: "Contact Us",           href: "/contact" },
-  ],
-  legal: [
-    { label: "Privacy Policy",  href: "/privacy" },
-    { label: "Terms of Service",href: "/terms" },
-    { label: "Sitemap",         href: "/sitemap" },
-  ],
-  blog: [
-    { label: "Why Your Website Gets No Leads",  href: "/blog/why-website-gets-no-leads" },
-    { label: "SEO for Small Business 2026",     href: "/blog/seo-small-business-2026" },
-    { label: "Landing Page vs. Website",        href: "/blog/landing-page-vs-website" },
-    { label: "AI Business Systems 2026",        href: "/blog/ai-business-websites-2026" },
-    { label: "How Long Does SEO Take?",         href: "/blog/how-long-does-seo-take" },
-  ],
-};
-
-// --- ADD-ONS -----------------------------------------------------------------
-export const addOns = [
-  { name: "Additional website page",            price: "N30,000 - N60,000" },
-  { name: "WhatsApp chatbot setup",             price: "N80,000 - N200,000" },
-  { name: "Blog / CMS setup",                   price: "N50,000" },
-  { name: "Monthly site maintenance",           price: "N30,000 - N80,000/mo" },
-  { name: "Google Ads campaign setup",          price: "N100,000 - N300,000" },
-  { name: "Professional logo & brand design",   price: "N80,000 - N200,000" },
-  { name: "Copywriting (additional pages)",     price: "N40,000/page" },
-  { name: "AI chatbot integration",             price: "N150,000 - N400,000" },
-  { name: "Email marketing setup (Resend)",     price: "N80,000 - N150,000" },
-  { name: "Staff training session",             price: "N50,000 - N150,000" },
-];
-
-// --- NIGERIAN STATES ----------------------------------------------------------
-export const nigerianStates = [
-  "Abia","Adamawa","Akwa Ibom","Anambra","Bauchi","Bayelsa","Benue","Borno",
-  "Cross River","Delta","Ebonyi","Edo","Ekiti","Enugu","FCT - Abuja","Gombe",
-  "Imo","Jigawa","Kaduna","Kano","Katsina","Kebbi","Kogi","Kwara","Lagos",
-  "Nasarawa","Niger","Ogun","Ondo","Osun","Oyo","Plateau","Rivers","Sokoto",
-  "Taraba","Yobe","Zamfara",
-];
-
-// --- ECOSYSTEM OVERVIEW -------------------------------------------------------
-export const ecosystemOverview = {
-  headline: "Business Infrastructure Ecosystem",
-  subheadline: "Empowering African Businesses with Systems They Depend On. Every Day.",
-  description: "We build modular digital infrastructure and business operating systems that help African businesses attract customers, run operations efficiently, collect payments, and scale sustainably.",
-  outcomes: [
-    { icon: "01", title: "More Customers",   desc: "Attract & capture quality leads" },
-    { icon: "02", title: "More Conversions", desc: "Convert leads into paying customers" },
-    { icon: "03", title: "More Efficiency",  desc: "Automate operations & save time" },
-    { icon: "04", title: "More Profit",      desc: "Increase revenue & maximise profit" },
-  ],
-};
-
-// --- COUPLED SOLUTIONS --------------------------------------------------------
-export const coupledSolutions = [
-  {
-    slug: "local-service",
-    demoSlug: "/demos/website",
-    icon: "LS",
-    color: "#1A6E3C",
-    title: "Local Service Business Growth System",
-    includes: ["Website & Landing Pages","Lead Capture & Follow-up","CRM & Pipeline Management","Missed Call & WhatsApp Automation","SEO & Google Visibility","AI Chatbot & Automation"],
-    bestFor: "Plumbers, Electricians, HVAC, Mechanics, Pest Control, Cleaning Services, etc.",
-    outcome: "More calls, more booked jobs, fewer lost leads.",
-  },
-  {
-    slug: "clinic",
-    demoSlug: "/demos/crm",
-    icon: "CL",
-    color: "#1A4A8A",
-    title: "Clinic & Appointment System",
-    includes: ["Appointment Booking","Patient Management (CRM)","Payment & Invoicing","Reminders (SMS/Email/WhatsApp)","AI Assistant","Analytics Dashboard"],
-    bestFor: "Clinics, Hospitals, Dentists, Salons, Gyms, Wellness Centres.",
-    outcome: "Better scheduling, fewer no-shows, organised operations.",
-  },
-  {
-    slug: "sme-digital",
-    demoSlug: "/demos/crm",
-    icon: "SM",
-    color: "#7C3AED",
-    title: "SME Digital Operating System",
-    includes: ["CRM & Operations","Staff & Task Management","Payments & Invoicing","Email & Automation","Analytics & Reporting","Document Management"],
-    bestFor: "SMEs, Agencies, Construction, Logistics, NGOs, Manufacturing.",
-    outcome: "Business runs in one place with full visibility.",
-  },
-  {
-    slug: "online-sales",
-    demoSlug: "/demos/payments",
-    icon: "OS",
-    color: "#D97706",
-    title: "Online Sales & Payment System",
-    includes: ["Landing Pages & Funnels","Checkout & Payments","Email Automation","Customer Management","Abandoned Cart Recovery","Sales Analytics"],
-    bestFor: "E-commerce, Coaches, Digital Product Sellers, Event Planners.",
-    outcome: "Increase sales, automate follow-up, improve customer value.",
-  },
-  {
-    slug: "real-estate",
-    demoSlug: "/demos/lead-generation",
-    icon: "RE",
-    color: "#DC2626",
-    title: "Real Estate Lead Conversion System",
-    includes: ["Lead Capture","CRM & Lead Tracking","WhatsApp & Email Automation","Property Listing Management","Analytics & Reporting","Appointment Booking"],
-    bestFor: "Realtors, Property Firms, Housing Companies, Estate Developers.",
-    outcome: "Convert more leads into paying clients.",
-  },
-];
-
-// --- INDUSTRY-SPECIFIC SYSTEMS ------------------------------------------------
-export const industrySystems = [
-  {
-    slug: "hotel",
-    icon: "HT",
-    title: "Hotel Management System",
-    subtitle: "Complete system to run hotel operations smoothly",
-    modules: ["Room Management","Bookings & Reservations","Check-in / Check-out","Payment & Billing","Guest Management","Housekeeping & Maintenance","Reports & Analytics"],
-    problemsSolved: "Overbooking, manual records, payment issues, poor guest management, operations chaos.",
-    targetAudience: "Hotels, Guest Houses, Resorts, Lodges, Shortlet Apartments",
-  },
-  {
-    slug: "supermarket",
-    icon: "RT",
-    title: "Supermarket / Retail System (POS)",
-    subtitle: "All-in-one system to manage sales outlets & supermarkets",
-    modules: ["POS & Sales Checkout","Inventory Management","Stock & Supplier Management","Staff & Shift Management","Payments & Receipts","Sales & Profit Reports","Multi-Branch Management"],
-    problemsSolved: "Stock loss, manual sales, inaccurate records, poor reporting, cashier fraud, inventory issues.",
-    targetAudience: "Supermarkets, Retail Stores, Mini Marts, Pharmacies, Wholesale Shops",
-  },
-];
-
-// --- FREE TOOLS ---------------------------------------------------------------
-export const freeTools = [
-  {
-    name: "Invoice Generator",
-    slug: "invoice",
-    demoSlug: "/demos/business-tools",
-    subdomain: "invoice.jktl.com.ng",
-    icon: "INV",
-    description: "Create professional invoices in seconds. Free forever.",
-    freeFeatures: ["Unlimited invoices","Custom business logo","PDF download","Multiple currencies (N, GBP, $)"],
-    premiumFeatures: ["Invoice history & tracking","Client database","Automatic reminders","Payment integration","Multi-user access"],
-    color: "#1A4A8A",
-  },
-  {
-    name: "Receipt Generator",
-    slug: "receipt",
-    demoSlug: "/demos/business-tools",
-    subdomain: "receipt.jktl.com.ng",
-    icon: "RCP",
-    description: "Generate branded receipts for any transaction instantly.",
-    freeFeatures: ["Unlimited receipts","Custom branding","PDF & print","QR code on receipt"],
-    premiumFeatures: ["Receipt history","Customer records","Bulk generation","WhatsApp delivery","Analytics"],
-    color: "#1A6E3C",
-  },
-  {
-    name: "Profit Calculator",
-    slug: "profit",
-    demoSlug: "/demos/business-tools",
-    subdomain: "profit.jktl.com.ng",
-    icon: "05",
-    description: "Know your real profit margin on every product or service.",
-    freeFeatures: ["Unlimited calculations","Cost breakdown","Margin percentage","Break-even point"],
-    premiumFeatures: ["Save & compare products","Bulk product upload","Report generation","Team sharing","Export to Excel"],
-    color: "#7C3AED",
-  },
-  {
-    name: "Pricing Calculator",
-    slug: "pricing",
-    demoSlug: "/demos/business-tools",
-    subdomain: "pricing.jktl.com.ng",
-    icon: "PRC",
-    description: "Set the right price for your products and services every time.",
-    freeFeatures: ["Cost-plus pricing","Competitor benchmarking","Target margin setting","Price recommendations"],
-    premiumFeatures: ["Price history tracking","Multiple pricing strategies","Market analysis","Client sharing","API access"],
-    color: "#D97706",
-  },
-];
-
-// --- ROI DATA -----------------------------------------------------------------
-export const roiData = {
-  stats: [
-    { value: "N500k",  label: "Avg. Setup Fee",             sub: "One-time investment" },
-    { value: "N50k+",  label: "Avg. Monthly Retainer",      sub: "Recurring revenue" },
-    { value: "70%+",   label: "Profit Margin at Scale",     sub: "Highly profitable" },
-    { value: "High",   label: "Recurring Revenue",          sub: "Predictable income" },
-  ],
-  roiExamples: [
-    {
-      industry: "Local Service Business",
-      investment: "N250,000",
-      monthlyValue: "N80,000",
-      breakEven: "3 months",
-      yearOneROI: "284%",
-      story: "A plumbing business with no website was losing 3-5 jobs per week to competitors online. After our Local Service System -- website, SEO, WhatsApp automation, CRM -- they averaged 12 new booked jobs in the first month from Google alone.",
-    },
-    {
-      industry: "Clinic / Health Practice",
-      investment: "N400,000",
-      monthlyValue: "N120,000",
-      breakEven: "4 months",
-      yearOneROI: "260%",
-      story: "A dental clinic running on WhatsApp and paper records had a 35% no-show rate. After the Clinic System with automated reminders, no-shows dropped to 8% within 60 days.",
-    },
-    {
-      industry: "SME / Agency",
-      investment: "N600,000",
-      monthlyValue: "N150,000",
-      breakEven: "4 months",
-      yearOneROI: "200%",
-      story: "A logistics company managing 40+ clients on spreadsheets. After the SME Digital Operating System, they reduced admin time by 60% and onboarded 15 new clients in 90 days.",
-    },
-    {
-      industry: "Retail / Supermarket",
-      investment: "N800,000",
-      monthlyValue: "N200,000",
-      breakEven: "4 months",
-      yearOneROI: "200%",
-      story: "A retail store losing N50,000+ monthly to stock shrinkage. After the Supermarket POS system, inventory discrepancies dropped to near-zero and profit visibility improved dramatically.",
-    },
-  ],
-  revenueModel: [
-    { label: "Setup / Implementation", sub: "One-time onboarding fee",        icon: "01" },
-    { label: "Monthly Subscription",   sub: "Recurring monthly revenue",       icon: "02" },
-    { label: "Add-on Modules",         sub: "Premium features & integrations", icon: "03" },
-    { label: "Support & Maintenance",  sub: "Ongoing support & updates",       icon: "04" },
-  ],
-};
-
-// --- PLATFORM FEATURES --------------------------------------------------------
-export const platformFeatures = [
-  { icon: "MT", title: "Multi-Tenant Architecture",  desc: "One platform, many businesses. Your data stays yours, always." },
-  { icon: "RB", title: "Role-Based Access",            desc: "Owners, staff, cashiers -- each sees only what they need." },
-  { icon: "SC", title: "Secure & Scalable",            desc: "Enterprise-grade security with 99.9% uptime guarantee." },
-  { icon: "AP", title: "APIs & Integrations",          desc: "Payments, SMS, email -- connected and working together." },
-  { icon: "CB",  title: "Cloud-Based",                desc: "Access your business from anywhere, on any device." },
-  { icon: "MF", title: "Mobile-First",                 desc: "Built for how African businesses actually operate." },
-];
-
-// --- DESK PRODUCTS -----------------------------------------------------------
-export const deskProducts = [
-  {
-    id: "faithdesk",
-    name: "FaithDesk",
-    tagline: "Ministry Management Software",
-    description: "Complete management system for churches and ministries. Members, tithes, offerings, portals, analytics -- all in one place.",
-    status: "live",
-    color: "#8B5CF6",
-    slug: "faithdesk",
-    href: "/faithdesk",
-    getStartedHref: "/get-started/faithdesk",
-    icon: "FD",
-    features: [
-      "Member CRM and profiles",
-      "Tithes and offerings via Paystack",
-      "Ministry portal and dashboard",
-      "Analytics and reporting",
-      "Full CRUD and settings",
-      "Self-service onboarding",
-    ],
-    domains: [
-      { label: "Member Portal", example: "triumphchurch.org", type: "public" },
-      { label: "Admin Panel",   example: "admin.triumphchurch.org", type: "admin" },
-    ],
-    useCases: [
-      "Track member attendance and giving history",
-      "Collect tithes and offerings online",
-      "Send announcements to congregation",
-      "Manage ministry departments and leadership",
-    ],
-  },
-  {
-    id: "schooldesk",
-    name: "SchoolDesk",
-    tagline: "School Administration Software",
-    description: "End-to-end school management. Fee collection, student portal, staff management, public website -- built for Nigerian schools.",
-    status: "coming-soon",
-    color: "#10B981",
-    slug: "schooldesk",
-    href: "/schooldesk",
-    getStartedHref: "/get-started/schooldesk",
-    icon: "SD",
-    features: [
-      "Fees collection and receipts",
-      "Student and parent portal",
-      "Public school website",
-      "Staff management",
-      "Analytics and reporting",
-      "Waitlist -- coming soon",
-    ],
-    domains: [
-      { label: "Public Website", example: "graceschool.com",        type: "public" },
-      { label: "Admin Panel",    example: "admin.graceschool.com",   type: "admin" },
-      { label: "Student Portal", example: "portal.graceschool.com",  type: "portal" },
-    ],
-    useCases: [
-      "Collect school fees online with receipts",
-      "Give students and parents a portal",
-      "Manage staff records and payroll",
-      "Run a professional school website",
-    ],
-  },
-  {
-    id: "detaildesk",
-    name: "DetailDesk",
-    tagline: "Auto Detailing Business Software",
-    description: "Complete operating system for auto detailing businesses. Online store, job assignment, role-based access, CRM and analytics.",
-    status: "live",
-    color: "#F59E0B",
-    slug: "detaildesk",
-    href: "/detaildesk",
-    getStartedHref: "/get-started/detaildesk",
-    icon: "DD",
-    features: [
-      "Online store and booking",
-      "Job assignment system",
-      "Owner, Manager, Worker roles",
-      "Payment and job tracking",
-      "CRM and analytics",
-      "Self-service onboarding",
-    ],
-    domains: [
-      { label: "Public Website", example: "elitedetailing.com",       type: "public" },
-      { label: "Online Store",   example: "shop.elitedetailing.com",  type: "shop" },
-      { label: "Admin Panel",    example: "admin.elitedetailing.com", type: "admin" },
-    ],
-    useCases: [
-      "Let customers book and pay online",
-      "Assign jobs to workers with one click",
-      "Track every job from order to delivery",
-      "See revenue, staff performance, analytics",
-    ],
-  },
-  {
-    id: "insurancedesk",
-    name: "InsuranceDesk",
-    tagline: "Insurance Business Management Platform",
-    description: "Complete operating system for insurance agencies and brokers. Policy management, claims tracking, client portal and renewals -- all in one place.",
-    status: "coming-soon",
-    color: "#2563EB",
-    slug: "insurancedesk",
-    href: "/insurancedesk",
-    getStartedHref: "/get-started/insurancedesk",
-    icon: "ID",
-    features: [
-      "Policy and client management",
-      "Claims tracking and status updates",
-      "Renewal reminders and automation",
-      "Client self-service portal",
-      "Analytics and reporting",
-      "Waitlist -- coming soon",
-    ],
-    domains: [
-      { label: "Public Website", example: "shieldinsurance.com",       type: "public" },
-      { label: "Admin Panel",    example: "admin.shieldinsurance.com", type: "admin" },
-      { label: "Client Portal",  example: "portal.shieldinsurance.com", type: "portal" },
-    ],
-    useCases: [
-      "Track every policy from quote to renewal",
-      "Manage claims from filing to payout",
-      "Give clients a self-service portal",
-      "Automate renewal reminders",
-    ],
-  },
-  {
-    id: "constructiondesk",
-    name: "ConstructionDesk",
-    tagline: "Project & Operations Management Platform",
-    description: "End-to-end project management for construction and contracting companies. Site tracking, procurement, budgets and client updates in one system.",
-    status: "coming-soon",
-    color: "#EA580C",
-    slug: "constructiondesk",
-    href: "/constructiondesk",
-    getStartedHref: "/get-started/constructiondesk",
-    icon: "CD",
-    features: [
-      "Project and site tracking",
-      "Budget and procurement management",
-      "Team and subcontractor management",
-      "Client progress updates",
-      "Analytics and reporting",
-      "Waitlist -- coming soon",
-    ],
-    domains: [
-      { label: "Public Website", example: "buildright.com",       type: "public" },
-      { label: "Admin Panel",    example: "admin.buildright.com", type: "admin" },
-    ],
-    useCases: [
-      "Track every project from bid to handover",
-      "Manage budgets and procurement in one place",
-      "Keep clients updated on site progress",
-      "Coordinate teams and subcontractors",
-    ],
-  },
-  {
-    id: "gasstationdesk",
-    name: "GasStationDesk",
-    tagline: "Filling Station & Fuel Business Platform",
-    description: "Management platform built for filling stations and fuel businesses. Inventory, sales, attendant shifts and multi-station reporting.",
-    status: "coming-soon",
-    color: "#DC2626",
-    slug: "gasstationdesk",
-    href: "/gasstationdesk",
-    getStartedHref: "/get-started/gasstationdesk",
-    icon: "GD",
-    features: [
-      "Fuel inventory and stock tracking",
-      "Sales and shift reconciliation",
-      "Attendant and staff management",
-      "Multi-station reporting",
-      "Analytics and reporting",
-      "Waitlist -- coming soon",
-    ],
-    domains: [
-      { label: "Admin Panel", example: "admin.yourstation.com", type: "admin" },
-    ],
-    useCases: [
-      "Track fuel stock across tanks and stations",
-      "Reconcile sales at the end of every shift",
-      "Manage attendants across multiple stations",
-      "See performance across your whole network",
-    ],
-  },
-  {
-    id: "businessdesk",
-    name: "BusinessDesk",
-    tagline: "Business Management & Growth Platform",
-    description: "General-purpose management and growth platform for companies that don't fit a single industry mould. CRM, operations and analytics in one system.",
-    status: "coming-soon",
-    color: "#7C3AED",
-    slug: "businessdesk",
-    href: "/businessdesk",
-    getStartedHref: "/get-started/businessdesk",
-    icon: "BD",
-    features: [
-      "Customer and operations CRM",
-      "Team and task management",
-      "Invoicing and payment tracking",
-      "Analytics and reporting",
-      "Custom fields for your business",
-      "Waitlist -- coming soon",
-    ],
-    domains: [
-      { label: "Public Website", example: "yourbusiness.com",       type: "public" },
-      { label: "Admin Panel",    example: "admin.yourbusiness.com", type: "admin" },
-    ],
-    useCases: [
-      "Run day-to-day operations from one dashboard",
-      "Track customers, deals and follow-ups",
-      "Send invoices and track payments",
-      "See the numbers that matter to your business",
-    ],
-  },
-];
-
-export const deskPlans = [
-  {
-    id: "standard",
-    name: "Standard",
-    setupFee: 300000,
-    monthlyFee: 50000,
-    description: "Perfect for getting started. All core features included.",
-    features: [
-      "All core product features",
-      "Up to 500 records",
-      "Email support",
-      "Custom subdomain",
-      "Paystack payments",
-      "Basic analytics",
-    ],
-    highlight: false,
-  },
-  {
-    id: "pro",
-    name: "Pro",
-    setupFee: 500000,
-    monthlyFee: 75000,
-    description: "For growing organisations that need more power.",
-    features: [
-      "Everything in Standard",
-      "Unlimited records",
-      "Priority support",
-      "Custom domain",
-      "Advanced analytics",
-      "API access",
-      "Multiple admin users",
-    ],
-    highlight: true,
-  },
-  {
-    id: "enterprise",
-    name: "Enterprise",
-    setupFee: 2000000,
-    monthlyFee: 200000,
-    description: "For large organisations needing full customisation.",
-    features: [
-      "Everything in Pro",
-      "Full white-label",
-      "Dedicated support manager",
-      "Custom integrations",
-      "SLA guarantee",
-      "On-site training",
-      "Multi-branch support",
-    ],
-    highlight: false,
-  },
-];
-
-//  PER-PRODUCT PRICING (overrides plans for display) 
-export const productPricing = {
-  faithdesk: {
-    setup: 300000,
-    monthly: 50000,
-    label: "N300k setup + N50k/mo",
-  },
-  detaildesk: {
-    setup: 200000,
-    monthly: 30000,
-    label: "N200k setup + N30k/mo",
-  },
-  schooldesk: {
-    setup: null,
-    monthly: 25000,
-    label: "Waitlist -- lock in N25k/mo",
-    waitlistNote: "Join now to lock in launch pricing before the price goes up.",
-  },
-  // New industry platforms -- flat "starting from" pricing, waitlist until built.
-  insurancedesk: {
-    setup: 5000000,
-    monthly: null,
-    label: "From N5,000,000",
-    waitlistNote: "Join the waitlist to be first in line and lock in launch pricing.",
-  },
-  constructiondesk: {
-    setup: 5000000,
-    monthly: null,
-    label: "From N5,000,000",
-    waitlistNote: "Join the waitlist to be first in line and lock in launch pricing.",
-  },
-  gasstationdesk: {
-    setup: 5000000,
-    monthly: null,
-    label: "From N5,000,000",
-    waitlistNote: "Join the waitlist to be first in line and lock in launch pricing.",
-  },
-  businessdesk: {
-    setup: 3500000,
-    monthly: null,
-    label: "From N3,500,000",
-    waitlistNote: "Join the waitlist to be first in line and lock in launch pricing.",
   },
 };
 
-//  AGENCY SERVICES TEASER (used on homepage + Solutions tabs) 
-export const agencyServicesTeaser = [
-  { icon: "WS", label: "Website Systems",   desc: "From \u20a6150,000" },
-  { icon: "LG", label: "Lead Generation",   desc: "From \u20a6100,000" },
-  { icon: "EM", label: "Email Automation",  desc: "From \u20a6100,000" },
-  { icon: "SE", label: "SEO & Google",      desc: "From \u20a6150,000" },
-  { icon: "CR", label: "CRM & Operations",  desc: "From \u20a6300,000" },
-  { icon: "PY", label: "Payment Systems",   desc: "From \u20a6100,000" },
-  { icon: "AI", label: "AI & Automation",   desc: "From \u20a6250,000" },
-  { icon: "PK", label: "Full Packages",     desc: "From \u20a6800,000" },
+export const competitors = [
+  { name: "JKTL Business", price: "Free — ₦5,000/mo", highlight: true },
+  { name: "Bumpa", price: "From ₦10,000+/mo" },
+  { name: "Catlog", price: "From ₦7,000+/mo" },
+  { name: "GlossGenius", price: "From ~$24-48/mo (≈₦40,000-80,000+)" },
+  { name: "Square Appointments", price: "From ~$29+/mo (≈₦50,000+)" },
+  { name: "Vagaro", price: "From ~$30+/mo (≈₦50,000+)" },
+  { name: "Booksy", price: "From ~$29.99+/mo (≈₦50,000+)" },
+  { name: "Fresha", price: "Commission-based, or ~$9.90+/mo per seat" },
 ];
 
-//  BUSINESS SUITE ROADMAP 
-export const businessSuiteRoadmap = [
-  {
-    id: "invoicedesk",
-    name: "InvoiceDesk",
-    icon: "IV",
-    color: "#F59E0B",
-    tagline: "Global invoicing for freelancers and businesses",
-    description: "Send professional invoices, collect payments via Paystack, track payment status, automated reminders. Free to use -- platform fee on transactions.",
-    status: "roadmap",
-  },
-  {
-    id: "qrpay",
-    name: "QRPay",
-    icon: "QR",
-    color: "#10B981",
-    tagline: "QR code payments for physical shops",
-    description: "Generate a QR code for your shop counter. Customers scan and pay instantly. Opay/Monnify/Paystack. Transaction dashboard included.",
-    status: "roadmap",
-  },
-];
-
-//  COMPANY DETAILS 
-export const companyDetails = {
-  name: "JK Technology Limited",
-  cac: "RC-8754824",
-  founded: "2019",
-  country: "Nigeria",
-  whatsapp: "+2347036580994",
-  whatsappLink: "https://wa.me/2347036580994",
+// --- AFFILIATE PROGRAM ------------------------------------------------------------
+export const affiliateTerms = {
+  recurringRate: 20, // percent, for life of subscription
+  welcomeBonus: 2000, // Naira, one-time
+  welcomeBonusTrigger: "once your first referral upgrades to a paid plan",
+  payoutMinimum: 50000,
+  cookieDays: 30,
 };
 
-export const ACCOUNTS_URL = process.env.NEXT_PUBLIC_ACCOUNTS_URL || "https://accounts.jktl.com.ng";
+// --- HOW IT WORKS STEPS ------------------------------------------------------------
+export const signupSteps = [
+  { n: "01", title: "Create your account", desc: "Sign up free at business.jktl.com.ng with just your business name and phone number." },
+  { n: "02", title: "Set up your business", desc: "Pick your business type, add your services or products, and your public website is generated automatically." },
+  { n: "03", title: "Go live", desc: "Install it on your phone, share your website link, and start taking bookings, sales and payments." },
+];

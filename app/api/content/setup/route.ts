@@ -68,6 +68,13 @@ export async function GET() {
       created_at   TIMESTAMPTZ DEFAULT NOW()
     )
   `);
+  // Batch 14: real category/tags/SEO fields -- the blog list page's category
+  // tabs and tag cloud had no backing data until now.
+  await run("posts.category",         `ALTER TABLE posts ADD COLUMN IF NOT EXISTS category TEXT`);
+  await run("posts.tags",             `ALTER TABLE posts ADD COLUMN IF NOT EXISTS tags JSONB DEFAULT '[]'`);
+  await run("posts.seo_title",        `ALTER TABLE posts ADD COLUMN IF NOT EXISTS seo_title TEXT`);
+  await run("posts.seo_description",  `ALTER TABLE posts ADD COLUMN IF NOT EXISTS seo_description TEXT`);
+  await run("idx_posts_category", `CREATE INDEX IF NOT EXISTS idx_posts_category ON posts(category)`);
 
   await run("case_studies", `
     CREATE TABLE IF NOT EXISTS case_studies (
@@ -84,6 +91,93 @@ export async function GET() {
       created_at   TIMESTAMPTZ DEFAULT NOW()
     )
   `);
+  // Batch 14: real category/summary -- the case studies list page's filter
+  // tabs and card descriptions had no backing data until now.
+  await run("case_studies.category", `ALTER TABLE case_studies ADD COLUMN IF NOT EXISTS category TEXT`);
+  await run("case_studies.summary",  `ALTER TABLE case_studies ADD COLUMN IF NOT EXISTS summary TEXT`);
+  await run("case_studies.seo_title",       `ALTER TABLE case_studies ADD COLUMN IF NOT EXISTS seo_title TEXT`);
+  await run("case_studies.seo_description", `ALTER TABLE case_studies ADD COLUMN IF NOT EXISTS seo_description TEXT`);
+  await run("case_studies.website_url",     `ALTER TABLE case_studies ADD COLUMN IF NOT EXISTS website_url TEXT`);
+  await run("case_studies.tags",            `ALTER TABLE case_studies ADD COLUMN IF NOT EXISTS tags JSONB DEFAULT '[]'`);
+  await run("idx_case_studies_category", `CREATE INDEX IF NOT EXISTS idx_case_studies_category ON case_studies(category)`);
+
+  // Batch 14 (Website CMS). Real Pages CRUD -- new pages created here render
+  // live via a dynamic [slug] route on jktl-website. Existing hand-coded
+  // pages (Home, Services, About, etc.) are NOT part of this table -- they
+  // stay as their own files; this is additive, not a replacement for them.
+  await run("pages", `
+    CREATE TABLE IF NOT EXISTS pages (
+      id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      title             TEXT NOT NULL,
+      slug              TEXT UNIQUE NOT NULL,
+      content           TEXT,
+      status            TEXT NOT NULL DEFAULT 'draft',
+      seo_title         TEXT,
+      seo_description   TEXT,
+      show_in_nav       BOOLEAN DEFAULT FALSE,
+      show_in_footer    BOOLEAN DEFAULT FALSE,
+      password_protected TEXT,
+      author_staff_id   UUID,
+      published_at      TIMESTAMPTZ,
+      created_at        TIMESTAMPTZ DEFAULT NOW(),
+      updated_at        TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_pages_status", `CREATE INDEX IF NOT EXISTS idx_pages_status ON pages(status)`);
+  await run("idx_pages_slug",   `CREATE INDEX IF NOT EXISTS idx_pages_slug ON pages(slug)`);
+
+  // Real Media Library -- Cloudinary-backed, same upload pattern already
+  // used for Project Files (Batch 08) and Marketing Materials (Batch 13).
+  await run("media_files", `
+    CREATE TABLE IF NOT EXISTS media_files (
+      id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      name           TEXT NOT NULL,
+      category       TEXT NOT NULL DEFAULT 'images',
+      file_url       TEXT NOT NULL,
+      file_type      TEXT,
+      size_bytes     BIGINT,
+      uploaded_by_staff_id UUID,
+      created_at     TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_media_files_category", `CREATE INDEX IF NOT EXISTS idx_media_files_category ON media_files(category)`);
+
+  // Real navigation/menu management -- wired into the actual site Navbar.
+  await run("nav_menus", `
+    CREATE TABLE IF NOT EXISTS nav_menus (
+      id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      name       TEXT NOT NULL,
+      location   TEXT NOT NULL DEFAULT 'primary',
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("nav_items", `
+    CREATE TABLE IF NOT EXISTS nav_items (
+      id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      menu_id    UUID NOT NULL REFERENCES nav_menus(id) ON DELETE CASCADE,
+      parent_id  UUID REFERENCES nav_items(id) ON DELETE CASCADE,
+      label      TEXT NOT NULL,
+      link_type  TEXT NOT NULL DEFAULT 'custom',
+      url        TEXT,
+      page_id    UUID REFERENCES pages(id) ON DELETE SET NULL,
+      sort_order INT DEFAULT 0,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_nav_items_menu", `CREATE INDEX IF NOT EXISTS idx_nav_items_menu ON nav_items(menu_id, sort_order)`);
+
+  // Redirects -- real, enforced by middleware.ts.
+  await run("redirects", `
+    CREATE TABLE IF NOT EXISTS redirects (
+      id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      from_path    TEXT UNIQUE NOT NULL,
+      to_path      TEXT NOT NULL,
+      status_code  INT DEFAULT 301,
+      hit_count    INT DEFAULT 0,
+      created_at   TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_redirects_from", `CREATE INDEX IF NOT EXISTS idx_redirects_from ON redirects(from_path)`);
 
   await run("agency_services", `
     CREATE TABLE IF NOT EXISTS agency_services (
@@ -139,6 +233,11 @@ export async function GET() {
   await run("desk_products.setup_price",   `ALTER TABLE desk_products ADD COLUMN IF NOT EXISTS setup_price   BIGINT`);
   await run("desk_products.monthly_price", `ALTER TABLE desk_products ADD COLUMN IF NOT EXISTS monthly_price BIGINT`);
   await run("desk_products.price_note",    `ALTER TABLE desk_products ADD COLUMN IF NOT EXISTS price_note    TEXT`);
+  // Real, external URL for the live platform itself (e.g. app.schooldesk.ng)
+  // -- distinct from `href` (the marketing page on this site) and
+  // `get_started_href` (the internal onboarding flow). When set, product
+  // pages link visitors straight to the real platform instead of onboarding.
+  await run("desk_products.platform_url",  `ALTER TABLE desk_products ADD COLUMN IF NOT EXISTS platform_url  TEXT`);
 
   await run("service_inquiries", `
     CREATE TABLE IF NOT EXISTS service_inquiries (
@@ -685,6 +784,409 @@ export async function GET() {
   await run("projects.handover_status",      `ALTER TABLE projects ADD COLUMN IF NOT EXISTS handover_status TEXT NOT NULL DEFAULT 'not_ready'`);
   await run("projects.client_rating",        `ALTER TABLE projects ADD COLUMN IF NOT EXISTS client_rating INT`);
   await run("projects.client_feedback",      `ALTER TABLE projects ADD COLUMN IF NOT EXISTS client_feedback TEXT`);
+
+  // Batch 09 (Internal Workspaces). Outreach Sequences (BDR Desk, Sheet 1) is
+  // the one genuinely new concept in this batch -- a real, staff-managed list
+  // (name, status, how many leads are enrolled), not an automation engine.
+  // No actual email/SMS step execution is built -- that would be a separate,
+  // much larger integration, not a workspace-dashboard concern.
+  await run("outreach_sequences", `
+    CREATE TABLE IF NOT EXISTS outreach_sequences (
+      id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      staff_id       UUID REFERENCES staff(id) ON DELETE CASCADE,
+      name           TEXT NOT NULL,
+      status         TEXT NOT NULL DEFAULT 'active',
+      enrolled_count INT DEFAULT 0,
+      created_at     TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_outreach_sequences_staff", `CREATE INDEX IF NOT EXISTS idx_outreach_sequences_staff ON outreach_sequences(staff_id)`);
+
+  // Batch 10 (Support & Communication). Every "Support isn't built yet"
+  // pending state since Batch 01 -- including Batch 09's own Support Desk
+  // shell -- was waiting for this. "Live Chat" is NOT a separate messaging
+  // system: it's tickets with source='chat', reusing the same ticket_messages
+  // conversation. ticket_messages gets its own table (not a lead_activities
+  // reuse) for the same reason project_feedback did in Batch 08: real
+  // customer-authored content needs real author tracking as a first-class
+  // concept, not an edge case bolted onto a staff-centric activity log.
+  // System/audit events (assigned, escalated, resolved) DO reuse
+  // lead_activities -- see ticket_id below, the 7th reuse of that table.
+  await run("support_queues", `
+    CREATE TABLE IF NOT EXISTS support_queues (
+      id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      name        TEXT NOT NULL,
+      description TEXT,
+      created_at  TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  // Defensive backfill: CREATE TABLE IF NOT EXISTS is a no-op against a
+  // table that already exists under this name -- it does NOT add columns
+  // that were missing from an earlier version of this table. This exact gap
+  // caused a real production error (support_tickets missing customer_id/
+  // queue_id/assigned_staff_id/source on a database where the table already
+  // existed from an earlier run) -- every column in this batch's three new
+  // tables now gets an explicit ALTER backfill, matching the pattern already
+  // used everywhere else in this file (organisations, desk_products, etc.).
+  await run("support_queues.description", `ALTER TABLE support_queues ADD COLUMN IF NOT EXISTS description TEXT`);
+
+  await run("support_tickets", `
+    CREATE TABLE IF NOT EXISTS support_tickets (
+      id                 UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      ticket_number      TEXT UNIQUE NOT NULL,
+      subject            TEXT NOT NULL,
+      customer_id        UUID REFERENCES customers(id) ON DELETE SET NULL,
+      customer_name      TEXT NOT NULL,
+      customer_email     TEXT,
+      customer_phone     TEXT,
+      priority           TEXT NOT NULL DEFAULT 'medium',
+      status             TEXT NOT NULL DEFAULT 'open',
+      source             TEXT NOT NULL DEFAULT 'email',
+      channel            TEXT,
+      queue_id           UUID REFERENCES support_queues(id) ON DELETE SET NULL,
+      assigned_staff_id  UUID REFERENCES staff(id) ON DELETE SET NULL,
+      sla_due_at         TIMESTAMPTZ,
+      first_response_at  TIMESTAMPTZ,
+      resolved_at        TIMESTAMPTZ,
+      closed_at          TIMESTAMPTZ,
+      satisfaction_rating INT,
+      created_at         TIMESTAMPTZ DEFAULT NOW(),
+      updated_at         TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("support_tickets.subject",             `ALTER TABLE support_tickets ADD COLUMN IF NOT EXISTS subject TEXT NOT NULL DEFAULT ''`);
+  await run("support_tickets.customer_id",         `ALTER TABLE support_tickets ADD COLUMN IF NOT EXISTS customer_id UUID REFERENCES customers(id) ON DELETE SET NULL`);
+  await run("support_tickets.customer_name",       `ALTER TABLE support_tickets ADD COLUMN IF NOT EXISTS customer_name TEXT NOT NULL DEFAULT ''`);
+  await run("support_tickets.customer_email",      `ALTER TABLE support_tickets ADD COLUMN IF NOT EXISTS customer_email TEXT`);
+  await run("support_tickets.customer_phone",      `ALTER TABLE support_tickets ADD COLUMN IF NOT EXISTS customer_phone TEXT`);
+  await run("support_tickets.priority",            `ALTER TABLE support_tickets ADD COLUMN IF NOT EXISTS priority TEXT NOT NULL DEFAULT 'medium'`);
+  await run("support_tickets.status",              `ALTER TABLE support_tickets ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'open'`);
+  await run("support_tickets.source",              `ALTER TABLE support_tickets ADD COLUMN IF NOT EXISTS source TEXT NOT NULL DEFAULT 'email'`);
+  await run("support_tickets.channel",             `ALTER TABLE support_tickets ADD COLUMN IF NOT EXISTS channel TEXT`);
+  await run("support_tickets.queue_id",            `ALTER TABLE support_tickets ADD COLUMN IF NOT EXISTS queue_id UUID REFERENCES support_queues(id) ON DELETE SET NULL`);
+  await run("support_tickets.assigned_staff_id",   `ALTER TABLE support_tickets ADD COLUMN IF NOT EXISTS assigned_staff_id UUID REFERENCES staff(id) ON DELETE SET NULL`);
+  await run("support_tickets.sla_due_at",          `ALTER TABLE support_tickets ADD COLUMN IF NOT EXISTS sla_due_at TIMESTAMPTZ`);
+  await run("support_tickets.first_response_at",   `ALTER TABLE support_tickets ADD COLUMN IF NOT EXISTS first_response_at TIMESTAMPTZ`);
+  await run("support_tickets.resolved_at",         `ALTER TABLE support_tickets ADD COLUMN IF NOT EXISTS resolved_at TIMESTAMPTZ`);
+  await run("support_tickets.closed_at",           `ALTER TABLE support_tickets ADD COLUMN IF NOT EXISTS closed_at TIMESTAMPTZ`);
+  await run("support_tickets.satisfaction_rating", `ALTER TABLE support_tickets ADD COLUMN IF NOT EXISTS satisfaction_rating INT`);
+  await run("support_tickets.updated_at",          `ALTER TABLE support_tickets ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ DEFAULT NOW()`);
+  await run("idx_tickets_status",   `CREATE INDEX IF NOT EXISTS idx_tickets_status ON support_tickets(status)`);
+  await run("idx_tickets_queue",    `CREATE INDEX IF NOT EXISTS idx_tickets_queue ON support_tickets(queue_id)`);
+  await run("idx_tickets_assigned", `CREATE INDEX IF NOT EXISTS idx_tickets_assigned ON support_tickets(assigned_staff_id)`);
+  await run("idx_tickets_customer", `CREATE INDEX IF NOT EXISTS idx_tickets_customer ON support_tickets(customer_id)`);
+  await run("idx_tickets_source",   `CREATE INDEX IF NOT EXISTS idx_tickets_source ON support_tickets(source)`);
+
+  await run("ticket_messages", `
+    CREATE TABLE IF NOT EXISTS ticket_messages (
+      id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      ticket_id       UUID NOT NULL REFERENCES support_tickets(id) ON DELETE CASCADE,
+      sender_type     TEXT NOT NULL DEFAULT 'staff',
+      sender_name     TEXT NOT NULL,
+      sender_staff_id UUID REFERENCES staff(id) ON DELETE SET NULL,
+      body            TEXT NOT NULL,
+      visibility      TEXT,
+      created_at      TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("ticket_messages.sender_type",     `ALTER TABLE ticket_messages ADD COLUMN IF NOT EXISTS sender_type TEXT NOT NULL DEFAULT 'staff'`);
+  await run("ticket_messages.sender_name",     `ALTER TABLE ticket_messages ADD COLUMN IF NOT EXISTS sender_name TEXT NOT NULL DEFAULT ''`);
+  await run("ticket_messages.sender_staff_id", `ALTER TABLE ticket_messages ADD COLUMN IF NOT EXISTS sender_staff_id UUID REFERENCES staff(id) ON DELETE SET NULL`);
+  await run("ticket_messages.body",            `ALTER TABLE ticket_messages ADD COLUMN IF NOT EXISTS body TEXT NOT NULL DEFAULT ''`);
+  await run("ticket_messages.visibility",      `ALTER TABLE ticket_messages ADD COLUMN IF NOT EXISTS visibility TEXT`);
+  await run("idx_ticket_messages_ticket", `CREATE INDEX IF NOT EXISTS idx_ticket_messages_ticket ON ticket_messages(ticket_id, created_at ASC)`);
+
+  await run("lead_activities.ticket_id",  `ALTER TABLE lead_activities ADD COLUMN IF NOT EXISTS ticket_id UUID REFERENCES support_tickets(id) ON DELETE CASCADE`);
+  await run("idx_lead_activities_ticket", `CREATE INDEX IF NOT EXISTS idx_lead_activities_ticket ON lead_activities(ticket_id, created_at DESC)`);
+  await run("staff_tasks.ticket_id",  `ALTER TABLE staff_tasks ADD COLUMN IF NOT EXISTS ticket_id UUID REFERENCES support_tickets(id) ON DELETE CASCADE`);
+  await run("idx_staff_tasks_ticket", `CREATE INDEX IF NOT EXISTS idx_staff_tasks_ticket ON staff_tasks(ticket_id)`);
+
+  // Real SLA targets, editable (Sheet 9) -- these drive the real sla_due_at
+  // computed at ticket creation, not a decorative settings screen.
+  await run("support_sla_config", `
+    CREATE TABLE IF NOT EXISTS support_sla_config (
+      id                   UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      priority             TEXT UNIQUE NOT NULL,
+      first_response_hours NUMERIC NOT NULL,
+      resolution_hours     NUMERIC NOT NULL
+    )
+  `);
+
+  // Automation rule toggles. Only "auto_assign" is actually executed
+  // synchronously at ticket creation -- the others need a scheduled job
+  // runner this Next.js app doesn't have, so they're real, persisted
+  // preferences, not yet wired to real automated execution. Documented
+  // honestly in the UI, not silently implied.
+  await run("support_automation_rules", `
+    CREATE TABLE IF NOT EXISTS support_automation_rules (
+      id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      key        TEXT UNIQUE NOT NULL,
+      enabled    BOOLEAN DEFAULT TRUE,
+      updated_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+
+  // Finally makes the Batch 01 /api/notifications contract real -- that
+  // route always returned an empty list because nothing generated
+  // notifications yet. This batch is the first real source.
+  await run("notifications", `
+    CREATE TABLE IF NOT EXISTS notifications (
+      id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      staff_id   UUID NOT NULL REFERENCES staff(id) ON DELETE CASCADE,
+      type       TEXT NOT NULL,
+      title      TEXT NOT NULL,
+      body       TEXT,
+      link       TEXT,
+      read       BOOLEAN DEFAULT FALSE,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_notifications_staff", `CREATE INDEX IF NOT EXISTS idx_notifications_staff ON notifications(staff_id, created_at DESC)`);
+
+  // Batch 11 (Offerings & Pricing). agency_services and desk_products have
+  // been the real catalog since Batch 01, wired into Proposals/Opportunities/
+  // Projects across five batches -- this extends agency_services (the
+  // "Services" backbone) rather than building a parallel catalog.
+  // desk_products.status='live' has real meaning on the public site (live vs
+  // coming-soon) and is left untouched. Reuses agency_services.features for
+  // "Included Features", .tagline for short description, .description for
+  // detailed description -- new columns only for what's genuinely missing.
+  await run("agency_services.category",             `ALTER TABLE agency_services ADD COLUMN IF NOT EXISTS category TEXT`);
+  await run("agency_services.base_price",            `ALTER TABLE agency_services ADD COLUMN IF NOT EXISTS base_price BIGINT`);
+  await run("agency_services.recurring",              `ALTER TABLE agency_services ADD COLUMN IF NOT EXISTS recurring BOOLEAN DEFAULT FALSE`);
+  await run("agency_services.recurring_price",        `ALTER TABLE agency_services ADD COLUMN IF NOT EXISTS recurring_price BIGINT`);
+  await run("agency_services.recurring_period",       `ALTER TABLE agency_services ADD COLUMN IF NOT EXISTS recurring_period TEXT DEFAULT 'monthly'`);
+  await run("agency_services.turnaround_days_min",    `ALTER TABLE agency_services ADD COLUMN IF NOT EXISTS turnaround_days_min INT`);
+  await run("agency_services.turnaround_days_max",    `ALTER TABLE agency_services ADD COLUMN IF NOT EXISTS turnaround_days_max INT`);
+  await run("agency_services.revision_rounds",        `ALTER TABLE agency_services ADD COLUMN IF NOT EXISTS revision_rounds INT`);
+  await run("agency_services.requires_hosting",       `ALTER TABLE agency_services ADD COLUMN IF NOT EXISTS requires_hosting BOOLEAN DEFAULT FALSE`);
+  await run("agency_services.requires_domain",        `ALTER TABLE agency_services ADD COLUMN IF NOT EXISTS requires_domain BOOLEAN DEFAULT FALSE`);
+  await run("agency_services.support_channel",        `ALTER TABLE agency_services ADD COLUMN IF NOT EXISTS support_channel TEXT`);
+  await run("agency_services.tags",                   `ALTER TABLE agency_services ADD COLUMN IF NOT EXISTS tags JSONB DEFAULT '[]'`);
+  await run("agency_services.featured_image_url",     `ALTER TABLE agency_services ADD COLUMN IF NOT EXISTS featured_image_url TEXT`);
+  await run("agency_services.admin_notes",            `ALTER TABLE agency_services ADD COLUMN IF NOT EXISTS admin_notes TEXT`);
+  // Real "standardized vs custom" flag -- drives whether an offer gets a
+  // real checkout ("Start & Pay") or a scoping flow ("Get a Quote").
+  // Custom/bespoke work shouldn't imply an instantly-payable fixed price.
+  await run("agency_services.is_custom", `ALTER TABLE agency_services ADD COLUMN IF NOT EXISTS is_custom BOOLEAN DEFAULT FALSE`);
+  // Real deferred recurring fee -- e.g. "₦12,500/mo starting after year 1".
+  // recurring_price/recurring_period already exist; this just says how many
+  // months of free runway come before that recurring fee starts. No
+  // automated billing exists anywhere in this codebase (checked before
+  // adding this) -- staff still create the subscriptions record manually
+  // when it's due, same as every other recurring charge in the system.
+  await run("agency_services.recurring_starts_after_months", `ALTER TABLE agency_services ADD COLUMN IF NOT EXISTS recurring_starts_after_months INT DEFAULT 0`);
+  // Real link to the proof step of the Industry -> Solution -> Case Study ->
+  // Offer chain. Nullable -- not every offer has a matching case study yet,
+  // and that's shown honestly rather than faked.
+  await run("agency_services.related_case_study_slug", `ALTER TABLE agency_services ADD COLUMN IF NOT EXISTS related_case_study_slug TEXT`);
+  // Structured bonuses (title + description each) -- distinct from
+  // .features (a flat "what's included" list) since each bonus needs its
+  // own description, matching the offer detail page's "Bonuses Included"
+  // section.
+  await run("agency_services.bonuses", `ALTER TABLE agency_services ADD COLUMN IF NOT EXISTS bonuses JSONB DEFAULT '[]'`);
+
+  // Per-service pricing tiers (Sheet 7) -- scoped to one service, not global.
+  await run("service_pricing_tiers", `
+    CREATE TABLE IF NOT EXISTS service_pricing_tiers (
+      id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      service_id      UUID NOT NULL REFERENCES agency_services(id) ON DELETE CASCADE,
+      name            TEXT NOT NULL,
+      price           BIGINT NOT NULL DEFAULT 0,
+      recurring       BOOLEAN DEFAULT FALSE,
+      recurring_price BIGINT,
+      includes_text   TEXT,
+      enabled         BOOLEAN DEFAULT TRUE,
+      sort_order      INT DEFAULT 0,
+      created_at      TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_pricing_tiers_service", `CREATE INDEX IF NOT EXISTS idx_pricing_tiers_service ON service_pricing_tiers(service_id, sort_order)`);
+
+  // Add-ons: genuinely new concept, no existing table fits.
+  await run("offering_addons", `
+    CREATE TABLE IF NOT EXISTS offering_addons (
+      id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      name             TEXT NOT NULL,
+      category         TEXT,
+      price            BIGINT NOT NULL DEFAULT 0,
+      recurring        BOOLEAN DEFAULT FALSE,
+      recurring_period TEXT DEFAULT 'monthly',
+      status           TEXT NOT NULL DEFAULT 'active',
+      sort_order       INT DEFAULT 0,
+      created_at       TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+
+  // Packages/Solutions: real bundles of existing services/add-ons/desk
+  // products, not a duplicate of any of them -- line items reference the
+  // real underlying catalog rows.
+  await run("offering_packages", `
+    CREATE TABLE IF NOT EXISTS offering_packages (
+      id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      name             TEXT NOT NULL,
+      type             TEXT NOT NULL DEFAULT 'package',
+      base_price       BIGINT NOT NULL DEFAULT 0,
+      recurring        BOOLEAN DEFAULT FALSE,
+      recurring_price  BIGINT,
+      recurring_period TEXT DEFAULT 'monthly',
+      status           TEXT NOT NULL DEFAULT 'active',
+      description      TEXT,
+      sort_order       INT DEFAULT 0,
+      is_custom        BOOLEAN DEFAULT FALSE,
+      created_at       TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("offering_package_items", `
+    CREATE TABLE IF NOT EXISTS offering_package_items (
+      id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      package_id  UUID NOT NULL REFERENCES offering_packages(id) ON DELETE CASCADE,
+      item_type   TEXT NOT NULL,
+      service_id  UUID REFERENCES agency_services(id) ON DELETE SET NULL,
+      addon_id    UUID REFERENCES offering_addons(id) ON DELETE SET NULL,
+      solution_id UUID REFERENCES desk_products(id) ON DELETE SET NULL,
+      quantity    INT DEFAULT 1
+    )
+  `);
+  await run("idx_package_items_package", `CREATE INDEX IF NOT EXISTS idx_package_items_package ON offering_package_items(package_id)`);
+
+  // Promotions: active/scheduled/expired is computed live from valid_from/
+  // valid_to at read time (see lib/offerings.ts), not stored -- `enabled`
+  // only tracks a manual pause, so status can never drift out of sync with
+  // the actual dates.
+  await run("offering_promotions", `
+    CREATE TABLE IF NOT EXISTS offering_promotions (
+      id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      name           TEXT NOT NULL,
+      type           TEXT NOT NULL DEFAULT 'percentage',
+      discount_value NUMERIC NOT NULL,
+      valid_from     DATE,
+      valid_to       DATE,
+      enabled        BOOLEAN DEFAULT TRUE,
+      applies_to     TEXT DEFAULT 'all',
+      created_at     TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+
+  // Batch 12 (Finance). This fulfills every "Invoicing isn't built yet
+  // (Batch 12, Finance)" honest-pending promise left across Batches 05, 06,
+  // 07 and 08 -- see the report for exactly which UI surfaces get wired to
+  // real data. paid_amount/balance are deliberately NOT stored columns on
+  // invoices -- they're computed live from real payments (lib/finance.ts),
+  // matching the same "never let derived state go stale" principle already
+  // used for promotion status (Batch 11) and project health (Batch 07).
+  await run("invoices", `
+    CREATE TABLE IF NOT EXISTS invoices (
+      id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      invoice_number      TEXT UNIQUE NOT NULL,
+      customer_id         UUID REFERENCES customers(id) ON DELETE SET NULL,
+      customer_name       TEXT NOT NULL,
+      project_id          UUID REFERENCES projects(id) ON DELETE SET NULL,
+      proposal_id         UUID REFERENCES proposals(id) ON DELETE SET NULL,
+      status              TEXT NOT NULL DEFAULT 'draft',
+      category            TEXT NOT NULL DEFAULT 'other',
+      issue_date          DATE DEFAULT NOW(),
+      due_date            DATE,
+      payment_terms_days  INT DEFAULT 30,
+      currency            TEXT NOT NULL DEFAULT 'NGN',
+      subtotal            NUMERIC(14,2) DEFAULT 0,
+      tax_pct             NUMERIC(5,2) DEFAULT 0,
+      tax_amount          NUMERIC(14,2) DEFAULT 0,
+      total               NUMERIC(14,2) DEFAULT 0,
+      notes               TEXT,
+      created_by_staff_id UUID REFERENCES staff(id) ON DELETE SET NULL,
+      sent_at             TIMESTAMPTZ,
+      cancelled_at        TIMESTAMPTZ,
+      created_at          TIMESTAMPTZ DEFAULT NOW(),
+      updated_at          TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_invoices_status",   `CREATE INDEX IF NOT EXISTS idx_invoices_status ON invoices(status)`);
+  await run("idx_invoices_customer", `CREATE INDEX IF NOT EXISTS idx_invoices_customer ON invoices(customer_id)`);
+  await run("idx_invoices_project",  `CREATE INDEX IF NOT EXISTS idx_invoices_project ON invoices(project_id)`);
+  await run("idx_invoices_proposal", `CREATE INDEX IF NOT EXISTS idx_invoices_proposal ON invoices(proposal_id)`);
+
+  await run("invoice_items", `
+    CREATE TABLE IF NOT EXISTS invoice_items (
+      id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      invoice_id  UUID NOT NULL REFERENCES invoices(id) ON DELETE CASCADE,
+      item_name   TEXT NOT NULL,
+      description TEXT,
+      qty         NUMERIC(10,2) DEFAULT 1,
+      rate        NUMERIC(14,2) DEFAULT 0,
+      amount      NUMERIC(14,2) DEFAULT 0,
+      sort_order  INT DEFAULT 0
+    )
+  `);
+  await run("idx_invoice_items_invoice", `CREATE INDEX IF NOT EXISTS idx_invoice_items_invoice ON invoice_items(invoice_id, sort_order)`);
+
+  await run("payments", `
+    CREATE TABLE IF NOT EXISTS payments (
+      id                   UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      payment_number       TEXT UNIQUE NOT NULL,
+      invoice_id           UUID REFERENCES invoices(id) ON DELETE SET NULL,
+      customer_id          UUID REFERENCES customers(id) ON DELETE SET NULL,
+      customer_name        TEXT,
+      amount               NUMERIC(14,2) NOT NULL DEFAULT 0,
+      method               TEXT NOT NULL DEFAULT 'bank_transfer',
+      status               TEXT NOT NULL DEFAULT 'completed',
+      reference            TEXT,
+      recorded_by_staff_id UUID REFERENCES staff(id) ON DELETE SET NULL,
+      paid_at              TIMESTAMPTZ DEFAULT NOW(),
+      created_at           TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_payments_invoice",  `CREATE INDEX IF NOT EXISTS idx_payments_invoice ON payments(invoice_id)`);
+  await run("idx_payments_reference", `CREATE INDEX IF NOT EXISTS idx_payments_reference ON payments(reference)`);
+  await run("idx_payments_customer", `CREATE INDEX IF NOT EXISTS idx_payments_customer ON payments(customer_id)`);
+  await run("idx_payments_status",   `CREATE INDEX IF NOT EXISTS idx_payments_status ON payments(status)`);
+
+  // Subscriptions are the real backing for Sheet 5 AND the subscription half
+  // of Sheet 9's renewals -- the domain/hosting half of Sheet 9 reuses
+  // lib/renewals.ts (already built) against real `organisations` data,
+  // rather than a second parallel renewals concept.
+  await run("subscriptions", `
+    CREATE TABLE IF NOT EXISTS subscriptions (
+      id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      subscription_number TEXT UNIQUE NOT NULL,
+      customer_id         UUID REFERENCES customers(id) ON DELETE SET NULL,
+      customer_name       TEXT NOT NULL,
+      name                TEXT NOT NULL,
+      amount              NUMERIC(14,2) NOT NULL DEFAULT 0,
+      billing_cycle       TEXT NOT NULL DEFAULT 'monthly',
+      next_billing_date   DATE,
+      status              TEXT NOT NULL DEFAULT 'active',
+      started_at          DATE DEFAULT NOW(),
+      project_id          UUID REFERENCES projects(id) ON DELETE SET NULL,
+      created_at          TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_subscriptions_customer", `CREATE INDEX IF NOT EXISTS idx_subscriptions_customer ON subscriptions(customer_id)`);
+  await run("idx_subscriptions_status",   `CREATE INDEX IF NOT EXISTS idx_subscriptions_status ON subscriptions(status)`);
+  await run("idx_subscriptions_billing",  `CREATE INDEX IF NOT EXISTS idx_subscriptions_billing ON subscriptions(next_billing_date)`);
+
+  // Expenses (Sheet 8's Top Expenses): real, staff-entered -- no accounting
+  // integration exists to pull these automatically, same honest-manual
+  // pattern already used for domain expiry (Batch 10) and project paid_amount
+  // (Batch 07, now superseded for projects with real linked invoices below).
+  await run("expenses", `
+    CREATE TABLE IF NOT EXISTS expenses (
+      id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      category            TEXT NOT NULL,
+      amount              NUMERIC(14,2) NOT NULL DEFAULT 0,
+      expense_date        DATE DEFAULT NOW(),
+      description         TEXT,
+      created_by_staff_id UUID REFERENCES staff(id) ON DELETE SET NULL,
+      created_at          TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await run("idx_expenses_date", `CREATE INDEX IF NOT EXISTS idx_expenses_date ON expenses(expense_date)`);
+
+  // 8th reuse of lead_activities (leads, opportunities, customers, projects,
+  // messages, notes, tickets, now invoices) -- powers the invoice detail
+  // page's Activity tab (Sheet 3).
+  await run("lead_activities.invoice_id",  `ALTER TABLE lead_activities ADD COLUMN IF NOT EXISTS invoice_id UUID REFERENCES invoices(id) ON DELETE CASCADE`);
+  await run("idx_lead_activities_invoice", `CREATE INDEX IF NOT EXISTS idx_lead_activities_invoice ON lead_activities(invoice_id, created_at DESC)`);
 
   await run("staff_targets", `
     CREATE TABLE IF NOT EXISTS staff_targets (

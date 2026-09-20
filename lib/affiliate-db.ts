@@ -22,9 +22,9 @@ CREATE TABLE IF NOT EXISTS affiliates (
   bank_name     TEXT,
   bank_account  TEXT,
   bank_holder   TEXT,
-  signup_bonus  NUMERIC(12,2) NOT NULL DEFAULT 20000,
+  signup_bonus  NUMERIC(12,2) NOT NULL DEFAULT 2000,
   bonus_unlocked BOOLEAN NOT NULL DEFAULT FALSE,
-  bonus_expires_at TIMESTAMPTZ DEFAULT NOW() + INTERVAL '90 days',
+  bonus_expires_at TIMESTAMPTZ,
   last_active_at TIMESTAMPTZ DEFAULT NOW(),
   created_at    TIMESTAMPTZ DEFAULT NOW(),
   updated_at    TIMESTAMPTZ DEFAULT NOW()
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS commissions (
   lead_id       UUID REFERENCES referral_leads(id),
   service_name  TEXT NOT NULL,
   deal_value    NUMERIC(12,2) NOT NULL DEFAULT 0,
-  rate          NUMERIC(5,2)  NOT NULL DEFAULT 10,
+  rate          NUMERIC(5,2)  NOT NULL DEFAULT 20,
   amount        NUMERIC(12,2) NOT NULL DEFAULT 0,
   type          TEXT NOT NULL DEFAULT 'one-time',
   status        TEXT NOT NULL DEFAULT 'pending',
@@ -152,11 +152,12 @@ export async function getDashboardStats(affiliateId: string) {
   ]);
 
   const aff = affiliate[0];
-  const bonusExpired = aff?.bonus_expires_at ? new Date(aff.bonus_expires_at) < new Date() : false;
   const bonusAmount = aff?.bonus_unlocked ? Number(aff.signup_bonus) : 0;
   const approvedBase = Number(commissions[0]?.approved || 0);
 
-  // Bonus adds to approved balance only after first referral closes
+  // Bonus adds to approved balance only after the affiliate's first
+  // referral upgrades to a paid plan -- no time limit on this (JKTL
+  // Business terms), unlike the legacy 90-day-expiry program.
   const availableForPayout = approvedBase + bonusAmount;
 
   return {
@@ -166,10 +167,8 @@ export async function getDashboardStats(affiliateId: string) {
     approved:           approvedBase,
     paid:               Number(commissions[0]?.paid || 0),
     totalEarned:        Number(commissions[0]?.total || 0),
-    signupBonus:        Number(aff?.signup_bonus || 20000),
+    signupBonus:        Number(aff?.signup_bonus || 2000),
     bonusUnlocked:      Boolean(aff?.bonus_unlocked),
-    bonusExpired,
-    bonusExpiresAt:     aff?.bonus_expires_at || null,
     availableForPayout,
   };
 }

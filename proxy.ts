@@ -1,8 +1,30 @@
 import { NextRequest, NextResponse } from "next/server";
+import { neon } from "@neondatabase/serverless";
 import { verifyToken, COOKIE_NAME } from "@/lib/affiliate-auth";
 
-export function proxy(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
+
+  // Real redirect enforcement (Batch 14, Sheet 9) -- checked first, before
+  // the existing auth/admin logic below. One lightweight indexed query per
+  // matched navigation; a disclosed tradeoff for genuinely real redirects
+  // rather than a UI that doesn't redirect anyone. Fails open on any DB
+  // error so a redirects-table issue never takes the site down.
+  if (process.env.DATABASE_URL && !pathname.startsWith("/affiliates") && !pathname.startsWith("/admin")) {
+    try {
+      const sql = neon(process.env.DATABASE_URL);
+      const rows = await sql`SELECT to_path, status_code FROM redirects WHERE from_path = ${pathname} LIMIT 1`;
+      const redirect = rows[0] as { to_path: string; status_code: number } | undefined;
+      if (redirect) {
+        sql`UPDATE redirects SET hit_count = hit_count + 1 WHERE from_path = ${pathname}`.catch(() => {});
+        const url = req.nextUrl.clone();
+        url.pathname = redirect.to_path;
+        return NextResponse.redirect(url, redirect.status_code === 302 ? 302 : 301);
+      }
+    } catch {
+      // fall through to normal routing
+    }
+  }
 
   // Protect /affiliates/dashboard routes
   if (pathname.startsWith("/affiliates/dashboard")) {
@@ -35,5 +57,5 @@ export function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/affiliates/dashboard/:path*", "/affiliates/pending", "/admin/:path*"],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js)$).*)"],
 };

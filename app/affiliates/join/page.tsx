@@ -96,8 +96,8 @@ export default function JoinPage() {
             Join the Affiliate Programme
           </h1>
           <p style={{ fontSize: "0.88rem", color: "rgba(226,232,240,0.45)", lineHeight: 1.6 }}>
-            Earn commissions promoting JKTL Desk products.
-            ₦10,000 welcome bonus. 5% on setup fees. 2% recurring.
+            Earn 20% recurring commission promoting JKTL Business.
+            Plus a ₦2,000 welcome bonus once your first referral upgrades to paid.
           </p>
         </div>
 
@@ -173,7 +173,7 @@ export default function JoinPage() {
                 style={{ ...inputStyle, minHeight: 100, resize: "vertical" }}
                 value={howPromote}
                 onChange={e => setHowPromote(e.target.value)}
-                placeholder="e.g. I run a WhatsApp group for church administrators, Instagram page for auto detailers, LinkedIn for school owners..." />
+                placeholder="e.g. I run a WhatsApp group for salon owners, an Instagram page for small business tips, LinkedIn for SME founders..." />
             </div>
 
             {/* Terms */}

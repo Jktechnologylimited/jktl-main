@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 export type PostItem = {
   id: string; title: string; slug: string; cover_image: string;
-  excerpt: string; author: string; type: string; published_at: string;
+  excerpt: string; author: string; type: string; category?: string; tags?: string[]; published_at: string;
 };
 
 // Public list of published posts, optionally filtered by type (e.g. "blog").
