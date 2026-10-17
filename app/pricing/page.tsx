@@ -6,17 +6,43 @@ import { pricing, competitors, appSignupUrl } from "@/data/index";
 
 export const metadata: Metadata = {
   title: "Pricing",
-  description: "JKTL Business is free to start. Upgrade for ₦5,000/month or ₦50,000/year for extra staff seats, storage and a custom domain -- or go custom for a bespoke website, portal or email setup.",
+  description: "The JKTL Business AI receptionist: ₦650,000 to set up, or six monthly payments of ₦108,333.33 — then ₦59,000/month. It answers every call your clinic cannot, books the patient, and texts back anyone it missed. Cancel any time.",
   alternates: { canonical: "https://jktl.com.ng/pricing" },
 };
 
 const FAQS = [
-  { q: "Is JKTL Business really free?", a: "Yes. Customer records, bookings or sales tracking, invoicing with online payment, inventory tracking, expense tracking, and a published business website are all free -- no plan required." },
-  { q: "What do I get on the paid plan?", a: "Extra staff seats beyond the owner, more photo/storage space, and a custom domain for your business website. Everything else is already included free." },
-  { q: "How much cheaper is the yearly plan?", a: "₦50,000/year works out to about ₦4,167/month -- roughly 17% cheaper than paying ₦5,000 every month." },
-  { q: "Can I cancel anytime?", a: "Yes, there's no lock-in contract. If you cancel a paid plan, your account simply returns to the Free plan -- your data stays intact." },
-  { q: "Do you take a cut of my sales or bookings?", a: "No. JKTL Business charges a flat monthly or yearly fee for the paid plan -- nothing based on your revenue." },
-  { q: "What if I need more than the Paid plan offers?", a: "If your business needs something beyond the standard app -- a fully custom website, a client or student portal, business email hosting, or a bespoke integration -- reach out and we'll scope it as a custom project." },
+  {
+    q: "Why is it ₦108,333.33 and not a round number?",
+    a: "Because ₦650,000 divided by six is not a round number. Six payments of ₦108,333.33 come to ₦650,000 exactly — the odd figure is the honest one, and it means you pay the package off with nothing added on top.",
+  },
+  {
+    q: "What happens after the first six months?",
+    a: "The ₦650,000 is paid off, so the fee drops to ₦59,000/month — the ongoing cost of the platform, your dedicated line and the assistant. Month 7 onwards is ₦59,000, whether you paid monthly or in full.",
+  },
+  {
+    q: "What does the ₦650,000 actually pay for?",
+    a: "Setting you up properly: your own dedicated phone number, the assistant trained on your services, prices and opening hours, your website built from your own photographs and reviews, and your team shown how to use it. It is a launch, not a licence key.",
+  },
+  {
+    q: "Can I cancel?",
+    a: "Any time from month one. There is no minimum term and no exit fee — if you cancel in month two, the remaining instalments are simply never charged. You keep your data.",
+  },
+  {
+    q: "Is there anything on top?",
+    a: "₦15,000 of communication credit is included, which covers your texts, calls and the line for a good while. After that you top up and pay only for what you use — a text is about ₦4.50, and your dedicated number is $1.90 a month at cost. No markup, no per-seat charge.",
+  },
+  {
+    q: "Do you take a cut of my sales or bookings?",
+    a: "No. We never take a percentage of your revenue. Card payments are processed by Paystack and go straight to your own bank account.",
+  },
+  {
+    q: "What if I want something beyond this?",
+    a: "If your business needs a fully custom website, a patient or client portal, business email hosting, or a bespoke integration, get in touch and we will scope it separately.",
+  },
+  {
+    q: "What if I miss calls outside working hours?",
+    a: "That is the point. The assistant answers every call, day or night, and texts back whoever it could not reach so they can book by link. Most of the revenue this recovers comes from calls nobody was there to pick up.",
+  },
 ];
 
 export default function PricingPage() {
@@ -26,72 +52,122 @@ export default function PricingPage() {
         <Reveal className="max-w-[640px] mx-auto">
           <span className="label-xs" style={{ color: "var(--gold-400)" }}>Pricing</span>
           <h1 className="display-hero mt-3 mb-5" style={{ color: "#fff", fontSize: "clamp(2.4rem,5vw,4rem)" }}>Simple, Honest Pricing</h1>
-          <p className="body-lg" style={{ color: "rgba(249,247,240,0.6)" }}>Start completely free. Upgrade only when your team or your storage needs outgrow it.</p>
+          <p className="body-lg" style={{ color: "rgba(249,247,240,0.6)" }}>
+            ₦650,000 to set you up — or six payments of ₦108,333.33. Then ₦59,000 a month, cancel any time.
+          </p>
         </Reveal>
       </section>
 
-      {/* Plan cards */}
+      {/* Two cards: the monthly entry point first, then the ₦650,000 anchor. */}
       <section className="px-4 sm:px-6 lg:px-8 -mt-10 relative z-10 pb-16">
-        <Stagger className="max-w-[1140px] mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 pricing-grid" stagger={0.12}>
-          {/* Free */}
-          <StaggerItem>
-            <HoverLift className="h-full">
-              <div className="card-light p-8 h-full" style={{ background: "#fff" }}>
-                <p className="label-xs mb-3" style={{ color: "rgba(28,28,30,0.4)" }}>{pricing.free.name}</p>
-                <p style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 300, fontSize: "3rem", color: "var(--navy-900)", lineHeight: 1 }}>{pricing.free.price}</p>
-                <p className="body-sm text-black/45 mb-5">{pricing.free.period}</p>
-                <p className="body-sm text-black/60 mb-6">{pricing.free.tagline}</p>
-                <ul className="check-list mb-8">
-                  {pricing.free.features.map(f => <li key={f}>{f}</li>)}
-                </ul>
-                <a href={appSignupUrl()} className="btn-outline-navy w-full justify-center px-7 py-3.5 text-sm uppercase tracking-wide">Get Started Free</a>
-              </div>
-            </HoverLift>
-          </StaggerItem>
+        <Stagger className="max-w-[900px] mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 pricing-grid" stagger={0.12}>
+          {[pricing.monthly, pricing.upfront].map((plan) => (
+            <StaggerItem key={plan.id}>
+              <HoverLift className="h-full">
+                <div
+                  className="card-light p-8 h-full flex flex-col"
+                  style={
+                    plan.featured
+                      ? { background: "var(--navy-900)", border: "1px solid rgba(201,168,76,0.35)" }
+                      : { background: "#fff" }
+                  }
+                >
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <p className="label-xs" style={{ color: plan.featured ? "var(--gold-400)" : "rgba(28,28,30,0.4)" }}>
+                      {plan.name}
+                    </p>
+                    <span
+                      className="label-xs px-2 py-1 rounded-sm"
+                      style={
+                        plan.featured
+                          ? { background: "rgba(201,168,76,0.15)", color: "var(--gold-400)" }
+                          : { background: "var(--cream-100)", color: "rgba(28,28,30,0.45)" }
+                      }
+                    >
+                      {plan.badge}
+                    </span>
+                  </div>
 
-          {/* Paid */}
-          <StaggerItem>
-            <HoverLift className="h-full">
-              <div className="p-8 rounded h-full" style={{ background: "var(--navy-900)", border: "1px solid rgba(201,168,76,0.3)" }}>
-                <p className="label-xs mb-3" style={{ color: "var(--gold-400)" }}>{pricing.paid.name}</p>
-                <p style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 300, fontSize: "3rem", color: "#fff", lineHeight: 1 }}>
-                  {pricing.paid.priceMonthly}<span className="text-lg">/mo</span>
-                </p>
-                <p className="body-sm mb-1" style={{ color: "rgba(249,247,240,0.5)" }}>or {pricing.paid.priceYearly}/year</p>
-                <p className="body-sm mb-5" style={{ color: "var(--gold-400)" }}>{pricing.paid.savingsNote}</p>
-                <p className="body-sm mb-6" style={{ color: "rgba(249,247,240,0.6)" }}>{pricing.paid.tagline}</p>
-                <ul className="flex flex-col gap-2 mb-8">
-                  {pricing.paid.features.map(f => (
-                    <li key={f} className="flex items-start gap-2.5 text-[0.875rem]" style={{ color: "rgba(249,247,240,0.75)" }}>
-                      <CheckCircle2 size={16} style={{ color: "var(--gold-400)", flexShrink: 0, marginTop: 2 }} />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <a href={appSignupUrl()} className="btn-gold w-full justify-center px-7 py-3.5 text-sm uppercase tracking-wide">Upgrade to Paid</a>
-              </div>
-            </HoverLift>
-          </StaggerItem>
+                  <p
+                    style={{
+                      fontFamily: "'Cormorant Garamond',serif",
+                      fontWeight: 300,
+                      fontSize: "clamp(2.2rem,4.6vw,3rem)",
+                      color: plan.featured ? "#fff" : "var(--navy-900)",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {plan.headline}
+                    {plan.headlineSuffix ? <span className="text-lg">{plan.headlineSuffix}</span> : null}
+                  </p>
+                  <p className="body-sm mt-2 mb-3" style={{ color: plan.featured ? "rgba(249,247,240,0.5)" : "rgba(28,28,30,0.45)" }}>
+                    {plan.period}
+                  </p>
+                  <p className="body-sm mb-5" style={{ color: plan.featured ? "rgba(249,247,240,0.65)" : "rgba(28,28,30,0.6)" }}>
+                    {plan.explains}
+                  </p>
 
-          {/* Custom */}
-          <StaggerItem>
-            <HoverLift className="h-full">
-              <div className="card-light p-8 h-full" style={{ background: "#fff" }}>
-                <p className="label-xs mb-3" style={{ color: "rgba(28,28,30,0.4)" }}>{pricing.custom.name}</p>
-                <p style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 300, fontSize: "2.2rem", color: "var(--navy-900)", lineHeight: 1.1 }}>{pricing.custom.price}</p>
-                <p className="body-sm text-black/45 mb-5">{pricing.custom.period}</p>
-                <p className="body-sm text-black/60 mb-6">{pricing.custom.tagline}</p>
-                <ul className="check-list mb-8">
-                  {pricing.custom.features.map(f => <li key={f}>{f}</li>)}
-                </ul>
-                <a href="/contact" className="btn-outline-navy w-full justify-center px-7 py-3.5 text-sm uppercase tracking-wide">Talk to Us</a>
-              </div>
-            </HoverLift>
-          </StaggerItem>
+                  {/* The ongoing fee, stated on both cards so neither hides it. */}
+                  <div
+                    className="rounded p-3 mb-5"
+                    style={plan.featured ? { background: "rgba(249,247,240,0.06)" } : { background: "var(--cream-100)" }}
+                  >
+                    <p className="label-xs mb-1" style={{ color: plan.featured ? "rgba(249,247,240,0.45)" : "rgba(28,28,30,0.4)" }}>
+                      {plan.ongoingLabel}
+                    </p>
+                    <p className="font-semibold text-[0.95rem]" style={{ color: plan.featured ? "var(--gold-400)" : "var(--navy-900)" }}>
+                      {plan.ongoing}
+                    </p>
+                    <p className="body-sm mt-1" style={{ color: plan.featured ? "rgba(249,247,240,0.5)" : "rgba(28,28,30,0.5)" }}>
+                      {plan.ongoingNote}
+                    </p>
+                  </div>
+
+                  <ul className="flex flex-col gap-2.5 mb-6 flex-1">
+                    {plan.features.map((f) => (
+                      <li key={f} className="flex items-start gap-2.5">
+                        <CheckCircle2
+                          className="size-4 shrink-0 mt-0.5"
+                          style={{ color: plan.featured ? "var(--gold-400)" : "var(--navy-700)" }}
+                        />
+                        <span className="body-sm" style={{ color: plan.featured ? "rgba(249,247,240,0.75)" : "rgba(28,28,30,0.7)" }}>
+                          {f}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <p className="body-sm mb-5" style={{ color: plan.featured ? "rgba(249,247,240,0.5)" : "rgba(28,28,30,0.5)" }}>
+                    {plan.cancellation}
+                  </p>
+
+                  <a
+                    href={appSignupUrl()}
+                    className={plan.featured ? "btn-gold w-full justify-center px-7 py-3.5 text-sm uppercase tracking-wide" : "btn-outline-navy w-full justify-center px-7 py-3.5 text-sm uppercase tracking-wide"}
+                  >
+                    Get started
+                  </a>
+                </div>
+              </HoverLift>
+            </StaggerItem>
+          ))}
         </Stagger>
+
+        {/* What comes with both, so neither card has to repeat it. */}
+        <Reveal className="max-w-[900px] mx-auto mt-8">
+          <div className="card-light p-6" style={{ background: "var(--cream-100)" }}>
+            <p className="font-semibold text-[0.9rem] text-navy-900 mb-3">
+              {pricing.shared.freeCredit} of communication credit, included with both
+            </p>
+            <p className="body-sm text-black/60 mb-3">{pricing.shared.freeCreditNote}</p>
+            <ul className="flex flex-col gap-1.5">
+              <li className="body-sm text-black/55">{pricing.shared.lineRental}</li>
+              <li className="body-sm text-black/55">{pricing.shared.noCommission}</li>
+            </ul>
+          </div>
+        </Reveal>
       </section>
 
-      {/* Competitor comparison */}
       <section className="bg-white px-4 sm:px-6 lg:px-8 py-16 sm:py-20 border-y border-cream-300">
         <Reveal className="max-w-[800px] mx-auto">
           <div className="text-center mb-10">
@@ -134,9 +210,9 @@ export default function PricingPage() {
       </section>
 
       <CTABanner
-        heading="Start Free Today"
-        subhead="No card required. Upgrade only when you need to."
-        primaryLabel="Get Started Free"
+        heading="See it answer a call"
+        subhead="We'll set up your line and your assistant, and show you what it books."
+        primaryLabel="Get started"
         primaryHref={appSignupUrl()}
         secondaryLabel="Talk to Us"
         secondaryHref="/contact"

@@ -20,10 +20,10 @@ const ICONS: Record<string, React.ReactNode> = {
 };
 
 const FAQS = [
-  { q: "Is JKTL Business really free to start?", a: "Yes -- customer records, bookings or sales tracking, invoicing with online payment, inventory tracking, and a published business website are all free, no card required." },
+  { q: "How much does JKTL Business cost?", a: "₦650,000 to set up, payable in full or as six monthly payments of ₦108,333.33. From month 7 the ongoing fee is ₦59,000 per month. That includes ₦15,000 of communication credit, your own dedicated phone number, the AI receptionist trained on your business, and your website. Cancel any time from month one." },
   { q: "Do I need this for the JKTL Business app itself?", a: "No -- for account or product support inside the app, use the help option in your JKTL Business dashboard. This form is for general questions about the product, partnerships, or press." },
   { q: "Is my type of business supported?", a: "JKTL Business fits most service and product businesses -- see our Industries page, or just ask us here." },
-  { q: "How do I become an affiliate?", a: "Visit our Affiliates page to apply -- it's free to join and approval usually takes 24-48 hours." },
+  { q: "How do I become an affiliate?", a: "See our Affiliates page — it explains what you earn and how it works. You apply from there, and approval usually takes 24-48 hours. You earn ₦20,000 when a business you refer signs up, ₦40,000 more when they subscribe, and ₦3,500 every month they stay subscribed." },
   { q: "How quickly do you respond?", a: "We reply within 24 hours -- WhatsApp is usually the fastest way to reach us." },
 ];
 
@@ -137,7 +137,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <CTABanner heading="Ready to Get Started?" subhead="Free to start, no card required." primaryLabel="Get Started Free" primaryHref={appSignupUrl()} />
+      <CTABanner heading="Ready to Get Started?" subhead="We set up your line, your assistant and your website." primaryLabel="Get started" primaryHref={appSignupUrl()} />
     </div>
   );
 }

@@ -51,7 +51,7 @@ export default function Navbar() {
               Log In
             </a>
             <a href={appSignupUrl()} className="btn-gold text-[0.72rem] px-5 py-2.5 whitespace-nowrap">
-              Get Started Free
+              Get started
             </a>
 
             {/* Hamburger -- mobile */}
@@ -87,7 +87,7 @@ export default function Navbar() {
                 Log In
               </a>
               <a href={appSignupUrl()} className="btn-gold" style={{ justifyContent: "center", padding: "15px" }}>
-                Get Started Free
+                Get started
               </a>
               <a href={`tel:${siteConfig.phone.replace(/ /g, "")}`}
                 className="text-center font-mono text-[0.7rem] text-white/30 no-underline pt-2">

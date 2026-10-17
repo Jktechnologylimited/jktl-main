@@ -20,7 +20,7 @@ export default function IndustriesPage() {
         eyebrow="Industries We Serve"
         heading="Built For Every Kind Of Nigerian Business"
         subhead="Whether you take bookings or make sales, JKTL Business adapts to how your business actually works -- not the other way around."
-        primaryLabel="Start Free"
+        primaryLabel="Get started"
         primaryHref={appSignupUrl()}
         secondaryLabel="See Pricing"
         secondaryHref="/pricing"
@@ -61,9 +61,9 @@ export default function IndustriesPage() {
       </section>
 
       <CTABanner
-        heading="Find Your Industry Above? Get Started Free."
+        heading="Find Your Industry Above?"
         subhead="No card required. Set up your business and go live today."
-        primaryLabel="Get Started Free"
+        primaryLabel="Get started"
         primaryHref={appSignupUrl()}
         secondaryLabel="See How It Works"
         secondaryHref="/how-it-works"

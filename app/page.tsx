@@ -4,11 +4,11 @@ import { CheckCircle2, Globe, Smartphone, ShieldCheck } from "lucide-react";
 import Icon from "@/components/shared/Icon";
 import SocialProof from "@/components/shared/SocialProof";
 import { Reveal, Stagger, StaggerItem, HoverLift } from "@/components/shared/Reveal";
-import { siteConfig, features, industries, pricing, signupSteps, affiliateTerms, appSignupUrl, pexelsUrl } from "@/data/index";
+import { affiliateTerms, affiliateUrl, appSignupUrl, features, industries, pexelsUrl, pricing, signupSteps, siteConfig } from "@/data/index";
 
 export const metadata = {
-  title: "Manage Your Business From Your Phone",
-  description: "JKTL Business is a free, mobile-first app for Nigerian SMEs -- CRM, bookings & sales, invoicing with Paystack, inventory, expenses, and a free business website.",
+  title: "The AI Receptionist That Never Misses a Call",
+  description: "An AI receptionist for Nigerian clinics and salons. It answers every call you cannot, books the appointment, and texts back anyone it missed. ₦650,000 to set up, or six payments of ₦108,333.33.",
 };
 
 export default function HomePage() {
@@ -24,12 +24,12 @@ export default function HomePage() {
               <Reveal delay={0}>
                 <div className="inline-flex items-center gap-2 mb-5 px-4 py-1.5 rounded-full" style={{ background: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.25)" }}>
                   <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--gold-400)" }} />
-                  <span className="label-xs" style={{ color: "var(--gold-400)" }}>Free to start -- no card required</span>
+                  <span className="label-xs" style={{ color: "var(--gold-400)" }}>Answers every call, day or night</span>
                 </div>
               </Reveal>
               <Reveal delay={0.1}>
                 <h1 className="display-hero" style={{ color: "#fff", marginBottom: 20 }}>
-                  Run Your Business<br /><span className="gold-text">From Your Phone</span>
+                  Every Call Answered.<br /><span className="gold-text">Every Patient Booked.</span>
                 </h1>
               </Reveal>
               <Reveal delay={0.2}>
@@ -39,13 +39,13 @@ export default function HomePage() {
               </Reveal>
               <Reveal delay={0.3}>
                 <div className="flex flex-wrap gap-3 mb-10">
-                  <a href={appSignupUrl()} className="btn-gold px-7 py-3.5 text-sm uppercase tracking-wide">Get Started Free</a>
+                  <a href={appSignupUrl()} className="btn-gold px-7 py-3.5 text-sm uppercase tracking-wide">Get started</a>
                   <Link href="/how-it-works" className="btn-outline-cream px-7 py-3.5 text-sm uppercase tracking-wide">See How It Works</Link>
                 </div>
               </Reveal>
               <Reveal delay={0.4}>
                 <div className="flex flex-wrap gap-x-8 gap-y-3">
-                  {["Free CRM & invoicing", "Free business website", "Installs like an app"].map(t => (
+                  {["Answers calls 24/7", "Books straight into your calendar", "Texts back every missed caller", "Installs like an app"].map(t => (
                     <div key={t} className="flex items-center gap-2">
                       <CheckCircle2 size={16} style={{ color: "var(--gold-400)" }} />
                       <span className="text-[0.82rem]" style={{ color: "rgba(249,247,240,0.6)" }}>{t}</span>
@@ -144,19 +144,29 @@ export default function HomePage() {
       <section className="px-4 sm:px-6 lg:px-8 py-16 sm:py-24" style={{ background: "var(--navy-900)" }}>
         <Reveal className="max-w-[900px] mx-auto text-center">
           <h2 className="display-xl mb-4" style={{ color: "var(--cream-50)" }}>Simple, Honest Pricing</h2>
-          <p className="body-md mb-12" style={{ color: "rgba(249,247,240,0.5)" }}>Start free. Upgrade only when you need more.</p>
+          <p className="body-md mb-12" style={{ color: "rgba(249,247,240,0.5)" }}>
+            ₦650,000 to set everything up — or spread it across six months. Then ₦59,000 a month.
+          </p>
           <Stagger className="grid grid-cols-1 sm:grid-cols-2 gap-2" style={{ background: "rgba(249,247,240,0.06)" }}>
-            <StaggerItem className="p-8 text-left" style={{ background: "var(--navy-800)" }}>
-              <p className="label-xs mb-3" style={{ color: "rgba(249,247,240,0.4)" }}>{pricing.free.name}</p>
-              <p style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 300, fontSize: "2.6rem", color: "#fff", lineHeight: 1 }}>{pricing.free.price}</p>
-              <p className="body-sm mb-4" style={{ color: "rgba(249,247,240,0.45)" }}>{pricing.free.period}</p>
-              <p className="body-sm" style={{ color: "rgba(249,247,240,0.6)" }}>{pricing.free.tagline}</p>
-            </StaggerItem>
             <StaggerItem className="p-8 text-left relative" style={{ background: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.2)" }}>
-              <p className="label-xs mb-3" style={{ color: "var(--gold-400)" }}>{pricing.paid.name}</p>
-              <p style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 300, fontSize: "2.6rem", color: "var(--gold-400)", lineHeight: 1 }}>{pricing.paid.priceMonthly}<span className="text-base">/mo</span></p>
-              <p className="body-sm mb-4" style={{ color: "rgba(249,247,240,0.45)" }}>or {pricing.paid.priceYearly}/year</p>
-              <p className="body-sm" style={{ color: "rgba(249,247,240,0.6)" }}>{pricing.paid.tagline}</p>
+              <p className="label-xs mb-3" style={{ color: "var(--gold-400)" }}>{pricing.monthly.name} — {pricing.monthly.badge}</p>
+              <p style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 300, fontSize: "2.6rem", color: "var(--gold-400)", lineHeight: 1 }}>
+                {pricing.monthly.headline}<span className="text-base">{pricing.monthly.headlineSuffix}</span>
+              </p>
+              <p className="body-sm mb-2" style={{ color: "rgba(249,247,240,0.45)" }}>{pricing.monthly.period}</p>
+              <p className="body-sm mb-4" style={{ color: "rgba(249,247,240,0.6)" }}>
+                {pricing.monthly.ongoingLabel}: {pricing.monthly.ongoing}
+              </p>
+              <p className="body-sm" style={{ color: "rgba(249,247,240,0.55)" }}>{pricing.monthly.explains}</p>
+            </StaggerItem>
+            <StaggerItem className="p-8 text-left" style={{ background: "var(--navy-800)" }}>
+              <p className="label-xs mb-3" style={{ color: "rgba(249,247,240,0.4)" }}>{pricing.upfront.name} — {pricing.upfront.badge}</p>
+              <p style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 300, fontSize: "2.6rem", color: "#fff", lineHeight: 1 }}>{pricing.upfront.headline}</p>
+              <p className="body-sm mb-2" style={{ color: "rgba(249,247,240,0.45)" }}>{pricing.upfront.period}</p>
+              <p className="body-sm mb-4" style={{ color: "rgba(249,247,240,0.6)" }}>
+                {pricing.upfront.ongoingLabel}: {pricing.upfront.ongoing}
+              </p>
+              <p className="body-sm" style={{ color: "rgba(249,247,240,0.55)" }}>{pricing.upfront.explains}</p>
             </StaggerItem>
           </Stagger>
           <Link href="/pricing" className="btn-gold px-7 py-3.5 text-sm uppercase tracking-wide inline-flex mt-10">See Full Pricing Details</Link>
@@ -170,10 +180,15 @@ export default function HomePage() {
         <Reveal className="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-center gap-8 justify-between">
           <div>
             <p className="label-xs mb-2" style={{ color: "var(--gold-400)" }}>Affiliate Program</p>
-            <h3 className="display-md text-navy-900 mb-1">Earn {affiliateTerms.recurringRate}% recurring, referring businesses to JKTL.</h3>
-            <p className="body-sm text-black/55">Plus a {"₦"}{affiliateTerms.welcomeBonus.toLocaleString()} welcome bonus on your first upgrade.</p>
+            <h3 className="display-md text-navy-900 mb-1">
+              Earn {"₦"}{affiliateTerms.firstYearValue.toLocaleString()} from one referral.
+            </h3>
+            <p className="body-sm text-black/55">
+              {"₦"}{affiliateTerms.signupBonus.toLocaleString()} when they sign up, {"₦"}{affiliateTerms.subscriptionBonus.toLocaleString()} when they
+              subscribe, then {"₦"}{affiliateTerms.recurringMonthly.toLocaleString()} every month they stay subscribed.
+            </p>
           </div>
-          <Link href="/affiliates" className="btn-primary px-7 py-3.5 text-sm uppercase tracking-wide whitespace-nowrap">Become an Affiliate</Link>
+          <a href={affiliateUrl()} className="btn-primary px-7 py-3.5 text-sm uppercase tracking-wide whitespace-nowrap">Become an Affiliate</a>
         </Reveal>
       </section>
 
@@ -185,9 +200,9 @@ export default function HomePage() {
             <Smartphone size={20} style={{ color: "var(--gold-400)" }} />
             <ShieldCheck size={20} style={{ color: "var(--gold-400)" }} />
           </div>
-          <h2 className="display-xl mb-4" style={{ color: "var(--cream-50)" }}>Ready to Run Your Business The Easy Way?</h2>
-          <p className="body-lg mb-8" style={{ color: "rgba(249,247,240,0.55)" }}>Free to start. Set up your business and go live today.</p>
-          <a href={appSignupUrl()} className="btn-gold px-8 py-4 text-sm uppercase tracking-wide inline-flex">Get Started Free</a>
+          <h2 className="display-xl mb-4" style={{ color: "var(--cream-50)" }}>Stop Losing Calls You Never Knew About</h2>
+          <p className="body-lg mb-8" style={{ color: "rgba(249,247,240,0.55)" }}>We set up your line, train the assistant on your business, and build your website. From ₦108,333.33 a month.</p>
+          <a href={appSignupUrl()} className="btn-gold px-8 py-4 text-sm uppercase tracking-wide inline-flex">Get started</a>
         </Reveal>
       </section>
     </div>

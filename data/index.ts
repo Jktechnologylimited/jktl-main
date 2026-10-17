@@ -42,11 +42,41 @@ export function appLoginUrl() {
   return `${siteConfig.appUrl}/login`;
 }
 
+/**
+ * The partner programme's home — in the business app, not here.
+ *
+ * **This site keeps the pitch; the app keeps the programme.**
+ *
+ * The landing page is here, at `/affiliates`, because this is where people find
+ * things and a programme nobody can read about does not get joined. What lives in
+ * the app is the working half: the application form, the approval queue, the
+ * partner's dashboard, and the commission ledger — all of it where the
+ * subscriptions and the Paystack webhook are.
+ *
+ * So every affiliate link **on this site** points to the local page. It used to
+ * point straight at `business.jktl.com.ng/affiliate`, which meant the site's own
+ * landing page was unreachable and the "Affiliates" button in the navigation
+ * skipped the explanation entirely — dropping a cold visitor on a sign-in form
+ * for a programme they had not been sold.
+ *
+ * To apply, the landing page links out:
+ *   apply → https://business.jktl.com.ng/affiliates/apply
+ *   login → https://business.jktl.com.ng/affiliates/login
+ *
+ * `ref` is only meaningful for a partner sharing a link, which goes to the app's
+ * signup, not here — so it is passed through to the apply page.
+ */
+export function affiliateUrl(ref?: string) {
+  const base = "/affiliates";
+  return ref ? `${base}?ref=${encodeURIComponent(ref)}` : base;
+}
+
 // --- NAVIGATION ---------------------------------------------------------------
 export const navLinks = [
   { href: "/industries", label: "Industries" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/pricing", label: "Pricing" },
+  // The local landing page — not the app. See `affiliateUrl` above.
   { href: "/affiliates", label: "Affiliates" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
@@ -182,52 +212,63 @@ export const industries = [
 
 // --- PRICING --------------------------------------------------------------------
 export const pricing = {
-  free: {
-    name: "Free",
-    price: "₦0",
-    period: "forever",
-    tagline: "Everything a business needs to start running better, today.",
+  monthly: {
+    id: "monthly",
+    name: "Monthly",
+    badge: "Start here",
+    headline: "₦108,333.33",
+    headlineSuffix: "/month",
+    period: "for the first 6 months",
+    explains: "Six payments that together cover the ₦650,000 launch package exactly. Nothing is added on top.",
+    ongoingLabel: "From month 7",
+    ongoing: "₦59,000/month",
+    ongoingNote: "The ongoing platform fee once the package is paid off.",
+    cancellation: "Cancel any time from month 1. No minimum term, no exit fee.",
+    featured: true,
     features: [
-      "Full customer records (CRM)",
-      "Bookings or sales tracking",
-      "Invoicing with online payment via Paystack",
-      "Inventory tracking with low-stock alerts",
-      "Expense tracking",
-      "Published business website on a jktl.com.ng subdomain",
-      "Installable app (PWA)",
-      "1 staff seat (owner)",
+      "Your own dedicated business phone number, set up and running",
+      "The AI receptionist: answers every call, day or night",
+      "Instant text back to every caller you missed",
+      "Books appointments straight into your calendar",
+      "Screens for red flags and hands anything clinical to a human",
+      "Trained on your services, prices and opening hours",
+      "A professional website built from your own photos and reviews",
+      "₦15,000 of communication credit included",
+      "Customer records, bookings, invoicing, inventory and expenses",
+      "Installable app on every phone in the business",
     ],
   },
-  paid: {
-    name: "Paid Plan",
-    priceMonthly: "₦5,000",
-    priceYearly: "₦50,000",
-    period: "per month, or ₦50,000/year",
-    savingsNote: "Paying yearly works out about 17% cheaper than monthly.",
-    tagline: "For businesses ready to bring on a team and go further.",
+  upfront: {
+    id: "upfront",
+    name: "Pay in full",
+    badge: "The anchor",
+    headline: "₦650,000",
+    headlineSuffix: "",
+    period: "one payment, covering the launch package",
+    explains: "The same package paid once instead of across six months. Same total, less to think about.",
+    ongoingLabel: "From month 7",
+    ongoing: "₦59,000/month",
+    ongoingNote: "The ongoing platform fee, identical to the monthly card.",
+    cancellation: "Cancel any time. No minimum term, no exit fee.",
+    featured: false,
     features: [
-      "Everything in Free",
-      "Extra staff seats (manager & staff roles)",
-      "More photo/storage space",
-      "Custom domain for your business website",
+      "Everything in Monthly, paid up front",
+      "Nothing due for the first 6 months",
+      "Priority setup: your line and assistant configured first",
+      "A named person to call during onboarding",
+      "₦15,000 of communication credit included",
     ],
   },
-  custom: {
-    name: "Custom",
-    price: "Let's talk",
-    period: "tailored to your business",
-    tagline: "For businesses that need more than the app -- a bespoke website, a client or student portal, business email hosting, or a build outside the standard plans.",
-    features: [
-      "Custom-built business website beyond the standard template",
-      "Client, student or member portals",
-      "Business email hosting & setup",
-      "Bespoke integrations or features on request",
-    ],
+  shared: {
+    freeCredit: "₦15,000",
+    freeCreditNote: "Every new business starts with ₦15,000 of communication credit. Texts, calls and the line all come out of it, and you only ever pay for what you use.",
+    noCommission: "We never take a cut of your sales, bookings or revenue. Flat fee, nothing else.",
+    lineRental: "Your dedicated number costs $1.90 a month, billed from your communication credit like a text. No markup.",
   },
 };
 
 export const competitors = [
-  { name: "JKTL Business", price: "Free — ₦5,000/mo", highlight: true },
+  { name: "JKTL Business", price: "₦108,333/mo for 6 months, then ₦59,000/mo", highlight: true },
   { name: "Bumpa", price: "From ₦10,000+/mo" },
   { name: "Catlog", price: "From ₦7,000+/mo" },
   { name: "GlossGenius", price: "From ~$24-48/mo (≈₦40,000-80,000+)" },
@@ -238,12 +279,26 @@ export const competitors = [
 ];
 
 // --- AFFILIATE PROGRAM ------------------------------------------------------------
+/**
+ * The affiliate offer, stated once and rendered everywhere.
+ *
+ * These figures are the contract: whatever this says, the business app's ledger
+ * must pay. `signupBonus` in particular is recorded when a referred business
+ * creates an account but is only *released* once that business subscribes — a
+ * fixed payment for a bare signup is farmable, and an affiliate who cannot be
+ * paid is worse than one who was never recruited.
+ */
 export const affiliateTerms = {
-  recurringRate: 20, // percent, for life of subscription
-  welcomeBonus: 2000, // Naira, one-time
-  welcomeBonusTrigger: "once your first referral upgrades to a paid plan",
+  signupBonus: 20000, // Naira, when a referred business creates an account
+  subscriptionBonus: 40000, // Naira, when that business subscribes
+  recurringMonthly: 3500, // Naira, every month they stay subscribed
+  // What one referral is worth over a year, which is the number that actually
+  // sells the program: 20,000 + 40,000 + 12 x 3,500.
+  firstYearValue: 102000,
   payoutMinimum: 50000,
   cookieDays: 30,
+  // The terms the ledger enforces, stated here so the two cannot drift.
+  releaseRule: "The signup bonus is released together with the subscription bonus as soon as your referral subscribes.",
 };
 
 // --- HOW IT WORKS STEPS ------------------------------------------------------------

@@ -2,19 +2,18 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import HideOnDashboard from "@/components/HideOnDashboard";
 import BizChat from "@/components/shared/BizChat";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jktl.com.ng"),
   title: {
-    default: "JKTL Business | Business Management App for Nigerian SMEs",
+    default: "JKTL Business | The AI Receptionist for Nigerian Clinics & Salons",
     template: "%s | JKTL Business",
   },
   description:
-    "JKTL Business is a free, mobile-first app for Nigerian small and medium businesses -- CRM, bookings & sales, invoicing with Paystack, inventory, expenses, and a free business website, all in one place.",
+    "An AI receptionist for Nigerian clinics, salons and home-care services. It answers every call you cannot, books the appointment, and texts back anyone it missed. ₦650,000 to set up, or six monthly payments of ₦108,333.33, then ₦59,000/month. Cancel any time.",
   keywords:
-    "business management app Nigeria, booking app Nigeria, invoicing app Nigeria, CRM Nigeria, salon software Nigeria, POS app Nigeria, free business website Nigeria, Paystack invoicing",
+    "AI receptionist Nigeria, missed call recovery Nigeria, clinic booking software Nigeria, salon booking software Nigeria, medical answering service Nigeria, bookings app Nigeria, invoicing app Nigeria, CRM Nigeria, Paystack invoicing",
   authors: [{ name: "JK Technology Limited", url: "https://jktl.com.ng" }],
   icons: {
     icon: [
@@ -26,9 +25,9 @@ export const metadata: Metadata = {
     shortcut: "/favicon-32.png",
   },
   openGraph: {
-    title: "JKTL Business | Business Management App for Nigerian SMEs",
+    title: "JKTL Business | The AI Receptionist for Nigerian Clinics & Salons",
     description:
-      "CRM, bookings & sales, invoicing with Paystack, inventory, expenses, and a free business website -- all in one free, mobile-first app.",
+      "It answers every call your clinic cannot, books the patient, and texts back anyone it missed. ₦650,000 to set up, or six monthly payments of ₦108,333.33, then ₦59,000/month.",
     url: "https://jktl.com.ng",
     siteName: "JKTL Business",
     locale: "en_NG",
@@ -54,7 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 url: "https://jktl.com.ng",
                 logo: "https://jktl.com.ng/logo.png",
                 description:
-                  "JKTL Business is a free, mobile-first business management app for Nigerian small and medium businesses.",
+                  "JKTL Business gives Nigerian clinics and salons an AI receptionist that answers every call they cannot, books the appointment, and texts back anyone it missed.",
                 sameAs: [],
               },
               {
@@ -66,9 +65,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             ]),
           }}
         />
-        <HideOnDashboard><Navbar /></HideOnDashboard>
+        <Navbar />
         <main>{children}</main>
-        <HideOnDashboard><Footer /></HideOnDashboard>
+        <Footer />
         <BizChat />
       </body>
     </html>

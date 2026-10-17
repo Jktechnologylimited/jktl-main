@@ -8,7 +8,7 @@ import { features, signupSteps, appSignupUrl, pexelsUrl } from "@/data/index";
 
 export const metadata: Metadata = {
   title: "How It Works",
-  description: "See how JKTL Business handles customers, bookings, invoicing, inventory, expenses, and your free business website.",
+  description: "See how the JKTL Business AI receptionist answers calls, books appointments, and texts back missed callers -- and how your website gets built from your own photos and reviews.",
   alternates: { canonical: "https://jktl.com.ng/how-it-works" },
 };
 
@@ -19,7 +19,7 @@ export default function HowItWorksPage() {
         eyebrow="How It Works"
         heading="From Sign-Up To Selling, In Minutes"
         subhead="No setup fees, no onboarding calls required. Create your account, add your business, and you're live."
-        primaryLabel="Get Started Free"
+        primaryLabel="Get started"
         primaryHref={appSignupUrl()}
         secondaryLabel="See Pricing"
         secondaryHref="/pricing"
@@ -85,8 +85,8 @@ export default function HowItWorksPage() {
 
       <CTABanner
         heading="Ready to See It For Yourself?"
-        subhead="Sign up free -- no card required."
-        primaryLabel="Get Started Free"
+        subhead="We set up your line, your assistant and your website."
+        primaryLabel="Get started"
         primaryHref={appSignupUrl()}
         secondaryLabel="Talk to Us"
         secondaryHref="/contact"

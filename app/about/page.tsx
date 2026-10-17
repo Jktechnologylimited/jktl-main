@@ -18,9 +18,9 @@ const VALUES = [
 
 const WHY = [
   { title: "Built for Nigeria", desc: "Naira pricing, Paystack built in, and a design that works on the phones and networks people actually use." },
-  { title: "Free to Start", desc: "The core of what a small business needs shouldn't cost anything. We built the free plan to be genuinely useful, not a limited trial." },
+  { title: "No Cut of Your Revenue", desc: "We charge a flat fee and never take a percentage of your sales or bookings. Card payments go straight to your own bank account." },
   { title: "Mobile-First", desc: "Most business owners run their business from a phone, not a laptop. Everything is designed for that first." },
-  { title: "One Flat Price", desc: "No commission on your sales, no surprise fees. Just a simple monthly or yearly plan when you need more." },
+  { title: "One Flat Price", desc: "₦650,000 to set up and ₦59,000 a month after that. No commission on your sales, no per-seat charges, no surprise fees." },
 ];
 
 export default function AboutPage() {
@@ -30,7 +30,7 @@ export default function AboutPage() {
         eyebrow="About Us"
         heading="We Build The Back Office So You Can Run The Business"
         subhead={`JKTL Business is built by ${siteConfig.name}, a Lagos-based software company founded in ${siteConfig.founded}.`}
-        primaryLabel="Get Started Free"
+        primaryLabel="Get started"
         primaryHref={appSignupUrl()}
         secondaryLabel="Contact Us"
         secondaryHref="/contact"
@@ -49,7 +49,7 @@ export default function AboutPage() {
               <p className="font-bold text-[1.05rem] text-navy-900 mb-4">Every Nigerian business deserves proper tools, not just a notebook and a WhatsApp group.</p>
               <div className="flex flex-col gap-3 mb-6">
                 <p className="body-sm text-black/55 leading-relaxed">{siteConfig.name} was founded in {siteConfig.founded} building digital tools for Nigerian businesses.</p>
-                <p className="body-sm text-black/55 leading-relaxed">That work led directly to JKTL Business -- a single, free, mobile-first app that gives any small or medium business the customer management, booking, invoicing and inventory tools that used to be out of reach.</p>
+                <p className="body-sm text-black/55 leading-relaxed">That work led directly to JKTL Business -- a single mobile-first app that gives any small or medium business the customer management, booking, invoicing and inventory tools that used to be out of reach, plus an AI receptionist that answers the calls those businesses were losing.</p>
                 <p className="body-sm text-black/55 leading-relaxed">{siteConfig.promise}</p>
               </div>
             </div>
@@ -103,8 +103,8 @@ export default function AboutPage() {
 
       <CTABanner
         heading="Ready to Try It?"
-        subhead="Free to start, no card required."
-        primaryLabel="Get Started Free"
+        subhead="We set up your line, your assistant and your website."
+        primaryLabel="Get started"
         primaryHref={appSignupUrl()}
       />
     </div>
