@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import BizChat from "@/components/shared/BizChat";
+import MarketingShell from "@/components/layout/MarketingShell";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jktl.com.ng"),
@@ -65,10 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             ]),
           }}
         />
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <BizChat />
+        <MarketingShell>{children}</MarketingShell>
       </body>
     </html>
   );

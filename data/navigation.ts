@@ -29,10 +29,10 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
             href: "/how-it-works#website",
           },
           {
-            title: "Website styling",
+            title: "Website templates",
             description:
               "Make it yours with brand colours and curated font pairings.",
-            href: "/how-it-works#website-styling",
+            href: "/templates",
           },
           {
             title: "Free website address",

@@ -8,7 +8,7 @@ export const RESERVED_SLUGS = [
   "detaildesk", "faithdesk", "gasstationdesk", "get-started", "industries",
   "insurancedesk", "investments", "offers", "packages", "payments", "pricing", "privacy", "proposal",
   "schooldesk", "service-areas", "services", "sitemap", "solutions",
-  "terms", "tools", "work", "how-it-works",
+  "templates", "terms", "tools", "work", "how-it-works",
 ];
 
 export function isReservedSlug(slug: string): boolean {

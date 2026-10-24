@@ -8,7 +8,7 @@ module.exports = {
   sitemapSize: 7000,
 
   // Exclude internal/utility pages
-  exclude: ["/sitemap", "/api/*"],
+  exclude: ["/sitemap", "/api/*", "/templates/*"],
 
   // Override priority and changefreq per path
   additionalPaths: async (config) => [
