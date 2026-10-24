@@ -112,7 +112,7 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
       ],
     },
     footer: {
-      title: "Get started free",
+      title: "Start for free",
       description:
         "Start with the business tools. AI and optional services are priced separately.",
       href: "https://business.jktl.com.ng/signup",

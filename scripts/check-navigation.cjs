@@ -12,7 +12,7 @@ const origin = process.env.MAIN_TEST_ORIGIN || 'http://127.0.0.1:3001';
     const response = await page.goto(origin);
     assert.equal(response.status(), 200);
     await page.getByRole('button', { name: 'Product', exact: true }).waitFor();
-    const signup = page.locator('header').getByRole('link', { name: 'Get started free', exact: true });
+    const signup = page.locator('header').getByRole('link', { name: 'Start for free', exact: true });
     assert.equal(await signup.getAttribute('href'), 'https://business.jktl.com.ng/signup');
     const pages = new Map();
     for (const menu of Object.values(navigation)) {
@@ -68,7 +68,7 @@ const origin = process.env.MAIN_TEST_ORIGIN || 'http://127.0.0.1:3001';
     await page.waitForURL('**/contact');
     assert.equal(await page.getByRole('button', { name: 'Open navigation' }).isVisible(), true);
     await page.setViewportSize({ width: 320, height: 740 });
-    const bounds = await page.locator('header').getByRole('link', { name: 'Get started free', exact: true }).boundingBox();
+    const bounds = await page.locator('header').getByRole('link', { name: 'Start for free', exact: true }).boundingBox();
     assert.ok(bounds.x >= 0 && bounds.x + bounds.width <= 320);
     assert.deepEqual(errors, []);
     console.log(`PASS: ${pages.size} existing pages and every linked section; Product/Solutions/Resources panels; free signup destination; keyboard open/Escape/focus return; desktop and mobile link dismissal; 390px/320px layouts. No requests submitted.`);

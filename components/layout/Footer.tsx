@@ -31,7 +31,7 @@ export default function Footer() {
             <p className="body-sm" style={{ color: "rgba(249,247,240,0.35)", lineHeight: 1.7, marginBottom: 16, fontSize: "0.8rem" }}>
               {siteConfig.tagline}
             </p>
-            <a href={appSignupUrl()} className="btn-gold" style={{ fontSize: "0.68rem", padding: "10px 18px", display: "inline-flex" }}>Get started free</a>
+            <a href={appSignupUrl()} className="btn-gold" style={{ fontSize: "0.68rem", padding: "10px 18px", display: "inline-flex" }}>Start for free</a>
             {socials.length > 0 && (
               <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
                 {socials.map(([key, url]) => (

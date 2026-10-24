@@ -246,7 +246,7 @@ export default function Navbar() {
               href={appSignupUrl()}
               className="rounded-full bg-[#C9A84C] px-4 py-3 text-xs font-semibold text-[#060E2A] hover:bg-[#D4B96A] sm:px-6 sm:text-sm"
             >
-              Get started free
+              Start for free
             </a>
             <button
               ref={mobileToggle}
@@ -326,7 +326,7 @@ export default function Navbar() {
             href={appSignupUrl()}
             className="mx-6 mt-3 block rounded-full bg-[#C9A84C] p-4 text-center font-semibold text-[#060E2A]"
           >
-            Get started free
+            Start for free
           </a>
         </div>
       )}

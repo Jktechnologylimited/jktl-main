@@ -52,15 +52,16 @@ const business = process.env.BUSINESS_TEST_ORIGIN || "http://localhost:3000";
           .getByText("₦15,000 billed monthly", { exact: true })
           .isVisible(),
       );
-      const growth = page
-        .locator("article")
-        .filter({
-          has: page.getByRole("heading", { name: "Growth", exact: true }),
-        });
-      const href = await growth
-        .getByRole("link", { name: "Discuss this plan" })
-        .getAttribute("href");
-      assert.ok(href.includes("plan=growth&billing=monthly"));
+      assert.equal(
+        await page
+          .getByRole("link", { name: /Discuss this plan|Get started/i })
+          .count(),
+        0,
+      );
+      assert.ok(
+        (await page.getByRole("link", { name: /Start for free/i }).count()) >=
+          2,
+      );
       await page.getByRole("button", { name: "Compare Plan Features" }).click();
       await page.getByRole("table").waitFor();
       await page.getByRole("button", { name: "Hide Plan Features" }).click();
@@ -158,7 +159,7 @@ const business = process.env.BUSINESS_TEST_ORIGIN || "http://localhost:3000";
     await page
       .getByRole("button", { name: "Send Message", exact: true })
       .click();
-    await page.getByRole("alert").filter({hasText:"We couldn"}).waitFor();
+    await page.getByRole("alert").filter({ hasText: "We couldn" }).waitFor();
     assert.equal(body.plan, "growth");
     assert.equal(body.billing, "yearly");
     assert.equal(
