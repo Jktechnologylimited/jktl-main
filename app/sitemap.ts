@@ -1,3 +1,4 @@
+import { featurePages } from "@/data/feature-pages";
 import type { MetadataRoute } from "next";
 import { sql } from "@/lib/db";
 export const dynamic = "force-dynamic";
@@ -21,7 +22,13 @@ const routes = [
   "terms",
 ];
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const items: MetadataRoute.Sitemap = routes.map((route) => ({
+  const allRoutes = [
+    ...new Set([
+      ...routes,
+      ...featurePages.map((p) => `${p.section}/${p.slug}`),
+    ]),
+  ];
+  const items: MetadataRoute.Sitemap = allRoutes.map((route) => ({
     url: `${base}/${route}`,
     changeFrequency: route ? "monthly" : "weekly",
     priority: route ? 0.7 : 1,

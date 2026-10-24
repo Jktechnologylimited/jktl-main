@@ -13,7 +13,7 @@ export type NavigationMenu = {
 };
 export type NavigationKey = "product" | "solutions" | "resources";
 
-// Every destination is an existing JKTL page or a section on How It Works.
+// Every menu item links to its own public product, solution or resource page.
 // Manual services link to the existing contact form, not an invented checkout.
 export const navigation: Record<NavigationKey, NavigationMenu> = {
   product: {
@@ -26,7 +26,7 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
             title: "Website builder",
             description:
               "Publish a business website with your services, photos and contact details.",
-            href: "/how-it-works#website",
+            href: "/products/website-builder",
           },
           {
             title: "Website templates",
@@ -37,7 +37,7 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
           {
             title: "Free website address",
             description: "Get online with your own JKTL subdomain.",
-            href: "/how-it-works#website",
+            href: "/products/free-website-address",
           },
           {
             title: "Landing page builder",
@@ -54,33 +54,33 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
             title: "Customer management",
             description:
               "Keep customer records, history and preferences together.",
-            href: "/how-it-works#customers",
+            href: "/products/customer-management",
           },
           {
             title: "Bookings & sales",
             description: "Manage appointments and record everyday sales.",
-            href: "/how-it-works#bookings",
+            href: "/products/bookings-sales",
           },
           {
             title: "Invoicing & payments",
             description: "Send invoices and collect payments through Paystack.",
-            href: "/how-it-works#payments",
+            href: "/products/invoicing-payments",
           },
           {
             title: "Inventory & expenses",
             description: "Track your stock and the money your business spends.",
-            href: "/how-it-works#inventory",
+            href: "/products/inventory-expenses",
           },
           {
             title: "Reports & analytics",
             description: "Understand revenue, customer trends and performance.",
-            href: "/how-it-works#analytics",
+            href: "/products/reports-analytics",
           },
           {
             title: "AI receptionist",
             description:
               "Explore call handling and missed-call recovery for your business.",
-            href: "/products/add-ons",
+            href: "/products/ai-receptionist",
             note: "Paid activation",
           },
         ],
@@ -100,7 +100,7 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
           title: "Hosting & HTTPS",
           description:
             "Managed hosting for your published JKTL business website.",
-          href: "/products/domains",
+          href: "/products/hosting",
         },
         {
           title: "Business email",
@@ -127,32 +127,32 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
           {
             title: "Manage your customers",
             description: "Give every customer a more personal experience.",
-            href: "/how-it-works#customers",
+            href: "/solutions/customer-relationships",
           },
           {
             title: "Schedule appointments",
             description: "Organise bookings, services and customer visits.",
-            href: "/how-it-works#bookings",
+            href: "/solutions/appointment-scheduling",
           },
           {
             title: "Get paid",
             description: "Invoice customers and track their payments.",
-            href: "/how-it-works#payments",
+            href: "/solutions/online-payments",
           },
           {
             title: "Track stock & expenses",
             description: "Keep an eye on your products and operating costs.",
-            href: "/how-it-works#expenses",
+            href: "/solutions/stock-expenses",
           },
           {
             title: "Work with your team",
             description: "Manage access with owner, manager and staff roles.",
-            href: "/how-it-works#team",
+            href: "/solutions/team-management",
           },
           {
             title: "Run your business on mobile",
             description: "Install JKTL from your browser and work on the go.",
-            href: "/how-it-works#mobile-app",
+            href: "/solutions/mobile-business",
           },
         ],
       },
@@ -162,19 +162,19 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
           {
             title: "Get your business online",
             description: "Help customers discover your services and reach you.",
-            href: "/how-it-works#website",
+            href: "/solutions/online-presence",
           },
           {
             title: "Recover missed enquiries",
             description:
               "Explore the paid AI receptionist and follow-up workflow.",
-            href: "/pricing",
+            href: "/solutions/missed-enquiries",
           },
           {
             title: "Know your numbers",
             description:
               "Use reports to understand how your business is doing.",
-            href: "/how-it-works#analytics",
+            href: "/solutions/business-insights",
           },
         ],
       },
@@ -186,17 +186,17 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
           title: "Salons & beauty",
           description:
             "Customer records and bookings for personal care businesses.",
-          href: "/industries#beauty-personal-care",
+          href: "/solutions/salons-beauty",
         },
         {
           title: "Retail & trade",
           description: "Stock, sales and invoices for product businesses.",
-          href: "/industries#retail-trade",
+          href: "/solutions/retail-trade",
         },
         {
           title: "Food & hospitality",
           description: "Keep track of sales, stock and customer enquiries.",
-          href: "/industries#food-hospitality",
+          href: "/solutions/food-hospitality",
         },
         {
           title: "Explore all industries",
@@ -240,8 +240,8 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
           {
             title: "Help & guides",
             description: "Find product guides in your JKTL account.",
-            href: "https://business.jktl.com.ng/business/help",
-            note: "Sign in to your account",
+            href: "/resources/help-centre",
+            note: "Public guides · account help available after sign-in",
           },
           {
             title: "Contact the team",
@@ -250,7 +250,8 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
           },
           {
             title: "Plans & pricing",
-            description: "Compare free and paid website plans with monthly or yearly billing.",
+            description:
+              "Compare free and paid website plans with monthly or yearly billing.",
             href: "/pricing",
           },
         ],
@@ -263,7 +264,7 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
           title: "Your first steps with JKTL",
           description:
             "Create an account, add your business and get familiar with the tools.",
-          href: "/how-it-works#first-steps",
+          href: "/resources/first-steps",
         },
       ],
     },

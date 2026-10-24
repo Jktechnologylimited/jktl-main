@@ -1,3 +1,4 @@
+import { PossibleShowcase } from "@/components/home/PossibleShowcase";
 import type { Metadata } from "next";
 import { WebsitePricing } from "@/components/pricing/WebsitePricing";
 export const metadata: Metadata = {
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 export default function PricingPage() {
   return (
     <div style={{ paddingTop: 72 }}>
-      <WebsitePricing />
+      <WebsitePricing afterFoundation={<PossibleShowcase />} />
     </div>
   );
 }

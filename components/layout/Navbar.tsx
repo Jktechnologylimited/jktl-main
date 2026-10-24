@@ -1,4 +1,5 @@
 "use client";
+import { LanguageSwitcher, T } from "@/components/i18n/LanguageProvider";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -28,13 +29,15 @@ function MenuItem({
       className="group block rounded-lg p-3 -m-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#80621c] hover:bg-[#f5f3ed]"
     >
       <span className="block text-base font-semibold text-[#060E2A] group-hover:text-[#80621c]">
-        {item.title}
+        <T>{item.title}</T>
       </span>
       <span className="block mt-2 text-sm leading-relaxed text-[#62636a]">
-        {item.description}
+        <T>{item.description}</T>
       </span>
       {item.note && (
-        <span className="block mt-2 text-xs text-[#80621c]">{item.note}</span>
+        <span className="block mt-2 text-xs text-[#80621c]">
+          <T>{item.note}</T>
+        </span>
       )}
     </Link>
   );
@@ -56,8 +59,11 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    setActive(null);
-    setMobileOpen(false);
+    const frame = requestAnimationFrame(() => {
+      setActive(null);
+      setMobileOpen(false);
+    });
+    return () => cancelAnimationFrame(frame);
   }, [pathname]);
   useEffect(() => {
     const media = window.matchMedia("(min-width: 1280px)");
@@ -103,7 +109,7 @@ export default function Navbar() {
           {menu.groups.map((group, i) => (
             <section key={group.title} className="p-6 xl:p-9">
               <h2 className="text-xs uppercase tracking-widest text-[#72747d] border-b border-[#dcdde3] pb-4 mb-7">
-                {group.title}
+                <T>{group.title}</T>
               </h2>
               <div
                 className={`grid gap-x-8 gap-y-8 ${!mobile && i === 1 && key !== "resources" ? "sm:grid-cols-2" : ""}`}
@@ -129,7 +135,7 @@ export default function Navbar() {
           ))}
           <section className="bg-[#f4f4f9] p-6 xl:p-9">
             <h2 className="text-xs uppercase tracking-widest text-[#72747d] border-b border-[#dcdde3] pb-4 mb-7">
-              {menu.aside.title}
+              <T>{menu.aside.title}</T>
             </h2>
             <div className="grid gap-8">
               {menu.aside.items.map((item) => (
@@ -144,11 +150,11 @@ export default function Navbar() {
           className="flex flex-wrap items-center gap-x-5 gap-y-2 bg-[#e9e6d9] px-6 py-5 xl:px-9 text-[#060E2A] hover:bg-[#e1dcc9]"
         >
           <span className="flex items-center gap-3 font-semibold">
-            {menu.footer.title}
+            <T>{menu.footer.title}</T>
             <ArrowRight size={18} />
           </span>
           <span className="text-sm text-[#62636a]">
-            {menu.footer.description}
+            <T>{menu.footer.description}</T>
           </span>
         </Link>
       </div>
@@ -186,7 +192,8 @@ export default function Navbar() {
               className="object-contain"
             />
             <span className="hidden sm:block text-base font-extrabold text-[#060E2A]">
-              JKTL <span className="text-[#80621c]">Business</span>
+              <T>JKTL </T>
+              <span className="text-[#80621c]">Business</span>
             </span>
           </Link>
           <div className="hidden xl:flex items-center gap-1">
@@ -213,7 +220,7 @@ export default function Navbar() {
                 }}
                 className={`flex h-[68px] items-center gap-2 border-b-[3px] px-4 pt-[3px] text-sm text-[#060E2A] transition-colors hover:text-[#80621c] ${active === key ? "border-[#C9A84C] font-semibold" : "border-transparent"}`}
               >
-                {navigation[key].label}
+                <T>{navigation[key].label}</T>
                 <ChevronDown
                   size={15}
                   className={`transition-transform ${active === key ? "rotate-180" : ""}`}
@@ -225,28 +232,30 @@ export default function Navbar() {
               onClick={close}
               className="px-4 py-5 text-sm text-[#060E2A] hover:text-[#80621c]"
             >
-              Domains
+              <T>Domains</T>
             </Link>
             <Link
               href="/pricing"
               onClick={close}
               className="px-4 py-5 text-sm text-[#060E2A] hover:text-[#80621c]"
             >
-              Pricing
+              <T>Pricing</T>
             </Link>
           </div>
           <div className="flex shrink-0 items-center gap-2 sm:gap-4">
+            <LanguageSwitcher />
             <a
               href={appLoginUrl()}
               className="hidden sm:inline-flex items-center gap-2 text-sm text-[#060E2A] underline underline-offset-4"
             >
-              <LogIn size={16} aria-hidden="true"/> Log in
+              <LogIn size={16} aria-hidden="true" />
+              <T>Log in</T>
             </a>
             <a
               href={appSignupUrl()}
               className="rounded-full bg-[#C9A84C] px-4 py-3 text-xs font-semibold text-[#060E2A] hover:bg-[#D4B96A] sm:px-6 sm:text-sm"
             >
-              Start for free
+              <T>Start for free</T>
             </a>
             <button
               ref={mobileToggle}
@@ -293,7 +302,7 @@ export default function Navbar() {
                 onClick={() => setActive(active === key ? null : key)}
                 className="flex w-full items-center justify-between px-6 py-5 text-lg font-semibold text-[#060E2A]"
               >
-                {navigation[key].label}
+                <T>{navigation[key].label}</T>
                 <ChevronDown
                   size={18}
                   className={active === key ? "rotate-180" : ""}
@@ -307,26 +316,26 @@ export default function Navbar() {
             onClick={close}
             className="block px-6 py-4 text-[#060E2A]"
           >
-            Domains
+            <T>Domains</T>
           </Link>
           <Link
             href="/pricing"
             onClick={close}
             className="block px-6 py-4 text-[#060E2A]"
           >
-            Pricing
+            <T>Pricing</T>
           </Link>
           <a
             href={appLoginUrl()}
             className="block px-6 py-4 text-[#060E2A] underline"
           >
-            Log in
+            <T>Log in</T>
           </a>
           <a
             href={appSignupUrl()}
             className="mx-6 mt-3 block rounded-full bg-[#C9A84C] p-4 text-center font-semibold text-[#060E2A]"
           >
-            Start for free
+            <T>Start for free</T>
           </a>
         </div>
       )}

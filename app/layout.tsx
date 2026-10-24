@@ -1,3 +1,4 @@
+import { LanguageProvider } from "@/components/i18n/LanguageProvider";
 import type { Metadata } from "next";
 import "./globals.css";
 import MarketingShell from "@/components/layout/MarketingShell";
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     icon: [
       { url: "/favicon-16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon.png",    sizes: "48x48",  type: "image/png" },
+      { url: "/favicon.png", sizes: "48x48", type: "image/png" },
     ],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
     shortcut: "/favicon-32.png",
@@ -30,13 +31,19 @@ export const metadata: Metadata = {
     siteName: "JKTL Business",
     locale: "en_NG",
     type: "website",
-    images: [{ url: "https://jktl.com.ng/logo.png", width: 1080, height: 1080 }],
+    images: [
+      { url: "https://jktl.com.ng/logo.png", width: 1080, height: 1080 },
+    ],
   },
   robots: { index: true, follow: true },
   alternates: { canonical: "https://jktl.com.ng" },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body>
@@ -63,7 +70,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             ]),
           }}
         />
-        <MarketingShell>{children}</MarketingShell>
+        <LanguageProvider>
+          <MarketingShell>{children}</MarketingShell>
+        </LanguageProvider>
       </body>
     </html>
   );

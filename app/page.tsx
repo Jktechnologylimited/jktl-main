@@ -1,4 +1,4 @@
-import { PossibleShowcase } from "@/components/home/PossibleShowcase";
+import { T } from "@/components/i18n/LanguageProvider";
 import { WebsiteSteps } from "@/components/home/WebsiteSteps";
 import Link from "next/link";
 import Image from "next/image";
@@ -29,37 +29,41 @@ export default function HomePage() {
   return (
     <div className="bg-cream-50">
       {/* The hook comes first; the people-led visual follows on every screen. */}
-      <section className="relative overflow-hidden bg-[#f3f4ec] text-[#173d2c] px-5 pt-32 pb-16 sm:px-8">
+      <section className="relative overflow-hidden bg-[#FDFCF8] text-[#060E2A] px-5 pt-32 pb-16 sm:px-8">
         <div className="mx-auto max-w-[1200px]">
           <div className="mx-auto max-w-[950px] text-center">
             <p className="text-[11px] sm:text-xs uppercase tracking-[.16em] font-semibold">
-              Websites • Domains • Hosting • Business Email
+              <T>Websites • Domains • Hosting • Business Email</T>
             </p>
             <h1 className="mt-7 text-[clamp(2.8rem,6vw,5.8rem)] leading-[1.03] tracking-[-.055em] font-medium">
-              Build your business online.
+              <T>Build your business online.</T>
               <br />
-              <span className="text-[#72854f]">Grow beyond limits.</span>
+              <span className="text-[#80621c]">
+                <T>Grow beyond limits.</T>
+              </span>
             </h1>
-            <p className="mx-auto mt-7 max-w-[690px] text-base sm:text-lg leading-relaxed text-[#536252]">
-              Create a professional website, get your own domain and business
-              email, and access powerful tools to manage your business — all in
-              one place.
+            <p className="mx-auto mt-7 max-w-[690px] text-base sm:text-lg leading-relaxed text-[#5b6472]">
+              <T>
+                Create a professional website, get your own domain and business
+                email, and access powerful tools to manage your business — all
+                in one place.
+              </T>
             </p>
             <a
               href={appSignupUrl()}
-              className="mt-8 inline-flex items-center justify-center rounded-full bg-[#193f2d] px-9 py-4 text-white text-sm font-semibold"
+              className="mt-8 inline-flex items-center justify-center rounded-full bg-[#060E2A] px-9 py-4 text-white text-sm font-semibold"
             >
-              Start for free{" "}
+              <T>Start for free</T>{" "}
               <span aria-hidden="true" className="ml-5">
                 →
               </span>
             </a>
-            <p className="mt-4 text-xs text-[#586451]">
-              No credit card required. Choose a plan when you’re ready.
+            <p className="mt-4 text-xs text-[#5b6472]">
+              <T>No credit card required. Choose a plan when you’re ready.</T>
             </p>
           </div>
           <div className="relative mt-12 sm:mt-16">
-            <div className="overflow-hidden rounded-[24px] sm:rounded-[36px] border border-[#d8decd]">
+            <div className="overflow-hidden rounded-[24px] sm:rounded-[36px] border border-[#E8E1D0]">
               <Image
                 src="/brand/entrepreneur-studio.png"
                 alt="A smiling African entrepreneur with her laptop in a bright studio, with two colleagues talking behind her"
@@ -70,19 +74,19 @@ export default function HomePage() {
                 priority
               />
             </div>
-            <div className="mt-4 sm:mt-0 sm:absolute sm:bottom-7 sm:left-7 rounded-2xl border border-[#e0e5d6] bg-[#fbfcf7] p-5 sm:max-w-[270px] shadow-sm">
-              <p className="text-[10px] uppercase tracking-[.14em] text-[#647353]">
-                YOUR NEXT CHAPTER
+            <div className="mt-4 sm:mt-0 sm:absolute sm:bottom-7 sm:left-7 rounded-2xl border border-[#E8E1D0] bg-[#fbfcf7] p-5 sm:max-w-[270px] shadow-sm">
+              <p className="text-[10px] uppercase tracking-[.14em] text-[#80621c]">
+                <T>YOUR NEXT CHAPTER</T>
               </p>
               <p className="mt-2 text-2xl tracking-tight">
-                Your business. Online.
+                <T>Your business. Online.</T>
               </p>
-              <p className="mt-2 text-xs text-[#62715b]">
-                A website, a name of your own, and room to grow.
+              <p className="mt-2 text-xs text-[#5b6472]">
+                <T>A website, a name of your own, and room to grow.</T>
               </p>
             </div>
           </div>
-          <div className="mt-8 flex flex-wrap justify-center gap-x-9 gap-y-3 text-xs text-[#536252]">
+          <div className="mt-8 flex flex-wrap justify-center gap-x-9 gap-y-3 text-xs text-[#5b6472]">
             {[
               "200 industry designs + blank canvases",
               "Managed hosting & SSL",
@@ -96,7 +100,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <PossibleShowcase />
       <WebsiteSteps />
       {/* FEATURE GRID */}
       <section className="bg-white px-4 sm:px-6 lg:px-8 py-16 sm:py-24 border-b border-cream-300">
@@ -104,11 +107,13 @@ export default function HomePage() {
           <Reveal className="text-center mb-14">
             <span className="gold-rule mx-auto mb-4" />
             <h2 className="display-xl text-navy-900 mb-3">
-              Everything Your Business Needs, In One App
+              <T>Everything Your Business Needs, In One App</T>
             </h2>
             <p className="body-md text-black/55 max-w-[560px] mx-auto">
-              No spreadsheets, no separate apps for bookings and invoices. One
-              place for it all.
+              <T>
+                No spreadsheets, no separate apps for bookings and invoices. One
+                place for it all.
+              </T>
             </p>
           </Reveal>
           <Stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -144,7 +149,7 @@ export default function HomePage() {
             <div>
               <span className="gold-rule mb-4 block" />
               <h2 className="display-xl text-navy-900">
-                Built For How Your Business Actually Works
+                <T>Built For How Your Business Actually Works</T>
               </h2>
             </div>
             <Link
@@ -152,7 +157,8 @@ export default function HomePage() {
               className="label-xs whitespace-nowrap"
               style={{ color: "var(--navy-700)" }}
             >
-              See all industries {"->"}
+              <T>See all industries </T>
+              {"->"}
             </Link>
           </Reveal>
           <Stagger className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -184,37 +190,39 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-[#183c2b] px-6 py-20 text-[#f6f7ee]">
+      <section className="bg-[#020818] px-6 py-20 text-[#f6f7ee]">
         <div className="mx-auto max-w-5xl text-center">
-          <p className="text-xs uppercase tracking-widest text-[#c9d8a3]">
-            A plan for your next chapter
+          <p className="text-xs uppercase tracking-widest text-[#E2CF96]">
+            <T>A plan for your next chapter</T>
           </p>
           <h2 className="mt-5 text-4xl sm:text-6xl leading-tight tracking-tight">
-            Start free. Grow at your pace.
+            <T>Start free. Grow at your pace.</T>
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-white/70">
-            Your free website includes a JKTL address, managed hosting and
-            access to 200 designs. Compare monthly and yearly plans as your team
-            grows.
+            <T>
+              Your free website includes a JKTL address, managed hosting and
+              access to 200 designs. Compare monthly and yearly plans as your
+              team grows.
+            </T>
           </p>
           <div className="mt-9 flex flex-wrap justify-center gap-5">
             <a
               href={appSignupUrl()}
-              className="rounded-full bg-[#e2edc4] px-8 py-4 font-semibold text-[#193f2d] text-sm"
+              className="rounded-full bg-[#C9A84C] px-8 py-4 font-semibold text-[#060E2A] text-sm"
             >
-              Start for free
+              <T>Start for free</T>
             </a>
             <Link
               href="/pricing"
               className="rounded-full border border-white/40 px-8 py-4 text-sm"
             >
-              Compare plans
+              <T>Compare plans</T>
             </Link>
           </div>
           <p className="mt-6 text-xs text-white/65">
-            14-day money-back guarantee on your first paid website plan.{" "}
+            <T>14-day money-back guarantee on your first paid website plan.</T>{" "}
             <Link href="/terms#website-guarantee" className="underline">
-              Terms apply
+              <T>Terms apply</T>
             </Link>
             .
           </p>
@@ -227,28 +235,30 @@ export default function HomePage() {
         <Reveal className="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-center gap-8 justify-between">
           <div>
             <p className="label-xs mb-2" style={{ color: "var(--gold-400)" }}>
-              Affiliate Program
+              <T>Affiliate Program</T>
             </p>
             <h3 className="display-md text-navy-900 mb-1">
-              Earn {"₦"}
-              {affiliateTerms.firstYearValue.toLocaleString()} from one
-              referral.
+              <T>Earn </T>
+              {"₦"}
+              {affiliateTerms.firstYearValue.toLocaleString()}
+              <T>from one referral.</T>
             </h3>
             <p className="body-sm text-black/55">
               {"₦"}
-              {affiliateTerms.signupBonus.toLocaleString()} when they sign up,{" "}
+              {affiliateTerms.signupBonus.toLocaleString()}
+              <T>when they sign up,</T> {"₦"}
+              {affiliateTerms.subscriptionBonus.toLocaleString()}
+              <T>when they subscribe, then </T>
               {"₦"}
-              {affiliateTerms.subscriptionBonus.toLocaleString()} when they
-              subscribe, then {"₦"}
-              {affiliateTerms.recurringMonthly.toLocaleString()} every month
-              they stay subscribed.
+              {affiliateTerms.recurringMonthly.toLocaleString()}
+              <T>every month they stay subscribed.</T>
             </p>
           </div>
           <a
             href={affiliateUrl()}
             className="btn-primary px-7 py-3.5 text-sm uppercase tracking-wide whitespace-nowrap"
           >
-            Become an Affiliate
+            <T>Become an Affiliate</T>
           </a>
         </Reveal>
       </section>
@@ -265,24 +275,28 @@ export default function HomePage() {
             <ShieldCheck size={20} style={{ color: "var(--gold-400)" }} />
           </div>
           <h2 className="display-xl mb-4" style={{ color: "var(--cream-50)" }}>
-            Your next chapter starts here.
+            <T>Your next chapter starts here.</T>
           </h2>
           <p
             className="body-lg mb-8"
             style={{ color: "rgba(249,247,240,0.55)" }}
           >
-            Choose a design, make it yours, and put your business online. Your
-            free JKTL address and managed hosting are included.
+            <T>
+              Choose a design, make it yours, and put your business online. Your
+              free JKTL address and managed hosting are included.
+            </T>
           </p>
           <a
             href={appSignupUrl()}
             className="btn-gold px-8 py-4 text-sm uppercase tracking-wide inline-flex"
           >
-            Start for free
+            <T>Start for free</T>
           </a>
           <p className="mt-4 text-xs text-white/60">
-            No credit card required. Domains, email and optional add-ons are
-            priced separately.
+            <T>
+              No credit card required. Domains, email and optional add-ons are
+              priced separately.
+            </T>
           </p>
         </Reveal>
       </section>

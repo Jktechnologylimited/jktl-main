@@ -1,4 +1,5 @@
 "use client";
+import { T } from "@/components/i18n/LanguageProvider";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -71,11 +72,17 @@ export function PossibleShowcase() {
     <section className={styles.section}>
       <div className={styles.heading}>
         <div>
-          <p>A LITTLE INSPIRATION. A LOT OF POSSIBILITY.</p>
-          <h2>See what’s possible.</h2>
+          <p>
+            <T>A LITTLE INSPIRATION. A LOT OF POSSIBILITY.</T>
+          </p>
+          <h2>
+            <T>See what’s possible.</T>
+          </h2>
           <span>
-            Big ideas deserve a beautiful place online. Find the design that
-            feels like you.
+            <T>
+              Big ideas deserve a beautiful place online. Find the design that
+              feels like you.
+            </T>
           </span>
         </div>
         <button
@@ -114,15 +121,25 @@ export function PossibleShowcase() {
                   <div>
                     <Image
                       src={`/template-previews/${item.id}.jpg`}
-                      alt={copy === 1 ? "" : `${item.category} website design`}
+                      alt={
+                        copy === 1
+                          ? ""
+                          : `$<T>{item.category}</T> website design`
+                      }
                       width={500}
                       height={338}
                       sizes="(max-width: 600px) 80vw, 400px"
                     />
                   </div>
-                  <p>{item.category}</p>
-                  <h3>{item.label}</h3>
-                  <span>View design ↗</span>
+                  <p>
+                    <T>{item.category}</T>
+                  </p>
+                  <h3>
+                    <T>{item.label}</T>
+                  </h3>
+                  <span>
+                    <T>View design ↗</T>
+                  </span>
                 </Link>
               ))}
             </div>
@@ -130,7 +147,7 @@ export function PossibleShowcase() {
         </motion.div>
       </div>
       <Link className={styles.browse} href="/templates">
-        Explore all website designs →
+        <T>Explore all website designs →</T>
       </Link>
     </section>
   );

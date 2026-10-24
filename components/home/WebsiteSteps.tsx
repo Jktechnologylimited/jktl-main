@@ -1,13 +1,14 @@
+import { T } from "@/components/i18n/LanguageProvider";
 import Link from "next/link";
 export function WebsiteSteps() {
   return (
     <section id="website-steps" className="bg-white px-6 py-20">
       <div className="mx-auto max-w-6xl">
-        <p className="text-xs uppercase tracking-[.16em] text-[#71805c]">
-          FROM AN IDEA TO YOUR OWN WEBSITE
+        <p className="text-xs uppercase tracking-[.16em] text-[#80621c]">
+          <T>FROM AN IDEA TO YOUR OWN WEBSITE</T>
         </p>
-        <h2 className="mt-5 max-w-2xl text-4xl sm:text-6xl tracking-[-.04em] leading-[1.07] text-[#193f2d]">
-          Your website, in four easy steps.
+        <h2 className="mt-5 max-w-2xl text-4xl sm:text-6xl tracking-[-.04em] leading-[1.07] text-[#060E2A]">
+          <T>Your website, in four easy steps.</T>
         </h2>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {[
@@ -42,20 +43,20 @@ export function WebsiteSteps() {
           ].map((step) => (
             <article
               key={step.n}
-              className="rounded-2xl border border-[#dde4d5] bg-[#f8f9f3] p-6"
+              className="rounded-2xl border border-[#E8E1D0] bg-[#F9F7F0] p-6"
             >
-              <span className="text-xs text-[#7e8a68]">{step.n}</span>
-              <h3 className="mt-7 text-xl tracking-tight text-[#193f2d]">
-                {step.title}
+              <span className="text-xs text-[#80621c]">{step.n}</span>
+              <h3 className="mt-7 text-xl tracking-tight text-[#060E2A]">
+                <T>{step.title}</T>
               </h3>
-              <p className="mt-4 text-sm leading-relaxed text-[#65705d]">
-                {step.body}
+              <p className="mt-4 text-sm leading-relaxed text-[#5b6472]">
+                <T>{step.body}</T>
               </p>
               <Link
                 href={step.href}
-                className="mt-6 inline-block text-xs font-semibold text-[#193f2d] underline underline-offset-4"
+                className="mt-6 inline-block text-xs font-semibold text-[#060E2A] underline underline-offset-4"
               >
-                {step.link} →
+                <T>{step.link}</T> →
               </Link>
             </article>
           ))}

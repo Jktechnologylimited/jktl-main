@@ -1,10 +1,20 @@
+import { T } from "@/components/i18n/LanguageProvider";
+import { getFeaturePage, featurePages } from "@/data/feature-pages";
+import { FeaturePage } from "@/components/shared/FeaturePage";
+import { DomainPage } from "@/components/domains/DomainPage";
+import { getRetailDomainPrices } from "@/lib/domain-catalogue";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DIGITAL_PRODUCTS } from "@/lib/website-pricing";
 export const dynamicParams = false;
 export function generateStaticParams() {
-  return DIGITAL_PRODUCTS.map((p) => ({ product: p.id }));
+  return [
+    ...DIGITAL_PRODUCTS.map((p) => ({ product: p.id })),
+    ...featurePages
+      .filter((p) => p.section === "products")
+      .map((p) => ({ product: p.slug })),
+  ];
 }
 export async function generateMetadata({
   params,
@@ -12,6 +22,20 @@ export async function generateMetadata({
   params: Promise<{ product: string }>;
 }): Promise<Metadata> {
   const { product } = await params;
+  if (product === "domains")
+    return {
+      title: "Nigerian Domains — .ng, .com.ng & .name.ng",
+      description:
+        "Explore Nigerian, generic and country-code domains. Request Go54 domain registration, transfers and annual renewal quotes through JKTL, with availability confirmed before payment.",
+      alternates: { canonical: "https://jktl.com.ng/products/domains" },
+    };
+  const feature = getFeaturePage("products", product);
+  if (feature)
+    return {
+      title: feature.label,
+      description: feature.intro,
+      alternates: { canonical: `https://jktl.com.ng/products/${product}` },
+    };
   const item = DIGITAL_PRODUCTS.find((p) => p.id === product);
   return item
     ? {
@@ -27,14 +51,18 @@ export default async function Product({
   params: Promise<{ product: string }>;
 }) {
   const { product } = await params;
+  if (product === "domains")
+    return <DomainPage prices={getRetailDomainPrices()} />;
+  const feature = getFeaturePage("products", product);
+  if (feature) return <FeaturePage page={feature} />;
   const item = DIGITAL_PRODUCTS.find((p) => p.id === product);
   if (!item) notFound();
   return (
     <div
       style={{
         padding: "140px 24px 80px",
-        background: "#f6f8f1",
-        color: "#173a2a",
+        background: "#FDFCF8",
+        color: "#060E2A",
         minHeight: "90vh",
       }}
     >
@@ -89,7 +117,9 @@ export default async function Product({
             }}
           >
             {item.details.map((detail) => (
-              <li key={detail}>{detail}</li>
+              <li key={detail}>
+                <T>{detail}</T>
+              </li>
             ))}
           </ol>
         </section>

@@ -47,6 +47,11 @@ const main = process.env.MAIN_TEST_ORIGIN || "http://127.0.0.1:3001",
       (await page.getByRole("link", { name: /Start for free/i }).count()) >= 3,
     );
     assert.equal(await page.locator("#website-steps article").count(), 4);
+    assert.equal(
+      await page.getByRole("heading", { name: "See what’s possible." }).count(),
+      0,
+    );
+    await page.goto(main + "/pricing");
     await page.getByRole("heading", { name: "See what’s possible." }).waitFor();
     const pause = page.getByRole("button", { name: "Pause template motion" });
     await pause.scrollIntoViewIfNeeded();
@@ -81,7 +86,7 @@ const main = process.env.MAIN_TEST_ORIGIN || "http://127.0.0.1:3001",
     });
     await page.waitForTimeout(900);
     await page.screenshot({
-      path: "/tmp/jktl-growth-home-desktop.png",
+      path: "/tmp/jktl-pricing-motion.png",
       fullPage: true,
     });
     for (const host of [main, business]) {
@@ -169,7 +174,7 @@ const main = process.env.MAIN_TEST_ORIGIN || "http://127.0.0.1:3001",
     await rpage.route(/https:\/\/images\.(unsplash|pexels)\.com\//, (r) =>
       r.abort(),
     );
-    await rpage.goto(main);
+    await rpage.goto(main + "/pricing");
     await rpage
       .getByRole("heading", { name: "See what’s possible." })
       .waitFor();
