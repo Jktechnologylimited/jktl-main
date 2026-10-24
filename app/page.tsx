@@ -7,8 +7,8 @@ import { Reveal, Stagger, StaggerItem, HoverLift } from "@/components/shared/Rev
 import { affiliateTerms, affiliateUrl, appSignupUrl, features, industries, pexelsUrl, pricing, signupSteps, siteConfig } from "@/data/index";
 
 export const metadata = {
-  title: "The AI Receptionist That Never Misses a Call",
-  description: "An AI receptionist for Nigerian clinics and salons. It answers every call you cannot, books the appointment, and texts back anyone it missed. ₦650,000 to set up, or six payments of ₦108,333.33.",
+  title: "Free Business Websites, Landing Pages & Business Tools",
+  description: "Build a website or landing page with 200 modern templates. Manage customers, bookings, invoices and stock with JKTL Business. Get started free.",
 };
 
 export default function HomePage() {
@@ -70,6 +70,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <section className="bg-cream-100 px-6 py-16 border-b border-cream-300"><div className="max-w-5xl mx-auto"><p className="text-xs uppercase tracking-widest text-[#80621c]">Your next chapter, online</p><h2 className="font-display text-4xl sm:text-5xl mt-4 text-navy-900">Build your next website or landing page.</h2><p className="mt-5 max-w-2xl text-black/60">Explore 200 modern designs for law firms, schools, churches, music labels, clinics, salons and more. Make one your own with your logo, Unsplash images, services, service areas, social links and genuine reviews—or start with a blank page.</p><div className="mt-6 flex flex-wrap gap-5"><Link href="/templates" className="text-navy-900 font-semibold underline">Browse website templates →</Link><Link href="/landing-pages" className="text-navy-900 font-semibold underline">Create a landing page →</Link></div></div></section>
 
       {/* FEATURE GRID */}
       <section className="bg-white px-4 sm:px-6 lg:px-8 py-16 sm:py-24 border-b border-cream-300">

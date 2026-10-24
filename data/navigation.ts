@@ -39,6 +39,12 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
             description: "Get online with your own JKTL subdomain.",
             href: "/how-it-works#website",
           },
+          {
+            title: "Landing page builder",
+            description:
+              "Create a focused campaign page and measure published results.",
+            href: "/landing-pages",
+          },
         ],
       },
       {

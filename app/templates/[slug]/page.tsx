@@ -15,6 +15,7 @@ export async function generateMetadata({
   return {
     title: `${template?.name || "Website"} Template Preview`,
     robots: { index: false, follow: true },
+    alternates:{canonical:`https://jktl.com.ng/templates/${(await params).slug}`},
   };
 }
 export default async function TemplatePage({

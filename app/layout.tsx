@@ -5,11 +5,11 @@ import MarketingShell from "@/components/layout/MarketingShell";
 export const metadata: Metadata = {
   metadataBase: new URL("https://jktl.com.ng"),
   title: {
-    default: "JKTL Business | The AI Receptionist for Nigerian Clinics & Salons",
+    default: "JKTL Business | Free Websites, Landing Pages & Business Tools",
     template: "%s | JKTL Business",
   },
   description:
-    "An AI receptionist for Nigerian clinics, salons and home-care services. It answers every call you cannot, books the appointment, and texts back anyone it missed. ₦650,000 to set up, or six monthly payments of ₦108,333.33, then ₦59,000/month. Cancel any time.",
+    "Build a free business website or landing page with 200 modern templates. Manage customers, bookings, invoices and stock with JKTL Business. Optional AI receptionist services are available.",
   keywords:
     "AI receptionist Nigeria, missed call recovery Nigeria, clinic booking software Nigeria, salon booking software Nigeria, medical answering service Nigeria, bookings app Nigeria, invoicing app Nigeria, CRM Nigeria, Paystack invoicing",
   authors: [{ name: "JK Technology Limited", url: "https://jktl.com.ng" }],
@@ -23,9 +23,9 @@ export const metadata: Metadata = {
     shortcut: "/favicon-32.png",
   },
   openGraph: {
-    title: "JKTL Business | The AI Receptionist for Nigerian Clinics & Salons",
+    title: "JKTL Business | Free Websites, Landing Pages & Business Tools",
     description:
-      "It answers every call your clinic cannot, books the patient, and texts back anyone it missed. ₦650,000 to set up, or six monthly payments of ₦108,333.33, then ₦59,000/month.",
+      "Websites, landing pages and business tools for African businesses. Get started free with JKTL Business.",
     url: "https://jktl.com.ng",
     siteName: "JKTL Business",
     locale: "en_NG",
@@ -51,7 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 url: "https://jktl.com.ng",
                 logo: "https://jktl.com.ng/logo.png",
                 description:
-                  "JKTL Business gives Nigerian clinics and salons an AI receptionist that answers every call they cannot, books the appointment, and texts back anyone it missed.",
+                  "JKTL Business helps African businesses build websites and landing pages, manage customers, bookings and invoices, and explore optional AI receptionist services.",
                 sameAs: [],
               },
               {

@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowRight, LogIn } from "lucide-react";
 import { appLoginUrl, appSignupUrl } from "@/data/index";
 import {
   navigation,
@@ -238,9 +238,9 @@ export default function Navbar() {
           <div className="flex shrink-0 items-center gap-2 sm:gap-4">
             <a
               href={appLoginUrl()}
-              className="hidden sm:inline text-sm text-[#060E2A] underline underline-offset-4"
+              className="hidden sm:inline-flex items-center gap-2 text-sm text-[#060E2A] underline underline-offset-4"
             >
-              Log in
+              <LogIn size={16} aria-hidden="true"/> Log in
             </a>
             <a
               href={appSignupUrl()}
