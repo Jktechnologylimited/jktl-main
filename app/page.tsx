@@ -4,7 +4,7 @@ import { CheckCircle2, Globe, Smartphone, ShieldCheck } from "lucide-react";
 import Icon from "@/components/shared/Icon";
 import SocialProof from "@/components/shared/SocialProof";
 import { Reveal, Stagger, StaggerItem, HoverLift } from "@/components/shared/Reveal";
-import { affiliateTerms, affiliateUrl, appSignupUrl, features, industries, pexelsUrl, pricing, signupSteps, siteConfig } from "@/data/index";
+import { affiliateTerms, affiliateUrl, appSignupUrl, features, industries, pexelsUrl, pricing, signupSteps } from "@/data/index";
 
 export const metadata = {
   title: "Free Business Websites, Landing Pages & Business Tools",
@@ -24,29 +24,30 @@ export default function HomePage() {
               <Reveal delay={0}>
                 <div className="inline-flex items-center gap-2 mb-5 px-4 py-1.5 rounded-full" style={{ background: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.25)" }}>
                   <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--gold-400)" }} />
-                  <span className="label-xs" style={{ color: "var(--gold-400)" }}>Answers every call, day or night</span>
+                  <span className="label-xs" style={{ color: "var(--gold-400)" }}>Websites • Domains • Hosting • Business Email</span>
                 </div>
               </Reveal>
               <Reveal delay={0.1}>
-                <h1 className="display-hero" style={{ color: "#fff", marginBottom: 20 }}>
-                  Every Call Answered.<br /><span className="gold-text">Every Patient Booked.</span>
+                <h1 className="display-hero" style={{ color: "#fff", marginBottom: 20, fontSize: "clamp(2.6rem,4.8vw,4.4rem)", lineHeight: 1.06 }}>
+                  Build your business online.<br /><span className="gold-text">Grow beyond limits.</span>
                 </h1>
               </Reveal>
               <Reveal delay={0.2}>
                 <p className="body-lg" style={{ color: "rgba(249,247,240,0.6)", marginBottom: 32, maxWidth: 480 }}>
-                  {siteConfig.tagline} Built for salons, gyms, restaurants, shops and every kind of Nigerian SME.
+                  Create a professional website, get your own domain and business email, and access powerful tools to manage your business — all in one place.
                 </p>
               </Reveal>
               <Reveal delay={0.3}>
-                <div className="flex flex-wrap gap-3 mb-10">
-                  <a href={appSignupUrl()} className="btn-gold px-7 py-3.5 text-sm uppercase tracking-wide">Get started free</a>
+                <div className="flex flex-wrap gap-3 mb-4">
+                  <a href={appSignupUrl()} className="btn-gold px-7 py-3.5 text-sm uppercase tracking-wide">Get Started</a>
                   <Link href="/how-it-works" className="btn-outline-cream px-7 py-3.5 text-sm uppercase tracking-wide">See How It Works</Link>
                 </div>
               </Reveal>
               <Reveal delay={0.4}>
-                <p className="mb-4 text-xs text-white/60">Free business tools to start. AI receptionist activation and optional add-ons are paid separately.</p>
+                <p className="mb-3 text-sm text-white/80">Start for free. No credit card required.</p>
+                <p className="mb-6 text-xs text-white/50">Domains, business email and optional upgrades are priced separately.</p>
                 <div className="flex flex-wrap gap-x-8 gap-y-3">
-                  {["Answers calls 24/7", "Books straight into your calendar", "Texts back every missed caller", "Installs like an app"].map(t => (
+                  {["200 website & landing-page designs", "Free business tools", "Your own online presence"].map(t => (
                     <div key={t} className="flex items-center gap-2">
                       <CheckCircle2 size={16} style={{ color: "var(--gold-400)" }} />
                       <span className="text-[0.82rem]" style={{ color: "rgba(249,247,240,0.6)" }}>{t}</span>
@@ -57,13 +58,13 @@ export default function HomePage() {
             </div>
             <Reveal delay={0.15} y={28} className="relative">
               <div className="rounded overflow-hidden border" style={{ borderColor: "rgba(255,255,255,0.1)", aspectRatio: "4/3" }}>
-                <Image src={pexelsUrl(30677594, 900)} alt="Nigerian business owner using her phone" width={900} height={675} className="w-full h-full object-cover" priority />
+                <Image src="/template-previews/consultancy-minimal.jpg" alt="Preview of a JKTL business website template" width={900} height={675} className="w-full h-full object-cover" priority />
               </div>
               <Reveal delay={0.7} y={16} className="absolute -bottom-6 -left-6 hidden sm:block">
                 <div className="rounded p-4" style={{ background: "#fff", boxShadow: "0 20px 56px rgba(0,0,0,0.35)", maxWidth: 220 }}>
-                  <p className="label-xs text-navy-900 mb-1">Invoice paid</p>
-                  <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.6rem", color: "#059669", lineHeight: 1 }}>{"₦"}45,000</p>
-                  <p className="text-[0.68rem] text-black/40 mt-1">via Paystack, on the invoice</p>
+                  <p className="label-xs text-navy-900 mb-1">Your next chapter</p>
+                  <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.6rem", color: "#059669", lineHeight: 1 }}>Your business. Online.</p>
+                  <p className="text-[0.68rem] text-black/40 mt-1">Website · Domain · Business email</p>
                 </div>
               </Reveal>
             </Reveal>
