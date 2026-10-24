@@ -53,7 +53,9 @@ const main = process.env.MAIN_TEST_ORIGIN || "http://127.0.0.1:3001",
           for (const host of [main, business]) {
             const r = await page.request.get(host + "/templates/" + t.id);
             assert.equal(r.status(), 200, t.id);
-            const html = await r.text();
+            const raw = await page.request.get(host + "/template-canvas/" + t.id);
+            assert.equal(raw.status(),200,t.id);
+            const html = await raw.text();
             assert.ok(html.includes('id="home"'));
             assert.ok(html.includes('id="contact"'));
             if (!t.document.blank) {
@@ -100,7 +102,7 @@ const main = process.env.MAIN_TEST_ORIGIN || "http://127.0.0.1:3001",
     assert.ok(robots.includes("Sitemap: https://jktl.com.ng/sitemap.xml"));
     assert.ok(robots.includes("/api/"));
     await page.goto(main + "/templates/law-firm-launch");
-    await page.locator("#home h1").waitFor();
+    await page.frameLocator("iframe").locator("#home h1").waitFor();
     await page.screenshot({ path: "/tmp/jktl-2026-landing-preview.png" });
     await page.goto(business + "/login?template=law-firm-launch");
     await page
@@ -216,16 +218,18 @@ const main = process.env.MAIN_TEST_ORIGIN || "http://127.0.0.1:3001",
       "blank-website",
     ]) {
       await page.goto(main + "/templates/" + id);
-      await page.locator("#home h1").waitFor();
+      await page.getByRole("button", {name:"Mobile preview",exact:true}).click();
+      const mobilePreview = page.frameLocator("iframe");
+      await mobilePreview.locator("#home h1").waitFor();
       assert.ok(
-        await page
+        await mobilePreview
           .locator("[data-layout]")
           .evaluate((n) => n.scrollWidth <= innerWidth),
         id,
       );
-      await page.getByRole("button", { name: "Menu", exact: false }).click();
+      await mobilePreview.getByRole("button", { name: "Menu", exact: false }).click();
       assert.ok(
-        await page
+        await mobilePreview
           .getByRole("link", { name: "Sign in to JKTL Business" })
           .isVisible(),
       );

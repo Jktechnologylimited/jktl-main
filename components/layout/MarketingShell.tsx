@@ -5,7 +5,9 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import BizChat from "@/components/shared/BizChat";
 export default function MarketingShell({ children }: { children: ReactNode }) {
-  const preview = /^\/templates\/[^/]+\/?$/.test(usePathname());
+  const preview = /^\/(?:templates|template-canvas)\/[^/]+\/?$/.test(
+    usePathname(),
+  );
   return preview ? (
     <>{children}</>
   ) : (

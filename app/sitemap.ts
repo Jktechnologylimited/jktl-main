@@ -5,6 +5,11 @@ const base = "https://jktl.com.ng";
 const routes = [
   "",
   "templates",
+  "products/domains",
+  "products/business-email",
+  "products/business-tools",
+  "products/add-ons",
+  "products/custom-websites",
   "landing-pages",
   "about",
   "industries",

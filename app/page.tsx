@@ -40,7 +40,7 @@ export default function HomePage() {
               <Reveal delay={0.3}>
                 <div className="flex flex-wrap gap-3 mb-4">
                   <a href={appSignupUrl()} className="btn-gold px-7 py-3.5 text-sm uppercase tracking-wide">Get Started</a>
-                  <Link href="/how-it-works" className="btn-outline-cream px-7 py-3.5 text-sm uppercase tracking-wide">See How It Works</Link>
+                  <Link href="/templates" className="btn-outline-cream px-7 py-3.5 text-sm uppercase tracking-wide">Explore Templates</Link>
                 </div>
               </Reveal>
               <Reveal delay={0.4}>

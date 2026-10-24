@@ -80,7 +80,7 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
             title: "AI receptionist",
             description:
               "Explore call handling and missed-call recovery for your business.",
-            href: "/pricing",
+            href: "/products/add-ons",
             note: "Paid activation",
           },
         ],
@@ -93,21 +93,21 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
           title: "Custom domains",
           description:
             "Connect a domain you own, or ask us about manual registration.",
-          href: "/how-it-works#domains",
+          href: "/products/domains",
           note: "Paid add-on · registration quoted separately",
         },
         {
           title: "Hosting & HTTPS",
           description:
             "Managed hosting for your published JKTL business website.",
-          href: "/how-it-works#hosting",
+          href: "/products/domains",
         },
         {
           title: "Business email",
           description:
             "Ask the team about manual Zoho Mail setup for your domain.",
-          href: "/contact#form",
-          note: "Service quotation",
+          href: "/products/business-email",
+          note: "Manual setup · annual quotation",
         },
       ],
     },
@@ -250,7 +250,7 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
           },
           {
             title: "Plans & pricing",
-            description: "Understand the paid AI receptionist package.",
+            description: "Compare free and paid website plans with monthly or yearly billing.",
             href: "/pricing",
           },
         ],

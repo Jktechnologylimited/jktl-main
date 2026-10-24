@@ -28,7 +28,7 @@ const path = require("node:path");
           const template = websiteTemplates[next++];
           const result = await page.goto(
             (process.env.MAIN_TEST_ORIGIN || "http://127.0.0.1:3001") +
-              "/templates/" +
+              "/template-canvas/" +
               template.id,
           );
           if (result.status() !== 200) throw new Error(template.id);
