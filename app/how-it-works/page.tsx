@@ -19,7 +19,7 @@ export default function HowItWorksPage() {
         eyebrow="How It Works"
         heading="From Sign-Up To Selling, In Minutes"
         subhead="No setup fees, no onboarding calls required. Create your account, add your business, and you're live."
-        primaryLabel="Get started"
+        primaryLabel="Get started free"
         primaryHref={appSignupUrl()}
         secondaryLabel="See Pricing"
         secondaryHref="/pricing"
@@ -27,7 +27,7 @@ export default function HowItWorksPage() {
       />
 
       {/* Signup flow */}
-      <section className="bg-white px-4 sm:px-6 lg:px-8 py-14 sm:py-20 border-y border-cream-300">
+      <section id="first-steps" className="scroll-mt-24 bg-white px-4 sm:px-6 lg:px-8 py-14 sm:py-20 border-y border-cream-300">
         <div className="max-w-[1000px] mx-auto">
           <Stagger className="grid grid-cols-1 sm:grid-cols-3 gap-2" style={{ background: "var(--cream-300)" }}>
             {signupSteps.map(step => (
@@ -56,12 +56,21 @@ export default function HowItWorksPage() {
                 </div>
                 <div>
                   <p className="font-mono text-[0.65rem] font-bold mb-1" style={{ color: "var(--gold-400)" }}>{String(i + 1).padStart(2, "0")}</p>
-                  <h3 className="font-semibold text-navy-900 text-[0.98rem] mb-1.5">{f.title}</h3>
+                  <h3 id={f.id} className="scroll-mt-28 font-semibold text-navy-900 text-[0.98rem] mb-1.5">{f.title}</h3>
                   <p className="body-sm text-black/55">{f.desc}</p>
                 </div>
               </StaggerItem>
             ))}
           </Stagger>
+        </div>
+      </section>
+
+      <section className="bg-white px-4 sm:px-6 lg:px-8 py-14 border-t border-cream-300">
+        <div className="max-w-[1000px] mx-auto grid sm:grid-cols-2 gap-8">
+          <article id="website-styling" className="scroll-mt-28"><h2 className="text-xl font-semibold text-navy-900">Make your website your own</h2><p className="body-sm text-black/60 mt-3">Use your own photos, brand colours and curated font pairings in the JKTL website editor. These are styling options in your business website, with setup help available from our team.</p></article>
+          <article id="analytics" className="scroll-mt-28"><h2 className="text-xl font-semibold text-navy-900">Reports &amp; analytics</h2><p className="body-sm text-black/60 mt-3">Review revenue, payments, customer trends, stock and expenses in the business dashboard. Start with the free tools and explore your numbers as your business grows.</p></article>
+          <article id="domains" className="scroll-mt-28"><h2 className="text-xl font-semibold text-navy-900">Your domain, connected</h2><p className="body-sm text-black/60 mt-3">A JKTL website address is included. Connecting your own domain needs the Website &amp; Hosting add-on and domain ownership verification. New Go54 domain registration and renewals are handled manually and quoted separately.</p><a href="/contact#form" className="inline-block mt-3 text-sm underline text-navy-900">Ask about your domain →</a></article>
+          <article id="hosting" className="scroll-mt-28"><h2 className="text-xl font-semibold text-navy-900">Managed hosting &amp; HTTPS</h2><p className="body-sm text-black/60 mt-3">Your published JKTL site uses our existing Vercel hosting. Custom domains need the correct DNS setup and manual connection before HTTPS is ready. Business email through Zoho Mail is a separate, manually arranged service.</p><a href="/contact#form" className="inline-block mt-3 text-sm underline text-navy-900">Discuss hosting or email setup →</a></article>
         </div>
       </section>
 
@@ -85,8 +94,8 @@ export default function HowItWorksPage() {
 
       <CTABanner
         heading="Ready to See It For Yourself?"
-        subhead="We set up your line, your assistant and your website."
-        primaryLabel="Get started"
+        subhead="Start with free business tools. AI receptionist activation and optional services are separate."
+        primaryLabel="Get started free"
         primaryHref={appSignupUrl()}
         secondaryLabel="Talk to Us"
         secondaryHref="/contact"

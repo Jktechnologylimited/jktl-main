@@ -39,11 +39,12 @@ export default function HomePage() {
               </Reveal>
               <Reveal delay={0.3}>
                 <div className="flex flex-wrap gap-3 mb-10">
-                  <a href={appSignupUrl()} className="btn-gold px-7 py-3.5 text-sm uppercase tracking-wide">Get started</a>
+                  <a href={appSignupUrl()} className="btn-gold px-7 py-3.5 text-sm uppercase tracking-wide">Get started free</a>
                   <Link href="/how-it-works" className="btn-outline-cream px-7 py-3.5 text-sm uppercase tracking-wide">See How It Works</Link>
                 </div>
               </Reveal>
               <Reveal delay={0.4}>
+                <p className="mb-4 text-xs text-white/60">Free business tools to start. AI receptionist activation and optional add-ons are paid separately.</p>
                 <div className="flex flex-wrap gap-x-8 gap-y-3">
                   {["Answers calls 24/7", "Books straight into your calendar", "Texts back every missed caller", "Installs like an app"].map(t => (
                     <div key={t} className="flex items-center gap-2">
@@ -202,7 +203,8 @@ export default function HomePage() {
           </div>
           <h2 className="display-xl mb-4" style={{ color: "var(--cream-50)" }}>Stop Losing Calls You Never Knew About</h2>
           <p className="body-lg mb-8" style={{ color: "rgba(249,247,240,0.55)" }}>We set up your line, train the assistant on your business, and build your website. From ₦108,333.33 a month.</p>
-          <a href={appSignupUrl()} className="btn-gold px-8 py-4 text-sm uppercase tracking-wide inline-flex">Get started</a>
+          <a href={appSignupUrl()} className="btn-gold px-8 py-4 text-sm uppercase tracking-wide inline-flex">Get started free</a>
+          <p className="mt-4 text-xs text-white/60">Create your free account first. The AI receptionist package is optional and paid.</p>
         </Reveal>
       </section>
     </div>

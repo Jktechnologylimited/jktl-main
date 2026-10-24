@@ -66,7 +66,7 @@ function answer(question: string): string {
     return `It is ${pricing.monthly.headline} a month for the first six months — that is the ${pricing.upfront.headline} launch package split six ways, and together they come to exactly ${pricing.upfront.headline}. From month 7 it drops to ${pricing.monthly.ongoing}. You can also pay the ${pricing.upfront.headline} in full up front if you prefer. Either way you get ${pricing.shared.freeCredit} of communication credit included, and you can cancel any time from month one.`;
   }
   if (q.includes("free") && !q.includes("free credit")) {
-    return `There is no free plan — JKTL Business is a done-for-you setup, because the value is in the assistant answering your calls and the website being built for you. What there is: ${pricing.shared.freeCredit} of communication credit to start, and a monthly option so you do not need the full ${pricing.upfront.headline} today.`;
+    return `You can get started free with customer records, bookings, invoices, inventory and a basic business website. The AI receptionist is a separate paid package, with: ${pricing.shared.freeCredit} of communication credit to start, and a monthly option so you do not need the full ${pricing.upfront.headline} today.`;
   }
   if (q.includes("industr") || q.includes("business type") || q.includes("salon") || q.includes("gym") || q.includes("restaurant") || q.includes("shop")) {
     return `JKTL Business fits ${industries.length} broad groups of businesses -- ${industries.slice(0, 5).map(i => i.title).join(", ")}, and more. Visit our Industries page to see your type of business and what fits.`;

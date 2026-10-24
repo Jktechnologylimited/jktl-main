@@ -86,41 +86,49 @@ export const navLinks = [
 export const features = [
   {
     icon: "Users",
+    id: "customers",
     title: "Customer Records (CRM)",
     desc: "Every customer, their history, notes and preferences, saved automatically -- so every visit feels personal.",
   },
   {
     icon: "CalendarCheck",
+    id: "bookings",
     title: "Bookings & Sales Tracking",
     desc: "Appointments for service businesses, sales tracking for retail and product businesses -- whichever fits how you work.",
   },
   {
     icon: "Receipt",
+    id: "payments",
     title: "Invoicing & Payments",
     desc: "Create an invoice in seconds and collect payment online, directly on it, via Paystack. No more chasing bank transfers.",
   },
   {
     icon: "Package",
+    id: "inventory",
     title: "Inventory Tracking",
     desc: "Know what's in stock, what's running low, and get alerted before you run out.",
   },
   {
     icon: "Wallet",
+    id: "expenses",
     title: "Expense Tracking",
     desc: "Log business expenses as you spend, so you always know your real numbers.",
   },
   {
     icon: "Globe",
+    id: "website",
     title: "Free Business Website",
     desc: "Every business gets a published website on a jktl.com.ng subdomain -- customers can find you and book or buy online.",
   },
   {
     icon: "Smartphone",
+    id: "mobile-app",
     title: "Installable App (PWA)",
     desc: "Add JKTL Business to your home screen like any app. No app store, no update hassle.",
   },
   {
     icon: "UsersRound",
+    id: "team",
     title: "Multi-Staff Roles",
     desc: "Bring your team in with owner, manager and staff roles, each seeing only what they need to.",
   },
