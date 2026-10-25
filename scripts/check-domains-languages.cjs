@@ -15,6 +15,7 @@ const main = process.env.MAIN_TEST_ORIGIN || "http://localhost:3001",
       viewport: { width: 1440, height: 1000 },
       serviceWorkers: "block",
     });
+    await context.addInitScript(() => {try {localStorage.setItem("jktl-pwa-remind-after", String(Date.now()+86400000));} catch {}});
     const page = await context.newPage();
     const errors = [];
     let mutations = 0;

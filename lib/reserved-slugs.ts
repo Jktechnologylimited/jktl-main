@@ -11,6 +11,7 @@ export const RESERVED_SLUGS = [
   "games",
   "api",
   "blog",
+  "updates",
   "businessdesk",
   "careers",
   "case-studies",

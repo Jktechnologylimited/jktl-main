@@ -1,3 +1,4 @@
+import { readPublications } from "@/lib/publications";
 import { featurePages } from "@/data/feature-pages";
 import type { MetadataRoute } from "next";
 import { sql } from "@/lib/db";
@@ -13,6 +14,8 @@ const routes = [
   "products/custom-websites",
   "landing-pages",
   "about",
+  "blog",
+  "updates",
   "industries",
   "how-it-works",
   "pricing",
@@ -35,6 +38,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: route ? "monthly" : "weekly",
     priority: route ? 0.7 : 1,
   }));
+  const publications = await Promise.all([readPublications("blog"), readPublications("release")]);
+  for (const result of publications) for (const article of result.articles) items.push({url:`${base}/${article.kind === "blog" ? "blog" : "updates"}/${article.slug}`,lastModified:new Date(article.updatedAt || article.publishedAt),changeFrequency:"monthly",priority:0.6});
   if (sql) {
     try {
       const pages =

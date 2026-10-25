@@ -217,6 +217,8 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
       {
         title: "Explore",
         items: [
+          {title:"JKTL Blog",description:"Ideas and practical guidance for growing your business.",href:"/blog"},
+          {title:"Releases & updates",description:"New features and product improvements from the team.",href:"/updates"},
           {
             title: "How JKTL works",
             description: "A practical introduction to your business tools.",
