@@ -33,7 +33,7 @@ export function FeaturedCaseStudies({ custom = false }: { custom?: boolean }) {
         </div>
         <div className={`${styles.grid} ${styles.compact}`}>
           {featured.map((study) => (
-            <CaseStudyCard key={study.slug} study={study} />
+            <CaseStudyCard key={study.slug} study={study} floating />
           ))}
         </div>
       </div>

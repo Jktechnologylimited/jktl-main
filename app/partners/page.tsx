@@ -24,8 +24,17 @@ export default function Page() {
             underlying infrastructure.
           </p>
           <div className="flex flex-wrap gap-4 mt-8">
-            <a href="#apply" className="btn-gold px-7 py-4 text-sm">
+            <a
+              href="https://business.jktl.com.ng/partners/apply"
+              className="btn-gold px-7 py-4 text-sm"
+            >
               Become a partner
+            </a>
+            <a
+              href="https://business.jktl.com.ng/partners/login"
+              className="btn-outline-cream px-7 py-4 text-sm"
+            >
+              Partner sign in
             </a>
             <Link
               href="/affiliates"

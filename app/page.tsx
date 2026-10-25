@@ -1,3 +1,4 @@
+import { FeatureBadge } from "@/components/features/FeatureBadge";
 import { FeaturedCaseStudies } from "@/components/case-studies/FeaturedCaseStudies";
 import { T } from "@/components/i18n/LanguageProvider";
 import { WebsiteSteps } from "@/components/home/WebsiteSteps";
@@ -131,6 +132,9 @@ export default function HomePage() {
                     </div>
                     <h3 className="font-semibold text-navy-900 text-[0.95rem] mb-2">
                       {f.title}
+                      <FeatureBadge
+                        slug={f.id === "website" ? "website-builder" : f.id}
+                      />
                     </h3>
                     <p className="body-sm text-black/55">{f.desc}</p>
                   </div>

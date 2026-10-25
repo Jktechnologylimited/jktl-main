@@ -1,4 +1,5 @@
 "use client";
+import { FeatureBadge } from "@/components/features/FeatureBadge";
 import { LanguageSwitcher, T } from "@/components/i18n/LanguageProvider";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
@@ -30,6 +31,7 @@ function MenuItem({
     >
       <span className="block text-base font-semibold text-[#060E2A] group-hover:text-[#80621c]">
         <T>{item.title}</T>
+        <FeatureBadge route={item.href} />
       </span>
       <span className="block mt-2 text-sm leading-relaxed text-[#62636a]">
         <T>{item.description}</T>
@@ -233,6 +235,7 @@ export default function Navbar() {
               className="px-4 py-5 text-sm text-[#060E2A] hover:text-[#80621c]"
             >
               <T>Domains</T>
+              <FeatureBadge slug="domains" />
             </Link>
             <Link
               href="/pricing"
@@ -240,6 +243,7 @@ export default function Navbar() {
               className="px-4 py-5 text-sm text-[#060E2A] hover:text-[#80621c]"
             >
               <T>Pricing</T>
+              <FeatureBadge route="/pricing" />
             </Link>
           </div>
           <div className="flex shrink-0 items-center gap-2 sm:gap-4">

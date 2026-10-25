@@ -2,8 +2,10 @@ import { T } from "@/components/i18n/LanguageProvider";
 import Link from "next/link";
 import Image from "next/image";
 import { siteConfig, industries, appSignupUrl } from "@/data/index";
-import FooterQuickLinks from "@/components/layout/FooterQuickLinks";
-
+import { navigation } from "@/data/navigation";
+import { FeatureBadge } from "@/components/features/FeatureBadge";
+import FooterQuickLinks from "./FooterQuickLinks";
+import styles from "./Footer.module.css";
 const SOCIAL_ICONS: Record<string, JSX.Element> = {
   facebook: (
     <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
@@ -28,113 +30,87 @@ const SOCIAL_ICONS: Record<string, JSX.Element> = {
 };
 
 export default function Footer() {
-  const year = new Date().getFullYear();
+  const year = Number(
+    new Intl.DateTimeFormat("en-NG", {
+      year: "numeric",
+      timeZone: "Africa/Lagos",
+    }).format(new Date()),
+  );
   const socials = Object.entries(siteConfig.socials || {}).filter(
     ([, url]) => url,
   );
-
+  const products = [
+    ...navigation.product.groups.flatMap((g) => g.items),
+    ...navigation.product.aside.items,
+    navigation.product.footer,
+  ].filter(
+    (item, index, all) => all.findIndex((i) => i.href === item.href) === index,
+  );
+  const solutions = [
+    ...navigation.solutions.groups.flatMap((g) => g.items),
+    ...navigation.solutions.aside.items,
+  ];
+  const resources = [
+    ...navigation.resources.groups[0].items,
+    ...navigation.resources.aside.items,
+  ].filter((i) => !["/about", "/affiliates", "/partners"].includes(i.href));
+  const support = [
+    { href: "/resources/help-centre", title: "Help & guides" },
+    { href: "/contact", title: "Contact the team" },
+    { href: "/pricing", title: "Plans & pricing" },
+    { href: "https://business.jktl.com.ng/login", title: "Business sign in" },
+    {
+      href: "https://business.jktl.com.ng/partners/login",
+      title: "Partner sign in",
+    },
+    {
+      href: "https://business.jktl.com.ng/affiliates/login",
+      title: "Affiliate sign in",
+    },
+    {
+      href: "https://business.jktl.com.ng/email-terms",
+      title: "Email service terms",
+    },
+    {
+      href: "https://business.jktl.com.ng/domain-terms",
+      title: "Domain terms",
+    },
+  ];
   return (
-    <footer
-      style={{
-        background: "var(--navy-950)",
-        borderTop: "1px solid rgba(249,247,240,0.06)",
-        padding: "clamp(40px,6vw,56px) clamp(16px,4vw,32px) 28px",
-      }}
-    >
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1.4fr repeat(3,1fr)",
-            gap: "clamp(24px,4vw,40px)",
-            marginBottom: 40,
-          }}
-          className="footer-grid"
-        >
-          {/* Brand */}
+    <footer className={styles.footer}>
+      <div className={styles.inner}>
+        <div className={styles.brandRow}>
           <div>
-            <Link
-              href="/"
-              style={{
-                textDecoration: "none",
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
-                marginBottom: 14,
-              }}
-            >
-              <Image
-                src="/logo.png"
-                alt="JKTL Business"
-                width={32}
-                height={32}
-                style={{ objectFit: "contain" }}
-              />
+            <Link href="/" className={styles.brand}>
+              <Image src="/logo.png" alt="" width={38} height={38} />
               <div>
-                <p
-                  style={{
-                    fontFamily: "'Plus Jakarta Sans',sans-serif",
-                    fontWeight: 800,
-                    fontSize: "0.85rem",
-                    color: "#fff",
-                  }}
-                >
-                  <T>JKTL Business</T>
-                </p>
-                <p
-                  style={{
-                    fontFamily: "'JetBrains Mono',monospace",
-                    fontSize: "0.5rem",
-                    color: "var(--gold-400)",
-                    letterSpacing: "0.15em",
-                  }}
-                >
+                <T>JKTL Business</T>
+                <small>
                   <T>BY JK TECHNOLOGY LIMITED</T>
-                </p>
+                </small>
               </div>
             </Link>
-            <p
-              className="body-sm"
-              style={{
-                color: "rgba(249,247,240,0.35)",
-                lineHeight: 1.7,
-                marginBottom: 16,
-                fontSize: "0.8rem",
-              }}
-            >
-              {siteConfig.tagline}
-            </p>
+            <p className={styles.tagline}>{siteConfig.tagline}</p>
             <a
               href={appSignupUrl()}
               className="btn-gold"
               style={{
-                fontSize: "0.68rem",
-                padding: "10px 18px",
+                fontSize: 11,
+                padding: "11px 20px",
                 display: "inline-flex",
               }}
             >
               <T>Start for free</T>
             </a>
             {socials.length > 0 && (
-              <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
+              <div className={styles.socials}>
                 {socials.map(([key, url]) => (
                   <a
                     key={key}
-                    href={url as string}
+                    href={String(url)}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={key}
-                    style={{
-                      width: 32,
-                      height: 32,
-                      borderRadius: 6,
-                      background: "rgba(255,255,255,0.05)",
-                      border: "1px solid rgba(255,255,255,0.1)",
-                      color: "rgba(249,247,240,0.6)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
                   >
                     {SOCIAL_ICONS[key]}
                   </a>
@@ -142,191 +118,81 @@ export default function Footer() {
               </div>
             )}
           </div>
-
-          {/* Quick Links */}
-          <div>
-            <p
-              className="label-xs"
-              style={{ color: "rgba(249,247,240,0.22)", marginBottom: 14 }}
-            >
-              <T>Quick Links</T>
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              <FooterQuickLinks />
-            </div>
-          </div>
-
-          {/* Industries */}
-          <div>
-            <p
-              className="label-xs"
-              style={{ color: "rgba(249,247,240,0.22)", marginBottom: 14 }}
-            >
-              <T>Industries</T>
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              {industries.slice(0, 8).map((ind) => (
-                <Link
-                  key={ind.slug}
-                  href={`/industries#${ind.slug}`}
-                  style={{
-                    fontSize: "0.8rem",
-                    color: "rgba(249,247,240,0.4)",
-                    textDecoration: "none",
-                  }}
-                >
-                  {ind.title}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Contact Us */}
-          <div>
-            <p
-              className="label-xs"
-              style={{ color: "rgba(249,247,240,0.22)", marginBottom: 14 }}
-            >
+          <div className={styles.contact}>
+            <h2>
               <T>Contact Us</T>
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <a
-                href={"tel:" + siteConfig.phone.replace(/ /g, "")}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 8,
-                  fontSize: "0.78rem",
-                  color: "rgba(249,247,240,0.4)",
-                  textDecoration: "none",
-                }}
-              >
-                <svg
-                  width="13"
-                  height="13"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="var(--gold-400)"
-                  strokeWidth="2"
-                  style={{ flexShrink: 0 }}
-                >
-                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
-                </svg>
-                {siteConfig.phone}
-              </a>
-              <a
-                href={"mailto:" + siteConfig.email}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 8,
-                  fontSize: "0.78rem",
-                  color: "rgba(249,247,240,0.4)",
-                  textDecoration: "none",
-                }}
-              >
-                <svg
-                  width="13"
-                  height="13"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="var(--gold-400)"
-                  strokeWidth="2"
-                  style={{ flexShrink: 0 }}
-                >
-                  <path d="M22 6l-10 7L2 6" />
-                  <rect x="2" y="4" width="20" height="16" rx="2" />
-                </svg>
-                {siteConfig.email}
-              </a>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  gap: 8,
-                  fontSize: "0.78rem",
-                  color: "rgba(249,247,240,0.4)",
-                }}
-              >
-                <svg
-                  width="13"
-                  height="13"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="var(--gold-400)"
-                  strokeWidth="2"
-                  style={{ flexShrink: 0, marginTop: 2 }}
-                >
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-                {siteConfig.location}
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 8,
-                  fontSize: "0.78rem",
-                  color: "rgba(249,247,240,0.4)",
-                }}
-              >
-                <svg
-                  width="13"
-                  height="13"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="var(--gold-400)"
-                  strokeWidth="2"
-                  style={{ flexShrink: 0 }}
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <polyline points="12 6 12 12 16 14" />
-                </svg>
-                <T>We respond within 24 hours</T>
-              </div>
-            </div>
+            </h2>
+            <a href={"tel:" + siteConfig.phone.replace(/\s/g, "")}>
+              {siteConfig.phone}
+            </a>
+            <a href={"mailto:" + siteConfig.email}>{siteConfig.email}</a>
+            <p>{siteConfig.location}</p>
+            <small>
+              <T>We respond within 24 hours</T>
+            </small>
           </div>
         </div>
-
-        <div
-          style={{
-            borderTop: "1px solid rgba(249,247,240,0.06)",
-            paddingTop: 20,
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: 10,
-          }}
-        >
-          <p style={{ fontSize: "0.7rem", color: "rgba(249,247,240,0.3)" }}>
-            <T>&copy; </T>
-            {year}
-            <T>JK Technology Limited. All Rights Reserved.</T>
+        <nav className={styles.navigation} aria-label="Footer navigation">
+          {[
+            ["Product", products],
+            ["Solutions", solutions],
+            ["Resources", resources],
+            ["Support", support],
+          ].map(([label, items]) => (
+            <section key={String(label)}>
+              <h2>
+                <T>{String(label)}</T>
+              </h2>
+              <ul>
+                {(items as { href: string; title: string }[]).map((i) => (
+                  <li key={i.href}>
+                    <Link href={i.href}>
+                      <T>{i.title}</T>
+                      {label === "Product" && <FeatureBadge route={i.href} />}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+          <section>
+            <h2>
+              <T>Company</T>
+            </h2>
+            <ul>
+              <li>
+                <Link href="/partners">
+                  <T>JKTL Partners</T>
+                </Link>
+              </li>
+              <FooterQuickLinks asListItems excludeHrefs={["/case-studies"]} />
+            </ul>
+          </section>
+        </nav>
+        <section className={styles.industries}>
+          <h2>
+            <T>Industries</T>
+          </h2>
+          <ul>
+            {industries.slice(0, 8).map((i) => (
+              <li key={i.slug}>
+                <Link href={"/industries#" + i.slug}>{i.title}</Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+        <div className={styles.bottom}>
+          <p>
+            © {year} <T>JK Technology Limited. All Rights Reserved.</T>
           </p>
-          <div style={{ display: "flex", gap: 20 }}>
-            <Link
-              href="/privacy"
-              style={{
-                fontSize: "0.7rem",
-                color: "rgba(249,247,240,0.3)",
-                textDecoration: "none",
-              }}
-            >
+          <nav aria-label="Legal">
+            <Link href="/privacy">
               <T>Privacy Policy</T>
             </Link>
-            <Link
-              href="/terms"
-              style={{
-                fontSize: "0.7rem",
-                color: "rgba(249,247,240,0.3)",
-                textDecoration: "none",
-              }}
-            >
-              <T>Terms &amp; Conditions</T>
+            <Link href="/terms">
+              <T>Terms & Conditions</T>
             </Link>
-          </div>
+          </nav>
         </div>
       </div>
     </footer>

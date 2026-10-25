@@ -1,3 +1,4 @@
+import { FeatureBadge } from "@/components/features/FeatureBadge";
 import Image from "next/image";
 import Link from "next/link";
 import { T } from "@/components/i18n/LanguageProvider";
@@ -21,6 +22,7 @@ export function FeaturePage({ page }: { page: (typeof featurePages)[number] }) {
           }}
         >
           JKTL · <T>{page.label}</T>
+          <FeatureBadge route={`/${page.section}/${page.slug}`} />
         </p>
         <div className="grid gap-10 lg:grid-cols-2 items-center mt-7">
           <div>

@@ -1,3 +1,4 @@
+import { EmailLanding } from "@/components/business-email/EmailLanding";
 import { CustomPage } from "@/components/custom/CustomPage";
 import { T } from "@/components/i18n/LanguageProvider";
 import { getFeaturePage, featurePages } from "@/data/feature-pages";
@@ -52,6 +53,24 @@ export default async function Product({
   params: Promise<{ product: string }>;
 }) {
   const { product } = await params;
+  if (product === "business-email") {
+    let plans: Record<string, unknown>[] = [];
+    try {
+      const r = await fetch(
+        "https://business.jktl.com.ng/api/public/email-plans",
+        { cache: "no-store", signal: AbortSignal.timeout(2500) },
+      );
+      if (r.ok) {
+        const d = await r.json();
+        if (Array.isArray(d.plans)) plans = d.plans;
+      }
+    } catch {}
+    return (
+      <div style={{ paddingTop: 68 }}>
+        <EmailLanding plans={plans} mainSite />
+      </div>
+    );
+  }
   if (product === "domains")
     return <DomainPage prices={await getLiveRetailDomainPrices()} />;
   if (product === "custom-websites" || product === "managed-services")

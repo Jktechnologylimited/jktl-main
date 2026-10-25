@@ -1,3 +1,4 @@
+import { FeatureBadgeProvider } from "@/components/features/FeatureBadge";
 import { LanguageProvider } from "@/components/i18n/LanguageProvider";
 import type { Metadata } from "next";
 import "./globals.css";
@@ -71,7 +72,9 @@ export default function RootLayout({
           }}
         />
         <LanguageProvider>
-          <MarketingShell>{children}</MarketingShell>
+          <FeatureBadgeProvider>
+            <MarketingShell>{children}</MarketingShell>
+          </FeatureBadgeProvider>
         </LanguageProvider>
       </body>
     </html>

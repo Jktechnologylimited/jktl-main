@@ -1,3 +1,4 @@
+import { MotionCaseStudy } from "./MotionCaseStudy";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { caseStudies, type CaseStudy } from "@/data/case-studies";
@@ -21,9 +22,19 @@ export function ProjectCover({ study }: { study: CaseStudy }) {
     </div>
   );
 }
-export function CaseStudyCard({ study }: { study: CaseStudy }) {
+export function CaseStudyCard({
+  study,
+  floating = false,
+}: {
+  study: CaseStudy;
+  floating?: boolean;
+}) {
   return (
-    <article className={styles.card}>
+    <MotionCaseStudy
+      className={styles.card}
+      floating={floating}
+      index={caseStudies.findIndex((s) => s.slug === study.slug)}
+    >
       <ProjectCover study={study} />
       <div className={styles.body}>
         <p className={styles.industry}>{study.industry}</p>
@@ -42,6 +53,6 @@ export function CaseStudyCard({ study }: { study: CaseStudy }) {
           Read case study <ArrowUpRight size={16} aria-hidden="true" />
         </Link>
       </div>
-    </article>
+    </MotionCaseStudy>
   );
 }
