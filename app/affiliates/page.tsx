@@ -79,7 +79,7 @@ export default function AffiliatesLandingPage() {
               { v: `${fmtNaira(TIERS.recurring)}/mo`, l: "For as long as they stay" },
             ].map(s => (
               <div key={s.l} style={{ textAlign: "center" }}>
-                <p style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 300, fontSize: "2rem", color: "#fff", lineHeight: 1, marginBottom: 4 }}>{s.v}</p>
+                <p style={{ fontFamily: "var(--font-plus-jakarta-sans), sans-serif", fontWeight: 300, fontSize: "2rem", color: "#fff", lineHeight: 1, marginBottom: 4 }}>{s.v}</p>
                 <p className="label-xs" style={{ color: "rgba(249,247,240,0.35)" }}>{s.l}</p>
               </div>
             ))}
@@ -114,15 +114,15 @@ export default function AffiliatesLandingPage() {
           <p className="body-md" style={{ color: "rgba(249,247,240,0.5)", marginBottom: 40 }}>{fmtNaira(firstYearValue())} in the first year, from a single business you introduce.</p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: 2, background: "rgba(249,247,240,0.06)" }}>
             <div style={{ padding: "36px 28px", background: "var(--navy-800)" }}>
-              <p style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 300, fontSize: "3rem", color: "var(--cream-50)", lineHeight: 1, marginBottom: 8 }}>{fmtNaira(TIERS.signup)}</p>
+              <p style={{ fontFamily: "var(--font-plus-jakarta-sans), sans-serif", fontWeight: 300, fontSize: "3rem", color: "var(--cream-50)", lineHeight: 1, marginBottom: 8 }}>{fmtNaira(TIERS.signup)}</p>
               <p className="label-xs" style={{ color: "rgba(249,247,240,0.4)" }}>When they create an account, released once they subscribe</p>
             </div>
             <div style={{ padding: "36px 28px", background: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.2)" }}>
-              <p style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 300, fontSize: "3rem", color: "var(--gold-400)", lineHeight: 1, marginBottom: 8 }}>{fmtNaira(TIERS.subscription)}</p>
+              <p style={{ fontFamily: "var(--font-plus-jakarta-sans), sans-serif", fontWeight: 300, fontSize: "3rem", color: "var(--gold-400)", lineHeight: 1, marginBottom: 8 }}>{fmtNaira(TIERS.subscription)}</p>
               <p className="label-xs" style={{ color: "rgba(249,247,240,0.4)" }}>When they subscribe</p>
             </div>
             <div style={{ padding: "36px 28px", background: "var(--navy-800)" }}>
-              <p style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 300, fontSize: "3rem", color: "var(--cream-50)", lineHeight: 1, marginBottom: 8 }}>{fmtNaira(TIERS.recurring)}<span style={{ fontSize: "1.1rem" }}>/mo</span></p>
+              <p style={{ fontFamily: "var(--font-plus-jakarta-sans), sans-serif", fontWeight: 300, fontSize: "3rem", color: "var(--cream-50)", lineHeight: 1, marginBottom: 8 }}>{fmtNaira(TIERS.recurring)}<span style={{ fontSize: "1.1rem" }}>/mo</span></p>
               <p className="label-xs" style={{ color: "rgba(249,247,240,0.4)" }}>Every month they stay subscribed — no cap, no cutoff</p>
             </div>
           </div>

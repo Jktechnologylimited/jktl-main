@@ -101,7 +101,7 @@ function BeforePlaceholder({ label }: { label: string }) {
           <rect x="3" y="3" width="18" height="14" rx="1"/><path d="M8 21h8M12 17v4"/>
         </svg>
       </div>
-      <p style={{ fontFamily:"'Plus Jakarta Sans',sans-serif", fontSize:"0.72rem", fontWeight:600, letterSpacing:"0.15em", textTransform:"uppercase", color:"rgba(28,28,30,0.35)" }}>
+      <p style={{ fontFamily:"var(--font-plus-jakarta-sans), sans-serif", fontSize:"0.72rem", fontWeight:600, letterSpacing:"0.15em", textTransform:"uppercase", color:"rgba(28,28,30,0.35)" }}>
         {label} -- Replace with screenshot
       </p>
       <p style={{ fontSize:"0.65rem", color:"rgba(28,28,30,0.25)", textAlign:"center", maxWidth:"180px" }}>
@@ -119,7 +119,7 @@ function AfterPlaceholder({ label }: { label: string }) {
           <rect x="3" y="3" width="18" height="14" rx="1"/><path d="M8 21h8M12 17v4"/>
         </svg>
       </div>
-      <p style={{ fontFamily:"'Plus Jakarta Sans',sans-serif", fontSize:"0.72rem", fontWeight:600, letterSpacing:"0.15em", textTransform:"uppercase", color:"rgba(249,247,240,0.3)" }}>
+      <p style={{ fontFamily:"var(--font-plus-jakarta-sans), sans-serif", fontSize:"0.72rem", fontWeight:600, letterSpacing:"0.15em", textTransform:"uppercase", color:"rgba(249,247,240,0.3)" }}>
         {label} -- Replace with screenshot
       </p>
     </div>

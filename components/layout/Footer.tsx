@@ -185,6 +185,10 @@ export default function Footer() {
           <p>
             © {year} <T>JK Technology Limited. All Rights Reserved.</T>
           </p>
+          <a href="https://status.jktl.com.ng" className={styles.statusButton}>
+            <span className={styles.statusDot} aria-hidden="true" />
+            <T>Status</T>
+          </a>
           <nav aria-label="Legal">
             <Link href="/privacy">
               <T>Privacy Policy</T>

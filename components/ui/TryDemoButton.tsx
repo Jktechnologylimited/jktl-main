@@ -17,7 +17,7 @@ export default function TryDemoButton({
     display: "inline-flex",
     alignItems: "center",
     gap: "6px",
-    fontFamily: "'Plus Jakarta Sans',sans-serif",
+    fontFamily: "var(--font-plus-jakarta-sans), sans-serif",
     fontWeight: 700,
     fontSize: "0.72rem",
     letterSpacing: "0.1em",

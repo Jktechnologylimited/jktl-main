@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -30,51 +30,51 @@ body {
   overflow-x: hidden;
   background: var(--cream-50);
   color: var(--charcoal);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
   line-height: 1.65;
 }
 
 /*  Typography  */
-.font-display { font-family: 'Cormorant Garamond', serif; }
+.font-display { font-family: var(--font-plus-jakarta-sans), sans-serif; }
 .font-mono    { font-family: 'JetBrains Mono', monospace; }
 
 .display-hero {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-size: clamp(3rem, 7.5vw, 7rem);
   font-weight: 300;
   line-height: 1.0;
   letter-spacing: -0.025em;
 }
 .display-xl {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-size: clamp(2.2rem, 4.5vw, 4.2rem);
   font-weight: 300;
   line-height: 1.08;
   letter-spacing: -0.02em;
 }
 .display-lg {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-size: clamp(1.7rem, 3vw, 2.8rem);
   font-weight: 400;
   line-height: 1.15;
 }
 .display-md {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-size: clamp(1.3rem, 2.2vw, 2rem);
   font-weight: 400;
   line-height: 1.2;
 }
 .label-xs {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 .label-sm {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.15em;
@@ -108,7 +108,7 @@ body {
 .btn-primary {
   display: inline-flex; align-items: center; gap: 10px;
   background: var(--navy-900); color: var(--cream-50);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-size: 0.72rem; font-weight: 700;
   letter-spacing: 0.12em; text-transform: uppercase;
   padding: 16px 36px; border: 1px solid var(--navy-900);
@@ -120,7 +120,7 @@ body {
 .btn-gold {
   display: inline-flex; align-items: center; gap: 10px;
   background: var(--gold-400); color: var(--navy-900);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-size: 0.72rem; font-weight: 700;
   letter-spacing: 0.12em; text-transform: uppercase;
   padding: 16px 36px; border: 1px solid var(--gold-400);
@@ -132,7 +132,7 @@ body {
 .btn-outline-cream {
   display: inline-flex; align-items: center; gap: 10px;
   background: transparent; color: var(--cream-50);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-size: 0.72rem; font-weight: 700;
   letter-spacing: 0.12em; text-transform: uppercase;
   padding: 15px 36px; border: 1px solid rgba(249,247,240,0.3);
@@ -144,7 +144,7 @@ body {
 .btn-outline-navy {
   display: inline-flex; align-items: center; gap: 10px;
   background: transparent; color: var(--navy-900);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-size: 0.72rem; font-weight: 700;
   letter-spacing: 0.12em; text-transform: uppercase;
   padding: 15px 36px; border: 1px solid var(--navy-900);
@@ -208,8 +208,8 @@ body {
 .check-list li::before { content:''; flex-shrink:0; width:16px; height:16px; margin-top:2px; background:var(--navy-900); border-radius:50%; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C9A84C' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E"); background-size:10px; background-repeat:no-repeat; background-position:center; }
 
 /*  Prose  */
-.prose-article h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(1.5rem,2.5vw,2.2rem); font-weight:400; color:var(--navy-900); margin:2.5rem 0 1rem; letter-spacing:-0.015em; }
-.prose-article h3 { font-family:'Plus Jakarta Sans',sans-serif; font-size:1.1rem; font-weight:700; color:var(--navy-900); margin:2rem 0 0.75rem; }
+.prose-article h2 { font-family:var(--font-plus-jakarta-sans), sans-serif; font-size:clamp(1.5rem,2.5vw,2.2rem); font-weight:400; color:var(--navy-900); margin:2.5rem 0 1rem; letter-spacing:-0.015em; }
+.prose-article h3 { font-family:var(--font-plus-jakarta-sans), sans-serif; font-size:1.1rem; font-weight:700; color:var(--navy-900); margin:2rem 0 0.75rem; }
 .prose-article p  { font-size:1.05rem; line-height:1.85; color:rgba(28,28,30,0.72); margin-bottom:1.4rem; font-weight:300; }
 .prose-article ul { margin:1rem 0 1.5rem 1.5rem; }
 .prose-article ul li { font-size:1rem; line-height:1.8; color:rgba(28,28,30,0.7); margin-bottom:0.5rem; font-weight:300; }
@@ -384,7 +384,7 @@ body {
   align-items: center;
   gap: 12px;
   padding: 11px 20px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-size: 0.88rem;
   font-weight: 500;
   line-height: 1.2;
@@ -409,7 +409,7 @@ body {
 .nav-item {
   display: flex; align-items: center; gap: 12px;
   padding: 11px 20px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-size: 0.88rem; font-weight: 500; line-height: 1.2;
   color: rgba(249,247,240,0.62); text-decoration: none;
   transition: background 0.15s, color 0.15s;

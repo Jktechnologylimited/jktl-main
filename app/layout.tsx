@@ -2,9 +2,16 @@ import { themeBootScript } from "@/components/theme/boot";
 import { FeatureBadgeProvider } from "@/components/features/FeatureBadge";
 import { LanguageProvider } from "@/components/i18n/LanguageProvider";
 import type { Metadata } from "next";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import "@/components/theme/theme.css";
 import MarketingShell from "@/components/layout/MarketingShell";
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-plus-jakarta-sans",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jktl.com.ng"),
@@ -48,7 +55,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={plusJakartaSans.variable} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
       </head>

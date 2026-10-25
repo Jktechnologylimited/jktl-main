@@ -116,7 +116,7 @@
   opacity: 0.8;
 }
 .monogram {
-  font-family: Georgia, serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-size: clamp(45px, 5vw, 80px);
   line-height: 1;
   letter-spacing: -0.05em;
@@ -133,7 +133,7 @@
   color: #eccee3;
 }
 .music .monogram {
-  font-family: Arial, sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-weight: 800;
   letter-spacing: -0.08em;
 }
@@ -142,7 +142,7 @@
   color: #302b25;
 }
 .fashion .monogram {
-  font-family: Georgia, serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-style: italic;
 }
 .services {

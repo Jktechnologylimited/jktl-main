@@ -9,8 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        display: ["'Cormorant Garamond'", "serif"],
-        sans:    ["'Plus Jakarta Sans'", "sans-serif"],
+        display: ["var(--font-plus-jakarta-sans)", "sans-serif"],
+        sans:    ["var(--font-plus-jakarta-sans)", "sans-serif"],
         mono:    ["'JetBrains Mono'", "monospace"],
       },
       colors: {
