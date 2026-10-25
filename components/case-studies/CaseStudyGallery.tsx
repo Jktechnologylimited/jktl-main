@@ -30,9 +30,9 @@ export function CaseStudyGallery() {
         {filtered.length} {filtered.length === 1 ? "project" : "projects"}
         {category !== "All projects" ? ` / ${category}` : " / All industries"}
       </p>
-      <div className={styles.grid}>
-        {filtered.map((study) => (
-          <CaseStudyCard key={study.slug} study={study} />
+      <div className={styles.zigzag}>
+        {filtered.map((study, index) => (
+          <CaseStudyCard key={study.slug} study={study} zigzag index={index} />
         ))}
       </div>
     </div>

@@ -1,9 +1,22 @@
+import Image from "next/image";
 import { MotionCaseStudy } from "./MotionCaseStudy";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { caseStudies, type CaseStudy } from "@/data/case-studies";
 import styles from "./CaseStudies.module.css";
 export function ProjectCover({ study }: { study: CaseStudy }) {
+  if (study.screenshot)
+    return (
+      <div className={`${styles.cover} ${styles.screenshot}`}>
+        <Image
+          src={study.screenshot.src}
+          alt={study.screenshot.alt}
+          width={study.screenshot.width}
+          height={study.screenshot.height}
+          sizes="(max-width: 760px) 100vw, 650px"
+        />
+      </div>
+    );
   return (
     <div
       className={`${styles.cover} ${styles[study.theme]}`}
@@ -25,15 +38,21 @@ export function ProjectCover({ study }: { study: CaseStudy }) {
 export function CaseStudyCard({
   study,
   floating = false,
+  zigzag = false,
+  index,
 }: {
   study: CaseStudy;
   floating?: boolean;
+  zigzag?: boolean;
+  index?: number;
 }) {
   return (
     <MotionCaseStudy
-      className={styles.card}
+      className={`${styles.card} ${zigzag ? styles.zigzagCard : ""}`}
       floating={floating}
-      index={caseStudies.findIndex((s) => s.slug === study.slug)}
+      reveal={zigzag}
+      reverse={zigzag && (index ?? 0) % 2 === 1}
+      index={index ?? caseStudies.findIndex((s) => s.slug === study.slug)}
     >
       <ProjectCover study={study} />
       <div className={styles.body}>

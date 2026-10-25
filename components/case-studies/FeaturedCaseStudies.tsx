@@ -27,13 +27,18 @@ export function FeaturedCaseStudies({ custom = false }: { custom?: boolean }) {
             </p>
           </div>
           <Link className={styles.more} href="/case-studies">
-            Explore all 10 case studies{" "}
+            Explore all case studies{" "}
             <ArrowUpRight size={17} aria-hidden="true" />
           </Link>
         </div>
-        <div className={`${styles.grid} ${styles.compact}`}>
-          {featured.map((study) => (
-            <CaseStudyCard key={study.slug} study={study} floating />
+        <div className={styles.zigzag}>
+          {featured.map((study, index) => (
+            <CaseStudyCard
+              key={study.slug}
+              study={study}
+              zigzag
+              index={index}
+            />
           ))}
         </div>
       </div>

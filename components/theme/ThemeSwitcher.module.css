@@ -1,0 +1,57 @@
+.root {
+  position: relative;
+  flex-shrink: 0;
+}
+.trigger {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--site-line);
+  border-radius: 50%;
+  background: var(--site-surface);
+  color: var(--site-text);
+  cursor: pointer;
+}
+.options {
+  position: absolute;
+  right: 0;
+  top: 46px;
+  width: 190px;
+  padding: 7px;
+  background: var(--site-surface);
+  border: 1px solid var(--site-line);
+  box-shadow: 0 12px 35px #0003;
+  border-radius: 14px;
+  z-index: 350;
+}
+.options button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  padding: 10px;
+  font-size: 12px;
+  border-radius: 8px;
+  color: var(--site-text);
+  cursor: pointer;
+}
+.options button[aria-pressed="true"],
+.options button:hover {
+  background: var(--site-tint);
+  color: var(--site-accent);
+}
+.root button:focus-visible {
+  outline: 2px solid #c9a84c;
+  outline-offset: 3px;
+}
+@media (max-width: 380px) {
+  .trigger {
+    width: 30px;
+    height: 30px;
+  }
+}
+@media (max-width: 640px) {
+  .options { left: 0; right: auto; }
+}

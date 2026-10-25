@@ -5,11 +5,15 @@ export function MotionCaseStudy({
   children,
   className,
   floating = false,
+  reveal = false,
+  reverse = false,
   index = 0,
 }: {
   children: ReactNode;
   className: string;
   floating?: boolean;
+  reveal?: boolean;
+  reverse?: boolean;
   index?: number;
 }) {
   const reduced = useReducedMotion();
@@ -17,9 +21,20 @@ export function MotionCaseStudy({
     <motion.article
       layout={!reduced}
       className={className}
+      data-reverse={reverse || undefined}
       initial={false}
-      whileInView={!reduced && floating ? { y: [0, -5, 0] } : { y: 0 }}
-      whileHover={!reduced ? { scale: 1.012, y: -7, transition:{duration:.2,repeat:0} } : undefined}
+      whileInView={
+        reveal && !reduced
+          ? { x: [reverse ? 28 : -28, 0], y: [12, 0], opacity: [0.55, 1] }
+          : !reduced && floating
+            ? { y: [0, -5, 0] }
+            : { x: 0, y: 0, opacity: 1 }
+      }
+      whileHover={
+        !reduced
+          ? { y: -4, transition: { duration: 0.2, repeat: 0 } }
+          : undefined
+      }
       transition={
         floating && !reduced
           ? {
@@ -30,11 +45,14 @@ export function MotionCaseStudy({
                 delay: index * 0.25,
               },
               layout: { duration: 0.3 },
-              scale: { duration: 0.2 },
             }
-          : { duration: 0.25 }
+          : {
+              duration: reduced ? 0 : 0.65,
+              ease: [0.22, 1, 0.36, 1],
+              layout: { duration: reduced ? 0 : 0.25 },
+            }
       }
-      viewport={{ amount: 0.2 }}
+      viewport={{ once: true, amount: 0.15 }}
     >
       {children}
     </motion.article>

@@ -1,7 +1,9 @@
+import { themeBootScript } from "@/components/theme/boot";
 import { FeatureBadgeProvider } from "@/components/features/FeatureBadge";
 import { LanguageProvider } from "@/components/i18n/LanguageProvider";
 import type { Metadata } from "next";
 import "./globals.css";
+import "@/components/theme/theme.css";
 import MarketingShell from "@/components/layout/MarketingShell";
 
 export const metadata: Metadata = {
@@ -46,7 +48,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+      </head>
       <body>
         <script
           type="application/ld+json"

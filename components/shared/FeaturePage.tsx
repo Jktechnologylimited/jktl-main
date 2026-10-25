@@ -7,8 +7,8 @@ export function FeaturePage({ page }: { page: (typeof featurePages)[number] }) {
   return (
     <div
       style={{
-        background: "var(--cream-50)",
-        color: "var(--navy-900)",
+        background: "var(--site-paper)",
+        color: "var(--site-text)",
         padding: "136px 24px 80px",
       }}
     >
@@ -18,7 +18,7 @@ export function FeaturePage({ page }: { page: (typeof featurePages)[number] }) {
             fontSize: 11,
             letterSpacing: 2,
             textTransform: "uppercase",
-            color: "#80621c",
+            color: "var(--site-accent)",
           }}
         >
           JKTL · <T>{page.label}</T>
@@ -40,7 +40,7 @@ export function FeaturePage({ page }: { page: (typeof featurePages)[number] }) {
                 marginTop: 25,
                 fontSize: 17,
                 lineHeight: 1.8,
-                color: "#5b6472",
+                color: "var(--site-muted)",
               }}
             >
               <T>{page.intro}</T>

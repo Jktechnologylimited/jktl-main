@@ -57,7 +57,7 @@ export default async function CmsPage({ params }: { params: Promise<{ slug: stri
         </div>
       </section>
 
-      <article className="section-pad" style={{ background: "var(--cream-50)" }}>
+      <article className="section-pad" style={{ background: "var(--site-paper)" }}>
         <div className="max-w-3xl mx-auto px-8">
           <Markdown>{page.content || ""}</Markdown>
         </div>

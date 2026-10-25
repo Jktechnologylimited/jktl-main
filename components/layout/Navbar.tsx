@@ -1,4 +1,5 @@
 "use client";
+import { ThemeSwitcher } from "@/components/theme/ThemeSwitcher";
 import { FeatureBadge } from "@/components/features/FeatureBadge";
 import { LanguageSwitcher, T } from "@/components/i18n/LanguageProvider";
 import { useState, useEffect, useRef } from "react";
@@ -246,7 +247,8 @@ export default function Navbar() {
               <FeatureBadge route="/pricing" />
             </Link>
           </div>
-          <div className="flex shrink-0 items-center gap-2 sm:gap-4">
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
+            <ThemeSwitcher />
             <LanguageSwitcher />
             <a
               href={appLoginUrl()}

@@ -44,6 +44,7 @@ export function WebsitePricing({
             padding: "10px 16px",
             borderRadius: 14,
             background: "#E2CF96",
+            color: "#060e2a",
             fontSize: 13,
           }}
         >

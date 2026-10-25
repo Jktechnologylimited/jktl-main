@@ -28,26 +28,26 @@ export default function PrivacyPage() {
           <p className="label-xs" style={{ color:"rgba(249,247,240,0.35)" }}>Last updated: March 2026</p>
         </div>
       </section>
-      <section className="section-pad" style={{ background:"var(--cream-50)" }}>
+      <section className="section-pad" style={{ background:"var(--site-paper)" }}>
         <div className="max-w-4xl mx-auto px-8">
-          <div style={{ background:"var(--cream-100)", border:"1px solid var(--cream-300)", borderRadius:"4px", padding:"20px 24px", marginBottom:"36px" }}>
-            <p className="body-md" style={{ color:"rgba(28,28,30,0.65)" }}>
+          <div style={{ background:"var(--site-tint)", border:"1px solid var(--cream-300)", borderRadius:"4px", padding:"20px 24px", marginBottom:"36px" }}>
+            <p className="body-md" style={{ color:"var(--site-muted)" }}>
               JK Technology Limited (&quot;JKTL&quot;, &quot;we&quot;, &quot;us&quot;) is committed to protecting your privacy. This policy explains how we collect, use, and safeguard your information when you use jktl.com.ng or the JKTL Business app.
             </p>
           </div>
           <div style={{ display:"flex", flexDirection:"column", gap:"28px" }}>
             {sections.map(s => (
               <div key={s.title}>
-                <h2 style={{ fontFamily:"'Plus Jakarta Sans',sans-serif", fontWeight:700, fontSize:"1rem", color:"var(--navy-900)", marginBottom:"8px", paddingBottom:"8px", borderBottom:"1px solid rgba(201,168,76,0.2)" }}>{s.title}</h2>
-                <p className="body-md" style={{ color:"rgba(28,28,30,0.62)" }}>{s.body}</p>
+                <h2 style={{ fontFamily:"'Plus Jakarta Sans',sans-serif", fontWeight:700, fontSize:"1rem", color:"var(--site-text)", marginBottom:"8px", paddingBottom:"8px", borderBottom:"1px solid rgba(201,168,76,0.2)" }}>{s.title}</h2>
+                <p className="body-md" style={{ color:"var(--site-muted)" }}>{s.body}</p>
               </div>
             ))}
           </div>
           <div style={{ marginTop:"40px", paddingTop:"24px", borderTop:"1px solid var(--cream-300)", display:"flex", justifyContent:"space-between", flexWrap:"wrap", gap:"12px" }}>
-            <p className="body-sm" style={{ color:"rgba(28,28,30,0.35)" }}>Last updated March 2026</p>
+            <p className="body-sm" style={{ color:"var(--site-muted)" }}>Last updated March 2026</p>
             <div style={{ display:"flex", gap:"16px" }}>
-              <Link href="/terms" style={{ color:"var(--navy-600)", fontSize:"0.85rem", textDecoration:"underline", textUnderlineOffset:"3px" }}>Terms of Service</Link>
-              <Link href="/contact" style={{ color:"var(--navy-600)", fontSize:"0.85rem", textDecoration:"underline", textUnderlineOffset:"3px" }}>Contact</Link>
+              <Link href="/terms" style={{ color:"var(--site-text)", fontSize:"0.85rem", textDecoration:"underline", textUnderlineOffset:"3px" }}>Terms of Service</Link>
+              <Link href="/contact" style={{ color:"var(--site-text)", fontSize:"0.85rem", textDecoration:"underline", textUnderlineOffset:"3px" }}>Contact</Link>
             </div>
           </div>
         </div>

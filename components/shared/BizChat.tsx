@@ -112,14 +112,6 @@ export default function BizChat() {
 
   useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages, typing]);
 
-  /** Teaser state is cleared the moment the panel opens, whichever way it opened. */
-  useEffect(() => {
-    if (open) {
-      setUnread(0);
-      setTeaser(null);
-    }
-  }, [open]);
-
   useEffect(() => {
     if (pathname?.startsWith("/affiliates/dashboard")) return;
     // One nudge per session: a visitor who dismissed it on the homepage does not
@@ -238,20 +230,20 @@ export default function BizChat() {
             <button
               onClick={openFromTeaser}
               className="flex-1 text-left cursor-pointer"
-              style={{ background: "#fff", border: "1px solid var(--cream-300)", borderRadius: "14px 14px 2px 14px", padding: "12px 14px", boxShadow: "0 12px 32px rgba(6,14,42,0.18)", font: "inherit" }}
+              style={{ background: "var(--site-surface)", border: "1px solid var(--cream-300)", borderRadius: "14px 14px 2px 14px", padding: "12px 14px", boxShadow: "0 12px 32px rgba(6,14,42,0.18)", font: "inherit" }}
             >
               <span className="flex items-center gap-2" style={{ marginBottom: 4 }}>
                 <span className="relative flex items-center justify-center rounded-full shrink-0" style={{ width: 22, height: 22, background: "var(--navy-950)", color: "var(--gold-400)" }}>
                   <PixelFace size={12} />
                 </span>
-                <span className="text-[0.7rem] font-semibold" style={{ color: "var(--navy-950)" }}>
+                <span className="text-[0.7rem] font-semibold" style={{ color: "var(--site-text)" }}>
                   President
                 </span>
-                <span className="text-[0.62rem]" style={{ color: "rgba(28,28,30,0.4)" }}>
+                <span className="text-[0.62rem]" style={{ color: "var(--site-muted)" }}>
                   just now
                 </span>
               </span>
-              <span className="block text-[0.8rem] leading-snug" style={{ color: "rgba(28,28,30,0.78)" }}>
+              <span className="block text-[0.8rem] leading-snug" style={{ color: "var(--site-text)" }}>
                 {teaser}
               </span>
             </button>
@@ -274,7 +266,7 @@ export default function BizChat() {
             className="fixed z-[199] flex flex-col overflow-hidden"
             style={{
               bottom: 92, right: 24, width: "min(380px, calc(100vw - 32px))", height: "min(560px, calc(100vh - 140px))",
-              background: "#fff", borderRadius: 16, boxShadow: "0 24px 64px rgba(6,14,42,0.35)", border: "1px solid var(--cream-300)",
+              background: "var(--site-surface)", borderRadius: 16, boxShadow: "0 24px 64px rgba(6,14,42,0.35)", border: "1px solid var(--cream-300)",
               transformOrigin: "bottom right",
             }}
             initial={{ opacity: 0, scale: 0.92, y: 16 }}
@@ -300,7 +292,7 @@ export default function BizChat() {
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-3" style={{ background: "var(--cream-50)" }}>
+          <div className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-3" style={{ background: "var(--site-paper)" }}>
             <AnimatePresence initial={false}>
               {messages.map((m, i) => (
                 <motion.div key={i}
@@ -309,8 +301,8 @@ export default function BizChat() {
                   transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                   className={`max-w-[85%] px-3.5 py-2.5 text-[0.83rem] leading-relaxed ${m.from === "user" ? "self-end" : "self-start"}`}
                   style={{
-                    background: m.from === "user" ? "var(--navy-900)" : "#fff",
-                    color: m.from === "user" ? "#fff" : "rgba(28,28,30,0.8)",
+                    background: m.from === "user" ? "var(--navy-900)" : "var(--site-surface)",
+                    color: m.from === "user" ? "#fff" : "var(--site-text)",
                     border: m.from === "bot" ? "1px solid var(--cream-300)" : "none",
                     borderRadius: m.from === "user" ? "12px 12px 2px 12px" : "12px 12px 12px 2px",
                   }}>
@@ -319,9 +311,9 @@ export default function BizChat() {
               ))}
             </AnimatePresence>
             {typing && (
-              <div className="self-start flex gap-1 px-3.5 py-3 rounded-xl" style={{ background: "#fff", border: "1px solid var(--cream-300)", borderRadius: "12px 12px 12px 2px" }}>
+              <div className="self-start flex gap-1 px-3.5 py-3 rounded-xl" style={{ background: "var(--site-surface)", border: "1px solid var(--cream-300)", borderRadius: "12px 12px 12px 2px" }}>
                 {[0, 1, 2].map(i => (
-                  <span key={i} className="rounded-full" style={{ width: 5, height: 5, background: "rgba(28,28,30,0.3)", animation: `heroPulseRing 1s ease-in-out ${i * 0.15}s infinite` }} />
+                  <span key={i} className="rounded-full" style={{ width: 5, height: 5, background: "var(--site-muted)", animation: `heroPulseRing 1s ease-in-out ${i * 0.15}s infinite` }} />
                 ))}
               </div>
             )}
@@ -334,7 +326,7 @@ export default function BizChat() {
               {QUICK_REPLIES.map(q => (
                 <button key={q} onClick={() => send(q)}
                   className="text-[0.72rem] px-3 py-1.5 rounded-full cursor-pointer"
-                  style={{ background: "var(--cream-100)", border: "1px solid var(--cream-300)", color: "var(--navy-800)" }}>
+                  style={{ background: "var(--site-tint)", border: "1px solid var(--cream-300)", color: "var(--site-text)" }}>
                   {q}
                 </button>
               ))}
@@ -342,14 +334,14 @@ export default function BizChat() {
           )}
 
           {/* Input */}
-          <div className="flex items-center gap-2 p-3 border-t border-cream-300" style={{ background: "#fff" }}>
+          <div className="flex items-center gap-2 p-3 border-t border-cream-300" style={{ background: "var(--site-surface)" }}>
             <input
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={e => e.key === "Enter" && send(input)}
               placeholder="Ask President a question..."
               className="flex-1 text-[0.85rem] px-3.5 py-2.5 rounded-full outline-none"
-              style={{ background: "var(--cream-100)", border: "1px solid var(--cream-300)" }}
+              style={{ background: "var(--site-tint)", border: "1px solid var(--cream-300)" }}
             />
             <button onClick={() => send(input)} aria-label="Send"
               className="flex items-center justify-center rounded-full shrink-0"
@@ -357,7 +349,7 @@ export default function BizChat() {
               <Send size={16} />
             </button>
           </div>
-          <a href={appSignupUrl()} className="text-center text-[0.7rem] py-2" style={{ color: "var(--navy-700)", background: "var(--cream-100)", textDecoration: "none" }}>
+          <a href={appSignupUrl()} className="text-center text-[0.7rem] py-2" style={{ color: "var(--site-accent)", background: "var(--site-tint)", textDecoration: "none" }}>
             Ready to start? Get JKTL Business free {"->"}
           </a>
           </motion.div>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import Image from "next/image";
 import PageHero from "@/components/shared/PageHero";
@@ -29,7 +30,7 @@ export default function HowItWorksPage() {
       {/* Signup flow */}
       <section id="first-steps" className="scroll-mt-24 bg-white px-4 sm:px-6 lg:px-8 py-14 sm:py-20 border-y border-cream-300">
         <div className="max-w-[1000px] mx-auto">
-          <Stagger className="grid grid-cols-1 sm:grid-cols-3 gap-2" style={{ background: "var(--cream-300)" }}>
+          <Stagger className="grid grid-cols-1 sm:grid-cols-3 gap-2" style={{ background: "var(--site-line)" }}>
             {signupSteps.map(step => (
               <StaggerItem key={step.n} className="bg-cream-50 p-8">
                 <p className="font-mono text-[0.72rem] font-bold mb-3" style={{ color: "var(--gold-400)" }}>{step.n}</p>
@@ -42,7 +43,7 @@ export default function HowItWorksPage() {
       </section>
 
       {/* Feature breakdown */}
-      <section className="px-4 sm:px-6 lg:px-8 py-14 sm:py-20" style={{ background: "var(--cream-100)" }}>
+      <section className="px-4 sm:px-6 lg:px-8 py-14 sm:py-20" style={{ background: "var(--site-tint)" }}>
         <div className="max-w-[1000px] mx-auto">
           <Reveal className="text-center mb-14">
             <span className="gold-rule mx-auto mb-4" />
@@ -69,8 +70,8 @@ export default function HowItWorksPage() {
         <div className="max-w-[1000px] mx-auto grid sm:grid-cols-2 gap-8">
           <article id="website-styling" className="scroll-mt-28"><h2 className="text-xl font-semibold text-navy-900">Make your website your own</h2><p className="body-sm text-black/60 mt-3">Use your own photos, brand colours and curated font pairings in the JKTL website editor. These are styling options in your business website, with setup help available from our team.</p></article>
           <article id="analytics" className="scroll-mt-28"><h2 className="text-xl font-semibold text-navy-900">Reports &amp; analytics</h2><p className="body-sm text-black/60 mt-3">Review revenue, payments, customer trends, stock and expenses in the business dashboard. Start with the free tools and explore your numbers as your business grows.</p></article>
-          <article id="domains" className="scroll-mt-28"><h2 className="text-xl font-semibold text-navy-900">Your domain, connected</h2><p className="body-sm text-black/60 mt-3">A JKTL website address is included. Connecting your own domain needs the Website &amp; Hosting add-on and domain ownership verification. New domain registration and renewals are handled manually and quoted separately.</p><a href="/contact#form" className="inline-block mt-3 text-sm underline text-navy-900">Ask about your domain →</a></article>
-          <article id="hosting" className="scroll-mt-28"><h2 className="text-xl font-semibold text-navy-900">Managed hosting &amp; HTTPS</h2><p className="body-sm text-black/60 mt-3">Your published JKTL site uses our existing Vercel hosting. Custom domains need the correct DNS setup and manual connection before HTTPS is ready. Business email through Zoho Mail is a separate, manually arranged service.</p><a href="/contact#form" className="inline-block mt-3 text-sm underline text-navy-900">Discuss hosting or email setup →</a></article>
+          <article id="domains" className="scroll-mt-28"><h2 className="text-xl font-semibold text-navy-900">Your domain, connected</h2><p className="body-sm text-black/60 mt-3">A JKTL website address is included. Connecting your own domain needs the Website &amp; Hosting add-on and domain ownership verification. New domain registration and renewals are handled manually and quoted separately.</p><Link href="/contact#form" className="inline-block mt-3 text-sm underline text-navy-900">Ask about your domain →</Link></article>
+          <article id="hosting" className="scroll-mt-28"><h2 className="text-xl font-semibold text-navy-900">Managed hosting &amp; HTTPS</h2><p className="body-sm text-black/60 mt-3">Your published JKTL site uses our existing Vercel hosting. Custom domains need the correct DNS setup and manual connection before HTTPS is ready. Business email through Zoho Mail is a separate, manually arranged service.</p><Link href="/contact#form" className="inline-block mt-3 text-sm underline text-navy-900">Discuss hosting or email setup →</Link></article>
         </div>
       </section>
 

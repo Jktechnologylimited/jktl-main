@@ -72,19 +72,19 @@ export default function TermsPage() {
       </section>
       <section
         className="section-pad"
-        style={{ background: "var(--cream-50)" }}
+        style={{ background: "var(--site-paper)" }}
       >
         <div className="max-w-4xl mx-auto px-8">
           <div
             style={{
-              background: "var(--cream-100)",
+              background: "var(--site-tint)",
               border: "1px solid var(--cream-300)",
               borderRadius: "4px",
               padding: "20px 24px",
               marginBottom: "36px",
             }}
           >
-            <p className="body-md" style={{ color: "rgba(28,28,30,0.65)" }}>
+            <p className="body-md" style={{ color: "var(--site-muted)" }}>
               By creating an account or using JKTL Business, you agree to the
               following terms. Please read them carefully.
             </p>
@@ -93,7 +93,7 @@ export default function TermsPage() {
             id="website-guarantee"
             style={{
               scrollMarginTop: 100,
-              background: "white",
+              background: "var(--site-surface)",
               borderRadius: 16,
               padding: 28,
               marginBottom: 36,
@@ -102,7 +102,7 @@ export default function TermsPage() {
             <h2
               style={{
                 fontSize: 24,
-                color: "var(--navy-900)",
+                color: "var(--site-text)",
                 marginBottom: 15,
               }}
             >
@@ -159,7 +159,7 @@ export default function TermsPage() {
                     fontFamily: "'Plus Jakarta Sans',sans-serif",
                     fontWeight: 700,
                     fontSize: "1rem",
-                    color: "var(--navy-900)",
+                    color: "var(--site-text)",
                     marginBottom: "8px",
                     paddingBottom: "8px",
                     borderBottom: "1px solid rgba(201,168,76,0.2)",
@@ -167,7 +167,7 @@ export default function TermsPage() {
                 >
                   {s.title}
                 </h2>
-                <p className="body-md" style={{ color: "rgba(28,28,30,0.62)" }}>
+                <p className="body-md" style={{ color: "var(--site-muted)" }}>
                   {s.body}
                 </p>
               </div>
@@ -184,14 +184,14 @@ export default function TermsPage() {
               gap: "12px",
             }}
           >
-            <p className="body-sm" style={{ color: "rgba(28,28,30,0.35)" }}>
+            <p className="body-sm" style={{ color: "var(--site-muted)" }}>
               Last updated March 2026
             </p>
             <div style={{ display: "flex", gap: "16px" }}>
               <Link
                 href="/privacy"
                 style={{
-                  color: "var(--navy-600)",
+                  color: "var(--site-text)",
                   fontSize: "0.85rem",
                   textDecoration: "underline",
                   textUnderlineOffset: "3px",
@@ -202,7 +202,7 @@ export default function TermsPage() {
               <Link
                 href="/contact"
                 style={{
-                  color: "var(--navy-600)",
+                  color: "var(--site-text)",
                   fontSize: "0.85rem",
                   textDecoration: "underline",
                   textUnderlineOffset: "3px",

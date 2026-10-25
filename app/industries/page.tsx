@@ -44,7 +44,7 @@ export default function IndustriesPage() {
                 <p className="body-md text-black/60 mb-5">{ind.blurb}</p>
                 <div className="flex flex-wrap gap-2">
                   {ind.examples.map(ex => (
-                    <span key={ex} className="text-[0.75rem] px-3 py-1.5 rounded-full" style={{ background: "var(--cream-100)", border: "1px solid var(--cream-300)", color: "rgba(28,28,30,0.6)" }}>{ex}</span>
+                    <span key={ex} className="text-[0.75rem] px-3 py-1.5 rounded-full" style={{ background: "var(--site-tint)", border: "1px solid var(--cream-300)", color: "var(--site-muted)" }}>{ex}</span>
                   ))}
                 </div>
               </Reveal>
@@ -53,10 +53,10 @@ export default function IndustriesPage() {
         </div>
       </section>
 
-      <section className="px-4 sm:px-6 lg:px-8 py-6" style={{ background: "var(--cream-100)" }}>
+      <section className="px-4 sm:px-6 lg:px-8 py-6" style={{ background: "var(--site-tint)" }}>
         <p className="text-center body-sm text-black/45 max-w-[640px] mx-auto py-8">
-          Don't see your exact type of business? JKTL Business is flexible enough for most service and product businesses --
-          {" "}<Link href="/contact" style={{ color: "var(--navy-700)" }}>talk to us</Link> and we'll tell you honestly if it's a fit.
+          Don&apos;t see your exact type of business? JKTL Business is flexible enough for most service and product businesses --
+          {" "}<Link href="/contact" style={{ color: "var(--site-text)" }}>talk to us</Link> and we&apos;ll tell you honestly if it&apos;s a fit.
         </p>
       </section>
 

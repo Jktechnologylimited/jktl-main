@@ -1,0 +1,146 @@
+/* Brand colors stay fixed; surface tokens adapt without recoloring screenshots or previews. */
+:root {
+  color-scheme: light;
+  --site-paper: #fdfcf8;
+  --site-surface: #fff;
+  --site-tint: #f3efe4;
+  --site-text: #060e2a;
+  --site-muted: #5b6472;
+  --site-line: #dcd7ca;
+  --site-accent: #80621c;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --site-paper: #080f22;
+  --site-surface: #111c33;
+  --site-tint: #1a2741;
+  --site-text: #f5f2e9;
+  --site-muted: #b7c1d4;
+  --site-line: #35415a;
+  --site-accent: #e2c878;
+}
+body {
+  background: var(--site-paper);
+  color: var(--site-text);
+}
+[data-site-shell] {
+  color: var(--site-text);
+  background: var(--site-paper);
+  --paper: var(--site-paper);
+  --ink: var(--site-text);
+  min-height: 100vh;
+}
+:root[data-theme="dark"]
+  [data-site-shell]
+  :is(
+    .bg-white,
+    .bg-cream-50,
+    [class~="bg-[#fbfcf7]"],
+    [class~="bg-[#FDFCF8]"],
+    [class~="bg-[#fdfcf8]"]
+  ) {
+  background-color: var(--site-surface);
+}
+:root[data-theme="dark"]
+  [data-site-shell]
+  :is(
+    .bg-cream-100,
+    .bg-cream-200,
+    [class~="bg-[#F9F7F0]"],
+    [class~="bg-[#f4f4f9]"],
+    [class~="bg-[#e9e6d9]"],
+    [class~="bg-[#f5f3ed]"]
+  ) {
+  background-color: var(--site-tint);
+}
+:root[data-theme="dark"]
+  [data-site-shell]
+  :is(
+    .text-navy-950,
+    .text-navy-900,
+    .text-navy-800,
+    .text-navy-700,
+    .text-navy,
+    [class~="text-[#060E2A]"],
+    [class~="text-[#060e2a]"]
+  ):not(.btn-gold):not([class*="bg-gold"]):not([class*="bg-[#C9A84C]"]) {
+  color: var(--site-text);
+}
+:root[data-theme="dark"]
+  [data-site-shell]
+  :is(
+    [class*="text-black/"],
+    [class~="text-[#62636a]"],
+    [class~="text-[#5b6472]"],
+    [class~="text-[#72747d]"]
+  ) {
+  color: var(--site-muted);
+}
+:root[data-theme="dark"]
+  [data-site-shell]
+  :is([class~="text-[#80621c]"], .text-gold, .text-gold-600) {
+  color: var(--site-accent);
+}
+:root[data-theme="dark"]
+  [data-site-shell]
+  :is(
+    .border-cream-300,
+    [class~="border-[#E8E1D0]"],
+    [class~="border-[#e7e7eb]"],
+    [class~="border-[#dcdde3]"],
+    [class~="border-[#dedee5]"]
+  ) {
+  border-color: var(--site-line);
+}
+:root[data-theme="dark"] [data-site-shell] .btn-outline-navy {
+  color: var(--site-text);
+  border-color: var(--site-line);
+}
+:root[data-theme="dark"] [data-site-shell] .btn-outline-navy:hover {
+  background: var(--site-tint);
+}
+:root[data-theme="dark"]
+  [data-site-shell]
+  :is([class~="hover:bg-[#f5f3ed]"], [class~="hover:bg-[#e1dcc9]"]):hover {
+  background-color: var(--site-tint);
+}
+:root[data-theme="dark"]
+  [data-site-shell]
+  [class~="hover:text-[#80621c]"]:hover {
+  color: var(--site-accent);
+}
+:root[data-theme="dark"] [data-site-shell] .bg-navy-900 .text-navy-900 {
+  color: #fdfcf8;
+}
+:root[data-theme="dark"] [data-site-shell] .btn-gold {
+  color: #060e2a;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .hero-pulse-ring,
+  .hero-fade-in,
+  .hero-cursor-click,
+  .hero-draw-line,
+  .skeleton,
+  .skeleton-dark {
+    animation: none;
+  }
+}
+:root[data-theme="dark"] body {
+  background: var(--site-paper);
+  color: var(--site-text);
+}
+:root[data-theme="dark"]
+  [data-site-shell]
+  :is(.card, .card-light, .stat-card, .product-ref-card) {
+  background: var(--site-surface);
+  border-color: var(--site-line);
+}
+:root[data-theme="dark"] [data-site-shell] :is(.text-black, .text-charcoal) {
+  color: var(--site-text);
+}
+:root[data-theme="dark"] [data-site-shell] .check-list li {
+  color: var(--site-muted);
+}

@@ -1,8 +1,8 @@
 .section {
-  background: #fdfcf8;
-  color: #060e2a;
+  background: var(--site-paper);
+  color: var(--site-text);
   padding: 80px 24px;
-  border-block: 1px solid #e6e1d4;
+  border-block: 1px solid var(--site-line);
 }
 .inner {
   max-width: 1200px;
@@ -20,7 +20,7 @@
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #80621c;
+  color: var(--site-accent);
   margin-bottom: 16px;
 }
 .intro h2,
@@ -34,7 +34,7 @@
 .lede {
   font-size: 15px;
   line-height: 1.8;
-  color: #62636a;
+  color: var(--site-muted);
   max-width: 620px;
   margin-top: 18px;
 }
@@ -44,7 +44,7 @@
   gap: 18px;
   font-size: 13px;
   font-weight: 600;
-  color: #060e2a;
+  color: var(--site-text);
   text-decoration: underline;
   text-underline-offset: 6px;
   white-space: nowrap;
@@ -60,8 +60,8 @@
 }
 .card {
   min-width: 0;
-  border: 1px solid #dfdbcf;
-  background: #fff;
+  border: 1px solid var(--site-line);
+  background: var(--site-surface);
   border-radius: 18px;
   overflow: hidden;
   display: flex;
@@ -171,7 +171,7 @@
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: #80621c;
+  color: var(--site-accent);
   margin-bottom: 12px;
 }
 .body h3 {
@@ -181,7 +181,7 @@
 }
 .body p:not(.industry) {
   font-size: 14px;
-  color: #62636a;
+  color: var(--site-muted);
   line-height: 1.7;
   margin: 14px 0 20px;
 }
@@ -194,10 +194,10 @@
 }
 .tags span {
   padding: 5px 9px;
-  border: 1px solid #e5dfd1;
+  border: 1px solid var(--site-line);
   border-radius: 5px;
   font-size: 10px;
-  color: #62636a;
+  color: var(--site-muted);
 }
 .cardLink {
   display: flex;
@@ -236,8 +236,8 @@
   margin-top: auto;
 }
 .page {
-  background: #fdfcf8;
-  color: #060e2a;
+  background: var(--site-paper);
+  color: var(--site-text);
   padding: 150px 24px 80px;
   min-height: 80vh;
 }
@@ -260,9 +260,9 @@
 .filters button {
   font-size: 12px;
   padding: 11px 17px;
-  border: 1px solid #d8d2c3;
+  border: 1px solid var(--site-line);
   border-radius: 99px;
-  color: #060e2a;
+  color: var(--site-text);
   background: transparent;
   cursor: pointer;
 }
@@ -273,7 +273,7 @@
 }
 .resultCount {
   font-size: 12px;
-  color: #62636a;
+  color: var(--site-muted);
   margin: 20px 0 28px;
 }
 .cta {
@@ -314,7 +314,7 @@
   gap: 10px;
   flex-wrap: wrap;
   font-size: 11px;
-  color: #62636a;
+  color: var(--site-muted);
   margin-bottom: 35px;
 }
 .detailHero {
@@ -340,14 +340,14 @@
 .detailText {
   font-size: 16px;
   line-height: 1.9;
-  color: #62636a;
+  color: var(--site-muted);
   max-width: 760px;
 }
 .detailText h2 {
   font-size: 29px;
   line-height: 1.2;
   letter-spacing: -0.025em;
-  color: #060e2a;
+  color: var(--site-text);
   margin-bottom: 22px;
 }
 .detailSection {
@@ -361,8 +361,8 @@
 }
 .scope article {
   padding: 28px;
-  background: #fff;
-  border: 1px solid #e2ddcf;
+  background: var(--site-surface);
+  border: 1px solid var(--site-line);
   border-radius: 16px;
 }
 .scope h3 {
@@ -373,16 +373,16 @@
 .scope p {
   font-size: 14px;
   line-height: 1.8;
-  color: #62636a;
+  color: var(--site-muted);
 }
 .scope small {
   font-size: 11px;
-  color: #80621c;
+  color: var(--site-accent);
 }
 .focus {
   padding: 36px;
   border-left: 3px solid #c9a84c;
-  background: #f0eee5;
+  background: var(--site-tint);
   margin-top: 38px;
   max-width: 900px;
 }
@@ -532,4 +532,84 @@
 .cta a svg,
 .more svg {
   flex-shrink: 0;
+}
+
+/* Alternating editorial rows; DOM reading order stays image, then project details. */
+.zigzag {
+  display: grid;
+  gap: 60px;
+}
+.zigzagCard {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  align-items: stretch;
+}
+.zigzagCard .cover {
+  aspect-ratio: auto;
+  min-height: 340px;
+}
+.zigzagCard .body {
+  padding: clamp(26px, 4vw, 52px);
+  justify-content: center;
+}
+.zigzagCard .body h3 {
+  font-size: clamp(25px, 3vw, 36px);
+}
+.zigzagCard .tags {
+  margin-top: 0;
+}
+.zigzagCard[data-reverse] {
+  grid-template-columns: 1fr 1.15fr;
+}
+.zigzagCard[data-reverse] .cover {
+  grid-column: 2;
+  grid-row: 1;
+}
+.zigzagCard[data-reverse] .body {
+  grid-column: 1;
+  grid-row: 1;
+}
+.screenshot {
+  padding: 0 !important;
+  background: #111827;
+  display: grid;
+  align-items: center;
+}
+.screenshot::before,
+.screenshot::after {
+  display: none;
+}
+.screenshot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+.detailHero .screenshot {
+  min-height: 0;
+  aspect-ratio: auto;
+}
+@media (max-width: 760px) {
+  .zigzag {
+    gap: 28px;
+  }
+  .zigzagCard,
+  .zigzagCard[data-reverse] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .zigzagCard .cover {
+    min-height: 0;
+    aspect-ratio: 1.6;
+  }
+  .zigzagCard .screenshot {
+    aspect-ratio: auto;
+  }
+  .zigzagCard[data-reverse] .cover,
+  .zigzagCard[data-reverse] .body {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .zigzagCard .body {
+    padding: 26px;
+  }
 }

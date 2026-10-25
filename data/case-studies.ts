@@ -18,6 +18,7 @@ export type CaseStudy = {
   deliverables: { title: string; description: string }[];
   focus: string;
   websiteUrl?: string;
+  screenshot?: { src: string; alt: string; width: number; height: number };
 };
 
 /** Project scopes supplied by JKTL. Screenshots and results require verified sources. */
@@ -295,6 +296,7 @@ export const caseStudyCategories = [
 ];
 export const featuredCaseStudySlugs = [
   "kk-ubani-and-co",
+  "refinish-phc",
   "nej",
   "bae-entertainment-group",
   "newlife-baptist-church",

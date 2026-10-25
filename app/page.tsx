@@ -148,7 +148,7 @@ export default function HomePage() {
       {/* INDUSTRIES TEASER */}
       <section
         className="px-4 sm:px-6 lg:px-8 py-16 sm:py-24"
-        style={{ background: "var(--cream-100)" }}
+        style={{ background: "var(--site-tint)" }}
       >
         <div className="max-w-[1200px] mx-auto">
           <Reveal className="flex flex-wrap items-end justify-between gap-4 mb-10">
@@ -161,7 +161,7 @@ export default function HomePage() {
             <Link
               href="/industries"
               className="label-xs whitespace-nowrap"
-              style={{ color: "var(--navy-700)" }}
+              style={{ color: "var(--site-accent)" }}
             >
               <T>See all industries </T>
               {"->"}

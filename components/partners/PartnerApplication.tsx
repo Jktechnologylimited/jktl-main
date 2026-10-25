@@ -10,7 +10,7 @@ export function PartnerApplication() {
       </p>
       <div className="flex flex-wrap gap-4">
         <a
-          className="btn-navy"
+          className="btn-primary"
           href="https://business.jktl.com.ng/partners/apply"
         >
           Apply to JKTL Partners →

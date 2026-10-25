@@ -32,7 +32,7 @@ export default function TryDemoButton({
   const styles = {
     gold: { background: "var(--gold-400)", color: "var(--navy-900)", border: "none" },
     navy: { background: "var(--navy-900)", color: "var(--cream-50)", border: "none" },
-    outline: { background: "transparent", color: "var(--navy-600)", border: "1px solid var(--navy-600)" },
+    outline: { background: "transparent", color: "var(--site-text)", border: "1px solid var(--site-line)" },
   };
 
   return (

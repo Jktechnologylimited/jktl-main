@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { TIERS, PAYOUT, PRODUCT, fmtNaira, firstYearValue } from "@/lib/affiliate-offers";
 import { siteConfig } from "@/data/index";
 
@@ -50,7 +51,7 @@ const FAQS = [
 
 export default function AffiliatesLandingPage() {
   return (
-    <div style={{ background: "var(--cream-50)" }}>
+    <div style={{ background: "var(--site-paper)" }}>
 
       {/* HERO */}
       <section style={{ background: "var(--navy-950)", padding: "clamp(120px,14vw,148px) 32px 80px", textAlign: "center", position: "relative", overflow: "hidden" }}>
@@ -86,20 +87,20 @@ export default function AffiliatesLandingPage() {
         </div>
       </section>
 
-      <section className="max-w-5xl mx-auto px-6 py-14"><p className="text-gold-600 text-xs tracking-widest">JKTL AFFILIATES</p><h2 className="text-3xl mt-4">Your audience. Their next opportunity.</h2><p className="mt-5 text-sm leading-relaxed text-black/65">Creators, influencers and business educators introduce JKTL to their audiences. Earn commissions when referred customers make qualifying purchases under the affiliate programme terms. Signup bonuses remain held until a qualifying subscription is paid.</p><div className="mt-7 border border-gold-400/30 rounded-xl p-6"><h3 className="font-semibold">Work directly with business clients?</h3><p className="text-sm mt-3 text-black/65">Website developers, marketing agencies, business consultants and CAC registration agents can apply for JKTL Partners, with commission terms agreed separately.</p><a href="/partners" className="inline-block mt-4 text-sm underline">Explore JKTL Partners →</a></div></section>
+      <section className="max-w-5xl mx-auto px-6 py-14"><p className="text-gold-600 text-xs tracking-widest">JKTL AFFILIATES</p><h2 className="text-3xl mt-4">Your audience. Their next opportunity.</h2><p className="mt-5 text-sm leading-relaxed text-black/65">Creators, influencers and business educators introduce JKTL to their audiences. Earn commissions when referred customers make qualifying purchases under the affiliate programme terms. Signup bonuses remain held until a qualifying subscription is paid.</p><div className="mt-7 border border-gold-400/30 rounded-xl p-6"><h3 className="font-semibold">Work directly with business clients?</h3><p className="text-sm mt-3 text-black/65">Website developers, marketing agencies, business consultants and CAC registration agents can apply for JKTL Partners, with commission terms agreed separately.</p><Link href="/partners" className="inline-block mt-4 text-sm underline">Explore JKTL Partners →</Link></div></section>
       {/* HOW IT WORKS */}
-      <section style={{ padding: "80px 32px", background: "var(--cream-50)" }}>
+      <section style={{ padding: "80px 32px", background: "var(--site-paper)" }}>
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 56 }}>
             <span className="gold-rule" style={{ marginBottom: 14, display: "inline-block" }} />
-            <h2 className="display-xl" style={{ color: "var(--navy-900)" }}>How It Works</h2>
+            <h2 className="display-xl" style={{ color: "var(--site-text)" }}>How It Works</h2>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: 2, background: "var(--cream-300)" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: 2, background: "var(--site-line)" }}>
             {HOW_IT_WORKS.map((step, i) => (
-              <div key={i} style={{ background: "var(--cream-50)", padding: "32px 28px" }}>
+              <div key={i} style={{ background: "var(--site-paper)", padding: "32px 28px" }}>
                 <p style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "0.72rem", fontWeight: 700, color: "var(--gold-400)", marginBottom: 12 }}>{step.n}</p>
-                <h3 style={{ fontWeight: 700, fontSize: "1rem", color: "var(--navy-900)", marginBottom: 10 }}>{step.title}</h3>
-                <p className="body-sm" style={{ color: "rgba(28,28,30,0.58)" }}>{step.desc}</p>
+                <h3 style={{ fontWeight: 700, fontSize: "1rem", color: "var(--site-text)", marginBottom: 10 }}>{step.title}</h3>
+                <p className="body-sm" style={{ color: "var(--site-muted)" }}>{step.desc}</p>
               </div>
             ))}
           </div>
@@ -132,16 +133,16 @@ export default function AffiliatesLandingPage() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" style={{ padding: "80px 32px", background: "var(--cream-50)" }}>
+      <section id="faq" style={{ padding: "80px 32px", background: "var(--site-paper)" }}>
         <div style={{ maxWidth: 720, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <h2 className="display-xl" style={{ color: "var(--navy-900)" }}>Frequently Asked Questions</h2>
+            <h2 className="display-xl" style={{ color: "var(--site-text)" }}>Frequently Asked Questions</h2>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             {FAQS.map((faq, i) => (
-              <div key={i} style={{ background: "#fff", border: "1px solid var(--cream-300)", borderRadius: 4, padding: "20px 24px" }}>
-                <p style={{ fontWeight: 700, fontSize: "0.9rem", color: "var(--navy-900)", marginBottom: 6 }}>{faq.q}</p>
-                <p className="body-sm" style={{ color: "rgba(28,28,30,0.6)" }}>{faq.a}</p>
+              <div key={i} style={{ background: "var(--site-surface)", border: "1px solid var(--cream-300)", borderRadius: 4, padding: "20px 24px" }}>
+                <p style={{ fontWeight: 700, fontSize: "0.9rem", color: "var(--site-text)", marginBottom: 6 }}>{faq.q}</p>
+                <p className="body-sm" style={{ color: "var(--site-muted)" }}>{faq.a}</p>
               </div>
             ))}
           </div>
