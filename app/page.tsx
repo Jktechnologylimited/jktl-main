@@ -1,3 +1,4 @@
+import { FeaturedCaseStudies } from "@/components/case-studies/FeaturedCaseStudies";
 import { T } from "@/components/i18n/LanguageProvider";
 import { WebsiteSteps } from "@/components/home/WebsiteSteps";
 import Link from "next/link";
@@ -101,6 +102,7 @@ export default function HomePage() {
         </div>
       </section>
       <WebsiteSteps />
+      <FeaturedCaseStudies />
       {/* FEATURE GRID */}
       <section className="bg-white px-4 sm:px-6 lg:px-8 py-16 sm:py-24 border-b border-cream-300">
         <div className="max-w-[1200px] mx-auto">

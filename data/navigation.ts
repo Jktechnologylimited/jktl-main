@@ -230,6 +230,12 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
         title: "Explore",
         items: [
           {
+            title: "Case studies",
+            description:
+              "Explore client websites, commerce and custom platforms built by JKTL.",
+            href: "/case-studies",
+          },
+          {
             title: "JKTL Blog",
             description:
               "Ideas and practical guidance for growing your business.",

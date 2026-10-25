@@ -1,3 +1,4 @@
+import { caseStudies } from "@/data/case-studies";
 import { readPublications } from "@/lib/publications";
 import { featurePages } from "@/data/feature-pages";
 import type { MetadataRoute } from "next";
@@ -12,6 +13,8 @@ const routes = [
   "products/business-tools",
   "products/add-ons",
   "products/custom-websites",
+  "products/managed-services",
+  "case-studies",
   "landing-pages",
   "about",
   "blog",
@@ -32,6 +35,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const allRoutes = [
     ...new Set([
       ...routes,
+      ...caseStudies.map((study) => `case-studies/${study.slug}`),
       ...featurePages.map((p) => `${p.section}/${p.slug}`),
     ]),
   ];
@@ -40,8 +44,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: route ? "monthly" : "weekly",
     priority: route ? 0.7 : 1,
   }));
-  const publications = await Promise.all([readPublications("blog"), readPublications("release")]);
-  for (const result of publications) for (const article of result.articles) items.push({url:`${base}/${article.kind === "blog" ? "blog" : "updates"}/${article.slug}`,lastModified:new Date(article.updatedAt || article.publishedAt),changeFrequency:"monthly",priority:0.6});
+  const publications = await Promise.all([
+    readPublications("blog"),
+    readPublications("release"),
+  ]);
+  for (const result of publications)
+    for (const article of result.articles)
+      items.push({
+        url: `${base}/${article.kind === "blog" ? "blog" : "updates"}/${article.slug}`,
+        lastModified: new Date(article.updatedAt || article.publishedAt),
+        changeFrequency: "monthly",
+        priority: 0.6,
+      });
   if (sql) {
     try {
       const pages =

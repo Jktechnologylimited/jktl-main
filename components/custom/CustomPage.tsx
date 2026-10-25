@@ -1,3 +1,4 @@
+import { FeaturedCaseStudies } from "@/components/case-studies/FeaturedCaseStudies";
 import Link from "next/link";
 import {
   Globe,
@@ -87,6 +88,7 @@ export function CustomPage({ managed = false }: { managed?: boolean }) {
           })}
         </div>
       </section>
+      <FeaturedCaseStudies custom />
       <section className="bg-[#eeeee8] px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <p className="text-xs uppercase tracking-widest text-[#80621c]">
