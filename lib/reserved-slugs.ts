@@ -7,6 +7,8 @@ export const RESERVED_SLUGS = [
   "admin",
   "affiliate",
   "affiliates",
+  "partners",
+  "games",
   "api",
   "blog",
   "businessdesk",

@@ -26,7 +26,7 @@ export async function generateMetadata({
     return {
       title: "Nigerian Domains — .ng, .com.ng & .name.ng",
       description:
-        "Explore Nigerian, generic and country-code domains. Request Go54 domain registration, transfers and annual renewal quotes through JKTL, with availability confirmed before payment.",
+        "Explore Nigerian, generic and country-code domains. Request domain registration, transfers and annual renewal quotes through JKTL, with availability confirmed before payment.",
       alternates: { canonical: "https://jktl.com.ng/products/domains" },
     };
   const feature = getFeaturePage("products", product);

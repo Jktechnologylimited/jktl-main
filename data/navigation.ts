@@ -228,10 +228,12 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
             href: "/about",
           },
           {
-            title: "Partner programme",
-            description: "Learn about referring businesses to JKTL.",
+            title: "JKTL Affiliates",
+            description: "For creators, influencers and business educators.",
             href: "/affiliates",
           },
+          {title: "JKTL Partners",description: "For agencies, consultants and CAC registration agents.",href: "/partners"},
+          {title: "Business Tycoon",description: "Try the Nigerian business game. Free guest play.",href: "/games/business-tycoon"},
         ],
       },
       {

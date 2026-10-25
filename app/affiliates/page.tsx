@@ -24,7 +24,7 @@ function AffiliateCTA() {
         Apply to join
       </a>
       <a href={LOGIN_URL} className="btn-outline-cream px-7 py-3.5 text-sm uppercase tracking-wide">
-        Partner sign in
+        Affiliate sign in
       </a>
     </div>
   );
@@ -86,6 +86,7 @@ export default function AffiliatesLandingPage() {
         </div>
       </section>
 
+      <section className="max-w-5xl mx-auto px-6 py-14"><p className="text-gold-600 text-xs tracking-widest">JKTL AFFILIATES</p><h2 className="text-3xl mt-4">Your audience. Their next opportunity.</h2><p className="mt-5 text-sm leading-relaxed text-black/65">Creators, influencers and business educators introduce JKTL to their audiences. Earn commissions when referred customers make qualifying purchases under the affiliate programme terms. Signup bonuses remain held until a qualifying subscription is paid.</p><div className="mt-7 border border-gold-400/30 rounded-xl p-6"><h3 className="font-semibold">Work directly with business clients?</h3><p className="text-sm mt-3 text-black/65">Website developers, marketing agencies, business consultants and CAC registration agents can apply for JKTL Partners, with commission terms agreed separately.</p><a href="/partners" className="inline-block mt-4 text-sm underline">Explore JKTL Partners →</a></div></section>
       {/* HOW IT WORKS */}
       <section style={{ padding: "80px 32px", background: "var(--cream-50)" }}>
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>

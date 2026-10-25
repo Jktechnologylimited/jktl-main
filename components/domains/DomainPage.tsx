@@ -66,7 +66,7 @@ export function DomainPage({ prices }: { prices: DomainPrices }) {
   return (
     <div className={styles.page}>
       <section className={styles.hero}>
-        <p className={styles.eyebrow}>JKTL DOMAINS · GO54</p>
+        <p className={styles.eyebrow}>JKTL DOMAINS</p>
         <h1>
           <T>Your name. Your business.</T>
           <br />
@@ -125,7 +125,7 @@ export function DomainPage({ prices }: { prices: DomainPrices }) {
         </form>
         <p className={styles.small}>
           <T>
-            JKTL handles registration requests through Go54. Availability,
+            JKTL handles registration requests. Availability,
             eligibility and the full price are confirmed before you pay.
             Searching here does not reserve a domain.
           </T>
@@ -385,7 +385,7 @@ export function DomainPage({ prices }: { prices: DomainPrices }) {
             [
               "02",
               "Confirm the quote",
-              "JKTL checks availability and confirms registration and renewal totals through Go54.",
+              "JKTL checks availability and confirms registration and renewal totals.",
             ],
             [
               "03",
@@ -445,7 +445,7 @@ export function DomainPage({ prices }: { prices: DomainPrices }) {
           ],
           [
             "Who handles my registration?",
-            "JKTL manages your request and fulfils domain registration through Go54 after confirming the quote, payment and any registry requirements.",
+            "JKTL manages your request and fulfils domain registration after confirming the quote, payment and any registry requirements.",
           ],
           [
             "Is my domain included in the website plan?",
