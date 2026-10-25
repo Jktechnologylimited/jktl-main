@@ -5,8 +5,11 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import BizChat from "@/components/shared/BizChat";
 export default function MarketingShell({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+  const game = /^\/games(?:\/|$)/.test(pathname);
+  if (game) return <><Navbar/>{children}</>;
   const preview = /^\/(?:templates|template-canvas)\/[^/]+\/?$/.test(
-    usePathname(),
+    pathname,
   );
   return preview ? (
     <>{children}</>

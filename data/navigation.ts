@@ -235,7 +235,7 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
             href: "/affiliates",
           },
           {title: "JKTL Partners",description: "For agencies, consultants and CAC registration agents.",href: "/partners"},
-          {title: "Business Tycoon",description: "Try the Nigerian business game. Free guest play.",href: "/games/business-tycoon"},
+          {title: "Games & Fantasy",description: "Open the game interface and play immediately.",href: "/games"},
         ],
       },
       {

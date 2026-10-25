@@ -23,6 +23,8 @@ const routes = [
   "affiliates",
   "partners",
   "games/business-tycoon",
+  "games",
+  "games/fantasy",
   "privacy",
   "terms",
 ];

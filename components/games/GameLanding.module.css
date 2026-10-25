@@ -1,0 +1,90 @@
+.stage {
+  padding-top: 68px;
+  height: 100dvh;
+  min-height: 650px;
+  background: #060e2a;
+  display: flex;
+  flex-direction: column;
+}
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 10px 24px;
+  color: #fff;
+  flex: none;
+  background: #112055;
+}
+.bar h1 {
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.bar nav {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+}
+.bar nav a {
+  font-size: 11px;
+  padding: 8px 13px;
+  border: 1px solid #7280a0;
+  border-radius: 20px;
+  text-decoration: none;
+}
+.bar nav a[aria-current="page"] {
+  background: #c9a84c;
+  color: #060e2a;
+  border-color: #c9a84c;
+}
+.bar > a {
+  font-size: 10px;
+  color: #e6ce88;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.frame {
+  display: block;
+  width: 100%;
+  border: 0;
+  flex: 1;
+  min-height: 0;
+  background: #a8e4f3;
+}
+.pending {
+  padding: 15vh 8%;
+  color: white;
+}
+.pending h2 {
+  font-size: 36px;
+}
+.pending p {
+  margin: 20px 0;
+  color: #ccd4e5;
+  max-width: 500px;
+  line-height: 1.7;
+}
+.pending a {
+  color: #e6ce88;
+  font-size: 14px;
+}
+@media (max-width: 650px) {
+  .bar {
+    padding: 10px 12px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .bar h1 {
+    font-size: 11px;
+  }
+  .bar nav a {
+    font-size: 9px;
+    padding: 7px 9px;
+  }
+  .bar > a {
+    font-size: 9px;
+  }
+  .stage {
+    min-height: 650px;
+  }
+}
