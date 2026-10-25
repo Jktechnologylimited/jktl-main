@@ -1,8 +1,9 @@
+import { CustomPage } from "@/components/custom/CustomPage";
 import { T } from "@/components/i18n/LanguageProvider";
 import { getFeaturePage, featurePages } from "@/data/feature-pages";
 import { FeaturePage } from "@/components/shared/FeaturePage";
 import { DomainPage } from "@/components/domains/DomainPage";
-import { getRetailDomainPrices } from "@/lib/domain-catalogue";
+import { getLiveRetailDomainPrices } from "@/lib/domain-catalogue";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -52,7 +53,9 @@ export default async function Product({
 }) {
   const { product } = await params;
   if (product === "domains")
-    return <DomainPage prices={getRetailDomainPrices()} />;
+    return <DomainPage prices={await getLiveRetailDomainPrices()} />;
+  if (product === "custom-websites" || product === "managed-services")
+    return <CustomPage managed={product === "managed-services"} />;
   const feature = getFeaturePage("products", product);
   if (feature) return <FeaturePage page={feature} />;
   const item = DIGITAL_PRODUCTS.find((p) => p.id === product);

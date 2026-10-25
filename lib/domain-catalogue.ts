@@ -208,3 +208,29 @@ export function parseDomainRequest(value: unknown) {
     years: 1,
   };
 }
+
+/** Public retail-only catalogue; no Business database credentials are shared with Main. */
+export async function getLiveRetailDomainPrices(): Promise<DomainPrices> {
+  try {
+    const res = await fetch(
+      "https://business.jktl.com.ng/api/public/domain-prices",
+      { next: { revalidate: 60 }, signal: AbortSignal.timeout(2500) },
+    );
+    if (!res.ok) return {};
+    const data = await res.json();
+    if (!Array.isArray(data.prices)) return {};
+    const catalogue: Record<string, unknown> = {};
+    for (const p of data.prices) {
+      if (!p || typeof p.extension !== "string") continue;
+      catalogue[p.extension] = {
+        currency: p.currency,
+        registrationKobo: Number(p.registration_price),
+        renewalKobo: Number(p.renewal_price),
+        transferKobo: p.transfer_price ? Number(p.transfer_price) : undefined,
+      };
+    }
+    return getRetailDomainPrices(JSON.stringify(catalogue));
+  } catch {
+    return {};
+  }
+}

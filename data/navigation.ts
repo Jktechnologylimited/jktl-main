@@ -35,6 +35,18 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
             href: "/templates",
           },
           {
+            title: "JKTL Custom",
+            description:
+              "Professionally developed websites, applications and portals.",
+            href: "/products/custom-websites",
+          },
+          {
+            title: "JKTL Managed Services",
+            description:
+              "Ongoing website care, content updates and technical support.",
+            href: "/products/managed-services",
+          },
+          {
             title: "Free website address",
             description: "Get online with your own JKTL subdomain.",
             href: "/products/free-website-address",
@@ -217,8 +229,17 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
       {
         title: "Explore",
         items: [
-          {title:"JKTL Blog",description:"Ideas and practical guidance for growing your business.",href:"/blog"},
-          {title:"Releases & updates",description:"New features and product improvements from the team.",href:"/updates"},
+          {
+            title: "JKTL Blog",
+            description:
+              "Ideas and practical guidance for growing your business.",
+            href: "/blog",
+          },
+          {
+            title: "Releases & updates",
+            description: "New features and product improvements from the team.",
+            href: "/updates",
+          },
           {
             title: "How JKTL works",
             description: "A practical introduction to your business tools.",
@@ -234,8 +255,17 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
             description: "For creators, influencers and business educators.",
             href: "/affiliates",
           },
-          {title: "JKTL Partners",description: "For agencies, consultants and CAC registration agents.",href: "/partners"},
-          {title: "Games & Fantasy",description: "Open the game interface and play immediately.",href: "/games"},
+          {
+            title: "JKTL Partners",
+            description:
+              "For agencies, consultants and CAC registration agents.",
+            href: "/partners",
+          },
+          {
+            title: "Games & Fantasy",
+            description: "Open the game interface and play immediately.",
+            href: "/games",
+          },
         ],
       },
       {

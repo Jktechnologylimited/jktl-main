@@ -80,6 +80,21 @@ export function DomainPage({ prices }: { prices: DomainPrices }) {
             a global or country-code domain for your next chapter.
           </T>
         </p>
+        <a
+          href="https://business.jktl.com.ng/domains"
+          style={{
+            display: "inline-block",
+            background: "#c9a84c",
+            color: "#060e2a",
+            padding: "14px 22px",
+            borderRadius: 30,
+            fontSize: 13,
+            marginTop: 20,
+            textDecoration: "none",
+          }}
+        >
+          View live domain prices and order in JKTL Business →
+        </a>
         <form className={styles.search} onSubmit={search}>
           <label>
             <span>
@@ -125,9 +140,9 @@ export function DomainPage({ prices }: { prices: DomainPrices }) {
         </form>
         <p className={styles.small}>
           <T>
-            JKTL handles registration requests. Availability,
-            eligibility and the full price are confirmed before you pay.
-            Searching here does not reserve a domain.
+            JKTL handles registration requests. Availability, eligibility and
+            the full price are confirmed before you pay. Searching here does not
+            reserve a domain.
           </T>
         </p>
       </section>
