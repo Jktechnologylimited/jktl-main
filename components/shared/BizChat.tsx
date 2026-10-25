@@ -1,10 +1,11 @@
 "use client";
+import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Send, Crown } from "lucide-react";
 import PixelFace from "@/components/shared/PixelFace";
-import { pricing, industries, features, affiliateTerms, appSignupUrl, siteConfig } from "@/data/index";
+
 
 type Msg = { from: "bot" | "user"; text: string };
 
@@ -59,35 +60,7 @@ function openerFor(pathname: string): string | null {
   return null;
 }
 
-function answer(question: string): string {
-  const q = question.toLowerCase();
-
-  if (q.includes("cost") || q.includes("price") || q.includes("pricing") || q.includes("plan") || q.includes("how much")) {
-    return `It is ${pricing.monthly.headline} a month for the first six months — that is the ${pricing.upfront.headline} launch package split six ways, and together they come to exactly ${pricing.upfront.headline}. From month 7 it drops to ${pricing.monthly.ongoing}. You can also pay the ${pricing.upfront.headline} in full up front if you prefer. Either way you get ${pricing.shared.freeCredit} of communication credit included, and you can cancel any time from month one.`;
-  }
-  if (q.includes("free") && !q.includes("free credit")) {
-    return `You can get started free with customer records, bookings, invoices, inventory and a basic business website. The AI receptionist is a separate paid package, with: ${pricing.shared.freeCredit} of communication credit to start, and a monthly option so you do not need the full ${pricing.upfront.headline} today.`;
-  }
-  if (q.includes("industr") || q.includes("business type") || q.includes("salon") || q.includes("gym") || q.includes("restaurant") || q.includes("shop")) {
-    return `JKTL Business fits ${industries.length} broad groups of businesses -- ${industries.slice(0, 5).map(i => i.title).join(", ")}, and more. Visit our Industries page to see your type of business and what fits.`;
-  }
-  if (q.includes("affiliate") || q.includes("referral") || q.includes("commission") || q.includes("earn") || q.includes("partner")) {
-    return `The partner programme pays ₦${affiliateTerms.signupBonus.toLocaleString()} when a business you referred creates an account, ₦${affiliateTerms.subscriptionBonus.toLocaleString()} more when they subscribe, then ₦${affiliateTerms.recurringMonthly.toLocaleString()} every month for as long as they stay subscribed. That is ₦${affiliateTerms.firstYearValue.toLocaleString()} from one referral in the first year. A referral is worth more than a sale here — you can read the whole thing and apply at jktl.com.ng/affiliates.`;
-  }
-  if (q.includes("what") && (q.includes("do") || q.includes("jktl") || q.includes("business"))) {
-    return `JKTL Business gives your business an AI receptionist that answers every call, day or night, books the appointment, and texts back anyone it missed. Alongside it you get ${features.slice(0, 4).map(f => f.title.toLowerCase()).join(", ")}, and your own website built from your photographs and reviews. Want to see how it works?`;
-  }
-  if (q.includes("human") || q.includes("talk") || q.includes("support") || q.includes("contact")) {
-    return `Happy to connect you with the team -- reach us at ${siteConfig.email} or WhatsApp ${siteConfig.phone}, or visit our Contact page.`;
-  }
-  if (q.includes("website") || q.includes("domain")) {
-    return `Every business on JKTL Business gets a free published website on a jktl.com.ng subdomain -- your customers can find you and book or buy online. A custom domain is available on the paid plan.`;
-  }
-  if (q.includes("pay") || q.includes("invoice") || q.includes("paystack")) {
-    return `You can invoice any customer and collect payment online right on the invoice, powered by Paystack -- no chasing bank transfers.`;
-  }
-  return `Good question -- I might not have that one scripted yet. For anything specific, reach the team at ${siteConfig.email} or visit our Contact page, and they'll help directly.`;
-}
+async function answer(question: string): Promise<string> { try { const {guideReply}=await import("@/lib/support-knowledge"); return guideReply(question).reply; } catch {return "Open the JKTL Help Centre for detailed guides, or sign in to Business to request a human support agent.";} }
 
 export default function BizChat() {
   const pathname = usePathname();
@@ -95,7 +68,7 @@ export default function BizChat() {
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([
-    { from: "bot", text: "Hi, I'm President — JKTL Business's assistant. Ask me about pricing, features, industries, or the affiliate program." },
+    { from: "bot", text: "Hi, I'm President — JKTL's guide assistant. Ask about free websites, templates, domains, email or payments. I use the JKTL help library; sign in to Business when you need a person or account-specific help." },
   ]);
   const endRef = useRef<HTMLDivElement>(null);
 
@@ -155,13 +128,14 @@ export default function BizChat() {
   }
 
   function send(text: string) {
-    const question = text.trim();
+    const question = text.trim().slice(0,1500);
     if (!question) return;
     setMessages(m => [...m, { from: "user", text: question }]);
     setInput("");
     setTyping(true);
-    setTimeout(() => {
-      setMessages(m => [...m, { from: "bot", text: answer(question) }]);
+    setTimeout(async () => {
+      const reply = await answer(question);
+      setMessages(m => [...m, { from: "bot", text: reply }]);
       setTyping(false);
     }, 500 + Math.random() * 400);
   }
@@ -339,7 +313,7 @@ export default function BizChat() {
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={e => e.key === "Enter" && send(input)}
-              placeholder="Ask President a question..."
+              placeholder="Ask President a question..." maxLength={1500}
               className="flex-1 text-[0.85rem] px-3.5 py-2.5 rounded-full outline-none"
               style={{ background: "var(--site-tint)", border: "1px solid var(--cream-300)" }}
             />
@@ -349,9 +323,7 @@ export default function BizChat() {
               <Send size={16} />
             </button>
           </div>
-          <a href={appSignupUrl()} className="text-center text-[0.7rem] py-2" style={{ color: "var(--site-accent)", background: "var(--site-tint)", textDecoration: "none" }}>
-            Ready to start? Get JKTL Business free {"->"}
-          </a>
+          <nav aria-label="Support options" className="flex flex-wrap justify-center gap-5 py-3 text-[0.7rem]" style={{color:"var(--site-accent)",background:"var(--site-tint)"}}><Link href="/resources/help-centre" className="underline">Read full guides</Link><a href="https://business.jktl.com.ng/login?next=support" className="underline">Talk to support →</a></nav>
           </motion.div>
         )}
       </AnimatePresence>

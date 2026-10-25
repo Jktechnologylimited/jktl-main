@@ -1,3 +1,5 @@
+import { ProductCaseStudies } from "@/components/case-studies/ProductCaseStudies";
+import { CustomerReviews } from "@/components/support/CustomerReviews";
 import { PossibleShowcase } from "@/components/home/PossibleShowcase";
 import type { Metadata } from "next";
 import { WebsitePricing } from "@/components/pricing/WebsitePricing";
@@ -11,6 +13,8 @@ export default function PricingPage() {
   return (
     <div style={{ paddingTop: 72 }}>
       <WebsitePricing afterFoundation={<PossibleShowcase />} />
+      <ProductCaseStudies />
+      <CustomerReviews milestone="website" />
     </div>
   );
 }

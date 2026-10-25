@@ -1,3 +1,5 @@
+import { ProductCaseStudies } from "@/components/case-studies/ProductCaseStudies";
+import { CustomerReviews } from "@/components/support/CustomerReviews";
 import { EmailLanding } from "@/components/business-email/EmailLanding";
 import { CustomPage } from "@/components/custom/CustomPage";
 import { T } from "@/components/i18n/LanguageProvider";
@@ -72,7 +74,13 @@ export default async function Product({
     );
   }
   if (product === "domains")
-    return <DomainPage prices={await getLiveRetailDomainPrices()} />;
+    return (
+      <>
+        <DomainPage prices={await getLiveRetailDomainPrices()} />
+        <ProductCaseStudies domain />
+        <CustomerReviews milestone="domain" />
+      </>
+    );
   if (product === "custom-websites" || product === "managed-services")
     return <CustomPage managed={product === "managed-services"} />;
   const feature = getFeaturePage("products", product);
