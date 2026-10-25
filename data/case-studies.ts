@@ -25,6 +25,12 @@ export type CaseStudy = {
 export const caseStudies: CaseStudy[] = [
   {
     slug: "kk-ubani-and-co",
+    screenshot: {
+      src: "/case-studies/kk-ubani-and-co.png",
+      alt: "K.K. Ubani & Co. website homepage",
+      width: 1200,
+      height: 807,
+    },
     client: "K.K. Ubani & Co.",
     industry: "Legal",
     categories: ["Legal"],
@@ -78,6 +84,12 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "bae-entertainment-group",
+    screenshot: {
+      src: "/case-studies/bae-entertainment-group.png",
+      alt: "BAE Entertainment Group website homepage",
+      width: 1200,
+      height: 807,
+    },
     client: "BAE Entertainment Group",
     industry: "Entertainment",
     categories: ["Entertainment"],
@@ -105,6 +117,12 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "nej",
+    screenshot: {
+      src: "/case-studies/nej.png",
+      alt: "NEJ website homepage",
+      width: 1200,
+      height: 807,
+    },
     client: "NEJ",
     industry: "Commerce",
     categories: ["Commerce"],
@@ -131,6 +149,12 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "sarvify",
+    screenshot: {
+      src: "/case-studies/sarvify.png",
+      alt: "Sarvify handyman services website, shown with its Messenger branding",
+      width: 1200,
+      height: 798,
+    },
     client: "Sarvify",
     industry: "Home services",
     categories: ["Services"],
@@ -152,6 +176,12 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "refinish-phc",
+    screenshot: {
+      src: "/case-studies/refinish-phc.png",
+      alt: "Refinish PHC website homepage",
+      width: 1200,
+      height: 798,
+    },
     client: "Refinish PHC",
     industry: "Automotive / services",
     categories: ["Services", "Commerce"],
@@ -184,6 +214,12 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "heavens-hospitality",
+    screenshot: {
+      src: "/case-studies/heavens-hospitality.png",
+      alt: "Heavens Hospitality website homepage",
+      width: 1200,
+      height: 807,
+    },
     client: "Heavens Hospitality",
     industry: "Faith / hospitality",
     categories: ["Faith & hospitality"],
@@ -210,6 +246,12 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "ftme-elite-services",
+    screenshot: {
+      src: "/case-studies/ftme-elite-services.png",
+      alt: "FTME Elite Services website homepage",
+      width: 1200,
+      height: 807,
+    },
     client: "FTME Elite Services",
     industry: "Business services",
     categories: ["Services"],
@@ -230,6 +272,12 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "cecilia-learning-academy",
+    screenshot: {
+      src: "/case-studies/cecilia-learning-academy.png",
+      alt: "Cecilia Learning Academy website homepage",
+      width: 1200,
+      height: 807,
+    },
     client: "Cecilia Learning Academy",
     industry: "Education",
     categories: ["Education"],
@@ -256,6 +304,12 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "newlife-baptist-church",
+    screenshot: {
+      src: "/case-studies/newlife-baptist-church.png",
+      alt: "Newlife Baptist Church website homepage",
+      width: 1200,
+      height: 798,
+    },
     client: "Newlife Baptist Church",
     industry: "Faith / education",
     categories: ["Faith & hospitality", "Education"],
