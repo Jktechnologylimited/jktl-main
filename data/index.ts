@@ -129,8 +129,8 @@ export const features = [
   {
     icon: "UsersRound",
     id: "team",
-    title: "Multi-Staff Roles",
-    desc: "Bring your team in with owner, manager and staff roles, each seeing only what they need to.",
+    title: "Team Roles",
+    desc: "Bring your team in with owner, manager and team member roles, each seeing only what they need to.",
   },
 ];
 

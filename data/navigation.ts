@@ -158,7 +158,7 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
           },
           {
             title: "Work with your team",
-            description: "Manage access with owner, manager and staff roles.",
+            description: "Manage access with owner, manager and team member roles.",
             href: "/solutions/team-management",
           },
           {

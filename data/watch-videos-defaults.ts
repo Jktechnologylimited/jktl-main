@@ -22,7 +22,7 @@ export const WATCH_VIDEOS_DEFAULTS: Record<string, WatchVideoSeed[]> = {
     { id:"sd-2", title:"Collecting Fees Online", desc:"Set fee structures, send invoices, reconcile Paystack payments.", duration:"8 min", youtubeId:"", comingSoon:true },
     { id:"sd-3", title:"Recording Results", desc:"Enter scores and auto-generate report cards per term.", duration:"7 min", youtubeId:"", comingSoon:true },
     { id:"sd-4", title:"The Parent Portal", desc:"What parents see — results, fees, announcements.", duration:"6 min", youtubeId:"", comingSoon:true },
-    { id:"sd-5", title:"Managing Staff & Classes", desc:"Teacher accounts, class assignments, access levels.", duration:"6 min", youtubeId:"", comingSoon:true },
+    { id:"sd-5", title:"Managing Your Team & Classes", desc:"Teacher accounts, class assignments, access levels.", duration:"6 min", youtubeId:"", comingSoon:true },
     { id:"sd-6", title:"Your School Website", desc:"Set up the free public website that comes with SchoolDesk.", duration:"5 min", youtubeId:"", comingSoon:true },
   ],
 };

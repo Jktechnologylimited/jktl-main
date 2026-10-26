@@ -11,11 +11,11 @@ export default function TermsPage() {
   const sections = [
     {
       title: "1. The Service",
-      body: "JKTL Business is a business-management application provided by JK Technology Limited, including customer records, booking/sales tracking, invoicing, inventory and expense tracking, and a published business website. Core features are available free; a paid plan unlocks additional staff seats, storage, and a custom domain, as described on our Pricing page.",
+      body: "JKTL Business is a business-management application provided by JK Technology Limited, including customer records, booking/sales tracking, invoicing, inventory and expense tracking, and a published business website. Core features are available free; a paid plan unlocks additional team seats, storage, and a custom domain, as described on our Pricing page.",
     },
     {
       title: "2. Accounts",
-      body: "You must provide accurate information when creating an account and are responsible for keeping your login credentials secure. You are responsible for all activity under your business's account, including actions taken by staff you invite.",
+      body: "You must provide accurate information when creating an account and are responsible for keeping your login credentials secure. You are responsible for all activity under your business's account, including actions taken by team members you invite.",
     },
     {
       title: "3. Payment Terms",

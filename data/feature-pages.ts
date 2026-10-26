@@ -252,7 +252,7 @@ export const featurePages = [
     label: "Work with your team",
     title: "A workspace your team can share.",
     intro:
-      "Use owner, manager and staff roles. New website plans support finite collaborator allowances while existing contractual access remains unchanged.",
+      "Use owner, manager and team member roles. New website plans support finite collaborator allowances while existing contractual access remains unchanged.",
     benefits: [
       "Manage team access from your owner account.",
       "Choose a plan with the collaborator allowance you need.",
