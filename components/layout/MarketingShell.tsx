@@ -1,6 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
-import type { ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
+import { ReferralConsent } from "@/components/shared/ReferralConsent";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import BizChat from "@/components/shared/BizChat";
@@ -24,6 +25,9 @@ export default function MarketingShell({ children }: { children: ReactNode }) {
       <Navbar />
       <main>{children}</main>
       <Footer />
+      <Suspense fallback={null}>
+        <ReferralConsent />
+      </Suspense>
       <BizChat />
     </div>
   );

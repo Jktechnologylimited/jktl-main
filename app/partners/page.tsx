@@ -25,7 +25,7 @@ export default function Page() {
           </p>
           <div className="flex flex-wrap gap-4 mt-8">
             <a
-              href="https://business.jktl.com.ng/partners/apply"
+              href="https://business.jktl.com.ng/login?next=programs&program=partner"
               className="btn-gold px-7 py-4 text-sm"
             >
               Become a partner
