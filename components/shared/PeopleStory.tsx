@@ -99,14 +99,6 @@ export function PeopleStory({
         <p>{c.eyebrow}</p>
         <h2>{c.title}</h2>
         <p>{c.text}</p>
-        <a
-          href="https://unsplash.com"
-          target="_blank"
-          rel="noreferrer"
-          className={styles.credit}
-        >
-          Photography · Unsplash ↗
-        </a>
       </div>
       <div className={styles.collage}>
         {c.photos.map((photo, i) => (

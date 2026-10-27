@@ -27,14 +27,6 @@
   line-height: 1.85;
   max-width: 430px;
 }
-.credit {
-  display: inline-block;
-  font-size: 10px;
-  color: var(--site-muted);
-  margin-top: 22px;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
 .collage {
   display: grid;
   grid-template-columns: 1.1fr 0.8fr 0.8fr;
