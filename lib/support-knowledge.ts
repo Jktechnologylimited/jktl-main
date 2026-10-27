@@ -459,6 +459,36 @@ export const HELP_GUIDES: HelpGuide[] = [
       "Private customer data, financial corrections, irreversible imports/deletions and membership changes require the business owner or an authorized team member.",
   },
   {
+    id: "affiliates",
+    title: "Affiliate commissions, invitations, materials and payouts",
+    tags: [
+      "affiliate",
+      "affiliates",
+      "commission",
+      "referral",
+      "earn",
+      "payout",
+      "invitation",
+      "marketing materials",
+    ],
+    route: "/affiliates",
+    summary:
+      "JKTL Affiliates introduce websites, domains, Business Email and eligible custom projects to their audiences. Your accepted, activated agreement sets your rewards; there is no guaranteed universal amount per referral.",
+    steps: [
+      "Apply through your JKTL Business account or accept the secure invitation sent to your email. Existing users keep their Business account and password. Applications and invitations do not automatically activate financial terms.",
+      "The proposed 15% policy for eligible net subscription revenue during a customer's first 12 paid subscription months remains a draft awaiting formal approval. Existing applicable agreements and earned financial history are preserved.",
+      "Your accepted agreement controls product eligibility, percentage or fixed rewards, review holds, minimums and request dates. Future offers default to a ₦50,000 minimum and an expected 28th payment day; these do not replace existing accepted terms. Rewards require verified eligible payments and account for fees, costs, refunds and disputes.",
+      "Open Business → Programs & partner access to enter your approved workspace. Use Overview, Referrals & Earnings, Marketing Materials, Support and Settings. Share your referral link with a disclosure; visitors may explicitly allow a 30-day attribution cookie.",
+      "Preview and download approved graphics, copy messages with your referral link and use supported sharing options. Open an Affiliate support ticket for help and enable PWA notifications on a supported installed device if you want alerts.",
+    ],
+    problems: [
+      "Missing referral credit: check consent, prior attribution and whether the referred business was eligible; request Team review with the reference.",
+      "Payout unavailable: check your accepted agreement, verified bank details, available reviewed earnings, open requests and payment reviews.",
+    ],
+    escalate:
+      "Financial corrections, payout approvals, account ownership and sensitive security matters require an authorized financial Team member or Owner. Never share passwords, OTPs or card details.",
+  },
+  {
     id: "partners",
     title: "Affiliate and partner applications, approval and sign-in",
     tags: [
@@ -476,7 +506,7 @@ export const HELP_GUIDES: HelpGuide[] = [
       "Choose the appropriate programme. Creators, influencers and educators generally use Affiliates; developers, agencies, consultants and CAC agents serving clients generally use Partners.",
       "Sign into JKTL Business and open /business/programs/apply. Choose Affiliates or Partners and complete the required audience or client-service details. No second password is required. Registration is an application, not approval.",
       "Open Business → Programs & partner access and choose Open dashboard after approval. Existing older programme accounts can be connected once using their current programme password; matching email alone never grants access. You may hold separately approved Affiliate and Partner profiles.",
-      "For partners, wait for an agreed commission rate and written qualifying-purchase terms. Do not assume the affiliate bonus model applies to a negotiated partner agreement.",
+      "Wait for your accepted, activated programme agreement. Affiliate and Partner rewards are not interchangeable; product eligibility, rates, review holds and payout terms are agreed separately.",
       "Copy your referral link from the programme workspace. Visitors may explicitly allow a 30-day referral cookie; declining does not block signup. Existing attribution is preserved. Do not self-refer or publish another person’s code.",
       "When helping clients create Business accounts, let the client use their own email and control their credentials. Obtain their permission before creating or changing their website.",
       "Partners: create a named client draft in /partners/workspace, select an existing template and preview mobile and desktop. Share the private claim link with the client owner. The owner chooses viewing, service-request, editing and publishing permissions separately; revocation immediately blocks subsequent access. Never ask for client passwords.",

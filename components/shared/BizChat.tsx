@@ -47,7 +47,7 @@ function nudgeFor(pathname: string): string {
   if (pathname.startsWith("/how-it-works")) return "Want to see this working on your own business? It takes two minutes.";
   if (pathname.startsWith("/about")) return "Questions about who we are? I can answer those.";
   if (pathname.startsWith("/contact")) return "Tell me what you need and I'll point you the right way — or bring in a human.";
-  if (pathname.startsWith("/affiliate")) return "The partner programme pays ₦102,000 in the first year per referral. Interested?";
+  if (pathname.startsWith("/affiliate")) return "Want help with Affiliate applications, agreement-based rewards or your JKTL Business workspace?";
   return "Hi — I'm President. Ask me anything about JKTL Business, pricing, or the partner programme.";
 }
 

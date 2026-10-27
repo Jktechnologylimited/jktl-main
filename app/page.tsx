@@ -14,7 +14,6 @@ import {
   HoverLift,
 } from "@/components/shared/Reveal";
 import {
-  affiliateTerms,
   affiliateUrl,
   appSignupUrl,
   features,
@@ -244,20 +243,10 @@ export default function HomePage() {
               <T>Affiliate Program</T>
             </p>
             <h3 className="display-md text-navy-900 mb-1">
-              <T>Earn </T>
-              {"₦"}
-              {affiliateTerms.firstYearValue.toLocaleString()}
-              <T>from one referral.</T>
+              <T>Turn your introductions into business growth.</T>
             </h3>
             <p className="body-sm text-black/55">
-              {"₦"}
-              {affiliateTerms.signupBonus.toLocaleString()}
-              <T>when they sign up,</T> {"₦"}
-              {affiliateTerms.subscriptionBonus.toLocaleString()}
-              <T>when they subscribe, then </T>
-              {"₦"}
-              {affiliateTerms.recurringMonthly.toLocaleString()}
-              <T>every month they stay subscribed.</T>
+              <T>Introduce businesses to JKTL websites, domains and Business Email. Earn rewards on qualifying purchases under your accepted agreement.</T>
             </p>
           </div>
           <a

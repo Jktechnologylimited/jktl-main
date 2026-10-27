@@ -286,28 +286,8 @@ export const competitors = [
   { name: "Fresha", price: "Commission-based, or ~$9.90+/mo per seat" },
 ];
 
-// --- AFFILIATE PROGRAM ------------------------------------------------------------
-/**
- * The affiliate offer, stated once and rendered everywhere.
- *
- * These figures are the contract: whatever this says, the business app's ledger
- * must pay. `signupBonus` in particular is recorded when a referred business
- * creates an account but is only *released* once that business subscribes — a
- * fixed payment for a bare signup is farmable, and an affiliate who cannot be
- * paid is worse than one who was never recruited.
- */
-export const affiliateTerms = {
-  signupBonus: 20000, // Naira, when a referred business creates an account
-  subscriptionBonus: 40000, // Naira, when that business subscribes
-  recurringMonthly: 3500, // Naira, every month they stay subscribed
-  // What one referral is worth over a year, which is the number that actually
-  // sells the program: 20,000 + 40,000 + 12 x 3,500.
-  firstYearValue: 102000,
-  payoutMinimum: 50000,
-  cookieDays: 30,
-  // The terms the ledger enforces, stated here so the two cannot drift.
-  releaseRule: "The signup bonus is released together with the subscription bonus as soon as your referral subscribes.",
-};
+// Public Affiliate descriptions and policy status live in lib/affiliate-offers.ts.
+// Financial terms are owned by accepted, activated Business agreements.
 
 // --- HOW IT WORKS STEPS ------------------------------------------------------------
 export const signupSteps = [

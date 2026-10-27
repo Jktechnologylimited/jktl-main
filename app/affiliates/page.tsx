@@ -1,523 +1,429 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import {
-  TIERS,
-  PAYOUT,
-  PRODUCT,
-  fmtNaira,
-  firstYearValue,
+  ArrowUpRight,
+  Check,
+  Globe2,
+  Mail,
+  Monitor,
+  Sparkles,
+  Link2,
+  Download,
+  MessageCircle,
+  ShieldCheck,
+  Bell,
+  Banknote,
+} from "lucide-react";
+import { Reveal } from "@/components/shared/Reveal";
+import {
+  AFFILIATE_PROGRAM as program,
+  AFFILIATE_PRODUCTS,
+  AFFILIATE_STEPS,
+  AFFILIATE_FAQS,
 } from "@/lib/affiliate-offers";
-import { siteConfig } from "@/data/index";
+import styles from "./page.module.css";
 
-/**
- * The programme's landing page — on the public site, where people find things.
- *
- * The application, the approval queue and the partner dashboard all live in the
- * business app, because that is where the subscriptions and the money are. This
- * page does the one job the app cannot: explaining the offer to somebody who has
- * never heard of JKTL, on the domain they already trust.
- *
- * The CTAs therefore link to the app rather than to routes here. They are plain
- * links, not a signed-in check: the dashboard is on another domain with its own
- * cookie, so this site genuinely cannot tell whether a visitor is already a
- * partner, and guessing produced a "Go to My Dashboard" button that 404ed.
- */
-const APPLY_URL = `${siteConfig.appUrl}/login?next=programs&program=affiliate`;
-const LOGIN_URL = `${siteConfig.appUrl}/affiliates/login`;
+export const metadata: Metadata = {
+  title: "JKTL Affiliates — Grow with your audience",
+  description:
+    "Introduce businesses to JKTL websites, domains and Business Email. Explore Affiliate applications, agreement-based commissions, marketing materials, support and payouts.",
+  alternates: { canonical: "https://jktl.com.ng/affiliates" },
+  openGraph: {
+    title: "JKTL Affiliates — Your audience. Their next chapter.",
+    description: program.description,
+    url: "https://jktl.com.ng/affiliates",
+    images: [
+      { url: "https://jktl.com.ng/logo.png", width: 1080, height: 1080 },
+    ],
+  },
+};
 
-function AffiliateCTA() {
+function AffiliateCTA({ light = false }: { light?: boolean }) {
   return (
-    <div
-      style={{
-        display: "flex",
-        gap: 12,
-        justifyContent: "center",
-        flexWrap: "wrap",
-      }}
-    >
-      <a
-        href={APPLY_URL}
-        className="btn-gold px-7 py-3.5 text-sm uppercase tracking-wide"
-      >
-        Apply to join
+    <div className={styles.actions}>
+      <a href={program.applyUrl} className="btn-gold">
+        Apply to join <ArrowUpRight size={17} aria-hidden="true" />
       </a>
       <a
-        href={LOGIN_URL}
-        className="btn-outline-cream px-7 py-3.5 text-sm uppercase tracking-wide"
+        href={program.businessLoginUrl}
+        className={light ? styles.lightLink : styles.textLink}
       >
-        Affiliate sign in
+        Open your Business account <ArrowUpRight size={16} aria-hidden="true" />
       </a>
     </div>
   );
 }
 
-const HOW_IT_WORKS = [
+const tools = [
   {
-    n: "01",
-    title: "Apply in minutes",
-    desc: "Fill out a quick application and tell us how you plan to promote JKTL Business. We review every application within 24-48 hours.",
+    icon: Link2,
+    title: "Your link. Your referrals.",
+    text: "Copy your unique referral link and track valid visits, signups and paying customers in your Overview.",
   },
   {
-    n: "02",
-    title: "Get approved",
-    desc: "Once approved, you get your unique referral link and access to your affiliate dashboard and marketing materials.",
+    icon: Banknote,
+    title: "Earnings you can follow",
+    text: "Review qualifying payments, held commissions, available earnings and confirmed payouts. Your agreement defines the rewards.",
   },
   {
-    n: "03",
-    title: "Share your link",
-    desc: "Share it with business owners who'd benefit from JKTL Business -- WhatsApp, Instagram, LinkedIn, wherever your audience is.",
+    icon: Download,
+    title: "Ready-to-share materials",
+    text: "Preview approved graphics, download images and copy captions, WhatsApp messages, emails and follow-ups with your referral URL.",
   },
   {
-    n: "03",
-    title: "Earn three times over",
-    desc: `${fmtNaira(TIERS.signup)} when a business you referred creates an account, ${fmtNaira(TIERS.subscription)} more when they subscribe, then ${fmtNaira(TIERS.recurring)} every month they stay subscribed.`,
+    icon: MessageCircle,
+    title: "Support when you need it",
+    text: "Open a support ticket, attach screenshots or documents and follow Team replies in the same workspace.",
   },
   {
-    n: "04",
-    title: "Get paid monthly",
-    desc: `Payout requests open from the ${PAYOUT.payoutDay}st of each month, straight to a Nigerian bank account in your name. ${fmtNaira(TIERS.firstYearValue)} from one referral in the first year.`,
-  },
-];
-
-const FAQS = [
-  {
-    q: "How much do I actually earn?",
-    a: `Three ways. ${fmtNaira(TIERS.signup)} when a business you referred creates an account, ${fmtNaira(TIERS.subscription)} more when they subscribe, then ${fmtNaira(TIERS.recurring)} every month they stay subscribed. That is ${fmtNaira(firstYearValue())} from one referral in the first year, and there is no cap on how many you refer.`,
+    icon: Bell,
+    title: "Updates on your device",
+    text: "Install JKTL Business on your home screen and opt into PWA alerts on a supported device. Email updates keep you informed too.",
   },
   {
-    q: `Why is the ${fmtNaira(TIERS.signup)} signup bonus held?`,
-    a: `It appears in your dashboard the moment your referral creates an account — you can watch it accrue — but it becomes withdrawable when they subscribe. That is what stops the bonus being earned by free accounts, and it costs an honest partner nothing: your ${fmtNaira(TIERS.signup + TIERS.subscription)} lands in one go as soon as they pay.`,
-  },
-  {
-    q: "How does tracking work?",
-    a: `Every click on your referral link is tracked with a ${PAYOUT.cookieDays}-day cookie. If the business signs up within ${PAYOUT.cookieDays} days, the referral is credited to you, and stays credited for as long as they remain a customer.`,
-  },
-  {
-    q: "When do I get paid?",
-    a: `Payout requests open from the ${PAYOUT.payoutDay}st of every month. The minimum payout is ${fmtNaira(PAYOUT.minimum)}, by bank transfer to any Nigerian bank account.`,
-  },
-  {
-    q: "How long does the recurring commission last?",
-    a: `As long as the business you referred stays subscribed, you are paid ${fmtNaira(TIERS.recurring)} a month. There is no cutoff and no cap.`,
-  },
-  {
-    q: "How long do approvals take, and how do I sign in?",
-    a: "Applications are reviewed by hand, usually within 24–48 hours, and we email you the moment you are approved. New applicants use their existing JKTL Business account and open the approved programme from More → Programs & partner access. Existing affiliate logins continue to work. Your referral link, earnings and payout requests remain available.",
-  },
-  {
-    q: "Can I promote on social media?",
-    a: "Yes — Instagram, TikTok, WhatsApp, LinkedIn, X, YouTube, wherever you reach Nigerian business owners. There are ready-made materials in your dashboard.",
+    icon: ShieldCheck,
+    title: "Clear account controls",
+    text: "Meaningful promotional activity counts. Applicable agreements and exemptions are reviewed before inactivity actions, and earned obligations are preserved.",
   },
 ];
+const productIcons = {
+  website: Monitor,
+  domain: Globe2,
+  email: Mail,
+  custom: Sparkles,
+};
 
 export default function AffiliatesLandingPage() {
   return (
-    <div style={{ background: "var(--site-paper)" }}>
-      {/* HERO */}
-      <section
-        style={{
-          background: "var(--navy-950)",
-          padding: "clamp(120px,14vw,148px) 32px 80px",
-          textAlign: "center",
-          position: "relative",
-          overflow: "hidden",
+    <div className={styles.page}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: AFFILIATE_FAQS.map((f) => ({
+              "@type": "Question",
+              name: f.q,
+              acceptedAnswer: { "@type": "Answer", text: f.a },
+            })),
+          }).replace(/</g, "\\u003c"),
         }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            opacity: 0.035,
-            backgroundImage:
-              "linear-gradient(rgba(201,168,76,1) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,1) 1px,transparent 1px)",
-            backgroundSize: "72px 72px",
-            pointerEvents: "none",
-          }}
-        />
-        <div
-          style={{
-            position: "relative",
-            zIndex: 1,
-            maxWidth: 720,
-            margin: "0 auto",
-          }}
-        >
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              background: "rgba(201,168,76,0.12)",
-              border: "1px solid rgba(201,168,76,0.25)",
-              padding: "6px 16px",
-              borderRadius: 2,
-              marginBottom: 24,
-            }}
-          >
-            <span
-              style={{
-                width: 6,
-                height: 6,
-                borderRadius: "50%",
-                background: "var(--gold-400)",
-                flexShrink: 0,
-              }}
-            />
-            <span className="label-xs" style={{ color: "var(--gold-400)" }}>
-              Affiliate Program -- Now Open
-            </span>
-          </div>
-          <h1
-            className="display-hero"
-            style={{ color: "#fff", marginBottom: 20 }}
-          >
-            Earn <span className="gold-text">{fmtNaira(firstYearValue())}</span>
-            <br />
-            From One Referral
-          </h1>
-          <p
-            className="body-lg"
-            style={{
-              color: "rgba(249,247,240,0.6)",
-              marginBottom: 32,
-              maxWidth: 560,
-              margin: "0 auto 32px",
-            }}
-          >
-            Introduce a Nigerian business to {PRODUCT.name}.{" "}
-            {fmtNaira(TIERS.signup)} when they sign up,{" "}
-            {fmtNaira(TIERS.subscription)} when they subscribe, then{" "}
-            {fmtNaira(TIERS.recurring)} every month they stay subscribed.
-          </p>
-          <div
-            style={{
-              display: "flex",
-              gap: 12,
-              justifyContent: "center",
-              flexWrap: "wrap",
-            }}
-          >
-            <AffiliateCTA />
-            <a
-              href="#faq"
-              className="btn-outline-cream px-7 py-3.5 text-sm uppercase tracking-wide"
-            >
-              Read the FAQ
+      />
+      <section className={styles.hero}>
+        <div className={`${styles.container} ${styles.heroGrid}`}>
+          <div>
+            <p className={styles.eyebrow}>JKTL AFFILIATES</p>
+            <h1>
+              Your audience.
+              <br />
+              <span>Their next chapter.</span>
+            </h1>
+            <p className={styles.heroText}>{program.description}</p>
+            <AffiliateCTA light />
+            <p className={styles.heroNote}>
+              For creators, influencers and business educators. Applications
+              require review.
+            </p>
+            <a className={styles.lightLink} href={program.legacyLoginUrl}>
+              Already have Affiliate credentials? Sign in →
             </a>
           </div>
-          <div
-            style={{
-              display: "flex",
-              gap: 32,
-              justifyContent: "center",
-              flexWrap: "wrap",
-              marginTop: 48,
-              paddingTop: 40,
-              borderTop: "1px solid rgba(201,168,76,0.12)",
-            }}
-          >
-            {[
-              { v: fmtNaira(firstYearValue()), l: "Per referral, year one" },
-              { v: fmtNaira(TIERS.signup), l: "When they sign up" },
-              { v: fmtNaira(TIERS.subscription), l: "When they subscribe" },
-              {
-                v: `${fmtNaira(TIERS.recurring)}/mo`,
-                l: "For as long as they stay",
-              },
-            ].map((s) => (
-              <div key={s.l} style={{ textAlign: "center" }}>
-                <p
-                  style={{
-                    fontFamily: "var(--font-plus-jakarta-sans), sans-serif",
-                    fontWeight: 300,
-                    fontSize: "2rem",
-                    color: "#fff",
-                    lineHeight: 1,
-                    marginBottom: 4,
-                  }}
-                >
-                  {s.v}
-                </p>
-                <p
-                  className="label-xs"
-                  style={{ color: "rgba(249,247,240,0.35)" }}
-                >
-                  {s.l}
-                </p>
-              </div>
+          <div className={styles.introduction}>
+            <div className={styles.introBrand}>
+              <Image src="/logo.png" alt="JKTL" width={54} height={54} />
+              <span>
+                GOOD INTRODUCTIONS
+                <br />
+                <strong>Build better businesses.</strong>
+              </span>
+            </div>
+            <p className={styles.introTitle}>
+              A business owner’s next step could start with you.
+            </p>
+            <div className={styles.journey}>
+              {[
+                [
+                  "01",
+                  "Make the introduction",
+                  "Share your referral link with your audience.",
+                ],
+                [
+                  "02",
+                  "Follow their progress",
+                  "Track signups and qualifying purchases.",
+                ],
+                [
+                  "03",
+                  "Grow together",
+                  "View rewards under your activated agreement.",
+                ],
+              ].map(([n, title, text]) => (
+                <div className={styles.journeyRow} key={n}>
+                  <span>{n}</span>
+                  <div>
+                    <h2>{title}</h2>
+                    <p>{text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className={styles.introFoot}>
+              <Check size={16} aria-hidden="true" /> Your workspace lives in
+              JKTL Business.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        className={`${styles.container} ${styles.section}`}
+        aria-labelledby="promote-heading"
+      >
+        <Reveal>
+          <p className={styles.eyebrow}>MORE WAYS TO HELP A BUSINESS GROW</p>
+          <h2 id="promote-heading" className={styles.heading}>
+            Promote the tools businesses need.
+          </h2>
+          <p className={styles.lead}>
+            Explore JKTL’s products, then promote the ones covered by your
+            agreement. Product availability and commission eligibility are
+            confirmed separately.
+          </p>
+        </Reveal>
+        <div className={styles.productGrid}>
+          {AFFILIATE_PRODUCTS.map((p) => {
+            const Icon = productIcons[p.icon];
+            return (
+              <Reveal key={p.title}>
+                <Link href={p.href} className={styles.productCard}>
+                  <Icon size={26} aria-hidden="true" />
+                  <h3>{p.title}</h3>
+                  <p>{p.description}</p>
+                  <span>
+                    Explore <ArrowUpRight size={16} aria-hidden="true" />
+                  </span>
+                </Link>
+              </Reveal>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className={styles.tinted} aria-labelledby="steps-heading">
+        <div className={`${styles.container} ${styles.section}`}>
+          <p className={styles.eyebrow}>FROM INTRODUCTION TO REWARD</p>
+          <h2 id="steps-heading" className={styles.heading}>
+            A clear path, from the first step.
+          </h2>
+          <div className={styles.steps}>
+            {AFFILIATE_STEPS.map((step, i) => (
+              <Reveal key={step.title}>
+                <article className={styles.step}>
+                  <span className={styles.stepNumber}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
+                </article>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="max-w-5xl mx-auto px-6 py-14">
-        <p className="text-gold-600 text-xs tracking-widest">JKTL AFFILIATES</p>
-        <h2 className="text-3xl mt-4">
-          Your audience. Their next opportunity.
-        </h2>
-        <p className="mt-5 text-sm leading-relaxed text-black/65">
-          Creators, influencers and business educators introduce JKTL to their
-          audiences. Earn commissions when referred customers make qualifying
-          purchases under the affiliate programme terms. Signup bonuses remain
-          held until a qualifying subscription is paid.
-        </p>
-        <div className="mt-7 border border-gold-400/30 rounded-xl p-6">
-          <h3 className="font-semibold">
-            Work directly with business clients?
-          </h3>
-          <p className="text-sm mt-3 text-black/65">
-            Website developers, marketing agencies, business consultants and CAC
-            registration agents can apply for JKTL Partners, with commission
-            terms agreed separately.
-          </p>
-          <Link
-            href="/partners"
-            className="inline-block mt-4 text-sm underline"
+      <section
+        className={`${styles.container} ${styles.section}`}
+        aria-labelledby="agreement-heading"
+      >
+        <div className={styles.agreementGrid}>
+          <div>
+            <p className={styles.eyebrow}>KNOW YOUR TERMS</p>
+            <h2 id="agreement-heading" className={styles.heading}>
+              Rewards built around a clear agreement.
+            </h2>
+            <p className={styles.lead}>
+              Your agreement sets the eligible products, percentage or fixed
+              rewards, earning period, review holds and payout requirements. A
+              signup alone does not guarantee a commission.
+            </p>
+            <ul className={styles.checks}>
+              {[
+                "Verified eligible payments, with duplicate rewards prevented.",
+                "Net revenue accounts for processing fees, applicable taxes and product costs.",
+                "Refunds and disputes affect eligibility and can reverse rewards.",
+                "View held, available and paid amounts in your workspace.",
+              ].map((t) => (
+                <li key={t}>
+                  <Check size={18} aria-hidden="true" />
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <aside className={styles.policy} aria-labelledby="proposal-heading">
+            <span className={styles.badge}>
+              PROPOSED POLICY · AWAITING APPROVAL
+            </span>
+            <h3 id="proposal-heading">
+              A simpler proposal for new Affiliates.
+            </h3>
+            <p className={styles.proposalRate}>
+              {program.proposedPolicy.ratePercent}%{" "}
+              <span>of eligible net subscription revenue</span>
+            </p>
+            <p>
+              For a customer’s first{" "}
+              <strong>
+                {program.proposedPolicy.paidMonths} paid subscription months
+              </strong>
+              .
+            </p>
+            <p className={styles.policyNote}>
+              This proposal remains a draft. It is not an automatically active
+              offer. Read the exact terms issued to you and wait for formal
+              activation before relying on commission eligibility.
+            </p>
+          </aside>
+        </div>
+        <div className={styles.legacy}>
+          <ShieldCheck size={24} aria-hidden="true" />
+          <div>
+            <h3>Already part of JKTL Affiliates?</h3>
+            <p>{program.legacyNotice}</p>
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.workspace} aria-labelledby="workspace-heading">
+        <div className={`${styles.container} ${styles.section}`}>
+          <p className={styles.eyebrow}>ONE CONNECTED WORKSPACE</p>
+          <h2 id="workspace-heading" className={styles.heading}>
+            Everything you need to keep moving.
+          </h2>
+          <div
+            className={styles.tabs}
+            aria-label="Affiliate workspace sections"
           >
-            Explore JKTL Partners →
+            {[
+              "Overview",
+              "Referrals & Earnings",
+              "Marketing Materials",
+              "Support",
+              "Settings",
+            ].map((t) => (
+              <span key={t}>{t}</span>
+            ))}
+          </div>
+          <div className={styles.tools}>
+            {tools.map(({ icon: Icon, title, text }) => (
+              <Reveal key={title}>
+                <article>
+                  <Icon size={25} aria-hidden="true" />
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+          <a className={styles.textLink} href={program.businessLoginUrl}>
+            Open your Business account to access your approved programme{" "}
+            <ArrowUpRight size={16} aria-hidden="true" />
+          </a>
+        </div>
+      </section>
+
+      <section
+        className={`${styles.container} ${styles.section}`}
+        aria-labelledby="payout-heading"
+      >
+        <div className={styles.payoutGrid}>
+          <div>
+            <p className={styles.eyebrow}>A PAYOUT YOU CAN FOLLOW</p>
+            <h2 id="payout-heading" className={styles.heading}>
+              From available earnings to confirmed payment.
+            </h2>
+            <p className={styles.lead}>
+              Add verified Nigerian bank details, request available earnings and
+              follow the review. A payout is marked paid only after the transfer
+              is confirmed.
+            </p>
+            <p className={styles.muted}>
+              Your accepted agreement controls the minimum and request window.
+              Existing accepted settings are preserved when future defaults
+              change.
+            </p>
+          </div>
+          <div className={styles.payoutCard}>
+            <p className={styles.eyebrow}>DEFAULTS FOR FUTURE OFFERS</p>
+            <div>
+              <strong>
+                ₦
+                {program.futurePayoutDefaults.minimumNaira.toLocaleString(
+                  "en-NG",
+                )}
+              </strong>
+              <span>Minimum payout in new offers</span>
+            </div>
+            <div>
+              <strong>
+                {program.futurePayoutDefaults.expectedPaymentDay}th
+              </strong>
+              <span>Expected monthly payment day</span>
+            </div>
+            <p>
+              These defaults do not replace your accepted terms or guarantee a
+              transfer before review.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" className={styles.tinted} aria-labelledby="faq-heading">
+        <div
+          className={`${styles.container} ${styles.section} ${styles.faqSection}`}
+        >
+          <p className={styles.eyebrow}>A FEW THINGS TO KNOW</p>
+          <h2 id="faq-heading" className={styles.heading}>
+            Your questions, answered.
+          </h2>
+          <div className={styles.faqs}>
+            {AFFILIATE_FAQS.map((f) => (
+              <details key={f.q}>
+                <summary>{f.q}</summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={`${styles.container} ${styles.section}`}>
+        <div className={styles.partnerCard}>
+          <div>
+            <p className={styles.eyebrow}>WORK DIRECTLY WITH CLIENTS?</p>
+            <h2>There’s a place for you in JKTL Partners.</h2>
+            <p>
+              Developers, agencies, business consultants and CAC registration
+              agents can help clients build websites and manage services under a
+              separate Partner agreement.
+            </p>
+          </div>
+          <Link href="/partners" className={styles.textLink}>
+            Explore JKTL Partners <ArrowUpRight size={18} aria-hidden="true" />
           </Link>
         </div>
       </section>
-      {/* HOW IT WORKS */}
-      <section
-        style={{ padding: "80px 32px", background: "var(--site-paper)" }}
-      >
-        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 56 }}>
-            <span
-              className="gold-rule"
-              style={{ marginBottom: 14, display: "inline-block" }}
-            />
-            <h2 className="display-xl" style={{ color: "var(--site-text)" }}>
-              How It Works
-            </h2>
-          </div>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))",
-              gap: 2,
-              background: "var(--site-line)",
-            }}
-          >
-            {HOW_IT_WORKS.map((step, i) => (
-              <div
-                key={i}
-                style={{
-                  background: "var(--site-paper)",
-                  padding: "32px 28px",
-                }}
-              >
-                <p
-                  style={{
-                    fontFamily: "'JetBrains Mono',monospace",
-                    fontSize: "0.72rem",
-                    fontWeight: 700,
-                    color: "var(--gold-400)",
-                    marginBottom: 12,
-                  }}
-                >
-                  {step.n}
-                </p>
-                <h3
-                  style={{
-                    fontWeight: 700,
-                    fontSize: "1rem",
-                    color: "var(--site-text)",
-                    marginBottom: 10,
-                  }}
-                >
-                  {step.title}
-                </h3>
-                <p className="body-sm" style={{ color: "var(--site-muted)" }}>
-                  {step.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* THE OFFER -- three fixed tiers, in the order they happen. */}
-      <section style={{ padding: "80px 32px", background: "var(--navy-900)" }}>
-        <div style={{ maxWidth: 860, margin: "0 auto", textAlign: "center" }}>
-          <h2
-            className="display-xl"
-            style={{ color: "var(--cream-50)", marginBottom: 12 }}
-          >
-            One Referral, Paid Three Times
-          </h2>
-          <p
-            className="body-md"
-            style={{ color: "rgba(249,247,240,0.5)", marginBottom: 40 }}
-          >
-            {fmtNaira(firstYearValue())} in the first year, from a single
-            business you introduce.
+      <section className={styles.final}>
+        <div className={styles.container}>
+          <p className={styles.eyebrow}>YOUR NEXT INTRODUCTION COULD MATTER</p>
+          <h2>Help a business take its next step.</h2>
+          <p>
+            Bring your audience. Explore the programme. Review your agreement
+            and grow with JKTL.
           </p>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))",
-              gap: 2,
-              background: "rgba(249,247,240,0.06)",
-            }}
-          >
-            <div
-              style={{ padding: "36px 28px", background: "var(--navy-800)" }}
-            >
-              <p
-                style={{
-                  fontFamily: "var(--font-plus-jakarta-sans), sans-serif",
-                  fontWeight: 300,
-                  fontSize: "3rem",
-                  color: "var(--cream-50)",
-                  lineHeight: 1,
-                  marginBottom: 8,
-                }}
-              >
-                {fmtNaira(TIERS.signup)}
-              </p>
-              <p
-                className="label-xs"
-                style={{ color: "rgba(249,247,240,0.4)" }}
-              >
-                When they create an account, released once they subscribe
-              </p>
-            </div>
-            <div
-              style={{
-                padding: "36px 28px",
-                background: "rgba(201,168,76,0.08)",
-                border: "1px solid rgba(201,168,76,0.2)",
-              }}
-            >
-              <p
-                style={{
-                  fontFamily: "var(--font-plus-jakarta-sans), sans-serif",
-                  fontWeight: 300,
-                  fontSize: "3rem",
-                  color: "var(--gold-400)",
-                  lineHeight: 1,
-                  marginBottom: 8,
-                }}
-              >
-                {fmtNaira(TIERS.subscription)}
-              </p>
-              <p
-                className="label-xs"
-                style={{ color: "rgba(249,247,240,0.4)" }}
-              >
-                When they subscribe
-              </p>
-            </div>
-            <div
-              style={{ padding: "36px 28px", background: "var(--navy-800)" }}
-            >
-              <p
-                style={{
-                  fontFamily: "var(--font-plus-jakarta-sans), sans-serif",
-                  fontWeight: 300,
-                  fontSize: "3rem",
-                  color: "var(--cream-50)",
-                  lineHeight: 1,
-                  marginBottom: 8,
-                }}
-              >
-                {fmtNaira(TIERS.recurring)}
-                <span style={{ fontSize: "1.1rem" }}>/mo</span>
-              </p>
-              <p
-                className="label-xs"
-                style={{ color: "rgba(249,247,240,0.4)" }}
-              >
-                Every month they stay subscribed — no cap, no cutoff
-              </p>
-            </div>
-          </div>
-          <p
-            style={{
-              marginTop: 24,
-              fontSize: "0.82rem",
-              color: "rgba(249,247,240,0.45)",
-            }}
-          >
-            {PRODUCT.description}
-          </p>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section
-        id="faq"
-        style={{ padding: "80px 32px", background: "var(--site-paper)" }}
-      >
-        <div style={{ maxWidth: 720, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <h2 className="display-xl" style={{ color: "var(--site-text)" }}>
-              Frequently Asked Questions
-            </h2>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-            {FAQS.map((faq, i) => (
-              <div
-                key={i}
-                style={{
-                  background: "var(--site-surface)",
-                  border: "1px solid var(--cream-300)",
-                  borderRadius: 4,
-                  padding: "20px 24px",
-                }}
-              >
-                <p
-                  style={{
-                    fontWeight: 700,
-                    fontSize: "0.9rem",
-                    color: "var(--site-text)",
-                    marginBottom: 6,
-                  }}
-                >
-                  {faq.q}
-                </p>
-                <p className="body-sm" style={{ color: "var(--site-muted)" }}>
-                  {faq.a}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FINAL CTA */}
-      <section
-        style={{
-          background: "var(--navy-950)",
-          padding: "80px 32px",
-          textAlign: "center",
-        }}
-      >
-        <div style={{ maxWidth: 560, margin: "0 auto" }}>
-          <h2
-            className="display-xl"
-            style={{ color: "var(--cream-50)", marginBottom: 16 }}
-          >
-            Ready to Start Earning?
-          </h2>
-          <p
-            className="body-lg"
-            style={{ color: "rgba(249,247,240,0.55)", marginBottom: 32 }}
-          >
-            Join free. Get approved in 24–48 hours. Share your link, and earn{" "}
-            {fmtNaira(firstYearValue())} from every business that stays.
-          </p>
-          <AffiliateCTA />
-          <p
-            style={{
-              marginTop: 16,
-              fontSize: "0.75rem",
-              color: "rgba(249,247,240,0.3)",
-            }}
-          >
-            Free to join — no fees, no monthly charges, no catch.
-          </p>
+          <AffiliateCTA light />
         </div>
       </section>
     </div>

@@ -1,86 +1,118 @@
-// The affiliate programme's terms, as shown on this site.
-//
-// **These must match the business app's ledger.** The app owns the money — the
-// subscriptions, the Paystack webhook and the commission rows — and its constants
-// live in `src/lib/affiliate-commission.ts` (`SIGNUP_BONUS_KOBO`,
-// `SUBSCRIPTION_BONUS_KOBO`, `RECURRING_MONTHLY_KOBO`). This file is the marketing
-// copy of the same contract.
-//
-// An earlier version advertised **20% recurring and a ₦2,000 welcome bonus**,
-// which is a programme that no longer exists. That was worse than stale: a partner
-// would have joined on a promise the ledger does not pay, and their first
-// statement would have been the argument. If a figure changes, it changes in both
-// repositories in the same commit.
-//
-// The programme is three fixed tiers now, which is easier to sell than a
-// percentage: "₦102,000 from one referral in the first year" needs no arithmetic
-// against a price list.
-//
-// Note on where the money is recorded: this repo holds only the landing page. The
-// application, the approval, the dashboard and the commission ledger all live in
-// the product app at business.jktl.com.ng, because the event this pays out on — a
-// referred business subscribing and paying via Paystack — happens there and
-// nowhere else.
-
-/** The three tiers, in Naira. */
-export const TIERS = {
-  /** When a referred business creates an account. Held until they subscribe. */
-  signup: 20000,
-  /** When that business subscribes. Releases the signup bonus with it. */
-  subscription: 40000,
-  /** Every month they stay subscribed, including the first. */
-  recurring: 3500,
-  /** 20,000 + 40,000 + 12 × 3,500. The number to lead with. */
-  firstYearValue: 102000,
-};
-
-/**
- * `COMMISSION.rate` is deliberately gone.
- *
- * A percentage that no longer exists is a trap for whoever edits this next — every
- * component that read it would keep rendering "20%" against a ledger paying flat
- * amounts.
- */
-export const COMMISSION = {
-  recurring: true,
-  tiers: TIERS,
-  releaseRule:
-    "The ₦20,000 signup bonus appears in your dashboard the moment your referral creates an account, and becomes withdrawable when they subscribe.",
-};
-
-export const BONUS = {
-  signup: TIERS.signup,
-  subscription: TIERS.subscription,
-  monthly: TIERS.recurring,
-};
-
-export const PAYOUT = {
-  minimum: 50000,
-  /** The business app opens payout requests from the 21st. */
-  payoutDay: 21,
-  schedule: "Monthly — requests open from the 21st",
-  methods: ["Bank Transfer (all Nigerian banks)"],
-  currency: "NGN",
-  cookieDays: 30,
-  /** How a partner gets in after approval. */
-  access:
-    "Applications are reviewed by hand, usually within 24–48 hours. Once approved you sign in at business.jktl.com.ng/affiliates with the email and password you applied with.",
-};
-
-/** The single product affiliates promote. */
-export const PRODUCT = {
-  name: "JKTL Business",
-  subtitle: "₦650,000 to set up, or six monthly payments of ₦108,333.33 — then ₦59,000/month",
+/** Public programme copy. Financial eligibility is owned by accepted, activated
+ * Business agreements; draft policies are never presented as live defaults. */
+export const AFFILIATE_PROGRAM = {
+  headline: "Your audience. Their next chapter.",
   description:
-    "An AI receptionist for Nigerian clinics, salons and home-care services. It answers every call the business cannot, books the appointment, and texts back anyone it missed.",
-};
+    "Introduce business owners to JKTL’s websites, domains, Business Email and tools. Earn rewards on qualifying purchases under your accepted agreement.",
+  applyUrl:
+    "https://business.jktl.com.ng/login?next=programs&program=affiliate",
+  businessLoginUrl: "https://business.jktl.com.ng/login?next=distribution",
+  legacyLoginUrl: "https://business.jktl.com.ng/affiliates/login",
+  proposedPolicy: { status: "DRAFT", ratePercent: 15, paidMonths: 12 },
+  futurePayoutDefaults: { minimumNaira: 50000, expectedPaymentDay: 28 },
+  cookieDays: 30,
+  legacyNotice:
+    "Existing Affiliates keep their applicable accepted terms, earned commissions and payout history. A new proposal does not replace an existing agreement.",
+} as const;
 
-/** What one referral is worth, for the dashboard and the pitch. */
-export function firstYearValue(): number {
-  return TIERS.signup + TIERS.subscription + TIERS.recurring * 12;
-}
+export const AFFILIATE_PRODUCTS = [
+  {
+    title: "Websites & templates",
+    description:
+      "Help businesses find a website or landing page that fits their industry.",
+    href: "/templates",
+    icon: "website",
+  },
+  {
+    title: "Domains",
+    description:
+      "Introduce businesses to domain options, including .ng and .com.ng.",
+    href: "/products/domains",
+    icon: "domain",
+  },
+  {
+    title: "Business Email",
+    description:
+      "Help business owners explore professional email and available plans.",
+    href: "/products/business-email",
+    icon: "email",
+  },
+  {
+    title: "Custom projects",
+    description:
+      "Refer businesses that need a tailored website or project scope.",
+    href: "/products/custom-websites",
+    icon: "custom",
+  },
+] as const;
 
-/** ₦20,000 — grouped, no decimals. */
-export function fmtNaira(amount: number): string {
-  return "₦" + amount.toLocaleString("en-NG");
-}
+export const AFFILIATE_STEPS = [
+  {
+    title: "Apply or accept an invitation",
+    description:
+      "Apply through JKTL Business, or open the secure invitation sent by the Team. Use your existing account or create one and choose your own password.",
+  },
+  {
+    title: "Review your agreement",
+    description:
+      "Review the eligible products, rewards and payout terms. Financial eligibility begins only after you accept the agreement and JKTL formally activates it.",
+  },
+  {
+    title: "Share with your audience",
+    description:
+      "Copy your referral link and use approved graphics, captions and outreach messages. Disclose your referral relationship when sharing.",
+  },
+  {
+    title: "Track qualifying purchases",
+    description:
+      "See valid referral visits, signups, paying customers and your earnings. Rewards require verified eligible payments; refunds and disputes affect eligibility.",
+  },
+  {
+    title: "Request your payout",
+    description:
+      "Add verified Nigerian bank details and request reviewed available earnings when your agreement allows. Track the request through confirmation of payment.",
+  },
+] as const;
+
+export const AFFILIATE_FAQS = [
+  {
+    q: "How much can I earn?",
+    a: "Your accepted, activated agreement sets the eligible products, percentage or fixed rewards, earning period, review holds and payout terms. There is no universal guaranteed amount per referral. Product costs, processing fees, refunds and disputes affect eligibility.",
+  },
+  {
+    q: "Is the 15% policy already active?",
+    a: "No. The proposed new Affiliate policy is 15% of eligible net subscription revenue for a customer’s first 12 paid subscription months. It remains a draft awaiting formal approval. An invitation or application does not automatically activate commission terms.",
+  },
+  {
+    q: "What happens to my existing agreement?",
+    a: AFFILIATE_PROGRAM.legacyNotice,
+  },
+  {
+    q: "How do invitations and sign-in work?",
+    a: "Open the time-limited, single-use invitation sent to your email. Sign in with your existing JKTL Business account, or create an account and choose your own password. Accept the invitation’s terms, then use Business → Programs & partner access to open your approved Affiliate workspace. Existing Affiliate credentials also continue to work.",
+  },
+  {
+    q: "How are referrals tracked?",
+    a: "Visitors can explicitly allow a 30-day referral cookie. Eligible signups can then be attributed to your introduction. Existing attribution is preserved; self-referrals are ineligible. Visitors can decline tracking and still use JKTL.",
+  },
+  {
+    q: "When can I request payment?",
+    a: "Your accepted agreement controls the minimum, request window and eligibility. Future offers default to a ₦50,000 minimum and an expected 28th monthly payment day. Existing accepted payout settings are preserved. Verified bank details, available reviewed earnings and separate transfer confirmation are required.",
+  },
+  {
+    q: "What can I use to promote JKTL?",
+    a: "Your Marketing Materials section provides approved branded graphics, social captions, WhatsApp and direct messages, outreach emails and follow-ups. Preview or download resources, copy messages with your referral URL, and share through supported options.",
+  },
+  {
+    q: "Can I get help and notifications?",
+    a: "Use Affiliate Support to open a ticket, attach a screenshot or PDF and follow replies. Install JKTL Business on your home screen and enable notifications on a supported device. Email and PWA alerts depend on your permissions and configured delivery services.",
+  },
+  {
+    q: "What counts as Affiliate activity?",
+    a: "Qualified referral visits, legitimate signups and verified customer conversions can count. Account sign-in alone does not reset the promotional activity clock. Applicable agreements and exemptions are reviewed before inactivity actions, and earned financial obligations are preserved.",
+  },
+  {
+    q: "Should I choose Affiliates or Partners?",
+    a: "Affiliates introduce JKTL to their audiences. Partners work directly with business clients on websites and services. If you are a developer, agency, consultant or CAC registration agent serving clients, explore JKTL Partners. Each programme has its own approval and agreement.",
+  },
+] as const;
