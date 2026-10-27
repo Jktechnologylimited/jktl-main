@@ -395,3 +395,51 @@
     padding: 15px 10px;
   }
 }
+.explore {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+  color: #f2d58b;
+  font-size: 13px;
+}
+.search button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.available {
+  color: var(--site-accent);
+  font-weight: 600;
+}
+.inconclusive {
+  color: var(--site-muted);
+}
+.getDomain {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  border-radius: 12px;
+  background: #c9a84c;
+  color: #060e2a;
+  padding: 12px 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.results article > div {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.results article h3 {
+  overflow-wrap: anywhere;
+}
+.search > label {
+  min-width: 0;
+}
+.search button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}

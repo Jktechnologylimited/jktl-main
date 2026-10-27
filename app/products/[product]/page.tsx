@@ -1,14 +1,11 @@
-import { ProductCaseStudies } from "@/components/case-studies/ProductCaseStudies";
-import { CustomerReviews } from "@/components/support/CustomerReviews";
 import { EmailLanding } from "@/components/business-email/EmailLanding";
 import { CustomPage } from "@/components/custom/CustomPage";
 import { T } from "@/components/i18n/LanguageProvider";
 import { getFeaturePage, featurePages } from "@/data/feature-pages";
 import { FeaturePage } from "@/components/shared/FeaturePage";
-import { DomainPage } from "@/components/domains/DomainPage";
-import { getLiveRetailDomainPrices } from "@/lib/domain-catalogue";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { notFound } from "next/navigation";
 import { DIGITAL_PRODUCTS } from "@/lib/website-pricing";
 export const dynamicParams = false;
@@ -31,7 +28,7 @@ export async function generateMetadata({
       title: "Nigerian Domains — .ng, .com.ng & .name.ng",
       description:
         "Explore Nigerian, generic and country-code domains. Request domain registration, transfers and annual renewal quotes through JKTL, with availability confirmed before payment.",
-      alternates: { canonical: "https://jktl.com.ng/products/domains" },
+      alternates: { canonical: "https://jktl.com.ng/domains" },
     };
   const feature = getFeaturePage("products", product);
   if (feature)
@@ -73,14 +70,7 @@ export default async function Product({
       </div>
     );
   }
-  if (product === "domains")
-    return (
-      <>
-        <DomainPage prices={await getLiveRetailDomainPrices()} />
-        <ProductCaseStudies domain />
-        <CustomerReviews milestone="domain" />
-      </>
-    );
+  if (product === "domains") redirect("/domains");
   if (product === "custom-websites" || product === "managed-services")
     return <CustomPage managed={product === "managed-services"} />;
   const feature = getFeaturePage("products", product);

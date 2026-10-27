@@ -105,7 +105,7 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
           title: "Custom domains",
           description:
             "Connect a domain you own, or ask us about manual registration.",
-          href: "/products/domains",
+          href: "/domains",
           note: "Paid add-on · registration quoted separately",
         },
         {

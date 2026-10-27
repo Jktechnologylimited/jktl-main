@@ -213,8 +213,11 @@ export function parseDomainRequest(value: unknown) {
 export async function getLiveRetailDomainPrices(): Promise<DomainPrices> {
   try {
     const res = await fetch(
-      "https://business.jktl.com.ng/api/public/domain-prices",
-      { next: { revalidate: 60 }, signal: AbortSignal.timeout(2500) },
+      new URL(
+        "/api/public/domain-prices",
+        process.env.JKTL_DOMAINS_ORIGIN || "https://business.jktl.com.ng",
+      ),
+      { cache: "no-store", signal: AbortSignal.timeout(5000) },
     );
     if (!res.ok) return {};
     const data = await res.json();
@@ -229,7 +232,27 @@ export async function getLiveRetailDomainPrices(): Promise<DomainPrices> {
         transferKobo: p.transfer_price ? Number(p.transfer_price) : undefined,
       };
     }
-    return getRetailDomainPrices(JSON.stringify(catalogue));
+    const result: DomainPrices = {};
+    for (const [extension, raw] of Object.entries(catalogue)) {
+      const p = raw as Record<string, unknown>;
+      if (
+        !/^\.[a-z]{2,}(\.[a-z]{2,})?$/.test(extension) ||
+        p.currency !== "NGN" ||
+        !Number.isSafeInteger(p.registrationKobo) ||
+        Number(p.registrationKobo) <= 0 ||
+        Number(p.registrationKobo) > 1000000000 ||
+        !Number.isSafeInteger(p.renewalKobo) ||
+        Number(p.renewalKobo) <= 0 ||
+        Number(p.renewalKobo) > 1000000000
+      )
+        continue;
+      result[extension] = {
+        registrationKobo: Number(p.registrationKobo),
+        renewalKobo: Number(p.renewalKobo),
+        currency: "NGN",
+      };
+    }
+    return result;
   } catch {
     return {};
   }

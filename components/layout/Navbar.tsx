@@ -231,7 +231,7 @@ export default function Navbar() {
               </button>
             ))}
             <Link
-              href="/products/domains"
+              href="/domains"
               onClick={close}
               className="px-4 py-5 text-sm text-[#060E2A] hover:text-[#80621c]"
             >
@@ -318,7 +318,7 @@ export default function Navbar() {
             </section>
           ))}
           <Link
-            href="/products/domains"
+            href="/domains"
             onClick={close}
             className="block px-6 py-4 text-[#060E2A]"
           >
