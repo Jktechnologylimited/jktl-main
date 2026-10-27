@@ -1,3 +1,4 @@
+import { PeopleStory } from "@/components/shared/PeopleStory";
 import { FeatureBadge } from "@/components/features/FeatureBadge";
 import { FeaturedCaseStudies } from "@/components/case-studies/FeaturedCaseStudies";
 import { T } from "@/components/i18n/LanguageProvider";
@@ -13,12 +14,7 @@ import {
   StaggerItem,
   HoverLift,
 } from "@/components/shared/Reveal";
-import {
-  affiliateUrl,
-  appSignupUrl,
-  features,
-  industries,
-} from "@/data/index";
+import { affiliateUrl, appSignupUrl, features, industries } from "@/data/index";
 
 export const metadata = {
   title: "Free Business Websites, Landing Pages & Business Tools",
@@ -101,6 +97,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      <PeopleStory variant="business" />
       <WebsiteSteps />
       <FeaturedCaseStudies />
       {/* FEATURE GRID */}
@@ -246,7 +243,11 @@ export default function HomePage() {
               <T>Turn your introductions into business growth.</T>
             </h3>
             <p className="body-sm text-black/55">
-              <T>Introduce businesses to JKTL websites, domains and Business Email. Earn rewards on qualifying purchases under your accepted agreement.</T>
+              <T>
+                Introduce businesses to JKTL websites, domains and Business
+                Email. Earn rewards on qualifying purchases under your accepted
+                agreement.
+              </T>
             </p>
           </div>
           <a

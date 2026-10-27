@@ -26,6 +26,7 @@ function load(file, deps = {}) {
 const offers = load("../lib/affiliate-offers.ts");
 const page = load("../app/affiliates/page.tsx", {
   "@/lib/affiliate-offers": offers,
+  "@/components/shared/PeopleStory":{PeopleStory:()=>null},
   "@/components/shared/Reveal": {
     Reveal: ({ children, ...props }) =>
       React.createElement("div", props, children),

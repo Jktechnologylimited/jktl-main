@@ -1,3 +1,4 @@
+import { PeopleStory } from "@/components/shared/PeopleStory";
 import { ProductCaseStudies } from "@/components/case-studies/ProductCaseStudies";
 import { CustomerReviews } from "@/components/support/CustomerReviews";
 import { PossibleShowcase } from "@/components/home/PossibleShowcase";
@@ -13,6 +14,7 @@ export default function PricingPage() {
   return (
     <div style={{ paddingTop: 72 }}>
       <WebsitePricing afterFoundation={<PossibleShowcase />} />
+      <PeopleStory variant="business" />
       <ProductCaseStudies />
       <CustomerReviews milestone="website" />
     </div>

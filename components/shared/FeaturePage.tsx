@@ -1,3 +1,4 @@
+import { PeopleStory } from "./PeopleStory";
 import { FeatureBadge } from "@/components/features/FeatureBadge";
 import Image from "next/image";
 import Link from "next/link";
@@ -68,6 +69,10 @@ export function FeaturePage({ page }: { page: (typeof featurePages)[number] }) {
             height={474}
           />
         </div>
+        <PeopleStory
+          variant={page.section === "resources" ? "stories" : "business"}
+          compact
+        />
         <section className="mt-16">
           <h2 className="text-3xl">
             <T>What you can do</T>

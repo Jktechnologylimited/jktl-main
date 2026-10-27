@@ -1,4 +1,5 @@
 import { caseStudies } from "@/data/case-studies";
+import { publicationPath } from "@/lib/publications";
 import { readPublications } from "@/lib/publications";
 import { featurePages } from "@/data/feature-pages";
 import type { MetadataRoute } from "next";
@@ -18,6 +19,8 @@ const routes = [
   "landing-pages",
   "about",
   "blog",
+  "columns",
+  "releases",
   "updates",
   "industries",
   "how-it-works",
@@ -47,15 +50,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const publications = await Promise.all([
     readPublications("blog"),
     readPublications("release"),
+    readPublications("column"),
+    readPublications("update"),
   ]);
   for (const result of publications)
     for (const article of result.articles)
       items.push({
-        url: `${base}/${article.kind === "blog" ? "blog" : "updates"}/${article.slug}`,
+        url: `${base}/${publicationPath[article.kind]}/${article.slug}`,
         lastModified: new Date(article.updatedAt || article.publishedAt),
         changeFrequency: "monthly",
         priority: 0.6,
       });
+  for (const slug of new Set(
+    publications.flatMap((r) =>
+      r.articles.map((a) => a.authorSlug).filter(Boolean),
+    ),
+  ))
+    items.push({
+      url: `${base}/authors/${slug}`,
+      changeFrequency: "weekly",
+      priority: 0.5,
+    });
   if (sql) {
     try {
       const pages =

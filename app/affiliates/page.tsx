@@ -1,3 +1,4 @@
+import { PeopleStory } from "@/components/shared/PeopleStory";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -176,6 +177,7 @@ export default function AffiliatesLandingPage() {
           </div>
         </div>
       </section>
+      <PeopleStory variant="partners" />
 
       <section
         className={`${styles.container} ${styles.section}`}

@@ -158,7 +158,8 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
           },
           {
             title: "Work with your team",
-            description: "Manage access with owner, manager and team member roles.",
+            description:
+              "Manage access with owner, manager and team member roles.",
             href: "/solutions/team-management",
           },
           {
@@ -242,7 +243,18 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
             href: "/blog",
           },
           {
-            title: "Releases & updates",
+            title: "JKTL Columns",
+            description:
+              "Original stories, essays and fresh perspectives from JKTL writers.",
+            href: "/columns",
+          },
+          {
+            title: "Product releases",
+            description: "Official product launches and release notes.",
+            href: "/releases",
+          },
+          {
+            title: "Company updates",
             description: "New features and product improvements from the team.",
             href: "/updates",
           },

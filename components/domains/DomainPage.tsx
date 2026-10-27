@@ -1,4 +1,5 @@
 "use client";
+import { PeopleStory } from "@/components/shared/PeopleStory";
 import { useState } from "react";
 import Link from "next/link";
 import { Search, Globe, ShieldCheck, ArrowRight } from "lucide-react";
@@ -146,6 +147,7 @@ export function DomainPage({ prices }: { prices: DomainPrices }) {
           </T>
         </p>
       </section>
+      <PeopleStory variant="business" compact />
       {error && (
         <p className={styles.error} role="alert">
           {error}

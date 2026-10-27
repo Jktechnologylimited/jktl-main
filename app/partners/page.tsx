@@ -1,3 +1,4 @@
+import { PeopleStory } from "@/components/shared/PeopleStory";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PartnerApplication } from "@/components/partners/PartnerApplication";
@@ -45,6 +46,7 @@ export default function Page() {
           </div>
         </div>
       </section>
+      <PeopleStory variant="partners" />
       <section className="max-w-6xl mx-auto px-6 py-20">
         <p className="text-xs text-gold-600 tracking-widest">BUILT ON TRUST</p>
         <h2 className="text-4xl mt-4 mb-8">

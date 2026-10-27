@@ -1,5 +1,8 @@
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import { EditorialSearch } from "./EditorialSearch";
+import { PeopleStory } from "@/components/shared/PeopleStory";
+import { publicationPath, type PublicationKind } from "@/lib/publications";
 import { readPublications } from "@/lib/publications";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -13,10 +16,24 @@ const info = {
     path: "blog",
   },
   release: {
-    label: "RELEASES & UPDATES",
+    label: "JKTL RELEASES",
     title: "What’s new at JKTL.",
     intro:
       "Product improvements, new tools and the details that help you get more from JKTL Business.",
+    path: "releases",
+  },
+  column: {
+    label: "JKTL COLUMNS",
+    title: "Stories that stay with you.",
+    intro:
+      "Original fiction, essays and new perspectives from the JKTL writing community.",
+    path: "columns",
+  },
+  update: {
+    label: "JKTL UPDATES",
+    title: "The latest from JKTL.",
+    intro:
+      "Company news, upcoming events and practical updates from the team. For live service health, visit JKTL Status.",
     path: "updates",
   },
 };
@@ -27,7 +44,7 @@ const date = (s: string) =>
     year: "numeric",
     timeZone: "Africa/Lagos",
   }).format(new Date(s));
-export async function EditorialList({ kind }: { kind: "blog" | "release" }) {
+export async function EditorialList({ kind }: { kind: PublicationKind }) {
   const copy = info[kind];
   const { articles, unavailable } = await readPublications(kind);
   return (
@@ -38,63 +55,34 @@ export async function EditorialList({ kind }: { kind: "blog" | "release" }) {
           <h1>{copy.title}</h1>
           <p>{copy.intro}</p>
           <nav aria-label="Editorial sections">
-            <Link
-              href="/blog"
-              aria-current={kind === "blog" ? "page" : undefined}
-            >
-              Blog
-            </Link>
-            <Link
-              href="/updates"
-              aria-current={kind === "release" ? "page" : undefined}
-            >
-              Releases & updates
-            </Link>
+            {Object.entries(info).map(([key, value]) => (
+              <Link
+                key={key}
+                href={`/${value.path}`}
+                aria-current={kind === key ? "page" : undefined}
+              >
+                {value.label.replace("JKTL ", "")}
+              </Link>
+            ))}
+            {kind === "update" && (
+              <a
+                href="https://status.jktl.com.ng"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Service status ↗
+              </a>
+            )}
           </nav>
         </div>
       </header>
+      <PeopleStory variant="stories" compact />
       <section
         className={styles.collection}
         aria-label={kind === "blog" ? "Blog articles" : "Product releases"}
       >
         {articles.length ? (
-          <div className={styles.grid}>
-            {articles.map((p, i) => (
-              <article key={p.id} className={styles.card}>
-                <Link
-                  href={`/${copy.path}/${p.slug}`}
-                  className={styles.cover}
-                  style={{
-                    backgroundImage: `linear-gradient(0deg,#060e2a90,transparent),url('/brand/entrepreneur-studio.png')`,
-                  }}
-                >
-                  {p.coverImage && (
-                    <img
-                      src={p.coverImage}
-                      alt=""
-                      loading={i === 0 ? "eager" : "lazy"}
-                    />
-                  )}
-                  <span>
-                    {kind === "blog" ? "IDEAS & INSIGHTS" : "PRODUCT UPDATE"}
-                  </span>
-                </Link>
-                <div className={styles.cardBody}>
-                  <time dateTime={p.publishedAt}>{date(p.publishedAt)}</time>
-                  <h2>
-                    <Link href={`/${copy.path}/${p.slug}`}>{p.title}</Link>
-                  </h2>
-                  <p>{p.excerpt}</p>
-                  <div>
-                    <span>{p.author}</span>
-                    <Link href={`/${copy.path}/${p.slug}`}>
-                      Read {kind === "blog" ? "article" : "update"} ↗
-                    </Link>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+          <EditorialSearch articles={articles} />
         ) : (
           <div className={styles.empty}>
             <span>
@@ -124,7 +112,7 @@ export async function EditorialList({ kind }: { kind: "blog" | "release" }) {
   );
 }
 export async function articleMetadata(
-  kind: "blog" | "release",
+  kind: PublicationKind,
   slug: string,
 ): Promise<Metadata> {
   const { articles, unavailable } = await readPublications(kind, slug);
@@ -138,8 +126,8 @@ export async function articleMetadata(
     };
   const url = `https://jktl.com.ng/${info[kind].path}/${p.slug}`;
   return {
-    title: `${p.title} | JKTL`,
-    description: p.excerpt,
+    title: `${p.seoTitle || p.title} | JKTL`,
+    description: p.metaDescription || p.excerpt,
     alternates: { canonical: url },
     openGraph: {
       type: "article",
@@ -157,7 +145,7 @@ export async function EditorialArticle({
   kind,
   slug,
 }: {
-  kind: "blog" | "release";
+  kind: PublicationKind;
   slug: string;
 }) {
   const { articles, unavailable } = await readPublications(kind, slug);
@@ -173,6 +161,16 @@ export async function EditorialArticle({
     );
   const p = articles[0];
   if (!p) notFound();
+  const feed = await readPublications(kind);
+  const related = feed.articles
+    .filter((a) => a.id !== p.id && (!p.category || a.category === p.category))
+    .slice(0, 3);
+  const chapters = p.seriesSlug
+    ? feed.articles
+        .filter((a) => a.seriesSlug === p.seriesSlug && a.chapter)
+        .sort((a, b) => (a.chapter || 0) - (b.chapter || 0))
+    : [];
+  const chapterIndex = chapters.findIndex((a) => a.id === p.id);
   const data = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -201,7 +199,14 @@ export async function EditorialArticle({
         <h1>{p.title}</h1>
         <p>{p.excerpt}</p>
         <div>
-          <span>By {p.author}</span>
+          <span>
+            By{" "}
+            {p.authorSlug ? (
+              <Link href={`/authors/${p.authorSlug}`}>{p.author}</Link>
+            ) : (
+              p.author
+            )}
+          </span>
           <time dateTime={p.publishedAt}>{date(p.publishedAt)}</time>
           <span>
             {Math.max(1, Math.ceil(p.body.split(/\s+/).length / 220))} min read
@@ -214,6 +219,19 @@ export async function EditorialArticle({
         </div>
       )}
       <article className={styles.prose}>
+        {p.subtitle && <h2>{p.subtitle}</h2>}
+        {p.product && (
+          <p>
+            {p.product} {p.versionLabel && `· ${p.versionLabel}`}
+          </p>
+        )}
+        {!!p.features?.length && (
+          <ul>
+            {p.features.map((f) => (
+              <li key={f}>{f}</li>
+            ))}
+          </ul>
+        )}
         <ReactMarkdown
           skipHtml
           components={{
@@ -232,6 +250,63 @@ export async function EditorialArticle({
         </ReactMarkdown>
       </article>
       <section className={styles.next}>
+        {p.seriesSlug && (
+          <nav aria-label="Story chapters">
+            <h2>In this series</h2>
+            {chapterIndex > 0 && (
+              <Link href={`/columns/${chapters[chapterIndex - 1].slug}`}>
+                ← Previous chapter
+              </Link>
+            )}
+            {chapters.map((c) => (
+              <Link
+                key={c.id}
+                href={`/columns/${c.slug}`}
+                aria-current={c.id === p.id ? "page" : undefined}
+              >
+                Chapter {c.chapter}: {c.title}
+              </Link>
+            ))}
+            {chapterIndex >= 0 && chapterIndex < chapters.length - 1 && (
+              <Link href={`/columns/${chapters[chapterIndex + 1].slug}`}>
+                Next chapter →
+              </Link>
+            )}
+          </nav>
+        )}
+        {p.authorBio && (
+          <p>
+            About {p.author}: {p.authorBio}
+          </p>
+        )}
+        <nav aria-label="Share this article">
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={`https://wa.me/?text=${encodeURIComponent(p.title + " https://jktl.com.ng/" + info[kind].path + "/" + p.slug)}`}
+          >
+            Share on WhatsApp ↗
+          </a>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent("https://jktl.com.ng/" + info[kind].path + "/" + p.slug)}`}
+          >
+            Share on LinkedIn ↗
+          </a>
+        </nav>
+        {!!p.tags?.length && <p>{p.tags.join(" · ")}</p>}
+        {!!related.length && (
+          <div>
+            <h2>Related stories</h2>
+            {related.map((r) => (
+              <Link key={r.id} href={`/${publicationPath[r.kind]}/${r.slug}`}>
+                {r.title}
+              </Link>
+            ))}
+          </div>
+        )}
+
         <p>Ready for your next chapter?</p>
         <Link href="https://business.jktl.com.ng/signup">Start for free →</Link>
         <Link href={`/${info[kind].path}`}>More from JKTL</Link>
