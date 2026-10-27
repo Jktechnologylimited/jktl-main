@@ -26,6 +26,7 @@ function load(file, deps = {}) {
 const offers = load("../lib/affiliate-offers.ts");
 const page = load("../app/affiliates/page.tsx", {
   "@/lib/affiliate-offers": offers,
+  "@/lib/seo/metadata":load("../lib/seo/metadata.ts",{"./routing.mjs":{SITE_ORIGIN:"https://jktl.com.ng"}}),
   "@/components/shared/PeopleStory":{PeopleStory:()=>null},
   "@/components/shared/Reveal": {
     Reveal: ({ children, ...props }) =>
@@ -96,7 +97,7 @@ test("application and account links keep Business programme intent; existing pro
   assert.ok(links.includes("https://business.jktl.com.ng/affiliates/login"));
   for (const path of [
     "/templates",
-    "/products/domains",
+    "/domains",
     "/products/business-email",
     "/products/custom-websites",
     "/partners",

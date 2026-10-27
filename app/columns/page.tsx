@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
-import { EditorialList } from "@/components/editorial/EditorialPages";
+import {
+  EditorialList,
+  editorialListMetadata,
+} from "@/components/editorial/EditorialPages";
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = {
+const metadata: Metadata = {
   title: "JKTL Columns | Stories, essays & fresh perspectives",
   description:
     "Original fiction, nonfiction, essays and serialized stories from JKTL writers.",
@@ -9,4 +12,8 @@ export const metadata: Metadata = {
 };
 export default function Page() {
   return <EditorialList kind="column" />;
+}
+
+export async function generateMetadata() {
+  return editorialListMetadata("column", metadata);
 }

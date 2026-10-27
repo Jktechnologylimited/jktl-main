@@ -1,3 +1,4 @@
+import { localRedirectTarget, resolveRedirect } from "./lib/seo/routing.mjs";
 import { NextRequest, NextResponse } from "next/server";
 import { neon } from "@neondatabase/serverless";
 
@@ -14,7 +15,8 @@ import { neon } from "@neondatabase/serverless";
  * because the marketing site's own links used the plural and the business app
  * uses the singular, and a visitor should not have to know which is which.
  */
-const AFFILIATE_APP_ORIGIN = process.env.AFFILIATE_APP_ORIGIN || "https://business.jktl.com.ng";
+const AFFILIATE_APP_ORIGIN =
+  process.env.AFFILIATE_APP_ORIGIN || "https://business.jktl.com.ng";
 /**
  * The business app's real path is plural.
  *
@@ -99,7 +101,10 @@ function affiliateRedirect(req: NextRequest): NextResponse | null {
 
   const mapped = mapAffiliatePath(pathname);
   const rest = match[1] ?? "";
-  const target = new URL(mapped ?? `${AFFILIATE_APP_PATH}${rest}`, AFFILIATE_APP_ORIGIN);
+  const target = new URL(
+    mapped ?? `${AFFILIATE_APP_PATH}${rest}`,
+    AFFILIATE_APP_ORIGIN,
+  );
   // The query string carries referral codes and UTM tags, and losing it would
   // silently break attribution — the one thing an affiliate cares about.
   target.search = req.nextUrl.search;
@@ -122,16 +127,40 @@ export async function proxy(req: NextRequest) {
   // matched navigation; a disclosed tradeoff for genuinely real redirects
   // rather than a UI that doesn't redirect anyone. Fails open on any DB
   // error so a redirects-table issue never takes the site down.
-  if (process.env.DATABASE_URL && !pathname.startsWith("/affiliate") && !pathname.startsWith("/admin")) {
+  if (
+    process.env.DATABASE_URL &&
+    !pathname.startsWith("/affiliate") &&
+    !pathname.startsWith("/admin") &&
+    !["/robots.txt", "/sitemap.xml"].includes(pathname)
+  ) {
     try {
       const sql = neon(process.env.DATABASE_URL);
-      const rows = await sql`SELECT to_path, status_code FROM redirects WHERE from_path = ${pathname} LIMIT 1`;
-      const redirect = rows[0] as { to_path: string; status_code: number } | undefined;
-      if (redirect) {
-        sql`UPDATE redirects SET hit_count = hit_count + 1 WHERE from_path = ${pathname}`.catch(() => {});
+      const rows = await sql`WITH RECURSIVE chain AS (
+        SELECT from_path,to_path,status_code,ARRAY[from_path::text] AS visited,0 AS depth FROM redirects WHERE from_path=${pathname}
+        UNION ALL
+        SELECT r.from_path,r.to_path,r.status_code,c.visited||r.from_path::text,c.depth+1 FROM redirects r JOIN chain c ON r.from_path=split_part(split_part(c.to_path,'?',1),'#',1)
+        WHERE c.depth<8 AND NOT r.from_path=ANY(c.visited)
+      ) SELECT from_path,to_path,status_code FROM chain ORDER BY depth`;
+      const configured = rows as {
+        from_path: string;
+        to_path: string;
+        status_code: number;
+      }[];
+      const redirect = configured[0],
+        target = redirect ? localRedirectTarget(redirect.to_path) : null;
+      if (redirect && target && resolveRedirect(pathname, configured, false)) {
+        sql`UPDATE redirects SET hit_count=hit_count+1 WHERE from_path=${pathname}`.catch(
+          () => {},
+        );
         const url = req.nextUrl.clone();
-        url.pathname = redirect.to_path;
-        return NextResponse.redirect(url, redirect.status_code === 302 ? 302 : 301);
+        url.pathname = target.pathname;
+        for (const [key, value] of target.searchParams)
+          url.searchParams.set(key, value);
+        url.hash = target.hash;
+        return NextResponse.redirect(
+          url,
+          redirect.status_code === 302 ? 302 : 301,
+        );
       }
     } catch {
       // fall through to normal routing
@@ -151,5 +180,7 @@ export async function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js)$).*)"],
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js)$).*)",
+  ],
 };

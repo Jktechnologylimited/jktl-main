@@ -1,13 +1,14 @@
+import { pageMetadata } from "@/lib/seo/metadata";
 import { PeopleStory } from "@/components/shared/PeopleStory";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PartnerApplication } from "@/components/partners/PartnerApplication";
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/partners", {
   title: "JKTL Partners | Help your clients grow online",
   description:
     "A partner programme for website developers, marketing agencies, business consultants and CAC registration agents serving Nigerian businesses.",
   alternates: { canonical: "https://jktl.com.ng/partners" },
-};
+});
 export default function Page() {
   return (
     <div className="bg-cream-50 text-navy-950">

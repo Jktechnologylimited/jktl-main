@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/seo/metadata";
 import { PeopleStory } from "@/components/shared/PeopleStory";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -5,12 +6,12 @@ import PageHero from "@/components/shared/PageHero";
 import CTABanner from "@/components/shared/CTABanner";
 import { siteConfig, appSignupUrl, pexelsUrl } from "@/data/index";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/about", {
   title: "About Us",
   description:
     "JKTL Business is built by JK Technology Limited -- a Lagos-based team building business software for Nigerian SMEs.",
   alternates: { canonical: "https://jktl.com.ng/about" },
-};
+});
 
 const VALUES = [
   { title: "Mission", desc: siteConfig.mission },

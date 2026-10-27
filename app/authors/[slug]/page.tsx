@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/seo/metadata";
 import { notFound } from "next/navigation";
 import {
   readAuthor,
@@ -10,13 +11,15 @@ export const dynamic = "force-dynamic";
 type Props = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
-  const { profile } = await readAuthor(slug);
+  const { profile, unavailable } = await readAuthor(slug);
+  if (!profile && !unavailable) notFound();
   return profile
-    ? {
-        title: `${profile.name} | JKTL Writers`,
-        description: profile.bio.slice(0, 300),
-        alternates: { canonical: `https://jktl.com.ng/authors/${slug}` },
-      }
+    ? pageMetadata(`/authors/${slug}`, {
+        title: `${profile.name} — JKTL Writer`,
+        description:
+          profile.bio.slice(0, 300) ||
+          `Read published stories, articles and perspectives by ${profile.name} on JKTL.`,
+      })
     : { title: "JKTL Writer", robots: { index: false } };
 }
 export default async function Page({ params }: Props) {

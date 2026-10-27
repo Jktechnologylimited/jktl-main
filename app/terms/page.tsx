@@ -1,11 +1,12 @@
+import { pageMetadata } from "@/lib/seo/metadata";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/data/index";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/terms", {
   title: "Terms of Service",
   description: "Terms and conditions governing use of JKTL Business.",
-};
+});
 
 export default function TermsPage() {
   const sections = [

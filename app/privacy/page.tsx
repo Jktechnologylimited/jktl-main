@@ -1,13 +1,14 @@
+import { pageMetadata } from "@/lib/seo/metadata";
 import { ReferralPreferences } from "@/components/shared/ReferralConsent";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/data/index";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/privacy", {
   title: "Privacy Policy",
   description:
     "How JKTL Business collects and protects your personal and business information.",
-};
+});
 
 export default function PrivacyPage() {
   const sections = [

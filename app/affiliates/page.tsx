@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/seo/metadata";
 import { PeopleStory } from "@/components/shared/PeopleStory";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -25,7 +26,7 @@ import {
 } from "@/lib/affiliate-offers";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/affiliates", {
   title: "JKTL Affiliates — Grow with your audience",
   description:
     "Introduce businesses to JKTL websites, domains and Business Email. Explore Affiliate applications, agreement-based commissions, marketing materials, support and payouts.",
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
       { url: "https://jktl.com.ng/logo.png", width: 1080, height: 1080 },
     ],
   },
-};
+});
 
 function AffiliateCTA({ light = false }: { light?: boolean }) {
   return (

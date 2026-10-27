@@ -1,10 +1,11 @@
+import { pageMetadata } from "@/lib/seo/metadata";
 import { CustomerReviews } from "@/components/support/CustomerReviews";
 import type { Metadata } from "next";
 import { DomainPage } from "@/components/domains/DomainPage";
 import { ProductCaseStudies } from "@/components/case-studies/ProductCaseStudies";
 import { getLiveRetailDomainPrices } from "@/lib/domain-catalogue";
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/domains", {
   title: "Find & Register Your Business Domain | JKTL",
   description:
     "Search .com.ng, .ng and .com domain names. Compare current registration and annual renewal prices, then manage your domain in JKTL Business.",
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
     url: "https://jktl.com.ng/domains",
     type: "website",
   },
-};
+});
 export default async function Page() {
   return (
     <>

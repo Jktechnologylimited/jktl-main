@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/seo/metadata";
 import { PeopleStory } from "@/components/shared/PeopleStory";
 import { FeatureBadge } from "@/components/features/FeatureBadge";
 import { FeaturedCaseStudies } from "@/components/case-studies/FeaturedCaseStudies";
@@ -16,11 +17,11 @@ import {
 } from "@/components/shared/Reveal";
 import { affiliateUrl, appSignupUrl, features, industries } from "@/data/index";
 
-export const metadata = {
+export const metadata = pageMetadata("/", {
   title: "Free Business Websites, Landing Pages & Business Tools",
   description:
     "Build a website or landing page with 200 modern templates. Manage customers, bookings, invoices and stock with JKTL Business. Start for free.",
-};
+});
 
 export default function HomePage() {
   return (

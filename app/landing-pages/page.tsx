@@ -1,7 +1,8 @@
+import { pageMetadata } from "@/lib/seo/metadata";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { TemplateGallery } from "@/components/templates/TemplateGallery";
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/landing-pages", {
   title: "Landing Page Builder & Templates",
   description:
     "Create a focused landing page for enquiries, campaigns and bookings. Choose a JKTL industry design or start blank and publish through JKTL Business.",
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
       "Choose a campaign design, edit your content and measure published results.",
     url: "https://jktl.com.ng/landing-pages",
   },
-};
+});
 export default function LandingPages() {
   return (
     <div style={{ paddingTop: 68 }}>

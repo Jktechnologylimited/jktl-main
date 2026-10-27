@@ -4,6 +4,10 @@
 // here as one source of truth rather than duplicated in the admin app.
 export const RESERVED_SLUGS = [
   "about",
+  "domains",
+  "columns",
+  "releases",
+  "authors",
   "admin",
   "affiliate",
   "affiliates",

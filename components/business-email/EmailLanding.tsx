@@ -233,9 +233,7 @@ export function EmailLanding({
             changes are requested.
           </p>
           <div className={styles.links}>
-            <Link href={mainSite ? "/products/domains" : "/domains"}>
-              Explore domains
-            </Link>
+            <Link href={"/domains"}>Explore domains</Link>
             <a href={`${portal}/email-terms`}>
               Email service terms & provider disclosure
             </a>

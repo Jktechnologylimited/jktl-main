@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/seo/metadata";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import { EditorialSearch } from "./EditorialSearch";
@@ -44,6 +45,19 @@ const date = (s: string) =>
     year: "numeric",
     timeZone: "Africa/Lagos",
   }).format(new Date(s));
+export async function editorialListMetadata(
+  kind: PublicationKind,
+  metadata: Metadata,
+): Promise<Metadata> {
+  const feed = await readPublications(kind);
+  return pageMetadata("/" + info[kind].path, {
+    ...metadata,
+    robots: {
+      index: !feed.unavailable && feed.articles.length > 0,
+      follow: true,
+    },
+  });
+}
 export async function EditorialList({ kind }: { kind: PublicationKind }) {
   const copy = info[kind];
   const { articles, unavailable } = await readPublications(kind);
@@ -117,6 +131,7 @@ export async function articleMetadata(
 ): Promise<Metadata> {
   const { articles, unavailable } = await readPublications(kind, slug);
   const p = articles[0];
+  if (!p && !unavailable) notFound();
   if (!p)
     return {
       title: unavailable
@@ -126,7 +141,7 @@ export async function articleMetadata(
     };
   const url = `https://jktl.com.ng/${info[kind].path}/${p.slug}`;
   return {
-    title: `${p.seoTitle || p.title} | JKTL`,
+    title: p.seoTitle || p.title,
     description: p.metaDescription || p.excerpt,
     alternates: { canonical: url },
     openGraph: {

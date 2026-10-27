@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/seo/metadata";
 import { notFound } from "next/navigation";
 import { featurePages, getFeaturePage } from "@/data/feature-pages";
 import { FeaturePage } from "@/components/shared/FeaturePage";
@@ -12,15 +13,14 @@ export async function generateMetadata({
 }: {
   params: Promise<{ solution: string }>;
 }) {
-  const slug = (await params).solution;
-  const item = getFeaturePage("solutions", slug);
+  const slug = (await params).solution,
+    item = getFeaturePage("solutions", slug);
   return item
-    ? {
+    ? pageMetadata(`/solutions/${slug}`, {
         title: item.label,
         description: item.intro,
-        alternates: { canonical: `https://jktl.com.ng/solutions/${slug}` },
-      }
-    : {};
+      })
+    : { robots: { index: false } };
 }
 export default async function Page({
   params,

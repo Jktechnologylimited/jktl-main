@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/seo/metadata";
 import { EmailLanding } from "@/components/business-email/EmailLanding";
 import { CustomPage } from "@/components/custom/CustomPage";
 import { T } from "@/components/i18n/LanguageProvider";
@@ -5,7 +6,7 @@ import { getFeaturePage, featurePages } from "@/data/feature-pages";
 import { FeaturePage } from "@/components/shared/FeaturePage";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import { notFound } from "next/navigation";
 import { DIGITAL_PRODUCTS } from "@/lib/website-pricing";
 export const dynamicParams = false;
@@ -24,27 +25,24 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { product } = await params;
   if (product === "domains")
-    return {
-      title: "Nigerian Domains — .ng, .com.ng & .name.ng",
+    return pageMetadata("/domains", {
+      title: "Business Domain Names",
       description:
-        "Explore Nigerian, generic and country-code domains. Request domain registration, transfers and annual renewal quotes through JKTL, with availability confirmed before payment.",
-      alternates: { canonical: "https://jktl.com.ng/domains" },
-    };
+        "Search Nigerian and global domain names with JKTL and compare current registration and annual renewal prices.",
+    });
   const feature = getFeaturePage("products", product);
   if (feature)
-    return {
+    return pageMetadata(`/products/${product}`, {
       title: feature.label,
       description: feature.intro,
-      alternates: { canonical: `https://jktl.com.ng/products/${product}` },
-    };
+    });
   const item = DIGITAL_PRODUCTS.find((p) => p.id === product);
   return item
-    ? {
-        title: `${item.name} | JKTL`,
+    ? pageMetadata(`/products/${product}`, {
+        title: item.name,
         description: item.description,
-        alternates: { canonical: `https://jktl.com.ng/products/${product}` },
-      }
-    : {};
+      })
+    : { robots: { index: false } };
 }
 export default async function Product({
   params,
@@ -70,7 +68,7 @@ export default async function Product({
       </div>
     );
   }
-  if (product === "domains") redirect("/domains");
+  if (product === "domains") permanentRedirect("/domains");
   if (product === "custom-websites" || product === "managed-services")
     return <CustomPage managed={product === "managed-services"} />;
   const feature = getFeaturePage("products", product);

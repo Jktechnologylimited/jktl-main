@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
-import { EditorialList } from "@/components/editorial/EditorialPages";
+import {
+  EditorialList,
+  editorialListMetadata,
+} from "@/components/editorial/EditorialPages";
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = {
+const metadata: Metadata = {
   title: "JKTL Updates | Company news & announcements",
   description:
     "Company news, upcoming events and product updates from the JKTL team.",
@@ -9,4 +12,8 @@ export const metadata: Metadata = {
 };
 export default function Page() {
   return <EditorialList kind="update" />;
+}
+
+export async function generateMetadata() {
+  return editorialListMetadata("update", metadata);
 }

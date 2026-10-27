@@ -353,7 +353,7 @@ export function WebsitePricing({
                 Hosting for your JKTL website is already included.
               </T>
             </p>
-            <Link href="https://jktl.com.ng/products/domains">
+            <Link href="https://jktl.com.ng/domains">
               <T>Domains & Hosting →</T>
             </Link>
           </article>

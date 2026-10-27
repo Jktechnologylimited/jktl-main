@@ -1,10 +1,11 @@
+import { pageMetadata } from "@/lib/seo/metadata";
 import { ArrowUpRight } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { caseStudies } from "@/data/case-studies";
 import { CaseStudyGallery } from "@/components/case-studies/CaseStudyGallery";
 import styles from "@/components/case-studies/CaseStudies.module.css";
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/case-studies", {
   title: "Case Studies — Websites, Commerce & Custom Platforms",
   description:
     "Explore ten JKTL client projects across law, clothing, music, services, churches and schools: business websites, e-commerce, portals and custom platforms.",
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
       "Ten client stories across legal, commerce, entertainment, services, faith and education.",
     url: "https://jktl.com.ng/case-studies",
   },
-};
+});
 export default function Page() {
   const schema = {
     "@context": "https://schema.org",

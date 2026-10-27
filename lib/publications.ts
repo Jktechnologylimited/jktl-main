@@ -37,7 +37,12 @@ export const readPublications = cache(
   async (
     kind: PublicationKind,
     slug?: string,
-  ): Promise<{ articles: Article[]; unavailable: boolean }> => {
+    offset = 0,
+  ): Promise<{
+    articles: Article[];
+    unavailable: boolean;
+    nextOffset?: number;
+  }> => {
     if (slug && (slug.length > 100 || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)))
       return { articles: [], unavailable: false };
     try {
@@ -46,6 +51,7 @@ export const readPublications = cache(
       const url = new URL("/api/publications", origin);
       url.searchParams.set("kind", kind);
       if (slug) url.searchParams.set("slug", slug);
+      else if (offset) url.searchParams.set("offset", String(offset));
       const response = await fetch(url, {
         cache: "no-store",
         signal: AbortSignal.timeout(7000),
@@ -61,6 +67,7 @@ export const readPublications = cache(
             p.kind === kind &&
             (!p.status || p.status === "published") &&
             typeof p.slug === "string" &&
+            p.slug.length <= 100 &&
             /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(p.slug) &&
             typeof p.title === "string" &&
             typeof p.excerpt === "string" &&
@@ -73,13 +80,26 @@ export const readPublications = cache(
         )
         .map((p: Article) => ({
           ...p,
+          updatedAt:
+            typeof p.updatedAt === "string" &&
+            Number.isFinite(Date.parse(p.updatedAt))
+              ? p.updatedAt
+              : p.publishedAt,
           coverImage:
             typeof p.coverImage === "string" &&
             /^https:\/\//i.test(p.coverImage)
               ? p.coverImage
               : "",
         }));
-      return { articles, unavailable: false };
+      return {
+        articles,
+        unavailable: false,
+        ...(Number.isSafeInteger(data.nextOffset) &&
+        data.nextOffset === offset + 200 &&
+        data.nextOffset <= 100000
+          ? { nextOffset: data.nextOffset }
+          : {}),
+      };
     } catch {
       return { articles: [], unavailable: true };
     }
@@ -125,3 +145,21 @@ export const readAuthor = cache(async (slug: string) => {
     return { profile: null, unavailable: true };
   }
 });
+
+/** Sitemap reads every published page from the existing feed, rather than silently stopping at 200. */
+export async function readAllPublications(kind: PublicationKind) {
+  const articles: Article[] = [],
+    seen = new Set<string>();
+  let offset = 0;
+  for (;;) {
+    const page = await readPublications(kind, undefined, offset);
+    if (page.unavailable) return { articles, unavailable: true };
+    for (const article of page.articles)
+      if (!seen.has(article.slug)) {
+        seen.add(article.slug);
+        articles.push(article);
+      }
+    if (!page.nextOffset) return { articles, unavailable: false };
+    offset = page.nextOffset;
+  }
+}

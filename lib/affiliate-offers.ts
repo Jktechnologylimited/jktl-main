@@ -27,7 +27,7 @@ export const AFFILIATE_PRODUCTS = [
     title: "Domains",
     description:
       "Introduce businesses to domain options, including .ng and .com.ng.",
-    href: "/products/domains",
+    href: "/domains",
     icon: "domain",
   },
   {

@@ -37,7 +37,6 @@ export const metadata: Metadata = {
     title: "JKTL Business | Free Websites, Landing Pages & Business Tools",
     description:
       "Websites, landing pages and business tools for African businesses. Get started free with JKTL Business.",
-    url: "https://jktl.com.ng",
     siteName: "JKTL Business",
     locale: "en_NG",
     type: "website",
@@ -46,7 +45,6 @@ export const metadata: Metadata = {
     ],
   },
   robots: { index: true, follow: true },
-  alternates: { canonical: "https://jktl.com.ng" },
 };
 
 export default function RootLayout({
@@ -55,7 +53,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={plusJakartaSans.variable} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={plusJakartaSans.variable}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
       </head>
