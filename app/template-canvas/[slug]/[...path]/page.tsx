@@ -39,7 +39,7 @@ export default async function Page({
   const p = await params,
     t = getWebsiteTemplate(p.slug),
     path = p.path.join("/");
-  if (!t?.document.beauty || !beautyPagePaths(t.document).includes(path))
+  if (!t || !beautyPagePaths(t.document).includes(path))
     notFound();
   return (
     <RawTemplatePreview

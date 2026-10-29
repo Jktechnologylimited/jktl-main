@@ -5,7 +5,7 @@ const main = process.env.MAIN_TEST_ORIGIN || "http://127.0.0.1:3001",
   business = process.env.BUSINESS_TEST_ORIGIN || "http://localhost:3000";
 (async () => {
   const { websiteTemplates } = await import("../lib/website-templates.ts");
-  assert.equal(websiteTemplates.length, 206);
+  assert.equal(websiteTemplates.length, 207);
   const browser = await chromium.launch({
     executablePath: process.env.CHROMIUM_PATH || "/usr/bin/chromium",
     headless: true,
