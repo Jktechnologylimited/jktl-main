@@ -1,6 +1,6 @@
 "use client";
 import { usePathname } from "next/navigation";
-import { Suspense, type ReactNode } from "react";
+import { Suspense, type ReactNode, type CSSProperties } from "react";
 import { ReferralConsent } from "@/components/shared/ReferralConsent";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
@@ -10,18 +10,26 @@ export default function MarketingShell({ children }: { children: ReactNode }) {
   const game = /^\/games(?:\/|$)/.test(pathname);
   if (game)
     return (
-      <div data-site-shell>
+      <div
+        data-site-shell
+        style={{ "--template-catalog-top": "68px" } as CSSProperties}
+      >
         <Navbar />
         {children}
       </div>
     );
-  const preview = /^\/templates\/[^/]+\/?$/.test(pathname) || /^\/template-canvas\/[^/]+(?:\/.*)?$/.test(pathname);
+  const preview =
+    /^\/templates\/[^/]+\/?$/.test(pathname) ||
+    /^\/template-canvas\/[^/]+(?:\/.*)?$/.test(pathname);
   return preview ? (
     <div style={{ colorScheme: "light", color: "#060e2a", background: "#fff" }}>
       {children}
     </div>
   ) : (
-    <div data-site-shell>
+    <div
+      data-site-shell
+      style={{ "--template-catalog-top": "68px" } as CSSProperties}
+    >
       <Navbar />
       <main>{children}</main>
       <Footer />

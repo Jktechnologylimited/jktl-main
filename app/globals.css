@@ -459,3 +459,7 @@ body {
   animation: skeletonShimmer 1.4s ease-in-out infinite;
   border-radius: 4px;
 }
+
+/* Catalog filters stick beneath the existing site header. Clip horizontal
+   overflow without creating a second scrolling container for these pages. */
+html:has([data-template-catalog]), body:has([data-template-catalog]) { overflow-x: clip; }
