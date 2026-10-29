@@ -15,7 +15,7 @@ export default function MarketingShell({ children }: { children: ReactNode }) {
         {children}
       </div>
     );
-  const preview = /^\/(?:templates|template-canvas)\/[^/]+\/?$/.test(pathname);
+  const preview = /^\/templates\/[^/]+\/?$/.test(pathname) || /^\/template-canvas\/[^/]+(?:\/.*)?$/.test(pathname);
   return preview ? (
     <div style={{ colorScheme: "light", color: "#060e2a", background: "#fff" }}>
       {children}
