@@ -20,7 +20,7 @@ export const siteConfig = {
   whatsapp: "2347036580994",
   location: "Lagos, Nigeria",
   coverage: "Serving Nigeria & Africa",
-  founded: "2019",
+  founded: "2025",
   experience: "6+",
   markets: "Nigeria & Africa",
   mission: "Give every Nigerian business owner the tools a big company has -- CRM, bookings, invoicing, inventory, and a website -- in one free app that works from a phone.",
