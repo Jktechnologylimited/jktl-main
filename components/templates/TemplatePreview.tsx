@@ -9,6 +9,7 @@ import {
 } from "@/lib/website-templates";
 import { TemplateWebsite } from "./TemplateWebsite";
 import styles from "./TemplatePreview.module.css";
+import { templatePageCopy } from "@/lib/seo/template-page";
 export function TemplatePreview({
   id,
   insideBusiness = false,
@@ -19,6 +20,7 @@ export function TemplatePreview({
   const { device, setDevice, frameRef } = useResponsivePreview();
   const template = getWebsiteTemplate(id);
   if (!template) return null;
+  const copy = templatePageCopy(template);
   // A raw preview route prevents recursive frames and retains the full renderer.
   return (
     <div className={styles.shell}>
@@ -65,6 +67,10 @@ export function TemplatePreview({
           Select Template ↗
         </a>
       </header>
+      <section className={styles.intro} aria-labelledby="template-heading">
+        <h1 id="template-heading">{copy.heading}</h1>
+        <p>{copy.description}</p>
+      </section>
       <div className={styles.stage} data-device={device}>
         <iframe
           key={id}
