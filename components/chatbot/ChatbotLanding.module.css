@@ -444,3 +444,207 @@
     max-width: 160px;
   }
 }
+.loopBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px;
+  border-bottom: 1px solid #e4dfd3;
+  color: #586479;
+  font-size: 11px;
+}
+.loopBar > div {
+  display: flex;
+  gap: 5px;
+}
+.loopBar button {
+  display: grid;
+  place-items: center;
+  min-width: 40px;
+  min-height: 40px;
+  border: 1px solid #d1d8e5;
+  border-radius: 50%;
+  background: #fff;
+  color: #112055;
+  cursor: pointer;
+}
+.demoLog > div {
+  flex-shrink: 0;
+  overflow-wrap: anywhere;
+}
+.bubbleAction {
+  display: block;
+  border: 1px solid #bfcada;
+  border-radius: 14px;
+  background: #fff;
+  color: #174aa4;
+  padding: 8px 11px;
+  font: inherit;
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: left;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.demoPanel {
+  margin: 0 18px 18px;
+  padding: 16px;
+  background: #f3f5f9;
+  border: 1px solid #cbd5e3;
+  border-radius: 16px;
+  max-height: 310px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #112055;
+}
+.demoPanel h3,
+.demoReceipt h3 {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.demoPanel p {
+  font-size: 11px;
+  color: #586479;
+  margin-bottom: 9px;
+}
+.demoPanel label {
+  display: block;
+  font-size: 11px;
+  margin-top: 8px;
+  min-width: 0;
+}
+.demoPanel :is(input, textarea, select) {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  margin-top: 4px;
+  border: 1px solid #c4cede;
+  border-radius: 8px;
+  background: #fff;
+  color: #112055;
+  padding: 9px;
+  font: inherit;
+  font-size: 16px;
+}
+.demoPanel textarea {
+  min-height: 65px;
+  resize: vertical;
+}
+.demoPanel button[type="submit"] {
+  background: #112055;
+  color: #fff4d9;
+  border: 0;
+  border-radius: 10px;
+  padding: 11px 14px;
+  margin-top: 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.demoDates {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 9px;
+}
+.demoPanel a {
+  color: #174aa4;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.demoPanel ol {
+  list-style: decimal;
+  padding-left: 18px;
+  margin: 12px 0;
+}
+.demoPanel li + li {
+  margin-top: 8px;
+}
+.actionLinks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 13px;
+}
+.actionLinks a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 38px;
+}
+.demoReceipt {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 18px 18px;
+  padding: 15px;
+  border: 1px solid #abc9b5;
+  border-radius: 16px;
+  background: #edf7ef;
+  color: #17442d;
+  font-size: 12px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.demoReceipt > svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.demoReceipt small {
+  display: block;
+  margin-top: 9px;
+  font-size: 10px;
+}
+.demoReceipt h3 {
+  color: #17442d;
+}
+@media (max-width: 360px) {
+  .demoDates {
+    grid-template-columns: 1fr;
+  }
+}
+.demoStage {
+  height: 390px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+.demoStage .demoLog {
+  height: auto;
+  overflow: visible;
+}
+.demoStage .demoPanel {
+  max-height: none;
+  overflow: visible;
+}
+.demoLog > div {
+  animation: demoMessageIn 0.22s ease-out;
+}
+@keyframes demoMessageIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.demoStage:focus-visible {
+  outline: 3px solid #9a7628;
+  outline-offset: -3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .demoLog > div {
+    animation: none;
+  }
+}
+@media (max-width: 540px) {
+  .demoStage {
+    height: 370px;
+  }
+}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { siteConfig } from "@/data/index";
 import { ChatbotDemo } from "./ChatbotDemo";
 import {
   Bot,
@@ -107,7 +108,9 @@ export function ChatbotLanding() {
             </T>
           </p>
         </div>
-        <ChatbotDemo />
+        <ChatbotDemo
+          whatsappHref={`https://wa.me/${siteConfig.whatsapp.replace(/\D/g, "")}`}
+        />
       </section>
       <section className={styles.section} aria-labelledby="chatbot-features">
         <p className={styles.eyebrow}>
