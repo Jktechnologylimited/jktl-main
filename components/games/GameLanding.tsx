@@ -8,6 +8,9 @@ export function GameLanding({ fantasy = false }: { fantasy?: boolean }) {
   return (
     <main className={styles.stage}>
       <div className={styles.bar}>
+        <Link href="/" className={styles.homeLink} aria-label="JKTL main site">
+          JKTL
+        </Link>
         <h1>{fantasy ? "JKTL Fantasy" : "JKTL Games"}</h1>
         <nav aria-label="Choose a game">
           <Link href="/games" aria-current={!fantasy ? "page" : undefined}>
@@ -29,7 +32,8 @@ export function GameLanding({ fantasy = false }: { fantasy?: boolean }) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Open full screen ↗
+          <span className={styles.fullLabel}>Open full screen ↗</span>
+          <span className={styles.shortLabel}>Full screen ↗</span>
         </a>
       </div>
       <iframe

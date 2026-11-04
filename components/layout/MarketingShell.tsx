@@ -5,6 +5,7 @@ import { ReferralConsent } from "@/components/shared/ReferralConsent";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import BizChat from "@/components/shared/BizChat";
+import gameStyles from "@/components/games/GameLanding.module.css";
 export default function MarketingShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const game = /^\/games(?:\/|$)/.test(pathname);
@@ -12,6 +13,7 @@ export default function MarketingShell({ children }: { children: ReactNode }) {
     return (
       <div
         data-site-shell
+        className={gameStyles.shell}
         style={{ "--template-catalog-top": "68px" } as CSSProperties}
       >
         <Navbar />
