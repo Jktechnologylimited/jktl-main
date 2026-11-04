@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ChatbotDemo } from "./ChatbotDemo";
 import {
   Bot,
   MessageCircle,
@@ -106,46 +107,7 @@ export function ChatbotLanding() {
             </T>
           </p>
         </div>
-        <aside
-          className={styles.preview}
-          aria-label="Illustrative FAQ conversation"
-        >
-          <div className={styles.previewHeader}>
-            <span className={styles.avatar}>
-              <Bot aria-hidden="true" />
-            </span>
-            <div>
-              <strong>Mika</strong>
-              <p>
-                <T>Your business assistant · FAQ example</T>
-              </p>
-            </div>
-          </div>
-          <div className={styles.messages}>
-            <p className={styles.assistant}>
-              <T>Hello! What would you like to know about our business?</T>
-            </p>
-            <p className={styles.visitor}>
-              <T>What are your opening hours?</T>
-            </p>
-            <p className={styles.assistant}>
-              <T>
-                We open Monday to Friday, 9 AM–5 PM WAT. Would you like to leave
-                an enquiry for our team?
-              </T>
-            </p>
-            <span className={styles.contact}>
-              <MessageCircle size={16} aria-hidden="true" />{" "}
-              <T>Talk to a Human on WhatsApp</T>
-            </span>
-          </div>
-          <p className={styles.previewCaption}>
-            <T>
-              Illustrative conversation using an approved FAQ. This is not a
-              live chat.
-            </T>
-          </p>
-        </aside>
+        <ChatbotDemo />
       </section>
       <section className={styles.section} aria-labelledby="chatbot-features">
         <p className={styles.eyebrow}>
