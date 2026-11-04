@@ -1,3 +1,4 @@
+import { ChatbotLanding } from "@/components/chatbot/ChatbotLanding";
 import { pageMetadata } from "@/lib/seo/metadata";
 import { EmailLanding } from "@/components/business-email/EmailLanding";
 import { CustomPage } from "@/components/custom/CustomPage";
@@ -50,6 +51,7 @@ export default async function Product({
   params: Promise<{ product: string }>;
 }) {
   const { product } = await params;
+  if (product === "ai-chatbot") return <ChatbotLanding />;
   if (product === "business-email") {
     let plans: Record<string, unknown>[] = [];
     try {

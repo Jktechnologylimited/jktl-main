@@ -1,6 +1,25 @@
 export const featurePages = [
   {
     section: "products",
+    slug: "ai-chatbot",
+    label: "JKTL AI Chatbot",
+    title: "Turn website visitors into conversations and customers.",
+    intro:
+      "Create a free-to-start business chatbot with approved FAQs, enquiry capture and WhatsApp handoff. Manage it in JKTL Business and install it on your website.",
+    benefits: [
+      "Answer questions using approved business knowledge.",
+      "Capture enquiries and offer WhatsApp handoff.",
+      "Install on an authorized website or share a public chat link.",
+    ],
+    steps: [
+      "Create your free JKTL Business account.",
+      "Name your assistant, add approved FAQs and configure contact options.",
+      "Enable it on your JKTL website or verify an external domain and install the widget.",
+    ],
+    image: "consultancy-minimal",
+  },
+  {
+    section: "products",
     slug: "website-builder",
     label: "Website builder",
     title: "Create a website that works for your business.",

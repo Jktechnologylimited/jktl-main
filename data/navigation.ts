@@ -89,6 +89,13 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
             href: "/products/reports-analytics",
           },
           {
+            title: "JKTL AI Chatbot",
+            description:
+              "Answer FAQs, capture enquiries and connect visitors with your business.",
+            href: "/products/ai-chatbot",
+            note: "Free to start",
+          },
+          {
             title: "AI receptionist",
             description:
               "Explore call handling and missed-call recovery for your business.",
@@ -126,7 +133,7 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
     footer: {
       title: "Start for free",
       description:
-        "Start with the business tools. AI and optional services are priced separately.",
+        "Start with business tools and a free-to-start chatbot. Higher allowances use your existing JKTL plan.",
       href: "https://business.jktl.com.ng/signup",
     },
   },
