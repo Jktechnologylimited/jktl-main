@@ -145,7 +145,7 @@ export function ChatbotDemo() {
               message.role === "assistant" ? styles.assistant : styles.visitor
             }
           >
-            <T>{message.text}</T>
+            {message.role === "visitor" ? message.text : <T>{message.text}</T>}
           </p>
         ))}
         {busy && (
