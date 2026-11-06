@@ -148,3 +148,5 @@
     display: inline;
   }
 }
+
+.gameSelect{min-height:42px;max-width:190px;min-width:0;padding:8px 28px 8px 12px;border:1px solid #b59d52;border-radius:12px;background:#112055;color:#f8edcb;font:600 12px Arial,sans-serif}.gameLabel{align-self:center;font-size:10px;color:#c4cee2;margin-right:5px}.bar .allGames{display:flex;align-items:center;white-space:nowrap}.bar nav{align-items:center}.gameSelect:focus-visible{outline:3px solid #e2c76c;outline-offset:2px}@media(max-width:650px){.gameLabel{display:none}.gameSelect{font-size:11px;max-width:160px;padding:8px}.bar .allGames{font-size:9px;padding:7px;min-height:38px}}

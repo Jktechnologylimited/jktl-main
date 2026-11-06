@@ -47,3 +47,14 @@ Fantasy uses the repository's existing isometric Lagos world and guest-trading i
 All three production builds pass. Business's full test suite passes **538 tests**, including the new host-routing, tenant reservation and auth-return allowlist checks. Fantasy's **81 unit tests** pass, including its public-only framing policy; its database integration suite was not run because no dedicated `_test` database is bound here. Type checks and targeted lint pass.
 
 Browser checks run against three local production servers and the real embedded game interfaces. They cover immediate play without a Play gate, a Tycoon purchase and reload persistence, Fantasy practice buying/XP, top-level sign-in links, expected game-host routing and wrong-project protection, framing headers, PWA suppression inside a frame and 390px/320px layouts. No real account, ranked trade, deployment alias, DNS record or investment was created. Production domain activation and live authenticated gameplay remain unverified.
+
+## Word Hunt and easier switching
+
+Main now exposes Word Hunt, Street Run, Business Tycoon and Fantasy through a
+compact game selector while keeping immediate gameplay. Word Hunt is served by
+the Business application at `/play/word-hunt` and on the existing games subdomain.
+It is free guest word-search play with Nigerian places, foods and business themes,
+mouse/touch/keyboard controls, hints and local-device scores. It does not load the
+3D engine. Existing direct Tycoon/Fantasy routes remain valid. Main still reads
+`GAME_BUSINESS_ORIGIN` and `FANTASY_APP_ORIGIN` on the server at build time; local
+browser testing must use development rendering or rebuild with the local origins.
