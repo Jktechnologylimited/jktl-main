@@ -49,14 +49,13 @@ const assert = require("node:assert/strict");
             coverage: ["Premier League"],
             matchesAvailable: true,
             matches: [],
-            headlines: [],
-            trends: [
+            headlines: [
               {
-                title: "Test Nigerian trend",
+                title: "Test news headline",
                 publishedAt: new Date().toISOString(),
                 volume: "500+",
-                url: "https://trends.google.com/trends/explore?geo=NG&q=test",
-                source: "Google Trends",
+                url: "https://www.bbc.com/news",
+                source: "BBC News",
               },
             ],
           },
@@ -73,14 +72,14 @@ const assert = require("node:assert/strict");
         { waitUntil: "domcontentloaded" },
       );
 
-      const trendToggle = page.getByRole("button", {
-        name: "Matches, news & trending searches",
+      const updatesToggle = page.getByRole("button", {
+        name: "Matches & news",
         exact: true,
       });
-      await trendToggle.focus();
-      await trendToggle.press("Enter");
+      await updatesToggle.focus();
+      await updatesToggle.press("Enter");
       await page
-        .getByRole("link", { name: "Test Nigerian trend", exact: true })
+        .getByRole("link", { name: "Test news headline", exact: true })
         .waitFor();
       assert.equal(
         (await page
@@ -107,7 +106,7 @@ const assert = require("node:assert/strict");
         .getByRole("heading", { name: "AI receptionist is paused" })
         .waitFor();
       console.log(
-        "PASS SEO URL report, free website CTA, trends and paused receptionist at " +
+        "PASS SEO URL report, free website CTA, news and paused receptionist at " +
           width +
           "px",
       );

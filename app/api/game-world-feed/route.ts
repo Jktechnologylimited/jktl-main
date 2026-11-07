@@ -3,7 +3,8 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 20;
 export async function GET() {
   try {
-    return Response.json(await gameWorldFeed(), {
+    // Older open game clients expect an iterable legacy field during rollout.
+    return Response.json({...(await gameWorldFeed()), trends: []}, {
       headers: {
         "Cache-Control": "public, s-maxage=30",
         "X-Robots-Tag": "noindex",

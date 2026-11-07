@@ -24,11 +24,10 @@ export type WorldFeed = {
   matchesAvailable: boolean;
   coverage: string[];
   headlines: Headline[];
-  trends: Headline[];
   checkedAt: string;
 };
 export type BoardItem = {
-  kind: "website" | "match" | "news" | "trend";
+  kind: "website" | "match" | "news";
   title: string;
   label: string;
   detail: string;
@@ -160,17 +159,13 @@ export function boardItems(
       url: m.url,
     });
   }
-  for (const [kind, list] of [
-    ["news", feed.headlines],
-    ["trend", feed.trends],
-  ] as const)
-    for (const h of list) {
+  for (const h of feed.headlines) {
       const age = now - new Date(h.publishedAt).getTime();
       if (age < -300000 || age > 172800000 || !Number.isFinite(age)) continue;
       result.push({
-        kind,
+        kind: "news",
         title: h.title,
-        label: kind === "news" ? "NEWS · " + h.source : "TREND · GOOGLE",
+        label: "NEWS · " + h.source,
         detail: new Intl.DateTimeFormat("en-NG", {
           timeZone: "Africa/Lagos",
           day: "numeric",
