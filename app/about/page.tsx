@@ -93,8 +93,8 @@ export default function AboutPage() {
                   That work led directly to JKTL Business -- a single
                   mobile-first app that gives any small or medium business the
                   customer management, booking, invoicing and inventory tools
-                  that used to be out of reach, plus an AI receptionist that
-                  answers the calls those businesses were losing.
+                  that used to be out of reach, alongside free business websites,
+                  domains and professional business email.
                 </p>
                 <p className="body-sm text-black/55 leading-relaxed">
                   {siteConfig.promise}

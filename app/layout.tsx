@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s | JKTL Business",
   },
   description:
-    "Build a free business website or landing page with 200 modern templates. Manage customers, bookings, invoices and stock with JKTL Business. Optional AI receptionist services are available.",
+    "Build a free business website or landing page with 200 modern templates. Manage customers, bookings, invoices and stock with JKTL Business.",
   keywords:
     "AI receptionist Nigeria, missed call recovery Nigeria, clinic booking software Nigeria, salon booking software Nigeria, medical answering service Nigeria, bookings app Nigeria, invoicing app Nigeria, CRM Nigeria, Paystack invoicing",
   authors: [{ name: "JK Technology Limited", url: "https://jktl.com.ng" }],
@@ -73,7 +73,7 @@ export default function RootLayout({
                 url: "https://jktl.com.ng",
                 logo: "https://jktl.com.ng/logo.png",
                 description:
-                  "JKTL Business helps African businesses build websites and landing pages, manage customers, bookings and invoices, and explore optional AI receptionist services.",
+                  "JKTL Business helps African businesses build websites and landing pages, manage customers, bookings and invoices, with JKTL Business.",
                 sameAs: [],
               },
               {

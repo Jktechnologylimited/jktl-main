@@ -11,7 +11,7 @@ import { features, signupSteps, appSignupUrl, pexelsUrl } from "@/data/index";
 export const metadata: Metadata = pageMetadata("/how-it-works", {
   title: "How It Works",
   description:
-    "See how the JKTL Business AI receptionist answers calls, books appointments, and texts back missed callers -- and how your website gets built from your own photos and reviews.",
+    "Choose a free JKTL template, add your business details, preview and publish your website. Connect a domain and business email when you are ready.",
   alternates: { canonical: "https://jktl.com.ng/how-it-works" },
 });
 
@@ -20,8 +20,8 @@ export default function HowItWorksPage() {
     <div className="bg-cream-50">
       <PageHero
         eyebrow="How It Works"
-        heading="From Sign-Up To Selling, In Minutes"
-        subhead="No setup fees, no onboarding calls required. Create your account, add your business, and you're live."
+        heading="Your Business Online, One Clear Step At A Time"
+        subhead="Start with a free website template. Add your details, preview on mobile and desktop, then publish when you are ready."
         primaryLabel="Get started free"
         primaryHref={appSignupUrl()}
         secondaryLabel="See Pricing"
@@ -139,14 +139,14 @@ export default function HowItWorksPage() {
             <p className="body-sm text-black/60 mt-3">
               A JKTL website address is included. Connecting your own domain
               needs the Website &amp; Hosting add-on and domain ownership
-              verification. New domain registration and renewals are handled
-              manually and quoted separately.
+              verification. Search current domain availability and prices in
+              JKTL Business.
             </p>
             <Link
-              href="/contact#form"
+              href="/domains"
               className="inline-block mt-3 text-sm underline text-navy-900"
             >
-              Ask about your domain →
+              Explore domains →
             </Link>
           </article>
           <article id="hosting" className="scroll-mt-28">
@@ -154,21 +154,29 @@ export default function HowItWorksPage() {
               Managed hosting &amp; HTTPS
             </h2>
             <p className="body-sm text-black/60 mt-3">
-              Your published JKTL site uses our existing Vercel hosting. Custom
-              domains need the correct DNS setup and manual connection before
-              HTTPS is ready. Business email through Zoho Mail is a separate,
-              manually arranged service.
+              Your published JKTL website includes hosting. Custom domains need
+              correct DNS settings and verification before HTTPS is ready. Add
+              professional business email when you are ready.
             </p>
             <Link
-              href="/contact#form"
+              href="/products/business-email"
               className="inline-block mt-3 text-sm underline text-navy-900"
             >
-              Discuss hosting or email setup →
+              Explore business email →
             </Link>
           </article>
         </div>
       </section>
 
+      <section className="mx-auto max-w-[1000px] px-5 py-8">
+        <h2 className="text-2xl font-semibold">Already online?</h2>
+        <p className="mt-3">
+          <Link href="/tools/seo-checker" className="text-blue-600 underline">
+            Check your website SEO for free
+          </Link>{" "}
+          and get practical improvements.
+        </p>
+      </section>
       {/* Installable app note */}
       <section className="bg-white px-4 sm:px-6 lg:px-8 py-14 sm:py-20 border-t border-cream-300">
         <div className="max-w-[900px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
@@ -206,7 +214,7 @@ export default function HowItWorksPage() {
 
       <CTABanner
         heading="Ready to See It For Yourself?"
-        subhead="Start with free business tools. AI receptionist activation and optional services are separate."
+        subhead="Start with a free website. Add a domain and business email when they are right for your business."
         primaryLabel="Get started free"
         primaryHref={appSignupUrl()}
         secondaryLabel="Talk to Us"

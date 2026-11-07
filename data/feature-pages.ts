@@ -155,9 +155,9 @@ export const featurePages = [
     section: "products",
     slug: "ai-receptionist",
     label: "AI receptionist",
-    title: "Give missed enquiries a way forward.",
+    title: "AI receptionist is coming later.",
     intro:
-      "Explore separately activated call handling and missed-call recovery. Setup, subscription and communication usage are scoped independently from website plans.",
+      "AI receptionist call handling and automated bookings are paused while the service is prepared. Create a free website and explore domains and business email.",
     benefits: [
       "Discuss your services, opening hours and call requirements.",
       "Agree setup, recurring costs and usage limits before activation.",
@@ -328,7 +328,7 @@ export const featurePages = [
     label: "Recover missed enquiries",
     title: "Give the next enquiry a clear next step.",
     intro:
-      "Explore the optional AI receptionist and missed-call workflow, with an agreed scope and explicit communication usage limits.",
+      "AI receptionist call handling is currently paused. Use your website contact details and manual booking tools to receive enquiries.",
     benefits: [
       "Discuss your services, opening hours and call requirements.",
       "Agree setup, recurring costs and usage limits before activation.",

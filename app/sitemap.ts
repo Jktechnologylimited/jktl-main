@@ -29,6 +29,7 @@ const routes = [
   "/affiliates",
   "/partners",
   "/games",
+  "/tools/seo-checker",
   "/games/fantasy",
   "/privacy",
   "/terms",

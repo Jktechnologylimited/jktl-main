@@ -185,12 +185,6 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
             href: "/solutions/online-presence",
           },
           {
-            title: "Recover missed enquiries",
-            description:
-              "Explore the paid AI receptionist and follow-up workflow.",
-            href: "/solutions/missed-enquiries",
-          },
-          {
             title: "Know your numbers",
             description:
               "Use reports to understand how your business is doing.",
@@ -237,6 +231,7 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
       {
         title: "Explore",
         items: [
+          {title:"Free SEO checker",description:"Check your public page and get practical SEO improvements.",href:"/tools/seo-checker"},
           {
             title: "Case studies",
             description:

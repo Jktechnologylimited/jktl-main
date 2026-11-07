@@ -235,7 +235,7 @@ export const pricing = {
     featured: true,
     features: [
       "Your own dedicated business phone number, set up and running",
-      "The AI receptionist: answers every call, day or night",
+      "Free website templates for your business",
       "Instant text back to every caller you missed",
       "Books appointments straight into your calendar",
       "Screens for red flags and hands anything clinical to a human",
@@ -291,7 +291,7 @@ export const competitors = [
 
 // --- HOW IT WORKS STEPS ------------------------------------------------------------
 export const signupSteps = [
-  { n: "01", title: "Create your account", desc: "Sign up free at business.jktl.com.ng with just your business name and phone number." },
-  { n: "02", title: "Set up your business", desc: "Pick your business type, add your services or products, and your public website is generated automatically." },
-  { n: "03", title: "Go live", desc: "Install it on your phone, share your website link, and start taking bookings, sales and payments." },
+  { n: "01", title: "Create your account", desc: "Sign up free with your name, email and business details." },
+  { n: "02", title: "Set up your business", desc: "Choose a free template and add your logo, services, photos and contact information." },
+  { n: "03", title: "Go live", desc: "Review desktop and mobile previews, then publish on your available free JKTL address. Install the app for everyday access." },
 ];

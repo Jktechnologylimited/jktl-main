@@ -51,6 +51,7 @@ export default async function Product({
   params: Promise<{ product: string }>;
 }) {
   const { product } = await params;
+  if (product === "ai-receptionist") return <main className="mx-auto max-w-3xl space-y-6 px-5 pb-24 pt-32"><p className="text-sm uppercase tracking-widest">Coming later</p><h1 className="text-4xl font-semibold">AI receptionist is paused</h1><p>Call handling and automated receptionist bookings are temporarily unavailable while we prepare the service. We are focusing on helping you build your website, connect a domain and use business email.</p><Link className="inline-block rounded-full bg-primary px-6 py-3 text-white" href="https://business.jktl.com.ng/signup">Create my free website</Link><p>Existing customers can contact the team about their account. Existing records are preserved.</p></main>;
   if (product === "ai-chatbot") return <ChatbotLanding />;
   if (product === "business-email") {
     let plans: Record<string, unknown>[] = [];
