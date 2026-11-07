@@ -41,16 +41,22 @@ const assert = require("node:assert/strict");
         path: "/tmp/jktl-seo-checker-" + width + ".png",
         fullPage: true,
       });
-      await page.route("**/api/game-trends", (route) =>
+      await page.route("**/api/game-world-feed", (route) =>
         route.fulfill({
           json: {
+            date: new Date().toISOString().slice(0, 10),
+            checkedAt: new Date().toISOString(),
+            coverage: ["Premier League"],
+            matchesAvailable: true,
+            matches: [],
+            headlines: [],
             trends: [
               {
                 title: "Test Nigerian trend",
-                publishedAt: "2026-11-07T09:00:00.000Z",
+                publishedAt: new Date().toISOString(),
                 volume: "500+",
-                searchUrl:
-                  "https://trends.google.com/trends/explore?geo=NG&q=test",
+                url: "https://trends.google.com/trends/explore?geo=NG&q=test",
+                source: "Google Trends",
               },
             ],
           },
@@ -68,7 +74,7 @@ const assert = require("node:assert/strict");
       );
 
       const trendToggle = page.getByRole("button", {
-        name: "Trending searches in Nigeria · Google Trends",
+        name: "Matches, news & trending searches",
         exact: true,
       });
       await trendToggle.focus();
