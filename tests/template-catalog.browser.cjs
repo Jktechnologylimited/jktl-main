@@ -19,6 +19,9 @@ const { chromium } = require("playwright");
         String(Date.now() + 86400000),
       ),
     );
+    await page.route("**/api/public/features", (route) =>
+      route.fulfill({ json: { features: [] } }),
+    );
     page.on("pageerror", (e) => errors.push(e.message));
     page.on("console", (m) => {
       if (
@@ -103,7 +106,10 @@ const { chromium } = require("playwright");
     await gallery.evaluate((el) => el.style.removeProperty("width"));
     await page
       .getByRole("combobox", { name: "Filter templates by industry" })
-      .selectOption("Beauty & Wellness");
+      .click();
+    await page
+      .getByRole("option", { name: "Beauty & Wellness", exact: true })
+      .click();
     assert.match(await gallery.getByRole("status").innerText(), /34 templates/);
     assert.equal(await cards.count(), 24);
     const firstThree = await cards
@@ -116,9 +122,10 @@ const { chromium } = require("playwright");
       .getByRole("button", { name: "Hair Salon & Beauty", exact: true })
       .click();
     assert.equal(await cards.count(), 10);
+    await page.getByRole("combobox", { name: "Filter template type" }).click();
     await page
-      .getByRole("combobox", { name: "Filter template type" })
-      .selectOption("landing");
+      .getByRole("option", { name: "Landing pages", exact: true })
+      .click();
     assert.ok((await cards.count()) > 0 && (await cards.count()) < 10);
     assert.ok(
       (await cards.allTextContents()).every((text) =>
@@ -128,9 +135,10 @@ const { chromium } = require("playwright");
     await page
       .getByRole("button", { name: "All Templates", exact: true })
       .click();
+    await page.getByRole("combobox", { name: "Filter template type" }).click();
     await page
-      .getByRole("combobox", { name: "Filter template type" })
-      .selectOption("blank");
+      .getByRole("option", { name: "Blank templates", exact: true })
+      .click();
     assert.equal(await cards.count(), 2);
     await page
       .getByRole("button", { name: "All Templates", exact: true })
@@ -164,6 +172,8 @@ const { chromium } = require("playwright");
       await page.setViewportSize({ width, height: 900 });
       await page.goto(origin + "/templates");
       await cards.first().waitFor();
+      await page.waitForLoadState("networkidle");
+      await page.evaluate(() => document.fonts.ready);
       assert.equal(
         await cards
           .first()
