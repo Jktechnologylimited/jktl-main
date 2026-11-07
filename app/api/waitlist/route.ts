@@ -44,7 +44,6 @@ export async function POST(req: NextRequest) {
     // Notify via Resend
     if (process.env.RESEND_API_KEY) {
       await sendMainMail({
-        from: "JKTL System <noreply@jktl.com.ng>",
         to: ["info@jktl.com.ng"],
         subject: `New ${product} waitlist signup: ${email}`,
         html: `<p><strong>Product:</strong> ${escapeHtml(product)}</p><p><strong>Email:</strong> ${escapeHtml(email)}</p><p><strong>Phone:</strong> ${escapeHtml(phone || "Not provided")}</p><p><strong>School:</strong> ${escapeHtml(school || "Not provided")}</p>`,

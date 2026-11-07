@@ -47,7 +47,6 @@ export async function POST(req: NextRequest) {
       let notified = false;
       try {
         const notification = await sendMainMail({
-          from: "JKTL System <noreply@jktl.com.ng>",
           to: ["info@jktl.com.ng"],
           subject: "Free template support request",
           category: "internal",

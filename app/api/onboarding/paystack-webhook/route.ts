@@ -98,7 +98,6 @@ export async function POST(req: NextRequest) {
         const loginInfoHtml = `<p>${provisioned ? "Your provider reports that provisioning is complete." : "JKTL will review the current provisioning status with you."}</p><p><a href="${escapeHtml(adminUrl)}">Open your service sign-in</a>. Use your existing credentials or contact JKTL support for secure access assistance. Passwords are not included in this email.</p>`;
 
         await sendMainMail({
-          from: "JK Technology Limited <noreply@mail.ibiz.name.ng>",
           to: [email],
           subject: `Welcome to ${productName} -- Your system is being set up`,
           html: `
@@ -117,7 +116,6 @@ export async function POST(req: NextRequest) {
 
         // Also notify JKTL owner
         await sendMainMail({
-          from: "JKTL System <noreply@mail.ibiz.name.ng>",
           to: ["info@jktl.com.ng"],
           subject: `New ${productName} signup: ${orgName}`,
           html: `

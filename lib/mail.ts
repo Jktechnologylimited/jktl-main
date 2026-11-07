@@ -1,8 +1,15 @@
 import { brandConnectedEmail } from "./mail-branding";
 import type { MailCategory } from "./mail-layout";
+export function mainMailSender() {
+  const configured =
+    process.env.RESEND_FROM_EMAIL || "John <jktl-business@mail.jktl.com.ng>";
+  // Retire older deployment values as well as hardcoded caller identities.
+  return /@(?:[^@.<>\s]+\.)*ibiz\.name\.ng(?:>|$)/i.test(configured)
+    ? "John <jktl-business@mail.jktl.com.ng>"
+    : configured;
+}
 /** Reuse Main's existing Resend HTTP integration and sender configuration. */
 export async function sendMainMail(p: {
-  from: string;
   to: string[];
   subject: string;
   html: string;
@@ -37,7 +44,8 @@ export async function sendMainMail(p: {
       ...(p.key ? { "Idempotency-Key": p.key } : {}),
     },
     body: JSON.stringify({
-      from: p.from,
+      from: mainMailSender(),
+      reply_to: "info@jktl.com.ng",
       to: p.to,
       subject: p.subject,
       html: rendered.html,
