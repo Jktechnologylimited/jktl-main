@@ -5,7 +5,14 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Send, Crown } from "lucide-react";
 import PixelFace from "@/components/shared/PixelFace";
-
+import {
+  isTemplateHelpPath,
+  TEMPLATE_CHAT_GREETING,
+  TEMPLATE_CHAT_QUESTIONS,
+  templateHelpReply,
+} from "@/lib/template-help";
+import { TemplateSupportRequest } from "./TemplateSupportRequest";
+import { siteConfig } from "@/data/index";
 
 type Msg = { from: "bot" | "user"; text: string };
 
@@ -42,12 +49,20 @@ const NUDGE_KEY = "jktl.chat.nudged";
  * Falls back to the generic greeting on pages with no obvious intent.
  */
 function nudgeFor(pathname: string): string {
-  if (pathname.startsWith("/pricing")) return "Want me to break the pricing down for your type of business?";
-  if (pathname.startsWith("/industr")) return "Tell me your industry and I'll show you exactly what fits.";
-  if (pathname.startsWith("/how-it-works")) return "Want to see this working on your own business? It takes two minutes.";
-  if (pathname.startsWith("/about")) return "Questions about who we are? I can answer those.";
-  if (pathname.startsWith("/contact")) return "Tell me what you need and I'll point you the right way — or bring in a human.";
-  if (pathname.startsWith("/affiliate")) return "Want help with Affiliate applications, agreement-based rewards or your JKTL Business workspace?";
+  if (isTemplateHelpPath(pathname))
+    return "Need help choosing or publishing a free template? Ask me, or request a person from JKTL.";
+  if (pathname.startsWith("/pricing"))
+    return "Want me to break the pricing down for your type of business?";
+  if (pathname.startsWith("/industr"))
+    return "Tell me your industry and I'll show you exactly what fits.";
+  if (pathname.startsWith("/how-it-works"))
+    return "Want to see this working on your own business? It takes two minutes.";
+  if (pathname.startsWith("/about"))
+    return "Questions about who we are? I can answer those.";
+  if (pathname.startsWith("/contact"))
+    return "Tell me what you need and I'll point you the right way — or bring in a human.";
+  if (pathname.startsWith("/affiliate"))
+    return "Want help with Affiliate applications, agreement-based rewards or your JKTL Business workspace?";
   return "Hi — I'm President. Ask me anything about JKTL Business, pricing, or the partner programme.";
 }
 
@@ -55,22 +70,40 @@ function nudgeFor(pathname: string): string {
  * a nudge, so the conversation starts relevant rather than at the greeting. */
 function openerFor(pathname: string): string | null {
   if (pathname.startsWith("/pricing")) return "Which plan were you looking at?";
-  if (pathname.startsWith("/industr")) return "What kind of business do you run?";
-  if (pathname.startsWith("/how-it-works")) return "What would you like to see working first?";
+  if (pathname.startsWith("/industr"))
+    return "What kind of business do you run?";
+  if (pathname.startsWith("/how-it-works"))
+    return "What would you like to see working first?";
   return null;
 }
 
-async function answer(question: string): Promise<string> { try { const {guideReply}=await import("@/lib/support-knowledge"); return guideReply(question).reply; } catch {return "Open the JKTL Help Centre for detailed guides, or sign in to Business to request a human support agent.";} }
+async function answer(question: string): Promise<string> {
+  try {
+    const { guideReply } = await import("@/lib/support-knowledge");
+    return guideReply(question).reply;
+  } catch {
+    return "Open the JKTL Help Centre for detailed guides, or sign in to Business to request a human support agent.";
+  }
+}
 
 export default function BizChat() {
   const pathname = usePathname();
+  const templateHelp = isTemplateHelpPath(pathname || "/");
+  const [humanHelp, setHumanHelp] = useState(false);
+  const [supportQuestion, setSupportQuestion] = useState("");
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([
-    { from: "bot", text: "Hi, I'm President — JKTL's guide assistant. Ask about free websites, templates, domains, email or payments. I use the JKTL help library; sign in to Business when you need a person or account-specific help." },
+    {
+      from: "bot",
+      text: templateHelp
+        ? TEMPLATE_CHAT_GREETING
+        : "Hi, I'm President — JKTL's guide assistant. Ask about free websites, templates, domains, email or payments. I use the JKTL help library; sign in to Business when you need a person or account-specific help.",
+    },
   ]);
   const endRef = useRef<HTMLDivElement>(null);
+  const handoffRef = useRef<HTMLDivElement>(null);
 
   /**
    * The proactive part: a visitor who has been reading for a few seconds is told
@@ -83,7 +116,16 @@ export default function BizChat() {
   /** What to ask first if they open from the nudge. */
   const [opener, setOpener] = useState<string | null>(null);
 
-  useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages, typing]);
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, typing]);
+  useEffect(() => {
+    if (humanHelp)
+      handoffRef.current?.scrollIntoView({
+        block: "start",
+        behavior: "smooth",
+      });
+  }, [humanHelp]);
 
   useEffect(() => {
     if (pathname?.startsWith("/affiliates/dashboard")) return;
@@ -112,7 +154,11 @@ export default function BizChat() {
 
   // The marketing domain never runs the partner dashboard; the business app owns
   // it, and the proxy hands these paths over before this component ever mounts.
-  if (pathname?.startsWith("/affiliates/dashboard") || pathname?.startsWith("/affiliate/dashboard")) return null;
+  if (
+    pathname?.startsWith("/affiliates/dashboard") ||
+    pathname?.startsWith("/affiliate/dashboard")
+  )
+    return null;
 
   function openFromTeaser() {
     setTeaser(null);
@@ -127,17 +173,24 @@ export default function BizChat() {
     }
   }
 
-  function send(text: string) {
-    const question = text.trim().slice(0,1500);
-    if (!question) return;
-    setMessages(m => [...m, { from: "user", text: question }]);
+  async function send(text: string) {
+    const question = text.trim().slice(0, 1500);
+    if (!question || typing) return;
+    setMessages((m) => [...m, { from: "user", text: question }]);
     setInput("");
     setTyping(true);
-    setTimeout(async () => {
-      const reply = await answer(question);
-      setMessages(m => [...m, { from: "bot", text: reply }]);
+    try {
+      const result = templateHelp
+        ? templateHelpReply(question)
+        : { reply: await answer(question), handoff: false };
+      setMessages((m) => [...m, { from: "bot", text: result.reply }]);
+      if (result.handoff) {
+        setSupportQuestion(question);
+        setHumanHelp(true);
+      }
+    } finally {
       setTyping(false);
-    }, 500 + Math.random() * 400);
+    }
   }
 
   return (
@@ -145,13 +198,22 @@ export default function BizChat() {
       {/* Launcher */}
       <motion.button
         onClick={() => {
-          setOpen(o => !o);
+          setOpen((o) => !o);
           setUnread(0);
           setTeaser(null);
         }}
         aria-label={open ? "Close chat" : "Chat with President"}
         className="fixed z-[200] flex items-center justify-center rounded-full shadow-lg"
-        style={{ bottom: 24, right: 24, width: 58, height: 58, background: "var(--gold-400)", color: "var(--navy-950)", border: "none", cursor: "pointer" }}
+        style={{
+          bottom: 24,
+          right: 24,
+          width: 58,
+          height: 58,
+          background: "var(--gold-400)",
+          color: "var(--navy-950)",
+          border: "none",
+          cursor: "pointer",
+        }}
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.4 }}
@@ -168,7 +230,16 @@ export default function BizChat() {
             transition={{ type: "spring", stiffness: 400, damping: 18 }}
             aria-hidden="true"
             className="absolute flex items-center justify-center rounded-full text-[0.65rem] font-bold"
-            style={{ top: -4, right: -4, minWidth: 20, height: 20, padding: "0 5px", background: "var(--navy-950)", color: "var(--gold-400)", border: "2px solid var(--gold-400)" }}
+            style={{
+              top: -4,
+              right: -4,
+              minWidth: 20,
+              height: 20,
+              padding: "0 5px",
+              background: "var(--navy-950)",
+              color: "var(--gold-400)",
+              border: "2px solid var(--gold-400)",
+            }}
           >
             {unread}
           </motion.span>
@@ -199,33 +270,74 @@ export default function BizChat() {
             exit={{ opacity: 0, y: 8, scale: 0.97 }}
             transition={{ type: "spring", stiffness: 320, damping: 26 }}
             className="fixed z-[199] flex items-start gap-2"
-            style={{ bottom: 92, right: 24, width: "min(300px, calc(100vw - 40px))" }}
+            style={{
+              bottom: 92,
+              right: 24,
+              width: "min(300px, calc(100vw - 40px))",
+            }}
           >
             <button
               onClick={openFromTeaser}
               className="flex-1 text-left cursor-pointer"
-              style={{ background: "var(--site-surface)", border: "1px solid var(--cream-300)", borderRadius: "14px 14px 2px 14px", padding: "12px 14px", boxShadow: "0 12px 32px rgba(6,14,42,0.18)", font: "inherit" }}
+              style={{
+                background: "var(--site-surface)",
+                border: "1px solid var(--cream-300)",
+                borderRadius: "14px 14px 2px 14px",
+                padding: "12px 14px",
+                boxShadow: "0 12px 32px rgba(6,14,42,0.18)",
+                font: "inherit",
+              }}
             >
-              <span className="flex items-center gap-2" style={{ marginBottom: 4 }}>
-                <span className="relative flex items-center justify-center rounded-full shrink-0" style={{ width: 22, height: 22, background: "var(--navy-950)", color: "var(--gold-400)" }}>
+              <span
+                className="flex items-center gap-2"
+                style={{ marginBottom: 4 }}
+              >
+                <span
+                  className="relative flex items-center justify-center rounded-full shrink-0"
+                  style={{
+                    width: 22,
+                    height: 22,
+                    background: "var(--navy-950)",
+                    color: "var(--gold-400)",
+                  }}
+                >
                   <PixelFace size={12} />
                 </span>
-                <span className="text-[0.7rem] font-semibold" style={{ color: "var(--site-text)" }}>
+                <span
+                  className="text-[0.7rem] font-semibold"
+                  style={{ color: "var(--site-text)" }}
+                >
                   President
                 </span>
-                <span className="text-[0.62rem]" style={{ color: "var(--site-muted)" }}>
+                <span
+                  className="text-[0.62rem]"
+                  style={{ color: "var(--site-muted)" }}
+                >
                   just now
                 </span>
               </span>
-              <span className="block text-[0.8rem] leading-snug" style={{ color: "var(--site-text)" }}>
+              <span
+                className="block text-[0.8rem] leading-snug"
+                style={{ color: "var(--site-text)" }}
+              >
                 {teaser}
               </span>
             </button>
             <button
-              onClick={() => { setTeaser(null); setUnread(0); }}
+              onClick={() => {
+                setTeaser(null);
+                setUnread(0);
+              }}
               aria-label="Dismiss message"
               className="shrink-0 flex items-center justify-center rounded-full cursor-pointer"
-              style={{ width: 24, height: 24, background: "rgba(6,14,42,0.55)", color: "#fff", border: "none", marginTop: 2 }}
+              style={{
+                width: 24,
+                height: 24,
+                background: "rgba(6,14,42,0.55)",
+                color: "#fff",
+                border: "none",
+                marginTop: 2,
+              }}
             >
               <X size={13} />
             </button>
@@ -237,10 +349,18 @@ export default function BizChat() {
       <AnimatePresence>
         {open && (
           <motion.div
+            role="dialog"
+            aria-label={templateHelp ? "Free template help" : "JKTL guide chat"}
             className="fixed z-[199] flex flex-col overflow-hidden"
             style={{
-              bottom: 92, right: 24, width: "min(380px, calc(100vw - 32px))", height: "min(560px, calc(100vh - 140px))",
-              background: "var(--site-surface)", borderRadius: 16, boxShadow: "0 24px 64px rgba(6,14,42,0.35)", border: "1px solid var(--cream-300)",
+              bottom: 92,
+              right: 24,
+              width: "min(380px, calc(100vw - 32px))",
+              height: "min(560px, calc(100dvh - 140px))",
+              background: "var(--site-surface)",
+              borderRadius: 16,
+              boxShadow: "0 24px 64px rgba(6,14,42,0.35)",
+              border: "1px solid var(--cream-300)",
               transformOrigin: "bottom right",
             }}
             initial={{ opacity: 0, scale: 0.92, y: 16 }}
@@ -248,82 +368,238 @@ export default function BizChat() {
             exit={{ opacity: 0, scale: 0.94, y: 10 }}
             transition={{ type: "spring", stiffness: 320, damping: 28 }}
           >
-          {/* Header */}
-          <div className="flex items-center gap-3 px-4 py-4" style={{ background: "var(--navy-950)" }}>
-            <div className="relative rounded-full flex items-center justify-center shrink-0" style={{ width: 38, height: 38, background: "rgba(201,168,76,0.15)", border: "1px solid rgba(201,168,76,0.3)", color: "var(--gold-400)" }}>
-              <PixelFace size={19} />
-              <span className="absolute rounded-full flex items-center justify-center" style={{ top: -6, right: -6, width: 16, height: 16, background: "var(--gold-400)", border: "2px solid var(--navy-950)" }}>
-                <Crown size={9} style={{ color: "var(--navy-950)" }} />
-              </span>
-            </div>
-            <div className="min-w-0">
-              <p className="font-semibold text-[0.9rem]" style={{ color: "#fff" }}>President</p>
-              <p className="text-[0.68rem] flex items-center gap-1.5" style={{ color: "rgba(249,247,240,0.45)" }}>
-                <span className="w-1.5 h-1.5 rounded-full" style={{ background: "#34D399" }} />
-                JKTL Business Assistant
-              </p>
-            </div>
-          </div>
-
-          {/* Messages */}
-          <div className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-3" style={{ background: "var(--site-paper)" }}>
-            <AnimatePresence initial={false}>
-              {messages.map((m, i) => (
-                <motion.div key={i}
-                  initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                  className={`max-w-[85%] px-3.5 py-2.5 text-[0.83rem] leading-relaxed ${m.from === "user" ? "self-end" : "self-start"}`}
+            {/* Header */}
+            <div
+              className="flex items-center gap-3 px-4 py-4"
+              style={{ background: "var(--navy-950)" }}
+            >
+              <div
+                className="relative rounded-full flex items-center justify-center shrink-0"
+                style={{
+                  width: 38,
+                  height: 38,
+                  background: "rgba(201,168,76,0.15)",
+                  border: "1px solid rgba(201,168,76,0.3)",
+                  color: "var(--gold-400)",
+                }}
+              >
+                <PixelFace size={19} />
+                <span
+                  className="absolute rounded-full flex items-center justify-center"
                   style={{
-                    background: m.from === "user" ? "var(--navy-900)" : "var(--site-surface)",
-                    color: m.from === "user" ? "#fff" : "var(--site-text)",
-                    border: m.from === "bot" ? "1px solid var(--cream-300)" : "none",
-                    borderRadius: m.from === "user" ? "12px 12px 2px 12px" : "12px 12px 12px 2px",
-                  }}>
-                  {m.text}
-                </motion.div>
-              ))}
-            </AnimatePresence>
-            {typing && (
-              <div className="self-start flex gap-1 px-3.5 py-3 rounded-xl" style={{ background: "var(--site-surface)", border: "1px solid var(--cream-300)", borderRadius: "12px 12px 12px 2px" }}>
-                {[0, 1, 2].map(i => (
-                  <span key={i} className="rounded-full" style={{ width: 5, height: 5, background: "var(--site-muted)", animation: `heroPulseRing 1s ease-in-out ${i * 0.15}s infinite` }} />
+                    top: -6,
+                    right: -6,
+                    width: 16,
+                    height: 16,
+                    background: "var(--gold-400)",
+                    border: "2px solid var(--navy-950)",
+                  }}
+                >
+                  <Crown size={9} style={{ color: "var(--navy-950)" }} />
+                </span>
+              </div>
+              <div className="min-w-0">
+                <p
+                  className="font-semibold text-[0.9rem]"
+                  style={{ color: "#fff" }}
+                >
+                  President
+                </p>
+                <p
+                  className="text-[0.68rem] flex items-center gap-1.5"
+                  style={{ color: "rgba(249,247,240,0.45)" }}
+                >
+                  <span
+                    className="w-1.5 h-1.5 rounded-full"
+                    style={{ background: "#34D399" }}
+                  />
+                  {templateHelp
+                    ? "Free template help"
+                    : "JKTL Business Assistant"}
+                </p>
+              </div>
+            </div>
+
+            {/* Messages */}
+            <div
+              data-chat-messages
+              className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-3"
+              style={{ background: "var(--site-paper)" }}
+            >
+              <AnimatePresence initial={false}>
+                {messages.map((m, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                    className={`max-w-[85%] px-3.5 py-2.5 text-[0.83rem] leading-relaxed ${m.from === "user" ? "self-end" : "self-start"}`}
+                    style={{
+                      background:
+                        m.from === "user"
+                          ? "var(--navy-900)"
+                          : "var(--site-surface)",
+                      color: m.from === "user" ? "#fff" : "var(--site-text)",
+                      border:
+                        m.from === "bot"
+                          ? "1px solid var(--cream-300)"
+                          : "none",
+                      borderRadius:
+                        m.from === "user"
+                          ? "12px 12px 2px 12px"
+                          : "12px 12px 12px 2px",
+                    }}
+                  >
+                    <span style={{ whiteSpace: "pre-line" }}>{m.text}</span>
+                  </motion.div>
                 ))}
+              </AnimatePresence>
+              {typing && (
+                <div
+                  className="self-start flex gap-1 px-3.5 py-3 rounded-xl"
+                  style={{
+                    background: "var(--site-surface)",
+                    border: "1px solid var(--cream-300)",
+                    borderRadius: "12px 12px 12px 2px",
+                  }}
+                >
+                  {[0, 1, 2].map((i) => (
+                    <span
+                      key={i}
+                      className="rounded-full"
+                      style={{
+                        width: 5,
+                        height: 5,
+                        background: "var(--site-muted)",
+                        animation: `heroPulseRing 1s ease-in-out ${i * 0.15}s infinite`,
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
+              {templateHelp && humanHelp && (
+                <div ref={handoffRef}>
+                  <TemplateSupportRequest
+                    key={supportQuestion}
+                    pathname={pathname || "/templates"}
+                    question={supportQuestion}
+                    messages={messages}
+                  />
+                </div>
+              )}
+              <div ref={endRef} />
+            </div>
+
+            {/* Quick replies */}
+            {messages.length < 3 && !humanHelp && (
+              <div className="flex flex-wrap gap-1.5 px-4 pb-2">
+                {(templateHelp ? TEMPLATE_CHAT_QUESTIONS : QUICK_REPLIES).map(
+                  (q) => (
+                    <button
+                      key={q}
+                      onClick={() => send(q)}
+                      className="text-[0.72rem] px-3 py-1.5 rounded-full cursor-pointer"
+                      style={{
+                        background: "var(--site-tint)",
+                        border: "1px solid var(--cream-300)",
+                        color: "var(--site-text)",
+                      }}
+                    >
+                      {q}
+                    </button>
+                  ),
+                )}
               </div>
             )}
-            <div ref={endRef} />
-          </div>
 
-          {/* Quick replies */}
-          {messages.length < 3 && (
-            <div className="flex flex-wrap gap-1.5 px-4 pb-2">
-              {QUICK_REPLIES.map(q => (
-                <button key={q} onClick={() => send(q)}
-                  className="text-[0.72rem] px-3 py-1.5 rounded-full cursor-pointer"
-                  style={{ background: "var(--site-tint)", border: "1px solid var(--cream-300)", color: "var(--site-text)" }}>
-                  {q}
-                </button>
-              ))}
+            {/* Input */}
+            <div
+              className="flex items-center gap-2 p-3 border-t border-cream-300"
+              style={{ background: "var(--site-surface)" }}
+            >
+              <input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && send(input)}
+                aria-label={
+                  templateHelp
+                    ? "Ask about free templates"
+                    : "Ask President a question"
+                }
+                placeholder={
+                  templateHelp
+                    ? "Ask about free templates…"
+                    : "Ask President a question..."
+                }
+                maxLength={1500}
+                className="flex-1 text-[0.85rem] px-3.5 py-2.5 rounded-full outline-none"
+                style={{
+                  background: "var(--site-tint)",
+                  color: "var(--site-text)",
+                  border: "1px solid var(--cream-300)",
+                }}
+              />
+              <button
+                disabled={typing || !input.trim()}
+                onClick={() => send(input)}
+                aria-label="Send"
+                className="flex items-center justify-center rounded-full shrink-0"
+                style={{
+                  width: 38,
+                  height: 38,
+                  background: "var(--gold-400)",
+                  color: "var(--navy-950)",
+                  border: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <Send size={16} />
+              </button>
             </div>
-          )}
-
-          {/* Input */}
-          <div className="flex items-center gap-2 p-3 border-t border-cream-300" style={{ background: "var(--site-surface)" }}>
-            <input
-              value={input}
-              onChange={e => setInput(e.target.value)}
-              onKeyDown={e => e.key === "Enter" && send(input)}
-              placeholder="Ask President a question..." maxLength={1500}
-              className="flex-1 text-[0.85rem] px-3.5 py-2.5 rounded-full outline-none"
-              style={{ background: "var(--site-tint)", border: "1px solid var(--cream-300)" }}
-            />
-            <button onClick={() => send(input)} aria-label="Send"
-              className="flex items-center justify-center rounded-full shrink-0"
-              style={{ width: 38, height: 38, background: "var(--gold-400)", color: "var(--navy-950)", border: "none", cursor: "pointer" }}>
-              <Send size={16} />
-            </button>
-          </div>
-          <nav aria-label="Support options" className="flex flex-wrap justify-center gap-5 py-3 text-[0.7rem]" style={{color:"var(--site-accent)",background:"var(--site-tint)"}}><Link href="/resources/help-centre" className="underline">Read full guides</Link><a href="https://business.jktl.com.ng/login?next=support" className="underline">Talk to support →</a></nav>
+            <nav
+              aria-label="Support options"
+              className="flex flex-wrap justify-center gap-3 px-3 py-3 text-[0.7rem]"
+              style={{
+                color: "var(--site-accent)",
+                background: "var(--site-tint)",
+              }}
+            >
+              <Link href="/resources/help-centre" className="underline">
+                Read full guides
+              </Link>
+              {templateHelp ? (
+                <>
+                  <button
+                    type="button"
+                    className="underline"
+                    onClick={() => {
+                      setSupportQuestion(
+                        messages.filter((m) => m.from === "user").at(-1)
+                          ?.text || "I need help with a free template.",
+                      );
+                      setHumanHelp(true);
+                    }}
+                  >
+                    Request a person
+                  </button>
+                  <a
+                    href={`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent("Hello JKTL, I need help with a free website template. Page: https://jktl.com.ng" + (pathname || "/templates"))}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline"
+                  >
+                    WhatsApp the team
+                  </a>
+                </>
+              ) : (
+                <a
+                  href="https://business.jktl.com.ng/login?next=support"
+                  className="underline"
+                >
+                  Talk to support →
+                </a>
+              )}
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>

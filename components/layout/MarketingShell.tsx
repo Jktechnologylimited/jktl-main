@@ -26,6 +26,9 @@ export default function MarketingShell({ children }: { children: ReactNode }) {
   return preview ? (
     <div style={{ colorScheme: "light", color: "#060e2a", background: "#fff" }}>
       {children}
+      {!pathname.startsWith("/template-canvas/") && (
+        <BizChat key="template-help" />
+      )}
     </div>
   ) : (
     <div
@@ -38,7 +41,13 @@ export default function MarketingShell({ children }: { children: ReactNode }) {
       <Suspense fallback={null}>
         <ReferralConsent />
       </Suspense>
-      <BizChat />
+      <BizChat
+        key={
+          pathname.startsWith("/templates") || pathname === "/landing-pages"
+            ? "template-help"
+            : "main-help"
+        }
+      />
     </div>
   );
 }

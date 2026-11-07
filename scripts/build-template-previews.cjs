@@ -32,13 +32,25 @@ const path = require("node:path");
               template.id,
           );
           if (result.status() !== 200) throw new Error(template.id);
-          await page.locator("#home h1").waitFor();
+          await page.locator("h1").first().waitFor();
+          await page.evaluate(() => document.fonts.ready);
           await page.waitForFunction(() =>
-            Array.from(document.querySelectorAll("#home img")).every(
-              (i) => i.complete && i.naturalWidth > 0,
-            ),
+            Array.from(document.images)
+              .filter((image) => {
+                const rect = image.getBoundingClientRect();
+                return (
+                  rect.width > 0 &&
+                  rect.height > 0 &&
+                  rect.top < innerHeight &&
+                  rect.bottom > 0
+                );
+              })
+              .every((image) => image.complete && image.naturalWidth > 0),
           );
-          const box = await page.locator("[data-layout]").boundingBox();
+          const box = await page
+            .locator("[data-layout], [data-legal-template]")
+            .first()
+            .boundingBox();
           await page.screenshot({
             path: path.join(folder, template.id + ".jpg"),
             type: "jpeg",

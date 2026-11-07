@@ -8,3 +8,5 @@ The family-law template uses a locally bundled Pexels photo of three professiona
 - License: https://www.pexels.com/license/
 
 The Main and Business catalogs share the same image. The gallery thumbnail is captured from the rendered template. Existing saved customer documents retain their chosen photos.
+
+Current catalogue defaults were refreshed to the reviewed African family and legal photography described in `AFRICAN_TEMPLATE_PHOTOGRAPHY.md`; the source notes above record the earlier version. Existing saved customer documents retain their chosen photos.

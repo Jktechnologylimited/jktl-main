@@ -3,7 +3,7 @@
   width: clamp(120px, 15vw, 240px);
   min-width: 0;
   font-family: var(--font-plus-jakarta-sans), sans-serif;
-  color: var(--color-ink, #060e2a);
+  color: var(--template-ink, #060e2a);
 }
 .trigger {
   width: 100%;
@@ -58,10 +58,10 @@
   list-style: none;
   margin: 0;
   padding: 7px;
-  border: 1px solid var(--color-border-strong, #e8e1d0);
+  border: 1px solid var(--template-border, #e8e1d0);
   border-radius: 10px;
-  background: var(--color-paper, #f9f7f0);
-  color: var(--color-ink, #060e2a);
+  background: var(--template-paper, #f9f7f0);
+  color: var(--template-ink, #060e2a);
   box-shadow: 0 14px 35px #02081826;
   font: inherit;
   font-size: 14px;

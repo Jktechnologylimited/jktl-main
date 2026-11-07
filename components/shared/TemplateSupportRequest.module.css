@@ -1,0 +1,72 @@
+.form {
+  margin: 4px 0;
+  padding: 14px;
+  border: 1px solid var(--site-line, #e8e1d0);
+  border-radius: 12px;
+  background: var(--site-surface, #fff);
+  color: var(--site-text, #060e2a);
+  font: inherit;
+}
+.form h3 {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+.form p {
+  font-size: 11px;
+  line-height: 1.6;
+  margin: 8px 0;
+}
+.form label {
+  display: block;
+  font-size: 12px;
+  margin-top: 10px;
+}
+.form input:not([type="checkbox"]),
+.form textarea {
+  display: block;
+  width: 100%;
+  font: inherit;
+  font-size: 14px;
+  padding: 8px;
+  border: 1px solid var(--site-line, #e8e1d0);
+  border-radius: 7px;
+  background: var(--site-paper, #f9f7f0);
+  color: inherit;
+  margin-top: 5px;
+}
+.form textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+.form .consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.form input[type="checkbox"] {
+  margin-top: 3px;
+  accent-color: #c9a84c;
+}
+.form button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: #c9a84c;
+  color: #060e2a;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.form button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.form :is(input, textarea, button):focus-visible {
+  outline: 2px solid #c9a84c;
+  outline-offset: 3px;
+}
