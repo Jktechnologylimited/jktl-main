@@ -58,3 +58,12 @@ mouse/touch/keyboard controls, hints and local-device scores. It does not load t
 3D engine. Existing direct Tycoon/Fantasy routes remain valid. Main still reads
 `GAME_BUSINESS_ORIGIN` and `FANTASY_APP_ORIGIN` on the server at build time; local
 browser testing must use development rendering or rebuild with the local origins.
+
+## Kora Skybound
+
+The game picker now also includes **Kora Skybound**, an original Canvas 2D
+platform adventure served at the Business application's `/play/skybound` route.
+It includes three worlds, keyboard/multi-touch input, sunstone collectibles,
+creatures, checkpoints and optional synthesized sound. It is guest play with local
+best scores, has no cash rewards, and does not load a 3D engine. Existing direct
+entry routes and account authentication remain unchanged.
