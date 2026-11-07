@@ -42,7 +42,7 @@ test("Main sends use the JKTL mail domain, real Reply-To and existing provider p
     });
     assert.equal(
       captured[0].body.from,
-      "John <jktl-business@mail.jktl.com.ng>",
+      "JKTL Business <notifications@mail.jktl.com.ng>",
     );
     assert.equal(captured[0].body.reply_to, "info@jktl.com.ng");
     assert.equal(
@@ -50,10 +50,15 @@ test("Main sends use the JKTL mail domain, real Reply-To and existing provider p
       "fixture-only",
     );
     assert.match(captured[0].body.text, /https:\/\/jktl.com.ng/);
+    process.env.RESEND_FROM_EMAIL = "John <jktl-business@mail.jktl.com.ng>";
+    assert.equal(
+      m.exports.mainMailSender(),
+      "JKTL Business <notifications@mail.jktl.com.ng>",
+    );
     delete process.env.RESEND_FROM_EMAIL;
     assert.equal(
       m.exports.mainMailSender(),
-      "John <jktl-business@mail.jktl.com.ng>",
+      "JKTL Business <notifications@mail.jktl.com.ng>",
     );
     delete process.env.RESEND_API_KEY;
     await m.exports.sendMainMail({

@@ -2,10 +2,13 @@ import { brandConnectedEmail } from "./mail-branding";
 import type { MailCategory } from "./mail-layout";
 export function mainMailSender() {
   const configured =
-    process.env.RESEND_FROM_EMAIL || "John <jktl-business@mail.jktl.com.ng>";
+    process.env.RESEND_FROM_EMAIL ||
+    "JKTL Business <notifications@mail.jktl.com.ng>";
   // Retire older deployment values as well as hardcoded caller identities.
-  return /@(?:[^@.<>\s]+\.)*ibiz\.name\.ng(?:>|$)/i.test(configured)
-    ? "John <jktl-business@mail.jktl.com.ng>"
+  return /(?:jktl-business@mail\.jktl\.com\.ng|@(?:[^@.<>\s]+\.)*ibiz\.name\.ng)(?:>|$)/i.test(
+    configured,
+  )
+    ? "JKTL Business <notifications@mail.jktl.com.ng>"
     : configured;
 }
 /** Reuse Main's existing Resend HTTP integration and sender configuration. */
