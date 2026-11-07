@@ -7,7 +7,7 @@
 | `https://jktl.com.ng/games` | `Jktechnologylimited/jktl-main` | Opens the playable Tycoon interface immediately below the Main navigation. |
 | `https://jktl.com.ng/games/business-tycoon` | Main | Compatible direct entry into Tycoon, with no marketing hero or Play gate. |
 | `https://jktl.com.ng/games/fantasy` | Main | Opens the actual Fantasy interface immediately. |
-| `https://games.jktl.com.ng` | `Jktechnologylimited/jktl-business--` | Root rewrites to `/play`, a full-window Tycoon portal with Fantasy/Main links. |
+| `https://games.jktl.com.ng` | `Jktechnologylimited/jktl-business--` | Root rewrites to `/play`, the nine-game catalogue with search, favourites, recent selections and Pick for me. Selecting a card opens one full-window game. |
 | `https://fantasy.jktl.com.ng` | `Jktechnologylimited/scaling-waffle-gam-fant-jktl` | The existing Fantasy application's public root game. |
 
 Main and the Games portal embed the actual applications. There is no screenshot pretending to be a game and no copied portfolio or game balance. Both Main game pages have a game switcher and standalone-game links; Main's footer and chat widget are hidden on game pages to give the interface the screen.
@@ -67,3 +67,7 @@ It includes three worlds, keyboard/multi-touch input, sunstone collectibles,
 creatures, checkpoints and optional synthesized sound. It is guest play with local
 best scores, has no cash rewards, and does not load a 3D engine. Existing direct
 entry routes and account authentication remain unchanged.
+
+## Additional casual games
+
+Main retains immediate Tycoon gameplay and offers Market Slice, Market Match, Lagos Stack and Naija Word Mix alongside the existing five games in its selector. The standalone catalogue uses original illustrated covers and guest play. Business hosts the new routes at `/play/market-slice`, `/play/market-match`, `/play/lagos-stack` and `/play/word-mix`; see Business `docs/CASUAL-GAMES.md` for controls and verification.
