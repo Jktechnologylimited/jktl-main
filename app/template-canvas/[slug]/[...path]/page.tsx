@@ -1,20 +1,14 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
-  websiteTemplates,
   getWebsiteTemplate,
-  beautyPagePaths,
-  beautyPageMeta,
+  websitePagePaths,
+  websitePageMeta,
 } from "@/lib/website-templates";
 import { RawTemplatePreview } from "@/components/templates/TemplatePreview";
-export const dynamicParams = false;
-export function generateStaticParams() {
-  return websiteTemplates.flatMap((t) =>
-    beautyPagePaths(t.document)
-      .filter(Boolean)
-      .map((path) => ({ slug: t.id, path: path.split("/") })),
-  );
-}
+// Cache subpages on first access; do not prebuild thousands of preview URLs.
+export const dynamicParams = true;
+export function generateStaticParams() { return []; }
 export async function generateMetadata({
   params,
 }: {
@@ -22,7 +16,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const p = await params,
     t = getWebsiteTemplate(p.slug);
-  const meta = t ? beautyPageMeta(t.document, p.path.join("/")) : undefined;
+  if (!t || !websitePagePaths(t,t.document).includes(p.path.join("/"))) notFound();
+  const meta = websitePageMeta(t, t.document, p.path.join("/"));
   return {
     title: meta?.title,
     description: meta?.description,
@@ -31,21 +26,18 @@ export async function generateMetadata({
 }
 export default async function Page({
   params,
-  searchParams,
 }: {
   params: Promise<{ slug: string; path: string[] }>;
-  searchParams: Promise<{ service?: string }>;
 }) {
   const p = await params,
     t = getWebsiteTemplate(p.slug),
     path = p.path.join("/");
-  if (!t || !beautyPagePaths(t.document).includes(path))
+  if (!t || !websitePagePaths(t, t.document).includes(path))
     notFound();
   return (
     <RawTemplatePreview
       id={p.slug}
       pagePath={path}
-      initialService={(await searchParams).service}
     />
   );
 }
