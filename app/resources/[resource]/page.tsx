@@ -44,6 +44,11 @@ export default async function Page({
               Sign in for AI help and human support →
             </a>
           </p>
+          <section className="mb-8 rounded-2xl border border-cream-300 bg-white p-6">
+            <h2 className="text-2xl font-semibold">The complete JKTL knowledge base</h2>
+            <p className="my-4 text-sm leading-7 text-black/60">Search detailed guides for websites, domains, email, payments, Custom projects, Partners, Affiliates and everyday Business tools. Each guide includes practical steps, troubleshooting and when to ask for human help.</p>
+            <a href="https://business.jktl.com.ng/help" className="inline-block rounded-full bg-navy-900 px-6 py-3 text-sm font-semibold text-white">Explore the knowledge base →</a>
+          </section>
           <HelpLibrary />
         </div>
       </div>

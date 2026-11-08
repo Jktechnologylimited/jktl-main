@@ -293,7 +293,7 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
         items: [
           {
             title: "Help & guides",
-            description: "Find product guides in your JKTL account.",
+            description: "Search step-by-step guides across the JKTL platform.",
             href: "/resources/help-centre",
             note: "Public guides · account help available after sign-in",
           },

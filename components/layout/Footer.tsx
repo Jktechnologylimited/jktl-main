@@ -56,6 +56,7 @@ export default function Footer() {
   ].filter((i) => !["/about", "/affiliates", "/partners"].includes(i.href));
   const support = [
     { href: "/resources/help-centre", title: "Help & guides" },
+    { href: "https://business.jktl.com.ng/help", title: "Knowledge base" },
     { href: "/contact", title: "Contact the team" },
     { href: "/pricing", title: "Plans & pricing" },
     { href: "https://business.jktl.com.ng/login", title: "Business sign in" },
