@@ -1,6 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { Suspense, type ReactNode, type CSSProperties } from "react";
+import { JourneyAnalytics } from "@/components/shared/JourneyAnalytics";
 import { ReferralConsent } from "@/components/shared/ReferralConsent";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
@@ -38,6 +39,7 @@ export default function MarketingShell({ children }: { children: ReactNode }) {
       <Navbar />
       <main>{children}</main>
       <Footer />
+      <JourneyAnalytics />
       <Suspense fallback={null}>
         <ReferralConsent />
       </Suspense>

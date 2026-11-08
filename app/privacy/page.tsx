@@ -14,7 +14,7 @@ export default function PrivacyPage() {
   const sections = [
     {
       title: "1. Information We Collect",
-      body: "On jktl.com.ng, we collect information you submit through our contact form (name, email, message) and standard analytics data (page views, device type). Inside the JKTL Business app itself (business.jktl.com.ng), we collect account information, business details, and the customer, booking, invoice, and inventory data you enter to run your business -- that data belongs to you and the business you manage.",
+      body: "On jktl.com.ng, we collect information you submit through our contact form (name, email, message) and optional, consent-based journey analytics (a browser identifier and public page paths without query strings). Inside the JKTL Business app itself (business.jktl.com.ng), we collect account information, business details, and the customer, booking, invoice, and inventory data you enter to run your business -- that data belongs to you and the business you manage.",
     },
     {
       title: "2. How We Use Your Information",
@@ -30,7 +30,7 @@ export default function PrivacyPage() {
     },
     {
       title: "5. Cookies",
-      body: "We use essential cookies for sign-in and core functionality. Optional referral attribution uses a 30-day cookie only after you allow it. You may decline or remove that cookie here or through browser settings. Existing financial attribution records are retained where required for accounting.",
+      body: "We use essential cookies for sign-in and core functionality. Optional referral attribution uses a 30-day cookie only after you allow it. You may decline or remove that cookie here or through browser settings. Optional journey analytics uses a separate 30-day identifier, with your permission, to connect public visits to signup and website activation. Browser Do Not Track and Global Privacy Control preferences prevent this optional tracking. You can turn it off and request removal through Privacy & optional journey analytics in the footer. Journey identifiers are removed after expiry; saved aggregate reports and necessary financial records are retained separately. Existing financial attribution records are retained where required for accounting.",
     },
     {
       title: "6. Your Rights",
@@ -61,7 +61,7 @@ export default function PrivacyPage() {
             Privacy Policy
           </h1>
           <p className="label-xs" style={{ color: "rgba(249,247,240,0.35)" }}>
-            Last updated: March 2026
+            Last updated: 8 November 2026
           </p>
         </div>
       </section>
