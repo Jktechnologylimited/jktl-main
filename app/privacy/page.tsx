@@ -14,7 +14,7 @@ export default function PrivacyPage() {
   const sections = [
     {
       title: "1. Information We Collect",
-      body: "On jktl.com.ng, we collect information you submit through our contact form (name, email, message) and optional, consent-based journey analytics (a browser identifier and public page paths without query strings). Inside the JKTL Business app itself (business.jktl.com.ng), we collect account information, business details, and the customer, booking, invoice, and inventory data you enter to run your business -- that data belongs to you and the business you manage.",
+      body: "On jktl.com.ng, we collect information you submit through our contact form (name, email, message) and optional, consent-based journey analytics (a browser identifier, public page paths and approved campaign labels extracted from UTM parameters; raw query strings are never stored). Inside the JKTL Business app itself (business.jktl.com.ng), we collect account information, business details, and the customer, booking, invoice, and inventory data you enter to run your business -- that data belongs to you and the business you manage.",
     },
     {
       title: "2. How We Use Your Information",

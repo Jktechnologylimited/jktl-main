@@ -12,7 +12,7 @@ function subscribe(fn: () => void) {
   window.addEventListener("jktl-analytics-consent", fn);
   return () => window.removeEventListener("jktl-analytics-consent", fn);
 }
-export function JourneyAnalytics() {
+export function JourneyAnalytics({ compact = false }: { compact?: boolean }) {
   const pathname = usePathname();
   const allowed = useSyncExternalStore(subscribe, snapshot, () => false);
   const [message, setMessage] = useState("");
@@ -28,10 +28,41 @@ export function JourneyAnalytics() {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ consent: true, path: pathname }),
+      body: JSON.stringify({
+        consent: true,
+        path: pathname,
+        utm: {
+          source: new URLSearchParams(location.search).get("utm_source"),
+          medium: new URLSearchParams(location.search).get("utm_medium"),
+          campaign: new URLSearchParams(location.search).get("utm_campaign"),
+        },
+      }),
       keepalive: true,
     }).catch(() => {});
   }, [allowed, pathname]);
+  useEffect(() => {
+    if (!allowed || privacy()) return;
+    const clicked = (e: MouseEvent) => {
+      const a = (e.target as Element)?.closest?.("a");
+      if (!a) return;
+      try {
+        const u = new URL(a.href);
+        if (
+          u.hostname === "business.jktl.com.ng" &&
+          u.searchParams.has("template")
+        )
+          void fetch(endpoint, {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ consent: true, event: "template_selected" }),
+            keepalive: true,
+          }).catch(() => {});
+      } catch {}
+    };
+    document.addEventListener("click", clicked);
+    return () => document.removeEventListener("click", clicked);
+  }, [allowed]);
   async function change(value: boolean) {
     if (value && privacy()) {
       setMessage(
@@ -60,14 +91,15 @@ export function JourneyAnalytics() {
       }
     } else setMessage("Optional journey analytics enabled for 30 days.");
   }
+  if (compact) return null;
   return (
     <details style={{ padding: "12px 24px", fontSize: 12 }}>
       <summary>Privacy &amp; optional journey analytics</summary>
       <p>
         With your permission, JKTL can connect visits on its main site to
         website signup and activation. This uses a 30-day browser identifier,
-        without storing your IP address or page query strings. Counts cover
-        consenting browsers, not all visitors.
+        with approved campaign labels, without storing your IP address or raw
+        page query strings. Counts cover consenting browsers, not all visitors.
       </p>
       <label
         style={{

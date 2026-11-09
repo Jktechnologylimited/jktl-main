@@ -27,6 +27,7 @@ export default function MarketingShell({ children }: { children: ReactNode }) {
   return preview ? (
     <div style={{ colorScheme: "light", color: "#060e2a", background: "#fff" }}>
       {children}
+      {!pathname.startsWith("/template-canvas/") && <JourneyAnalytics compact />}
       {!pathname.startsWith("/template-canvas/") && (
         <BizChat key="template-help" />
       )}
