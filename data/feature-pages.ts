@@ -98,18 +98,18 @@ export const featurePages = [
     section: "products",
     slug: "invoicing-payments",
     label: "Invoicing & payments",
-    title: "Send an invoice. Keep track of payment.",
+    title: "Create invoices. Get paid.",
     intro:
-      "Create invoices, record their status and connect supported Paystack payments through your business payment settings.",
+      "Create professional invoices for free, share payment links and track verified payments in JKTL Business. No paid website subscription is required.",
     benefits: [
       "Keep invoices linked to customer records.",
       "See outstanding balances in your dashboard.",
-      "Configure Paystack settlement before accepting online payments.",
+      "Verify your receiving bank details before creating or sending invoices.",
     ],
     steps: [
       "Create an invoice for a customer.",
-      "Review the details and share the invoice.",
-      "Track the payment and outstanding balance.",
+      "Review your invoice and share it by email or payment link.",
+      "Track confirmed payments and the outstanding invoice balance.",
     ],
     image: "consultancy",
   },
@@ -231,9 +231,9 @@ export const featurePages = [
     section: "solutions",
     slug: "online-payments",
     label: "Get paid",
-    title: "Make payment part of a clearer workflow.",
+    title: "Make it easier for customers to pay.",
     intro:
-      "Connect invoices and supported online payments to the customer records you already use.",
+      "Share secure Paystack invoice payment links from your website or directly with customers. Review transparent checkout charges before confirming payment.",
     benefits: [
       "Keep invoices linked to customer records.",
       "See outstanding balances in your dashboard.",
@@ -242,7 +242,7 @@ export const featurePages = [
     steps: [
       "Create an invoice for a customer.",
       "Review the details and share the invoice.",
-      "Track the payment and outstanding balance.",
+      "Track confirmed payments and the outstanding invoice balance.",
     ],
     image: "retail",
   },

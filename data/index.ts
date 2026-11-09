@@ -11,7 +11,7 @@ export const siteConfig = {
   name: "JK Technology Limited",
   short: "JKTL",
   product: "JKTL Business",
-  tagline: "The all-in-one app Nigerian businesses use to manage customers, bookings, invoices and payments -- from their phone.",
+  tagline: "Start free. Run your business. Get paid. Websites, professional invoicing, payment links and everyday business tools.",
   shortTagline: "Business management, made mobile-first",
   url: "https://jktl.com.ng",
   appUrl: "https://business.jktl.com.ng",
@@ -100,7 +100,7 @@ export const features = [
     icon: "Receipt",
     id: "payments",
     title: "Invoicing & Payments",
-    desc: "Create an invoice in seconds and collect payment online, directly on it, via Paystack. No more chasing bank transfers.",
+    desc: "Create an invoice in seconds and collect payment online, directly on it, via Paystack. Track verified payments alongside your customer records.",
   },
   {
     icon: "Package",
@@ -118,7 +118,7 @@ export const features = [
     icon: "Globe",
     id: "website",
     title: "Free Business Website",
-    desc: "Every business gets a published website on a jktl.com.ng subdomain -- customers can find you and book or buy online.",
+    desc: "Choose a template, add your details and publish at your free JKTL address. Share services, enquiries and payment links.",
   },
   {
     icon: "Smartphone",
@@ -292,6 +292,6 @@ export const competitors = [
 // --- HOW IT WORKS STEPS ------------------------------------------------------------
 export const signupSteps = [
   { n: "01", title: "Create your account", desc: "Sign up free with your name, email and business details." },
-  { n: "02", title: "Set up your business", desc: "Choose a free template and add your logo, services, photos and contact information." },
-  { n: "03", title: "Go live", desc: "Review desktop and mobile previews, then publish on your available free JKTL address. Install the app for everyday access." },
+  { n: "02", title: "Choose the tools you need", desc: "Build from a free template, create professional invoices or set up your business records. A website subscription is optional." },
+  { n: "03", title: "Share with customers", desc: "Publish your website or share invoice links. Set up verified receiving bank details for payments, then track your records in JKTL Business." },
 ];

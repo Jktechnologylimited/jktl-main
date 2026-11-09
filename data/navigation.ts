@@ -29,6 +29,18 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
             href: "/products/website-builder",
           },
           {
+            title: "Free invoicing",
+            description:
+              "Create and share professional invoices without buying a website plan.",
+            href: "/products/invoicing-payments",
+          },
+          {
+            title: "Online payments",
+            description:
+              "Share secure invoice payment links with transparent checkout charges.",
+            href: "/solutions/online-payments",
+          },
+          {
             title: "Website templates",
             description:
               "Make it yours with brand colours and curated font pairings.",
@@ -74,9 +86,10 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
             href: "/products/bookings-sales",
           },
           {
-            title: "Invoicing & payments",
-            description: "Send invoices and collect payments through Paystack.",
-            href: "/products/invoicing-payments",
+            title: "Business tools",
+            description:
+              "Connect customer records, invoicing, stock and everyday operations.",
+            href: "/products/business-tools",
           },
           {
             title: "Inventory & expenses",
@@ -98,9 +111,9 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
           {
             title: "AI receptionist",
             description:
-              "Explore call handling and missed-call recovery for your business.",
+              "Call handling and automated receptionist bookings are currently paused.",
             href: "/products/ai-receptionist",
-            note: "Paid activation",
+            note: "Temporarily unavailable",
           },
         ],
       },
@@ -133,7 +146,7 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
     footer: {
       title: "Start for free",
       description:
-        "Start with business tools and a free-to-start chatbot. Higher allowances use your existing JKTL plan.",
+        "Start with a free website, professional invoicing or your everyday business tools. Payment charges apply when you accept online payments.",
       href: "https://business.jktl.com.ng/signup",
     },
   },
@@ -231,7 +244,12 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
       {
         title: "Explore",
         items: [
-          {title:"Free SEO checker",description:"Check your public page and get practical SEO improvements.",href:"/tools/seo-checker"},
+          {
+            title: "Free SEO checker",
+            description:
+              "Check your public page and get practical SEO improvements.",
+            href: "/tools/seo-checker",
+          },
           {
             title: "Case studies",
             description:

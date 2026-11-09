@@ -5,6 +5,13 @@ import Link from "next/link";
 import { T } from "@/components/i18n/LanguageProvider";
 import type { featurePages } from "@/data/feature-pages";
 export function FeaturePage({ page }: { page: (typeof featurePages)[number] }) {
+  const invoicePage = page.slug === "invoicing-payments";
+  const paymentPage = page.slug === "online-payments";
+  const start = invoicePage
+    ? "https://business.jktl.com.ng/signup?next=invoices"
+    : paymentPage
+      ? "https://business.jktl.com.ng/signup?next=payments"
+      : "https://business.jktl.com.ng/signup";
   return (
     <div
       style={{
@@ -47,11 +54,8 @@ export function FeaturePage({ page }: { page: (typeof featurePages)[number] }) {
               <T>{page.intro}</T>
             </p>
             <div className="mt-7 flex flex-wrap gap-4">
-              <a
-                className="btn-gold rounded-full px-6 py-3"
-                href="https://business.jktl.com.ng/signup"
-              >
-                <T>Start for free</T>
+              <a className="btn-gold rounded-full px-6 py-3" href={start}>
+                <T>{invoicePage ? "Create an Invoice" : "Start for free"}</T>
               </a>
               <Link
                 className="btn-outline-navy rounded-full px-6 py-3"
@@ -105,6 +109,32 @@ export function FeaturePage({ page }: { page: (typeof featurePages)[number] }) {
             ))}
           </ol>
         </section>
+        {(invoicePage || paymentPage) && (
+          <aside className="mt-10 rounded-2xl border border-cream-300 bg-white p-6 text-sm leading-7">
+            <h2 className="text-xl font-semibold">
+              Clear charges, separate from your invoice.
+            </h2>
+            <p className="mt-3">
+              Invoice creation is free. Set up your verified receiving bank
+              account before creating or sending an invoice. Buyers review the
+              merchant amount, the applicable JKTL platform fee and the final
+              total before paying. Online processing is not free; the current
+              applicable charges are shown at checkout.
+            </p>
+            <p className="mt-3">
+              Website visitors can use a shared invoice payment link. A native
+              shopping-cart checkout is not currently offered. Bank settlement
+              follows the provider’s schedule and is distinct from payment
+              verification.
+            </p>
+            <Link
+              href="/pricing#transaction-charges"
+              className="mt-4 inline-block underline"
+            >
+              Understand payment charges →
+            </Link>
+          </aside>
+        )}
         <section className="mt-14">
           <h2 className="text-3xl">
             <T>Before you begin</T>

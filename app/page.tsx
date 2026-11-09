@@ -3,7 +3,8 @@ import { PeopleStory } from "@/components/shared/PeopleStory";
 import { FeatureBadge } from "@/components/features/FeatureBadge";
 import { FeaturedCaseStudies } from "@/components/case-studies/FeaturedCaseStudies";
 import { T } from "@/components/i18n/LanguageProvider";
-import { WebsiteSteps } from "@/components/home/WebsiteSteps";
+import { EntryProducts } from "@/components/home/EntryProducts";
+import { BusinessSteps } from "@/components/home/BusinessSteps";
 import Link from "next/link";
 import Image from "next/image";
 import { CheckCircle2, Globe, Smartphone, ShieldCheck } from "lucide-react";
@@ -18,33 +19,63 @@ import {
 import { affiliateUrl, appSignupUrl, features, industries } from "@/data/index";
 
 export const metadata = pageMetadata("/", {
-  title: "Free Business Websites, Landing Pages & Business Tools",
+  title: "Free Websites, Professional Invoicing & Online Payments",
   description:
-    "Build a website or landing page with 200 modern templates. Manage customers, bookings, invoices and stock with JKTL Business. Start for free.",
+    "Create a free business website, send professional invoices and accept online payments with JKTL Business. Manage your growing business in Nigeria, all in one place.",
 });
 
 export default function HomePage() {
   return (
     <div className="bg-cream-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Start with JKTL Business",
+            itemListElement: [
+              {
+                name: "Free business website builder",
+                url: "https://jktl.com.ng/products/website-builder",
+              },
+              {
+                name: "Free professional invoicing",
+                url: "https://jktl.com.ng/products/invoicing-payments",
+              },
+              {
+                name: "Online invoice payments",
+                url: "https://jktl.com.ng/solutions/online-payments",
+              },
+            ].map((item, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              item: { "@type": "WebPage", ...item },
+            })),
+          }),
+        }}
+      />
       {/* The hook comes first; the people-led visual follows on every screen. */}
       <section className="relative overflow-hidden bg-[#FDFCF8] text-[#060E2A] px-5 pt-32 pb-16 sm:px-8">
         <div className="mx-auto max-w-[1200px]">
           <div className="mx-auto max-w-[950px] text-center">
             <p className="text-[11px] sm:text-xs uppercase tracking-[.16em] font-semibold">
-              <T>Websites • Domains • Hosting • Business Email</T>
+              <T>Free Websites • Free Invoicing • Online Payments</T>
             </p>
             <h1 className="mt-7 text-[clamp(2.8rem,6vw,5.8rem)] leading-[1.03] tracking-[-.055em] font-medium">
-              <T>Build your business online.</T>
+              <T>Start free.</T>
+              <br />
+              <T>Run your business.</T>
               <br />
               <span className="text-[#80621c]">
-                <T>Grow beyond limits.</T>
+                <T>Get paid.</T>
               </span>
             </h1>
             <p className="mx-auto mt-7 max-w-[690px] text-base sm:text-lg leading-relaxed text-[#5b6472]">
               <T>
-                Create a professional website, get your own domain and business
-                email, and access powerful tools to manage your business — all
-                in one place.
+                Create a professional website, send invoices in seconds, and
+                accept payments—all from one platform built for growing
+                businesses.
               </T>
             </p>
             <a
@@ -56,8 +87,16 @@ export default function HomePage() {
                 →
               </span>
             </a>
+            <Link
+              href="/templates"
+              className="mt-4 sm:ml-4 inline-flex items-center justify-center rounded-full border border-[#060E2A]/30 px-7 py-4 text-sm font-semibold"
+            >
+              <T>Explore Website Templates</T>
+            </Link>
             <p className="mt-4 text-xs text-[#5b6472]">
-              <T>No credit card required. Choose a plan when you’re ready.</T>
+              <T>
+                No credit card required. Start with the free tools you need.
+              </T>
             </p>
           </div>
           <div className="relative mt-12 sm:mt-16">
@@ -77,10 +116,10 @@ export default function HomePage() {
                 <T>YOUR NEXT CHAPTER</T>
               </p>
               <p className="mt-2 text-2xl tracking-tight">
-                <T>Your business. Online.</T>
+                <T>Your business. Moving forward.</T>
               </p>
               <p className="mt-2 text-xs text-[#5b6472]">
-                <T>A website, a name of your own, and room to grow.</T>
+                <T>Get seen. Send your first invoice. Share a payment link.</T>
               </p>
             </div>
           </div>
@@ -98,8 +137,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      <EntryProducts />
+      <BusinessSteps />
       <PeopleStory variant="business" />
-      <WebsiteSteps />
       <FeaturedCaseStudies />
       {/* FEATURE GRID */}
       <section className="bg-white px-4 sm:px-6 lg:px-8 py-16 sm:py-24 border-b border-cream-300">
@@ -107,12 +147,13 @@ export default function HomePage() {
           <Reveal className="text-center mb-14">
             <span className="gold-rule mx-auto mb-4" />
             <h2 className="display-xl text-navy-900 mb-3">
-              <T>Everything Your Business Needs, In One App</T>
+              <T>More tools as your business grows.</T>
             </h2>
             <p className="body-md text-black/55 max-w-[560px] mx-auto">
               <T>
-                No spreadsheets, no separate apps for bookings and invoices. One
-                place for it all.
+                Keep customers, appointments, stock, expenses and reports
+                connected. Add domains, business email, AI tools and managed
+                services when they fit your business.
               </T>
             </p>
           </Reveal>
@@ -203,9 +244,9 @@ export default function HomePage() {
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-white/70">
             <T>
-              Your free website includes a JKTL address, managed hosting and
-              access to 200 designs. Compare monthly and yearly plans as your
-              team grows.
+              Start with a free website and professional invoicing. Online
+              payment charges are shown at checkout. Compare monthly and yearly
+              website plans when you need more capabilities.
             </T>
           </p>
           <div className="mt-9 flex flex-wrap justify-center gap-5">
@@ -233,6 +274,65 @@ export default function HomePage() {
       </section>
       <SocialProof />
 
+      <section className="mx-auto max-w-[1200px] px-6 py-14">
+        <h2 className="text-3xl tracking-tight text-navy-900">
+          Built around real working days.
+        </h2>
+        <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            [
+              "Small retailers",
+              "Introduce your shop online, keep stock records and invoice customers for orders.",
+            ],
+            [
+              "Beauty businesses",
+              "Show your work, organise appointments and share an invoice payment link.",
+            ],
+            [
+              "Restaurants",
+              "Publish your menu, track stock and keep customer enquiries in view.",
+            ],
+            [
+              "Freelancers & consultants",
+              "Present your services, send a professional invoice and follow up from your customer records.",
+            ],
+            [
+              "Professional services",
+              "Build a credible online presence and keep client records and billing together.",
+            ],
+            [
+              "Schools & organizations",
+              "Share information on a website and use customer and invoice records for your organization.",
+            ],
+          ].map(([title, body]) => (
+            <article
+              key={title}
+              className="rounded-2xl border border-cream-300 bg-white p-6"
+            >
+              <h3 className="font-semibold text-navy-900">
+                <T>{title}</T>
+              </h3>
+              <p className="mt-3 text-sm leading-7 text-black/60">
+                <T>{body}</T>
+              </p>
+            </article>
+          ))}
+        </div>
+        <div className="mt-7 flex flex-wrap gap-5 text-sm">
+          <Link className="underline" href="/products/custom-websites">
+            Custom websites
+          </Link>
+          <Link className="underline" href="/products/managed-services">
+            Managed services
+          </Link>
+          <Link className="underline" href="/products/business-tools">
+            Business tools
+          </Link>
+          <Link className="underline" href="/resources/help-centre">
+            Help & guides
+          </Link>
+        </div>
+      </section>
       {/* AFFILIATE TEASER */}
       <section className="bg-white px-4 sm:px-6 lg:px-8 py-14 border-b border-cream-300">
         <Reveal className="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-center gap-8 justify-between">
@@ -279,8 +379,9 @@ export default function HomePage() {
             style={{ color: "rgba(249,247,240,0.55)" }}
           >
             <T>
-              Choose a design, make it yours, and put your business online. Your
-              free JKTL address and managed hosting are included.
+              Create your free account. Build your website, send invoices and
+              share secure payment links. Choose the tools that help you move
+              forward.
             </T>
           </p>
           <a

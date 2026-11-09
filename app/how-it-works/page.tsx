@@ -11,7 +11,7 @@ import { features, signupSteps, appSignupUrl, pexelsUrl } from "@/data/index";
 export const metadata: Metadata = pageMetadata("/how-it-works", {
   title: "How It Works",
   description:
-    "Choose a free JKTL template, add your business details, preview and publish your website. Connect a domain and business email when you are ready.",
+    "Create a free JKTL account, build a business website or send professional invoices, then share payment links and manage your business in one place.",
   alternates: { canonical: "https://jktl.com.ng/how-it-works" },
 });
 
@@ -20,9 +20,9 @@ export default function HowItWorksPage() {
     <div className="bg-cream-50">
       <PageHero
         eyebrow="How It Works"
-        heading="Your Business Online, One Clear Step At A Time"
-        subhead="Start with a free website template. Add your details, preview on mobile and desktop, then publish when you are ready."
-        primaryLabel="Get started free"
+        heading="Start free. Run your business. Get paid."
+        subhead="Create a free account, choose your website or invoicing tools, and share with customers. A website subscription is optional."
+        primaryLabel="Start for Free"
         primaryHref={appSignupUrl()}
         secondaryLabel="See Pricing"
         secondaryHref="/pricing"
@@ -214,8 +214,8 @@ export default function HowItWorksPage() {
 
       <CTABanner
         heading="Ready to See It For Yourself?"
-        subhead="Start with a free website. Add a domain and business email when they are right for your business."
-        primaryLabel="Get started free"
+        subhead="Start with free websites and invoicing. Review payment charges before collecting online, and add optional services as you grow."
+        primaryLabel="Start for Free"
         primaryHref={appSignupUrl()}
         secondaryLabel="Talk to Us"
         secondaryHref="/contact"

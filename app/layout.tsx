@@ -16,13 +16,13 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://jktl.com.ng"),
   title: {
-    default: "JKTL Business | Free Websites, Landing Pages & Business Tools",
+    default: "JKTL Business | Free Websites, Invoicing & Online Payments",
     template: "%s | JKTL Business",
   },
   description:
-    "Build a free business website or landing page with 200 modern templates. Manage customers, bookings, invoices and stock with JKTL Business.",
+    "Start free with a business website and professional invoicing. Accept online payments and manage customers, appointments and stock with JKTL Business in Nigeria.",
   keywords:
-    "AI receptionist Nigeria, missed call recovery Nigeria, clinic booking software Nigeria, salon booking software Nigeria, medical answering service Nigeria, bookings app Nigeria, invoicing app Nigeria, CRM Nigeria, Paystack invoicing",
+    "free website builder Nigeria, free business website, online invoice generator, business invoicing software, online payments for businesses, business management software Nigeria",
   authors: [{ name: "JK Technology Limited", url: "https://jktl.com.ng" }],
   icons: {
     icon: [
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
     shortcut: "/favicon-32.png",
   },
   openGraph: {
-    title: "JKTL Business | Free Websites, Landing Pages & Business Tools",
+    title: "JKTL Business | Free Websites, Invoicing & Online Payments",
     description:
-      "Websites, landing pages and business tools for African businesses. Get started free with JKTL Business.",
+      "Start free. Run your business. Get paid. Websites, professional invoicing, online payment links and business tools for growing African businesses.",
     siteName: "JKTL Business",
     locale: "en_NG",
     type: "website",
@@ -73,7 +73,8 @@ export default function RootLayout({
                 url: "https://jktl.com.ng",
                 logo: "https://jktl.com.ng/logo.png",
                 description:
-                  "JKTL Business helps African businesses build websites and landing pages, manage customers, bookings and invoices, with JKTL Business.",
+                  "JKTL Business helps African businesses create free websites, send professional invoices, accept online payments and manage their operations.",
+                foundingDate: "2025",
                 sameAs: [],
               },
               {
