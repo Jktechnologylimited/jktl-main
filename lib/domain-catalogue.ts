@@ -217,7 +217,7 @@ export async function getLiveRetailDomainPrices(): Promise<DomainPrices> {
         "/api/public/domain-prices",
         process.env.JKTL_DOMAINS_ORIGIN || "https://business.jktl.com.ng",
       ),
-      { cache: "no-store", signal: AbortSignal.timeout(5000) },
+      { next: { revalidate: 60 }, signal: AbortSignal.timeout(5000) },
     );
     if (!res.ok) return {};
     const data = await res.json();

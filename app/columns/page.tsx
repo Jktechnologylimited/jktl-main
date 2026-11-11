@@ -3,7 +3,7 @@ import {
   EditorialList,
   editorialListMetadata,
 } from "@/components/editorial/EditorialPages";
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 const metadata: Metadata = {
   title: "JKTL Columns | Stories, essays & fresh perspectives",
   description:

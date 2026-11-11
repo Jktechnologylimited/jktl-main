@@ -1,4 +1,5 @@
 "use client";
+import { startVisiblePolling } from "@/lib/browser/visible-polling";
 import { Star } from "lucide-react";
 
 import { useEffect, useState } from "react";
@@ -28,11 +29,10 @@ export function CustomerReviews({
         if (active) setReviews([]);
       }
     }
-    void load();
-    const timer = setInterval(() => void load(), 60000);
+    const stop = startVisiblePolling(load, 60000);
     return () => {
       active = false;
-      clearInterval(timer);
+      stop();
     };
   }, []);
   const selected = reviews.filter(
@@ -62,7 +62,15 @@ export function CustomerReviews({
                 className="text-sm text-[#80621c]"
                 aria-label={`${r.rating} out of 5 stars`}
               >
-                {Array.from({length: r.rating}, (_, star) => <Star key={star} size={14} fill="currentColor" aria-hidden="true" style={{display:"inline-block",verticalAlign:"middle"}} />)}
+                {Array.from({ length: r.rating }, (_, star) => (
+                  <Star
+                    key={star}
+                    size={14}
+                    fill="currentColor"
+                    aria-hidden="true"
+                    style={{ display: "inline-block", verticalAlign: "middle" }}
+                  />
+                ))}
               </p>
               <blockquote className="my-5 text-base leading-8 text-navy-900">
                 “{r.quote}”

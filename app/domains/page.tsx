@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { DomainPage } from "@/components/domains/DomainPage";
 import { ProductCaseStudies } from "@/components/case-studies/ProductCaseStudies";
 import { getLiveRetailDomainPrices } from "@/lib/domain-catalogue";
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 export const metadata: Metadata = pageMetadata("/domains", {
   title: "Find & Register Your Business Domain | JKTL",
   description:

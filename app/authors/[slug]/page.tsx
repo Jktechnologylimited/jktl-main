@@ -7,7 +7,7 @@ import {
 } from "@/lib/publications";
 import { EditorialSearch } from "@/components/editorial/EditorialSearch";
 import styles from "@/components/editorial/EditorialPages.module.css";
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 type Props = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
@@ -68,4 +68,9 @@ export default async function Page({ params }: Props) {
       </section>
     </main>
   );
+}
+
+// Render public slugs on demand; do not enumerate unpublished content.
+export function generateStaticParams() {
+  return [];
 }

@@ -1,3 +1,4 @@
+import { publicLookup } from "./lib/performance/public-lookup.mjs";
 import { localRedirectTarget, resolveRedirect } from "./lib/seo/routing.mjs";
 import { NextRequest, NextResponse } from "next/server";
 import { neon } from "@neondatabase/serverless";
@@ -114,6 +115,20 @@ function affiliateRedirect(req: NextRequest): NextResponse | null {
   return NextResponse.redirect(target, 308);
 }
 
+const redirectSql = process.env.DATABASE_URL
+  ? neon(process.env.DATABASE_URL)
+  : null;
+const redirectRows = publicLookup(async (pathname: string) => {
+  if (!redirectSql) return [];
+  const sql = redirectSql;
+  return await sql`WITH RECURSIVE chain AS (
+        SELECT from_path,to_path,status_code,ARRAY[from_path::text] AS visited,0 AS depth FROM redirects WHERE from_path=${pathname}
+        UNION ALL
+        SELECT r.from_path,r.to_path,r.status_code,c.visited||r.from_path::text,c.depth+1 FROM redirects r JOIN chain c ON r.from_path=split_part(split_part(c.to_path,'?',1),'#',1)
+        WHERE c.depth<8 AND NOT r.from_path=ANY(c.visited)
+      ) SELECT from_path,to_path,status_code FROM chain ORDER BY depth`;
+});
+
 export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
@@ -123,9 +138,9 @@ export async function proxy(req: NextRequest) {
   if (affiliate) return affiliate;
 
   // Real redirect enforcement (Batch 14, Sheet 9) -- checked first, before
-  // the existing auth/admin logic below. One lightweight indexed query per
-  // matched navigation; a disclosed tradeoff for genuinely real redirects
-  // rather than a UI that doesn't redirect anyone. Fails open on any DB
+  // the existing auth/admin logic below. Public positive/negative results are
+  // coalesced in a bounded 30-second warm-instance cache. This still runs Proxy
+  // for navigations, but avoids an indexed database read on every hit. Fails open on any DB
   // error so a redirects-table issue never takes the site down.
   if (
     process.env.DATABASE_URL &&
@@ -134,13 +149,8 @@ export async function proxy(req: NextRequest) {
     !["/robots.txt", "/sitemap.xml"].includes(pathname)
   ) {
     try {
-      const sql = neon(process.env.DATABASE_URL);
-      const rows = await sql`WITH RECURSIVE chain AS (
-        SELECT from_path,to_path,status_code,ARRAY[from_path::text] AS visited,0 AS depth FROM redirects WHERE from_path=${pathname}
-        UNION ALL
-        SELECT r.from_path,r.to_path,r.status_code,c.visited||r.from_path::text,c.depth+1 FROM redirects r JOIN chain c ON r.from_path=split_part(split_part(c.to_path,'?',1),'#',1)
-        WHERE c.depth<8 AND NOT r.from_path=ANY(c.visited)
-      ) SELECT from_path,to_path,status_code FROM chain ORDER BY depth`;
+      const sql = redirectSql!;
+      const rows = await redirectRows(pathname);
       const configured = rows as {
         from_path: string;
         to_path: string;
@@ -181,6 +191,6 @@ export async function proxy(req: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js)$).*)",
+    "/((?!api|_next/static|_next/image|robots\\.txt|sitemap\\.xml|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|css|js|map|woff|woff2|ttf|otf|mp4|webm|pdf)$).*)",
   ],
 };

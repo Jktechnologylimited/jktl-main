@@ -53,7 +53,7 @@ export const readPublications = cache(
       if (slug) url.searchParams.set("slug", slug);
       else if (offset) url.searchParams.set("offset", String(offset));
       const response = await fetch(url, {
-        cache: "no-store",
+        next: { revalidate: 60 },
         signal: AbortSignal.timeout(7000),
       });
       if (response.status === 404) return { articles: [], unavailable: false };
@@ -114,7 +114,7 @@ export const readAuthor = cache(async (slug: string) => {
       process.env.JKTL_PUBLICATIONS_ORIGIN || "https://business.jktl.com.ng",
     );
     const r = await fetch(url, {
-      cache: "no-store",
+      next: { revalidate: 60 },
       signal: AbortSignal.timeout(7000),
     });
     if (r.status === 404) return { profile: null, unavailable: false };

@@ -14,7 +14,7 @@ import {
   type RedirectRecord,
 } from "@/lib/seo/sitemap";
 import { SITE_ORIGIN, canonicalPath } from "@/lib/seo/routing.mjs";
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 const routes = [
   "/",
   "/templates",

@@ -4,7 +4,7 @@ import {
   EditorialArticle,
   articleMetadata,
 } from "@/components/editorial/EditorialPages";
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 type Props = {
   params: Promise<{ slug: string }>;
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -36,4 +36,9 @@ export default async function Page(props: Props) {
   const { slug } = await props.params;
   await redirectLegacy(props, slug);
   return <EditorialArticle kind="update" slug={slug} />;
+}
+
+// Render public slugs on demand; do not enumerate unpublished content.
+export function generateStaticParams() {
+  return [];
 }

@@ -58,7 +58,7 @@ export default async function Product({
     try {
       const r = await fetch(
         "https://business.jktl.com.ng/api/public/email-plans",
-        { cache: "no-store", signal: AbortSignal.timeout(2500) },
+        { next: { revalidate: 60 }, signal: AbortSignal.timeout(2500) },
       );
       if (r.ok) {
         const d = await r.json();
