@@ -1,4 +1,6 @@
 "use client";
+import { Check } from "lucide-react";
+
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { analyzePage, type SeoReport } from "@/lib/seo-tool/analyze";
@@ -120,7 +122,7 @@ export function SeoChecker() {
                 className="rounded-xl border border-border bg-paper p-5"
               >
                 <p className="text-sm font-semibold">
-                  {c.passed ? "✓ Looks good" : "• Review"} · {c.label}
+                  {c.passed ? <><Check size={16} aria-hidden="true" className="inline" /> Looks good</> : "Review"} · {c.label}
                 </p>
                 <p className="mt-2 break-words text-sm text-ink-muted">
                   {c.detail}

@@ -1,4 +1,6 @@
 "use client";
+import { Star } from "lucide-react";
+
 import { useEffect, useState } from "react";
 type Review = {
   id: string;
@@ -60,7 +62,7 @@ export function CustomerReviews({
                 className="text-sm text-[#80621c]"
                 aria-label={`${r.rating} out of 5 stars`}
               >
-                {"★".repeat(r.rating)}
+                {Array.from({length: r.rating}, (_, star) => <Star key={star} size={14} fill="currentColor" aria-hidden="true" style={{display:"inline-block",verticalAlign:"middle"}} />)}
               </p>
               <blockquote className="my-5 text-base leading-8 text-navy-900">
                 “{r.quote}”
