@@ -10,7 +10,7 @@ import {
   useTransform,
   useAnimationFrame,
 } from "framer-motion";
-import { Pause, Play } from "lucide-react";
+import { ArrowUpRight, Pause, Play } from "lucide-react";
 import styles from "./PossibleShowcase.module.css";
 const items = [
   {
@@ -138,7 +138,7 @@ export function PossibleShowcase() {
                     <T>{item.label}</T>
                   </h3>
                   <span>
-                    <T>View design ↗</T>
+                    <T>View design</T> <ArrowUpRight size={16} className="inline-block align-middle" aria-hidden="true" />
                   </span>
                 </Link>
               ))}

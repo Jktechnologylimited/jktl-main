@@ -1,4 +1,6 @@
 "use client";
+import { ArrowUpRight } from "lucide-react";
+
 import { useState } from "react";
 import Link from "next/link";
 import { publicationPath, type Article } from "@/lib/publications";
@@ -88,7 +90,7 @@ export function EditorialSearch({ articles }: { articles: Article[] }) {
                   <span>{p.author}</span>
                 )}
                 <Link href={`/${publicationPath[p.kind]}/${p.slug}`}>
-                  Read story ↗
+                  Read story <ArrowUpRight size={16} className="inline-block align-middle" aria-hidden="true" />
                 </Link>
               </div>
             </div>

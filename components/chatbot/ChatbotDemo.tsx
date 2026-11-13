@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
-import {
+import { ArrowUpRight,
   Bot,
   MessageCircle,
   RotateCcw,
@@ -562,7 +562,7 @@ export function ChatbotDemo({ whatsappHref }: { whatsappHref: string }) {
                     rel="noopener noreferrer"
                   >
                     <MessageCircle size={15} />
-                    <T>Open JKTL WhatsApp</T> ↗
+                    <T>Open JKTL WhatsApp</T> <ArrowUpRight size={16} className="inline-block align-middle" aria-hidden="true" />
                   </a>
                   <Link href="/contact">
                     <T>Contact JKTL</T> →

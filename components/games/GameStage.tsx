@@ -1,4 +1,6 @@
 "use client";
+import { ArrowUpRight } from "lucide-react";
+
 import { GameGrowth } from "./GameGrowth";
 import Link from "next/link";
 import { useState } from "react";
@@ -60,12 +62,12 @@ export function GameStage({
               target="_top"
               className={styles.allGames}
             >
-              All games ↗
+              All games <ArrowUpRight size={16} className="inline-block align-middle" aria-hidden="true" />
             </a>
           </nav>
           <a href={source} target="_blank" rel="noopener noreferrer">
-            <span className={styles.fullLabel}>Open full screen ↗</span>
-            <span className={styles.shortLabel}>Full screen ↗</span>
+            <span className={styles.fullLabel}>Open full screen <ArrowUpRight size={16} className="inline-block align-middle" aria-hidden="true" /></span>
+            <span className={styles.shortLabel}>Full screen <ArrowUpRight size={16} className="inline-block align-middle" aria-hidden="true" /></span>
           </a>
         </div>
         <iframe

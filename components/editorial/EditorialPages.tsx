@@ -1,3 +1,5 @@
+
+import { ArrowUpRight } from "lucide-react";
 import { pageMetadata } from "@/lib/seo/metadata";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
@@ -84,7 +86,7 @@ export async function EditorialList({ kind }: { kind: PublicationKind }) {
                 target="_blank"
                 rel="noreferrer"
               >
-                Service status ↗
+                Service status <ArrowUpRight size={16} className="inline-block align-middle" aria-hidden="true" />
               </a>
             )}
           </nav>
@@ -300,14 +302,14 @@ export async function EditorialArticle({
             rel="noreferrer"
             href={`https://wa.me/?text=${encodeURIComponent(p.title + " https://jktl.com.ng/" + info[kind].path + "/" + p.slug)}`}
           >
-            Share on WhatsApp ↗
+            Share on WhatsApp <ArrowUpRight size={16} className="inline-block align-middle" aria-hidden="true" />
           </a>
           <a
             target="_blank"
             rel="noreferrer"
             href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent("https://jktl.com.ng/" + info[kind].path + "/" + p.slug)}`}
           >
-            Share on LinkedIn ↗
+            Share on LinkedIn <ArrowUpRight size={16} className="inline-block align-middle" aria-hidden="true" />
           </a>
         </nav>
         {!!p.tags?.length && <p>{p.tags.join(" · ")}</p>}
