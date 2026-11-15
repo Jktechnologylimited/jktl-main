@@ -5,16 +5,8 @@ import { GameGrowth } from "./GameGrowth";
 import Link from "next/link";
 import { useState } from "react";
 import styles from "./GameLanding.module.css";
-export function GameStage({
-  fantasy,
-  business,
-  fantasyOrigin,
-}: {
-  fantasy: boolean;
-  business: string;
-  fantasyOrigin: string;
-}) {
-  const [game, setGame] = useState(fantasy ? "fantasy" : "tycoon");
+export function GameStage({ business }: { business: string }) {
+  const [game, setGame] = useState("tycoon");
   const names: Record<string, string> = {
     "market-slice": "Market Slice",
     "market-match": "Market Match",
@@ -24,10 +16,8 @@ export function GameStage({
     tycoon: "Business Tycoon",
     "word-hunt": "Word Hunt",
     run: "Street Run",
-    fantasy: "Fantasy",
   };
-  const source =
-    game === "fantasy" ? fantasyOrigin : `${business}/play/${game}?return=main`;
+  const source = `${business}/play/${game}?return=main`;
   return (
     <>
       <main className={styles.stage}>

@@ -30,7 +30,6 @@ const routes = [
   "/partners",
   "/games",
   "/tools/seo-checker",
-  "/games/fantasy",
   "/privacy",
   "/terms",
 ];

@@ -271,6 +271,7 @@ test("password-protected and empty CMS pages remain noindex even if a reader has
 test("empty or unavailable publication listings are noindex and automatically become eligible when real content is published", async () => {
   let feed = { articles: [], unavailable: false };
   const pages = load("../components/editorial/EditorialPages.tsx", {
+    "lucide-react": { ArrowUpRight: () => null },
     "@/lib/seo/metadata": metadata,
     "next/link": { default: () => null },
     "react-markdown": { default: () => null },

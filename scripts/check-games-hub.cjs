@@ -1,6 +1,60 @@
-const{chromium}=require('playwright');const assert=require('node:assert/strict');const main=process.env.MAIN_TEST_ORIGIN||'http://localhost:3001',business=process.env.BUSINESS_TEST_ORIGIN||'http://localhost:3000',fantasy=process.env.FANTASY_TEST_ORIGIN||'http://localhost:3100';
-(async()=>{const b=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox']});try{const c=await b.newContext({viewport:{width:1440,height:1000},serviceWorkers:'block'});const p=await c.newPage();const errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto(main+'/games');let game=p.frameLocator('iframe[title="Play JKTL Business Tycoon"]');await game.getByRole('button',{name:'Plot 1: empty',exact:true}).click();await game.getByRole('button',{name:'Open business',exact:true}).click();await game.getByRole('button',{name:'Plot 1: Suya spot, level 1',exact:true}).waitFor();assert.equal(await game.getByRole('link',{name:'Sign in to save',exact:true}).first().getAttribute('target'),'_top');assert.match(await game.getByRole('link',{name:'Sign in to save',exact:true}).first().getAttribute('href'),/next=games-main/);await game.getByRole('button',{name:'Close game panel'}).click();await p.waitForTimeout(2200);assert.equal(await game.getByRole('dialog').count(),0);await game.getByRole('button',{name:'Market',exact:true}).click();await game.getByRole('heading',{name:'Payday weekend',exact:true}).waitFor();await game.getByRole('button',{name:'Close game panel'}).click();await p.screenshot({path:'/tmp/jktl-island-hub-desktop.png',fullPage:true});await p.reload();game=p.frameLocator('iframe[title="Play JKTL Business Tycoon"]');await game.getByRole('button',{name:'Plot 1: Suya spot, level 1',exact:true}).waitFor();assert.equal(await p.getByRole('link',{name:'Open full screen'}).getAttribute('href'),'https://games.jktl.com.ng');
-await p.goto(main+'/games/fantasy');const f=p.frameLocator('iframe[title="Play JKTL Fantasy"]');await f.getByText('Guest trader',{exact:true}).waitFor();assert.equal(await f.getByRole('status',{name:'Loading JKTL Fantasy'}).count(),0);await f.getByRole('button',{name:/Marina/}).click();await f.getByLabel('Shares',{exact:true}).fill('10');await f.getByRole('button',{name:'Buy',exact:true}).click();await f.getByText(/40\/100 XP/).waitFor();assert.equal(await f.getByRole('link',{name:'Log in',exact:true}).first().getAttribute('target'),'_top');await p.screenshot({path:'/tmp/jktl-fantasy-hub-desktop.png',fullPage:true});
-const pub=await p.request.get(fantasy+'/');assert.ok(pub.headers()['content-security-policy'].includes('https://jktl.com.ng'));assert.equal(pub.headers()['x-frame-options'],undefined);const auth=await p.request.get(fantasy+'/login');assert.equal(auth.headers()['x-frame-options'],'DENY');assert.ok(auth.headers()['content-security-policy'].includes("frame-ancestors 'none'"));const gamesHost=await p.request.get(business+'/',{headers:{Host:'games.jktl.com.ng'}});assert.equal(gamesHost.status(),200);assert.match(await gamesHost.text(),/Play JKTL Business Tycoon/);const wrongFantasy=await p.request.get(business+'/',{headers:{Host:'fantasy.jktl.com.ng'}});assert.equal(wrongFantasy.status(),503);
-for(const width of [390,320]){await p.setViewportSize({width,height:844});for(const path of ['/games','/games/fantasy']){await p.goto(main+path);await p.waitForTimeout(250);assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),`${path} overflows ${width}`);const frames=p.frames().filter(fr=>fr!==p.mainFrame());assert.ok(frames.length);assert.ok(await frames[0].evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),`${path} game overflows ${width}`);await p.screenshot({path:`/tmp/jktl-${path.endsWith('fantasy')?'fantasy':'island'}-hub-${width}.png`,fullPage:true});}}
-assert.deepEqual(errors,[]);console.log('PASS: Main opens playable Tycoon and Fantasy immediately; live practice interactions and retained guest progress; top-level auth returns; root-only Fantasy framing; game-host routing; iframe PWA suppression; desktop and 390/320px layouts. No accounts, ranked trades, DNS or real investments changed.');await c.close();}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1});
+const { chromium } = require("playwright");
+const assert = require("node:assert/strict");
+const main = process.env.MAIN_TEST_ORIGIN || "http://localhost:3001";
+const business = process.env.BUSINESS_TEST_ORIGIN || "http://localhost:3000";
+
+(async () => {
+  const browser = await chromium.launch({ executablePath: "/usr/bin/chromium", args: ["--no-sandbox"] });
+  try {
+    const context = await browser.newContext({ serviceWorkers: "block" });
+    const page = await context.newPage();
+    const errors = [], fantasyRequests = [];
+    page.on("pageerror", (error) => errors.push(error.message));
+    page.on("request", (request) => {
+      if (new URL(request.url()).hostname === "fantasy.jktl.com.ng") fantasyRequests.push(request.url());
+    });
+    await page.route("**/api/public/features", (route) => route.fulfill({ json: { features: [] } }));
+    await page.route("**/api/game-world-feed", (route) => route.fulfill({ json: { date: new Date().toISOString().slice(0, 10), checkedAt: new Date().toISOString(), matches: [], headlines: [], coverage: [], matchesAvailable: false } }));
+    for (const [origin, path, target] of [[main, "/games/fantasy", "/games"], [business, "/play/fantasy", "/play"]]) {
+      const response = await page.request.get(origin + path, { maxRedirects: 0 });
+      assert.equal(response.status(), 307);
+      assert.equal(new URL(response.headers().location, origin).pathname, target);
+    }
+    const sitemap = await page.request.get(main + "/sitemap.xml");
+    assert.equal(sitemap.status(), 200);
+    assert.doesNotMatch(await sitemap.text(), /\/games\/fantasy/);
+    await page.addInitScript(() => {
+      localStorage.setItem("jktl-game-favourites", JSON.stringify(["fantasy", "word-hunt"]));
+      localStorage.setItem("jktl-game-recent", JSON.stringify(["fantasy", "tycoon"]));
+    });
+    for (const width of [1440, 390, 320]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(main + "/games");
+      const picker = page.getByRole("combobox", { name: "Choose a game" });
+      await picker.waitFor();
+      assert.equal(await picker.locator("option").count(), 8);
+      assert.doesNotMatch((await picker.innerText()), /fantasy/i);
+      await picker.selectOption("word-hunt");
+      const frame = page.frameLocator('iframe[title="Play JKTL Word Hunt"]');
+      await frame.getByRole("button", { name: "Games", exact: true }).waitFor();
+      await frame.getByRole("button", { name: "Games", exact: true }).click();
+      const menu = frame.getByRole("navigation", { name: "Switch game" });
+      assert.equal(await menu.getByRole("link", { name: /Fantasy/ }).count(), 0);
+      assert.equal(await menu.getByRole("link", { name: /Word Hunt/ }).count(), 1);
+      await frame.getByRole("button", { name: "Games", exact: true }).click();
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+      await page.goto(business + "/play?game=fantasy");
+      await page.getByRole("heading", { name: "Your next little obsession." }).waitFor();
+      await page.waitForFunction(() => !new URL(location.href).searchParams.has("game"));
+      assert.equal(new URL(page.url()).searchParams.has("game"), false);
+      assert.equal(await page.locator("iframe").count(), 0);
+      assert.doesNotMatch(await page.locator("body").innerText(), /fantasy/i);
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+      await page.screenshot({ path: `/tmp/jktl-games-paused-fantasy-${width}.png`, fullPage: true });
+    }
+    assert.deepEqual(fantasyRequests, []);
+    assert.deepEqual(errors, []);
+    console.log("PASS: eight available games, working Word Hunt switcher, retired-page temporary redirects, clean sitemap, old favourites/query handling, no Fantasy requests, desktop/390px/320px layouts.");
+    await context.close();
+  } finally { await browser.close(); }
+})().catch((error) => { console.error(error); process.exitCode = 1; });

@@ -300,7 +300,7 @@ export const navigation: Record<NavigationKey, NavigationMenu> = {
             href: "/partners",
           },
           {
-            title: "Games & Fantasy",
+            title: "JKTL Games",
             description: "Open the game interface and play immediately.",
             href: "/games",
           },

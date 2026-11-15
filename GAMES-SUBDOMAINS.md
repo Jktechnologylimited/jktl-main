@@ -1,14 +1,25 @@
 # JKTL games: immediate play and subdomains
 
+## Current availability
+
+Fantasy is paused on Main and Business until the Owner approves its return.
+Eight games remain available. `/games/fantasy` and `/play/fantasy` temporarily
+redirect to their respective games pages; Fantasy is absent from the public
+catalogue, Main sitemap, Growth workspace and promotional footers. Its reserved
+hostname and separate repository/data are retained. The older activation notes
+below are historical, not instructions to re-enable or deploy Fantasy now.
+This change does not alter its standalone hosting or DNS. No deployment has
+been performed during this pause work.
+
 ## Applications and entry points
 
 | Public address | Hosting project/repository | Behaviour |
 | --- | --- | --- |
 | `https://jktl.com.ng/games` | `Jktechnologylimited/jktl-main` | Opens the playable Tycoon interface immediately below the Main navigation. |
 | `https://jktl.com.ng/games/business-tycoon` | Main | Compatible direct entry into Tycoon, with no marketing hero or Play gate. |
-| `https://jktl.com.ng/games/fantasy` | Main | Opens the actual Fantasy interface immediately. |
+| `https://jktl.com.ng/games/fantasy` | Main | Temporarily redirects to `/games` while paused. |
 | `https://games.jktl.com.ng` | `Jktechnologylimited/jktl-business--` | Root rewrites to `/play`, the nine-game catalogue with search, favourites, recent selections and Pick for me. Selecting a card opens one full-window game. |
-| `https://fantasy.jktl.com.ng` | `Jktechnologylimited/scaling-waffle-gam-fant-jktl` | The existing Fantasy application's public root game. |
+| `https://fantasy.jktl.com.ng` | `Jktechnologylimited/scaling-waffle-gam-fant-jktl` | Separate app retained; its hosting is unchanged and it is no longer promoted from Main or Business. |
 
 Main and the Games portal embed the actual applications. There is no screenshot pretending to be a game and no copied portfolio or game balance. Both Main game pages have a game switcher and standalone-game links; Main's footer and chat widget are hidden on game pages to give the interface the screen.
 
