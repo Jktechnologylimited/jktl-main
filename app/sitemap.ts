@@ -14,6 +14,7 @@ import {
   type RedirectRecord,
 } from "@/lib/seo/sitemap";
 import { SITE_ORIGIN, canonicalPath } from "@/lib/seo/routing.mjs";
+import { indexableTemplates } from "@/lib/seo/template-page";
 export const revalidate = 300;
 const routes = [
   "/",
@@ -40,6 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...DIGITAL_PRODUCTS.map((p) => canonicalPath("/products/" + p.id)),
       ...caseStudies.map((s) => "/case-studies/" + s.slug),
       ...featurePages.map((p) => `/${p.section}/${p.slug}`),
+      ...indexableTemplates.map((template) => `/templates/${template.id}`),
     ]),
   ];
   const items: MetadataRoute.Sitemap = paths.map((path) => ({

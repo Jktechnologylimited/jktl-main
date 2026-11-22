@@ -1,0 +1,36 @@
+{
+  "sitemapUrls": 96,
+  "sitemapTemplates": 42,
+  "templatePages": 224,
+  "designedTemplatesReachableWithoutShowMore": 222,
+  "authQueryUrls": 40,
+  "brokenInternalLinks": [],
+  "redirects": [
+    {
+      "host": "jktl.com.ng",
+      "from": "/services/web-development",
+      "status": 308,
+      "destination": "https://jktl.com.ng/products/custom-websites?source=seo-check"
+    },
+    {
+      "host": "www.jktl.com.ng",
+      "from": "/services/web-development",
+      "status": 308,
+      "destination": "https://jktl.com.ng/products/custom-websites?source=seo-check"
+    },
+    {
+      "host": "jktl.com.ng",
+      "from": "/services/software-solutions",
+      "status": 308,
+      "destination": "https://jktl.com.ng/products/business-tools?source=seo-check"
+    },
+    {
+      "host": "www.jktl.com.ng",
+      "from": "/services/software-solutions",
+      "status": 308,
+      "destination": "https://jktl.com.ng/products/business-tools?source=seo-check"
+    }
+  ],
+  "mainPagesChecked": 291,
+  "pageErrors": []
+}

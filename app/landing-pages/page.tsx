@@ -2,6 +2,7 @@ import { pageMetadata } from "@/lib/seo/metadata";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { TemplateGallery } from "@/components/templates/TemplateGallery";
+import { TemplateDirectory } from "@/components/templates/TemplateDirectory";
 export const metadata: Metadata = pageMetadata("/landing-pages", {
   title: "Landing Page Builder & Templates",
   description:
@@ -48,6 +49,7 @@ export default function LandingPages() {
         </div>
       </section>
       <TemplateGallery initialType="landing" />
+      <TemplateDirectory landingOnly />
     </div>
   );
 }

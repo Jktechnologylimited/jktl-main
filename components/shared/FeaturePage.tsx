@@ -4,9 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { T } from "@/components/i18n/LanguageProvider";
 import type { featurePages } from "@/data/feature-pages";
+import { entryPageCopy, featurePageSchema } from "@/lib/seo/feature-page";
 export function FeaturePage({ page }: { page: (typeof featurePages)[number] }) {
   const invoicePage = page.slug === "invoicing-payments";
   const paymentPage = page.slug === "online-payments";
+  const searchCopy = entryPageCopy[`${page.section}/${page.slug}`];
   const start = invoicePage
     ? "https://business.jktl.com.ng/signup?next=invoices"
     : paymentPage
@@ -20,6 +22,7 @@ export function FeaturePage({ page }: { page: (typeof featurePages)[number] }) {
         padding: "136px 24px 80px",
       }}
     >
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(featurePageSchema(page)).replace(/</g, "\\u003c") }} />
       <div style={{ maxWidth: 1150, margin: "auto" }}>
         <p
           style={{
@@ -55,7 +58,7 @@ export function FeaturePage({ page }: { page: (typeof featurePages)[number] }) {
             </p>
             <div className="mt-7 flex flex-wrap gap-4">
               <a className="btn-gold rounded-full px-6 py-3" href={start}>
-                <T>{invoicePage ? "Create an Invoice" : "Start for free"}</T>
+                <T>{searchCopy?.cta || (invoicePage ? "Create an Invoice" : "Start for free")}</T>
               </a>
               <Link
                 className="btn-outline-navy rounded-full px-6 py-3"
@@ -135,6 +138,7 @@ export function FeaturePage({ page }: { page: (typeof featurePages)[number] }) {
             </Link>
           </aside>
         )}
+        {searchCopy && <section className="mt-14" aria-labelledby="entry-questions"><h2 id="entry-questions" className="text-3xl">Common questions</h2><div className="mt-6 space-y-6">{searchCopy.faqs.map(item => <div key={item.question}><h3 className="text-lg font-semibold">{item.question}</h3><p className="mt-3 text-sm leading-7">{item.answer}</p></div>)}</div><nav className="mt-7 flex flex-wrap gap-6 text-sm underline" aria-label="Free business tools"><Link href="/products/website-builder">Free business websites</Link><Link href="/products/invoicing-payments">Free professional invoicing</Link><Link href="/solutions/online-payments">Online invoice payments</Link></nav></section>}
         <section className="mt-14">
           <h2 className="text-3xl">
             <T>Before you begin</T>

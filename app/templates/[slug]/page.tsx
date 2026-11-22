@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { websiteTemplates, getWebsiteTemplate } from "@/lib/website-templates";
 import { TemplatePreview } from "@/components/templates/TemplatePreview";
+import { TemplateDetails } from "@/components/templates/TemplateDetails";
 import { pageMetadata } from "@/lib/seo/metadata";
-import { templatePageCopy, templatePageSchema } from "@/lib/seo/template-page";
+import { isIndexableTemplate, templatePageCopy, templatePageSchema } from "@/lib/seo/template-page";
 export const dynamicParams = false;
 export function generateStaticParams() {
   return websiteTemplates.map((t) => ({ slug: t.id }));
@@ -20,8 +21,7 @@ export async function generateMetadata({
   return pageMetadata(`/templates/${slug}`, {
     title: copy.title,
     description: copy.description,
-    // Preserve the existing preview indexing policy; this change fixes headings.
-    robots: { index: false, follow: true },
+    robots: { index: isIndexableTemplate(template), follow: true },
   });
 }
 export default async function TemplatePage({
@@ -44,6 +44,7 @@ export default async function TemplatePage({
         }}
       />
       <TemplatePreview id={slug} />
+      <TemplateDetails template={template} />
     </>
   );
 }

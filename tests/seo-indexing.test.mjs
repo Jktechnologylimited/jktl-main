@@ -26,11 +26,15 @@ function load(file, deps) {
   );
   return mod.exports;
 }
-const reserved = load("../lib/reserved-slugs.ts", {}),
+const catalog = load("../lib/website-templates.ts", {}),
+  templateSeo = load("../lib/seo/template-page.ts", { "@/lib/website-templates": catalog }),
+  reserved = load("../lib/reserved-slugs.ts", {}),
   metadata = load("../lib/seo/metadata.ts", { "./routing.mjs": routing });
 const sitemap = load("../lib/seo/sitemap.ts", {
   "./routing.mjs": routing,
   "@/lib/reserved-slugs": reserved,
+  "@/lib/website-templates": catalog,
+  "./template-page": templateSeo,
 });
 test("legacy redirects are permanent, host-scoped, specific replacements; only www normalizes to apex", async () => {
   const rules = await config.redirects();
@@ -85,6 +89,7 @@ test("sitemap excludes redirect sources, canonical aliases, utility previews, ex
       "https://jktl.com.ng/",
       "https://jktl.com.ng/pricing",
       "https://jktl.com.ng/domains",
+      "https://jktl.com.ng/templates/law-firm",
     ],
   );
   for (const slug of [
@@ -199,20 +204,19 @@ test("published article enumeration follows the real API cursor beyond the first
     globalThis.fetch = original;
   }
 });
-test("robots lets Google observe preview noindex while excluding API and Team utilities", () => {
+test("robots allows template discovery and lets Google observe raw preview noindex", () => {
   const { default: robots } = load("../app/robots.ts", {});
   const r = robots();
   assert.equal(r.sitemap, "https://jktl.com.ng/sitemap.xml");
   assert.ok(!r.rules.disallow.includes("/templates/"));
   assert.ok(!r.rules.disallow.includes("/template-canvas/"));
-  for (const path of [
-    "../app/templates/[slug]/page.tsx",
-    "../app/template-canvas/[slug]/page.tsx",
-  ])
-    assert.match(
-      readFileSync(new URL(path, import.meta.url), "utf8"),
-      /index: false/,
-    );
+  const canvas = load("../app/template-canvas/[slug]/page.tsx", {
+    "react/jsx-runtime": { jsx: () => null, jsxs: () => null },
+    "next/navigation": { notFound: () => { throw Error("Not found"); } },
+    "@/lib/website-templates": catalog,
+    "@/components/templates/TemplatePreview": { RawTemplatePreview: () => null },
+  });
+  assert.equal(canvas.metadata.robots.index, false);
 });
 test("password-protected and empty CMS pages remain noindex even if a reader has an unlock cookie", async () => {
   let page = {

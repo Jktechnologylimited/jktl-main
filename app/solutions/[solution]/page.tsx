@@ -1,4 +1,4 @@
-import { pageMetadata } from "@/lib/seo/metadata";
+import { featurePageMetadata } from "@/lib/seo/feature-page";
 import { notFound } from "next/navigation";
 import { featurePages, getFeaturePage } from "@/data/feature-pages";
 import { FeaturePage } from "@/components/shared/FeaturePage";
@@ -16,10 +16,7 @@ export async function generateMetadata({
   const slug = (await params).solution,
     item = getFeaturePage("solutions", slug);
   return item
-    ? pageMetadata(`/solutions/${slug}`, {
-        title: item.label,
-        description: item.intro,
-      })
+    ? featurePageMetadata(item)
     : { robots: { index: false } };
 }
 export default async function Page({

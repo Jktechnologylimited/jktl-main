@@ -7,6 +7,8 @@ import {
   resolveRedirect,
 } from "./routing.mjs";
 import { isReservedSlug } from "@/lib/reserved-slugs";
+import { getWebsiteTemplate } from "@/lib/website-templates";
+import { isIndexableTemplate } from "./template-page";
 export type CmsPageRecord = {
   slug: unknown;
   content?: unknown;
@@ -52,6 +54,10 @@ export function preferredSitemap(
     )
       continue;
     if (resolveRedirect(url.pathname, redirects) !== url.pathname) continue;
+    if (url.pathname.startsWith("/templates/")) {
+      const template = getWebsiteTemplate(url.pathname.slice("/templates/".length));
+      if (!template || !isIndexableTemplate(template)) continue;
+    }
     const canonical = SITE_ORIGIN + url.pathname;
     const date = item.lastModified ? new Date(item.lastModified) : null;
     output.set(canonical, {

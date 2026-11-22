@@ -60,6 +60,7 @@ export default function RootLayout({
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+        <noscript><style>{`[data-reveal] { opacity: 1 !important; transform: none !important; }`}</style></noscript>
       </head>
       <body>
         <script

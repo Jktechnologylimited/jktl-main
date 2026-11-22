@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint app components data lib proxy.ts next.config.mjs"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",

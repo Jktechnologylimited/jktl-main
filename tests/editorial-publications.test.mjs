@@ -34,13 +34,14 @@ const story = {
   updatedAt: "2026-01-01T09:00:00Z",
   coverImage: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce",
 };
-test("public reader fetches separate destinations without caching and rejects drafts, future publications and cross-destination records", async () => {
+test("public reader bounds public cache freshness and rejects drafts, future publications and cross-destination records", async () => {
   const original = globalThis.fetch;
   let calls = 0;
   try {
     globalThis.fetch = async (url, options) => {
       calls++;
-      assert.equal(options.cache, "no-store");
+      assert.equal(options.next.revalidate, 60);
+      assert.notEqual(options.cache, "no-store");
       assert.equal(new URL(url).pathname, "/api/publications");
       assert.equal(new URL(url).searchParams.get("kind"), "column");
       return Response.json({
@@ -99,7 +100,8 @@ test("author profiles use the existing Business HTTP backend and do not expose p
     globalThis.fetch = async (url, options) => {
       calls++;
       assert.equal(new URL(url).pathname, "/api/editorial-authors/ada");
-      assert.equal(options.cache, "no-store");
+      assert.equal(options.next.revalidate, 60);
+      assert.notEqual(options.cache, "no-store");
       return Response.json({
         profile: {
           slug: "ada",

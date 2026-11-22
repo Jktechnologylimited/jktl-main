@@ -22,11 +22,11 @@ export const featurePages = [
     section: "products",
     slug: "website-builder",
     label: "Website builder",
-    title: "Create a website that works for your business.",
+    title: "Create a free website for your business.",
     intro:
-      "Build your website from a JKTL design or a blank canvas, then publish it on your own free JKTL address.",
+      "Choose an editable JKTL template or a blank canvas, add your business content and publish on your own free JKTL address. Hosting is included; a custom domain is an optional upgrade.",
     benefits: [
-      "Choose from 200 website and landing-page designs.",
+      "Choose a website or landing-page design for your business.",
       "Add your logo, photos, services and genuine reviews.",
       "Preview your design on desktop and mobile before publishing.",
     ],
@@ -98,7 +98,7 @@ export const featurePages = [
     section: "products",
     slug: "invoicing-payments",
     label: "Invoicing & payments",
-    title: "Create invoices. Get paid.",
+    title: "Create professional invoices for free.",
     intro:
       "Create professional invoices for free, share payment links and track verified payments in JKTL Business. No paid website subscription is required.",
     benefits: [
@@ -231,7 +231,7 @@ export const featurePages = [
     section: "solutions",
     slug: "online-payments",
     label: "Get paid",
-    title: "Make it easier for customers to pay.",
+    title: "Accept online invoice payments in Nigeria.",
     intro:
       "Share secure Paystack invoice payment links from your website or directly with customers. Review transparent checkout charges before confirming payment.",
     benefits: [

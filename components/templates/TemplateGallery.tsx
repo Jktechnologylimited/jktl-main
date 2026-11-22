@@ -250,6 +250,7 @@ export function TemplateGallery({
             <div className={styles.preview}>
               <Link
                 href={`/templates/${template.id}`}
+                prefetch={false}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`View ${template.name} template`}
@@ -289,6 +290,7 @@ export function TemplateGallery({
                 </Link>
                 <Link
                   href={`/templates/${template.id}`}
+                  prefetch={false}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.view}
@@ -397,6 +399,7 @@ export function TemplateGallery({
             <div className={styles.dialogActions}>
               <Link
                 href={`/templates/${info.id}`}
+                prefetch={false}
                 target="_blank"
                 rel="noopener noreferrer"
               >

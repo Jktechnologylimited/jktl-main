@@ -35,6 +35,7 @@ export function Reveal({
   const MotionTag = as === "span" ? motion.span : motion.div;
   return (
     <MotionTag
+      data-reveal=""
       className={className}
       style={style}
       initial="hidden"
@@ -64,6 +65,7 @@ export function Stagger({
 }) {
   return (
     <motion.div
+      data-reveal=""
       className={className}
       style={style}
       initial="hidden"
@@ -78,7 +80,7 @@ export function Stagger({
 
 export function StaggerItem({ children, className, style, y = 18 }: { children: ReactNode; className?: string; style?: CSSProperties; y?: number }) {
   return (
-    <motion.div className={className} style={style} variants={variantsFor(y, 0)}>
+    <motion.div data-reveal="" className={className} style={style} variants={variantsFor(y, 0)}>
       {children}
     </motion.div>
   );

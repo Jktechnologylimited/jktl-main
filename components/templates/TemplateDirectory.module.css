@@ -1,0 +1,11 @@
+.directory { background: var(--site-paper, #f9f7f0); color: var(--site-text, #060e2a); border-top: 1px solid var(--site-line, #e8e1d0); padding: 40px 24px; }
+.inner { max-width: 1200px; margin: auto; }
+.directory h2 { font-size: clamp(22px, 2.7vw, 30px); line-height: 1.3; }
+.directory p { font-size: 14px; line-height: 1.7; max-width: 70ch; margin: 14px 0 28px; }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.grid summary { cursor: pointer; font-size: 14px; font-weight: 600; padding-block: 10px; }
+.grid ul { margin-top: 8px; padding-left: 20px; list-style: disc; }
+.grid li { margin-block: 10px; font-size: 13px; line-height: 1.6; }
+.grid a { display: inline-block; text-decoration: underline; text-underline-offset: 4px; padding-block: 4px; overflow-wrap: anywhere; }
+.directory :is(a, summary):focus-visible { outline: 3px solid #c9a84c; outline-offset: 4px; }
+@media(max-width: 767px) { .grid { grid-template-columns: 1fr; gap: 14px; } }

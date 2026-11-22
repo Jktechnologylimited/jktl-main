@@ -5,11 +5,13 @@ import { CustomPage } from "@/components/custom/CustomPage";
 import { T } from "@/components/i18n/LanguageProvider";
 import { getFeaturePage, featurePages } from "@/data/feature-pages";
 import { FeaturePage } from "@/components/shared/FeaturePage";
+import { featurePageMetadata } from "@/lib/seo/feature-page";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { permanentRedirect } from "next/navigation";
 import { notFound } from "next/navigation";
 import { DIGITAL_PRODUCTS } from "@/lib/website-pricing";
+import { canonicalPath } from "@/lib/seo/routing.mjs";
 export const dynamicParams = false;
 export function generateStaticParams() {
   return [
@@ -32,11 +34,7 @@ export async function generateMetadata({
         "Search Nigerian and global domain names with JKTL and compare current registration and annual renewal prices.",
     });
   const feature = getFeaturePage("products", product);
-  if (feature)
-    return pageMetadata(`/products/${product}`, {
-      title: feature.label,
-      description: feature.intro,
-    });
+  if (feature) return featurePageMetadata(feature);
   const item = DIGITAL_PRODUCTS.find((p) => p.id === product);
   return item
     ? pageMetadata(`/products/${product}`, {
@@ -149,7 +147,7 @@ export default async function Product({
           style={{ display: "flex", gap: 20, flexWrap: "wrap", marginTop: 40 }}
         >
           {DIGITAL_PRODUCTS.filter((p) => p.id !== item.id).map((p) => (
-            <Link href={`/products/${p.id}`} key={p.id}>
+            <Link href={canonicalPath(`/products/${p.id}`)} key={p.id}>
               {p.name} →
             </Link>
           ))}

@@ -7,6 +7,17 @@ import CTABanner from "@/components/shared/CTABanner";
 import Icon from "@/components/shared/Icon";
 import { Reveal } from "@/components/shared/Reveal";
 import { industries, pexelsUrl, appSignupUrl } from "@/data/index";
+import { getWebsiteTemplate } from "@/lib/website-templates";
+
+const industryTemplates: Record<string, string[]> = {
+  "beauty-personal-care": ["hair-salon", "beauty-atelier"],
+  "fitness-wellness": ["fitness", "spa-solace"],
+  "med-spas-aesthetics": ["nacre-aesthetics", "lumivie-skin"],
+  "food-hospitality": ["restaurant", "kora-coffee"],
+  "retail-trade": ["retail"], events: ["events"],
+  "content-media": ["photography"], nightlife: ["music-label"],
+  travel: ["travel", "hotel"], fashion: ["fashion", "dressmaker-atelier"],
+};
 
 export const metadata: Metadata = pageMetadata("/industries", {
   title: "Industries We Serve",
@@ -83,6 +94,7 @@ export default function IndustriesPage() {
                     </span>
                   ))}
                 </div>
+                <nav aria-label={`${ind.title} templates`} className="mt-5 flex flex-wrap gap-5 text-sm underline">{(industryTemplates[ind.slug] || []).map(id => { const template = getWebsiteTemplate(id); return template ? <Link prefetch={false} key={id} href={`/templates/${id}`} target="_blank" rel="noopener noreferrer">{template.name} template</Link> : null; })}</nav>
               </Reveal>
             </div>
           ))}

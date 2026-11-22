@@ -28,7 +28,7 @@ function load(file, deps = {}) {
   return m.exports;
 }
 const catalog = load("../lib/website-templates.ts"),
-  copy = load("../lib/seo/template-page.ts"),
+  copy = load("../lib/seo/template-page.ts", { "@/lib/website-templates": catalog }),
   metadata = load("../lib/seo/metadata.ts", { "./routing.mjs": routing });
 test("every catalog entry has descriptive unique headings, metadata and canonical structured data", async () => {
   const route = load("../app/templates/[slug]/page.tsx", {
@@ -41,6 +41,7 @@ test("every catalog entry has descriptive unique headings, metadata and canonica
     "@/lib/seo/metadata": metadata,
     "@/lib/seo/template-page": copy,
     "@/components/templates/TemplatePreview": { TemplatePreview: () => null },
+    "@/components/templates/TemplateDetails": { TemplateDetails: () => null },
   });
   const titles = new Set(),
     descriptions = new Set();
@@ -53,7 +54,7 @@ test("every catalog entry has descriptive unique headings, metadata and canonica
     });
     assert.equal(meta.alternates.canonical, content.canonical);
     assert.equal(meta.description, content.description);
-    assert.equal(meta.robots.index, false);
+    assert.equal(meta.robots.index, copy.isIndexableTemplate(template));
     titles.add(meta.title);
     descriptions.add(meta.description);
     const schema = copy.templatePageSchema(template);
@@ -85,7 +86,7 @@ test("the outer preview document renders one primary H1 without relying on its i
         frameRef: null,
       }),
     },
-    "lucide-react": { Monitor: () => null, Smartphone: () => null },
+    "lucide-react": { Monitor: () => null, Smartphone: () => null, ArrowUpRight: () => null },
     "@/lib/website-templates": catalog,
     "./TemplateWebsite": { TemplateWebsite: () => null },
     "./TemplatePreview.module.css": {
