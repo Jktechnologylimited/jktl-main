@@ -1,0 +1,9 @@
+url,live_status,canonical,canonical_target_status,decision
+https://bae.jktl.com.ng/,200,https://www.baeentertainmentgroup.com,200,Preserve customer-owned domain canonical; legitimate alternate; no code change
+https://bae.jktl.com.ng/terms,200,https://www.baeentertainmentgroup.com/terms,200,Preserve customer-owned domain canonical; legitimate alternate; no code change
+https://bae.jktl.com.ng/cookies,200,https://www.baeentertainmentgroup.com/cookies,200,Preserve customer-owned domain canonical; legitimate alternate; no code change
+https://bae.jktl.com.ng/privacy,200,https://www.baeentertainmentgroup.com/privacy,200,Preserve customer-owned domain canonical; legitimate alternate; no code change
+https://bae.jktl.com.ng/media,200,https://www.baeentertainmentgroup.com/media,200,Preserve customer-owned domain canonical; legitimate alternate; no code change
+https://bae.jktl.com.ng/news,200,https://www.baeentertainmentgroup.com/news,200,Preserve customer-owned domain canonical; legitimate alternate; no code change
+https://bae.jktl.com.ng/tickets?event=e3,200,https://www.baeentertainmentgroup.com/tickets,200,Preserve customer-owned domain canonical; legitimate alternate; no code change
+https://bae.jktl.com.ng/faqs,200,https://www.baeentertainmentgroup.com/faqs,200,Preserve customer-owned domain canonical; legitimate alternate; no code change

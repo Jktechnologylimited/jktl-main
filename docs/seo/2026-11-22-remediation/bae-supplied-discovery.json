@@ -1,0 +1,22 @@
+{
+  "robotsStatus": 200,
+  "robotsText": "User-Agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\nDisallow: /account\nDisallow: /verify\nDisallow: /login\nDisallow: /signup\nDisallow: /forgot-password\nDisallow: /reset-password\nDisallow: /tickets/confirm\nDisallow: /ticket/\n\nSitemap: https://www.baeentertainmentgroup.com/sitemap.xml\n",
+  "sitemapStatus": 200,
+  "sitemapUrls": [
+    "https://www.baeentertainmentgroup.com",
+    "https://www.baeentertainmentgroup.com/events",
+    "https://www.baeentertainmentgroup.com/tickets",
+    "https://www.baeentertainmentgroup.com/news",
+    "https://www.baeentertainmentgroup.com/releases",
+    "https://www.baeentertainmentgroup.com/artists",
+    "https://www.baeentertainmentgroup.com/media",
+    "https://www.baeentertainmentgroup.com/culture",
+    "https://www.baeentertainmentgroup.com/about",
+    "https://www.baeentertainmentgroup.com/contact",
+    "https://www.baeentertainmentgroup.com/faqs",
+    "https://www.baeentertainmentgroup.com/privacy",
+    "https://www.baeentertainmentgroup.com/terms",
+    "https://www.baeentertainmentgroup.com/cookies"
+  ],
+  "allFivePreferredPagesIncluded": true
+}

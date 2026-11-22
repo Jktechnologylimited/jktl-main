@@ -1,0 +1,10 @@
+url,source,http_status,canonical,canonical_target_status,h1,decision
+https://bae.jktl.com.ng/,supplied,200,https://www.baeentertainmentgroup.com,200,Three Labels.One Movement.,Valid alternate or filter variation; preserve customer-owned canonical
+https://bae.jktl.com.ng/tickets?event=e2https://bae.jktl.com.ng/culture,supplied,200,https://www.baeentertainmentgroup.com/tickets,200,Get Tickets,Malformed joined link; no route created; ticket canonical retained
+https://bae.jktl.com.ng/tickets,supplied,200,https://www.baeentertainmentgroup.com/tickets,200,Get Tickets,Valid alternate or filter variation; preserve customer-owned canonical
+https://bae.jktl.com.ng/events,supplied,200,https://www.baeentertainmentgroup.com/events,200,Events,Valid alternate or filter variation; preserve customer-owned canonical
+https://bae.jktl.com.ng/artists?label=bigdripuniverse,supplied,200,https://www.baeentertainmentgroup.com/artists,200,Artists,Valid alternate or filter variation; preserve customer-owned canonical
+https://bae.jktl.com.ng/artists?label=elmayanaconcept,supplied,200,https://www.baeentertainmentgroup.com/artists,200,Artists,Valid alternate or filter variation; preserve customer-owned canonical
+https://bae.jktl.com.ng/tickets?event=e1,supplied,200,https://www.baeentertainmentgroup.com/tickets,200,Get Tickets,Valid alternate or filter variation; preserve customer-owned canonical
+https://bae.jktl.com.ng/tickets?event=e2,separate intended URL checked in addition,200,https://www.baeentertainmentgroup.com/tickets,200,Get Tickets,Valid alternate or filter variation; preserve customer-owned canonical
+https://bae.jktl.com.ng/culture,separate intended URL checked in addition,200,https://www.baeentertainmentgroup.com/culture,200,BAE Culture,Valid alternate or filter variation; preserve customer-owned canonical

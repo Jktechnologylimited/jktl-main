@@ -162,11 +162,11 @@ export const DIGITAL_PRODUCTS = [
     name: "AI & Add-ons",
     title: "Add capabilities when you need them.",
     description:
-      "Discuss AI reception, website chat, missed-call recovery and additional capacity.",
+      "Discuss website chat, team access and additional capacity for JKTL Business. AI receptionist call handling is paused while the service is prepared.",
     details: [
       "AI receptionist is temporarily paused; existing records are preserved.",
       "Request a tailored quote covering setup, call and message usage, and the recurring subscription before you commit.",
-      "AI chatbot, team seats, storage and automation upgrades need a confirmed quote and explicit usage limits.",
+      "Chatbot allowances, team seats, storage and automation upgrades follow your applicable JKTL Business plan or agreed quote, with explicit usage limits.",
       "No unlimited AI promise or automatic add-on activation. Existing usage and wallet controls remain in place.",
     ],
   },

@@ -5,7 +5,7 @@ import { CustomPage } from "@/components/custom/CustomPage";
 import { T } from "@/components/i18n/LanguageProvider";
 import { getFeaturePage, featurePages } from "@/data/feature-pages";
 import { FeaturePage } from "@/components/shared/FeaturePage";
-import { featurePageMetadata } from "@/lib/seo/feature-page";
+import { featurePageMetadata, featurePageSchema, digitalProductMetadata, digitalProductSchema } from "@/lib/seo/feature-page";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { permanentRedirect } from "next/navigation";
@@ -37,10 +37,7 @@ export async function generateMetadata({
   if (feature) return featurePageMetadata(feature);
   const item = DIGITAL_PRODUCTS.find((p) => p.id === product);
   return item
-    ? pageMetadata(`/products/${product}`, {
-        title: item.name,
-        description: item.description,
-      })
+    ? digitalProductMetadata(item)
     : { robots: { index: false } };
 }
 export default async function Product({
@@ -49,9 +46,11 @@ export default async function Product({
   params: Promise<{ product: string }>;
 }) {
   const { product } = await params;
+  const feature = getFeaturePage("products", product);
   if (product === "ai-receptionist") return <main className="mx-auto max-w-3xl space-y-6 px-5 pb-24 pt-32"><p className="text-sm uppercase tracking-widest">Coming later</p><h1 className="text-4xl font-semibold">AI receptionist is paused</h1><p>Call handling and automated receptionist bookings are temporarily unavailable while we prepare the service. We are focusing on helping you build your website, connect a domain and use business email.</p><Link className="inline-block rounded-full bg-primary px-6 py-3 text-white" href="https://business.jktl.com.ng/signup">Create my free website</Link><p>Existing customers can contact the team about their account. Existing records are preserved.</p></main>;
-  if (product === "ai-chatbot") return <ChatbotLanding />;
+  if (product === "ai-chatbot" && feature) return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(featurePageSchema(feature)).replace(/</g, "\\u003c") }} /><ChatbotLanding /></>;
   if (product === "business-email") {
+    const item = DIGITAL_PRODUCTS.find(p => p.id === "business-email")!;
     let plans: Record<string, unknown>[] = [];
     try {
       const r = await fetch(
@@ -65,6 +64,7 @@ export default async function Product({
     } catch {}
     return (
       <div style={{ paddingTop: 68 }}>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(digitalProductSchema(item)).replace(/</g, "\\u003c") }} />
         <EmailLanding plans={plans} mainSite />
       </div>
     );
@@ -72,7 +72,6 @@ export default async function Product({
   if (product === "domains") permanentRedirect("/domains");
   if (product === "custom-websites" || product === "managed-services")
     return <CustomPage managed={product === "managed-services"} />;
-  const feature = getFeaturePage("products", product);
   if (feature) return <FeaturePage page={feature} />;
   const item = DIGITAL_PRODUCTS.find((p) => p.id === product);
   if (!item) notFound();

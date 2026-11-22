@@ -1,0 +1,628 @@
+{
+  "auditDate": "2026-11-22",
+  "timezone": "Africa/Lagos",
+  "deployed": false,
+  "nextVersions": {
+    "main": "16.2.9",
+    "business": "16.4.2"
+  },
+  "inventory": {
+    "templateEntries": 224,
+    "designedChoices": 222,
+    "distinctPublicTemplateDetailUrls": 224,
+    "indexableTemplates": 42,
+    "templatesInLiveSitemap": 42,
+    "omittedTemplates": 182,
+    "omittedEditions": 180,
+    "omittedBlanks": 2,
+    "liveSitemapUrls": 96,
+    "productRouteEntries": 16,
+    "indexableProductPrefixPages": 14
+  },
+  "priorTemplateCount": {
+    "beforeKora": 223,
+    "current": 224,
+    "newEntry": "kora-coffee"
+  },
+  "localProductionBrowser": {
+    "sitemapUrls": 96,
+    "sitemapTemplates": 42,
+    "templatePages": 224,
+    "designedTemplatesReachableWithoutShowMore": 222,
+    "authQueryUrls": 40,
+    "brokenInternalLinks": [],
+    "redirects": [
+      {
+        "host": "jktl.com.ng",
+        "from": "/services/web-development",
+        "status": 308,
+        "destination": "https://jktl.com.ng/products/custom-websites?source=seo-check"
+      },
+      {
+        "host": "www.jktl.com.ng",
+        "from": "/services/web-development",
+        "status": 308,
+        "destination": "https://jktl.com.ng/products/custom-websites?source=seo-check"
+      },
+      {
+        "host": "jktl.com.ng",
+        "from": "/services/software-solutions",
+        "status": 308,
+        "destination": "https://jktl.com.ng/products/business-tools?source=seo-check"
+      },
+      {
+        "host": "www.jktl.com.ng",
+        "from": "/services/software-solutions",
+        "status": 308,
+        "destination": "https://jktl.com.ng/products/business-tools?source=seo-check"
+      }
+    ],
+    "mainPagesChecked": 291,
+    "pageErrors": []
+  },
+  "unavailableSiteHttpTests": [
+    {
+      "host": "receipt.jktl.com.ng",
+      "path": "/",
+      "agent": "Mozilla/5.0",
+      "status": 404,
+      "has_noindex": true,
+      "friendly_page": true,
+      "signin_link": true
+    },
+    {
+      "host": "receipt.jktl.com.ng",
+      "path": "/",
+      "agent": "Googlebot",
+      "status": 404,
+      "has_noindex": true,
+      "friendly_page": true,
+      "signin_link": true
+    },
+    {
+      "host": "consultant-website.jktl.com.ng",
+      "path": "/",
+      "agent": "Mozilla/5.0",
+      "status": 404,
+      "has_noindex": true,
+      "friendly_page": true,
+      "signin_link": true
+    },
+    {
+      "host": "consultant-website.jktl.com.ng",
+      "path": "/",
+      "agent": "Googlebot",
+      "status": 404,
+      "has_noindex": true,
+      "friendly_page": true,
+      "signin_link": true
+    },
+    {
+      "host": "clinic-website.jktl.com.ng",
+      "path": "/",
+      "agent": "Mozilla/5.0",
+      "status": 404,
+      "has_noindex": true,
+      "friendly_page": true,
+      "signin_link": true
+    },
+    {
+      "host": "clinic-website.jktl.com.ng",
+      "path": "/",
+      "agent": "Googlebot",
+      "status": 404,
+      "has_noindex": true,
+      "friendly_page": true,
+      "signin_link": true
+    },
+    {
+      "host": "receipt.jktl.com.ng",
+      "path": "/old-page",
+      "agent": "Mozilla/5.0",
+      "status": 404,
+      "has_noindex": true,
+      "friendly_page": true,
+      "signin_link": true
+    },
+    {
+      "host": "receipt.jktl.com.ng",
+      "path": "/old-page",
+      "agent": "Googlebot",
+      "status": 404,
+      "has_noindex": true,
+      "friendly_page": true,
+      "signin_link": true
+    },
+    {
+      "host": "localhost:3318",
+      "path": "/sites/nonexistent",
+      "agent": "Mozilla/5.0",
+      "status": 404,
+      "has_noindex": true,
+      "friendly_page": true,
+      "signin_link": true
+    },
+    {
+      "host": "localhost:3318",
+      "path": "/sites/nonexistent",
+      "agent": "Googlebot",
+      "status": 404,
+      "has_noindex": true,
+      "friendly_page": true,
+      "signin_link": true
+    }
+  ],
+  "liveRedirectsWithQuery": [
+    {
+      "url": "https://jktl.com.ng/services/web-development?utm_source=legacy-audit&ref=seo",
+      "chain": [
+        {
+          "url": "https://jktl.com.ng/services/web-development?utm_source=legacy-audit&ref=seo",
+          "status": 308,
+          "location": "https://jktl.com.ng/products/custom-websites?utm_source=legacy-audit&ref=seo"
+        }
+      ],
+      "final_status": 200,
+      "final_url": "https://jktl.com.ng/products/custom-websites?utm_source=legacy-audit&ref=seo",
+      "query_preserved": true,
+      "all_hops_permanent": true
+    },
+    {
+      "url": "https://jktl.com.ng/services/software-solutions?utm_source=legacy-audit&ref=seo",
+      "chain": [
+        {
+          "url": "https://jktl.com.ng/services/software-solutions?utm_source=legacy-audit&ref=seo",
+          "status": 308,
+          "location": "https://jktl.com.ng/products/business-tools?utm_source=legacy-audit&ref=seo"
+        }
+      ],
+      "final_status": 200,
+      "final_url": "https://jktl.com.ng/products/business-tools?utm_source=legacy-audit&ref=seo",
+      "query_preserved": true,
+      "all_hops_permanent": true
+    },
+    {
+      "url": "https://www.jktl.com.ng/services/web-development?utm_source=legacy-audit&ref=seo",
+      "chain": [
+        {
+          "url": "https://www.jktl.com.ng/services/web-development?utm_source=legacy-audit&ref=seo",
+          "status": 307,
+          "location": "https://jktl.com.ng/services/web-development?utm_source=legacy-audit&ref=seo"
+        },
+        {
+          "url": "https://jktl.com.ng/services/web-development?utm_source=legacy-audit&ref=seo",
+          "status": 308,
+          "location": "https://jktl.com.ng/products/custom-websites?utm_source=legacy-audit&ref=seo"
+        }
+      ],
+      "final_status": 200,
+      "final_url": "https://jktl.com.ng/products/custom-websites?utm_source=legacy-audit&ref=seo",
+      "query_preserved": true,
+      "all_hops_permanent": false
+    },
+    {
+      "url": "https://www.jktl.com.ng/services/software-solutions?utm_source=legacy-audit&ref=seo",
+      "chain": [
+        {
+          "url": "https://www.jktl.com.ng/services/software-solutions?utm_source=legacy-audit&ref=seo",
+          "status": 307,
+          "location": "https://jktl.com.ng/services/software-solutions?utm_source=legacy-audit&ref=seo"
+        },
+        {
+          "url": "https://jktl.com.ng/services/software-solutions?utm_source=legacy-audit&ref=seo",
+          "status": 308,
+          "location": "https://jktl.com.ng/products/business-tools?utm_source=legacy-audit&ref=seo"
+        }
+      ],
+      "final_status": 200,
+      "final_url": "https://jktl.com.ng/products/business-tools?utm_source=legacy-audit&ref=seo",
+      "query_preserved": true,
+      "all_hops_permanent": false
+    }
+  ],
+  "productMetadata": {
+    "liveBefore": [
+      {
+        "path": "/products/ai-chatbot",
+        "status": 200,
+        "title": "JKTL AI Chatbot | JKTL Business",
+        "description": "Create a free-to-start business chatbot with approved FAQs, enquiry capture and WhatsApp handoff. Manage it in JKTL Business and install it on your website."
+      },
+      {
+        "path": "/products/business-email",
+        "status": 200,
+        "title": "Business Email | JKTL Business",
+        "description": "Build trust with an email address at your own domain."
+      }
+    ],
+    "localAfter": [
+      {
+        "path": "/products/ai-chatbot",
+        "status": 200,
+        "h1_count": 1,
+        "canonical": "https://jktl.com.ng/products/ai-chatbot",
+        "description": "Build a website chatbot with approved FAQs, enquiry capture and WhatsApp handoff. Start free with JKTL Business; AI-generated replies require activation.",
+        "page_graph_count": 1,
+        "json_valid": true
+      },
+      {
+        "path": "/products/business-email",
+        "status": 200,
+        "h1_count": 1,
+        "canonical": "https://jktl.com.ng/products/business-email",
+        "description": "Get business email on your domain with JKTL. Compare approved mailbox plans, confirm annual pricing and arrange setup with the JKTL team.",
+        "page_graph_count": 1,
+        "json_valid": true
+      }
+    ]
+  },
+  "checks": {
+    "mainProductionBuild": "passed; 516 generated pages",
+    "businessProductionBuild": "passed; 591 generated pages; prebuild migrations intentionally not run",
+    "mainTypeScript": "passed",
+    "businessTypeScript": "passed",
+    "changedFileLint": "passed in both repositories",
+    "mainFullLint": "4 existing errors and 10 existing warnings outside changed files",
+    "mainRegressionTests": "23 passed in six files",
+    "businessRegressionTests": "11 passed in three files",
+    "localMissingSiteHttpAssertions": 10,
+    "liveChargesEmailsDatabaseMutations": false
+  },
+  "remaining": [
+    "Vercel/provider-level www redirect returns 307; change to 308 and retest",
+    "Exact two duplicate-without-selected-canonical URLs not supplied; inspect them in Search Console",
+    "Google recrawl and indexing decisions remain external; this audit is not an indexing confirmation"
+  ],
+  "suppliedBaeFollowUp": {
+    "suppliedLinks": 7,
+    "intendedUrlsAfterSplittingJoinedLink": 8,
+    "checksIncludingMalformedLink": 9,
+    "pages": [
+      {
+        "url": "https://bae.jktl.com.ng/",
+        "chain": [
+          {
+            "url": "https://bae.jktl.com.ng/",
+            "status": 200
+          }
+        ],
+        "final_url": "https://bae.jktl.com.ng/",
+        "status": 200,
+        "canonical": [
+          "https://www.baeentertainmentgroup.com"
+        ],
+        "robots": [
+          "index, follow"
+        ],
+        "h1": [
+          "Three Labels.One Movement."
+        ],
+        "title": "BAE \u2014 Music, Artists & Live Shows",
+        "server": "envoy",
+        "source": "supplied"
+      },
+      {
+        "url": "https://bae.jktl.com.ng/tickets?event=e2https://bae.jktl.com.ng/culture",
+        "chain": [
+          {
+            "url": "https://bae.jktl.com.ng/tickets?event=e2https://bae.jktl.com.ng/culture",
+            "status": 200
+          }
+        ],
+        "final_url": "https://bae.jktl.com.ng/tickets?event=e2https://bae.jktl.com.ng/culture",
+        "status": 200,
+        "canonical": [
+          "https://www.baeentertainmentgroup.com/tickets"
+        ],
+        "robots": [
+          "index, follow"
+        ],
+        "h1": [
+          "Get Tickets"
+        ],
+        "title": "Concert & Live Show Tickets \u2014 BAE",
+        "server": "envoy",
+        "source": "supplied"
+      },
+      {
+        "url": "https://bae.jktl.com.ng/tickets",
+        "chain": [
+          {
+            "url": "https://bae.jktl.com.ng/tickets",
+            "status": 200
+          }
+        ],
+        "final_url": "https://bae.jktl.com.ng/tickets",
+        "status": 200,
+        "canonical": [
+          "https://www.baeentertainmentgroup.com/tickets"
+        ],
+        "robots": [
+          "index, follow"
+        ],
+        "h1": [
+          "Get Tickets"
+        ],
+        "title": "Concert & Live Show Tickets \u2014 BAE",
+        "server": "envoy",
+        "source": "supplied"
+      },
+      {
+        "url": "https://bae.jktl.com.ng/events",
+        "chain": [
+          {
+            "url": "https://bae.jktl.com.ng/events",
+            "status": 200
+          }
+        ],
+        "final_url": "https://bae.jktl.com.ng/events",
+        "status": 200,
+        "canonical": [
+          "https://www.baeentertainmentgroup.com/events"
+        ],
+        "robots": [
+          "index, follow"
+        ],
+        "h1": [
+          "Events"
+        ],
+        "title": "Live Shows, Tours & Events \u2014 BAE",
+        "server": "envoy",
+        "source": "supplied"
+      },
+      {
+        "url": "https://bae.jktl.com.ng/artists?label=bigdripuniverse",
+        "chain": [
+          {
+            "url": "https://bae.jktl.com.ng/artists?label=bigdripuniverse",
+            "status": 200
+          }
+        ],
+        "final_url": "https://bae.jktl.com.ng/artists?label=bigdripuniverse",
+        "status": 200,
+        "canonical": [
+          "https://www.baeentertainmentgroup.com/artists"
+        ],
+        "robots": [
+          "index, follow"
+        ],
+        "h1": [
+          "Artists"
+        ],
+        "title": "Artists & Label Roster \u2014 BAE",
+        "server": "envoy",
+        "source": "supplied"
+      },
+      {
+        "url": "https://bae.jktl.com.ng/artists?label=elmayanaconcept",
+        "chain": [
+          {
+            "url": "https://bae.jktl.com.ng/artists?label=elmayanaconcept",
+            "status": 200
+          }
+        ],
+        "final_url": "https://bae.jktl.com.ng/artists?label=elmayanaconcept",
+        "status": 200,
+        "canonical": [
+          "https://www.baeentertainmentgroup.com/artists"
+        ],
+        "robots": [
+          "index, follow"
+        ],
+        "h1": [
+          "Artists"
+        ],
+        "title": "Artists & Label Roster \u2014 BAE",
+        "server": "envoy",
+        "source": "supplied"
+      },
+      {
+        "url": "https://bae.jktl.com.ng/tickets?event=e1",
+        "chain": [
+          {
+            "url": "https://bae.jktl.com.ng/tickets?event=e1",
+            "status": 200
+          }
+        ],
+        "final_url": "https://bae.jktl.com.ng/tickets?event=e1",
+        "status": 200,
+        "canonical": [
+          "https://www.baeentertainmentgroup.com/tickets"
+        ],
+        "robots": [
+          "index, follow"
+        ],
+        "h1": [
+          "Get Tickets"
+        ],
+        "title": "Concert & Live Show Tickets \u2014 BAE",
+        "server": "envoy",
+        "source": "supplied"
+      },
+      {
+        "url": "https://bae.jktl.com.ng/tickets?event=e2",
+        "chain": [
+          {
+            "url": "https://bae.jktl.com.ng/tickets?event=e2",
+            "status": 200
+          }
+        ],
+        "final_url": "https://bae.jktl.com.ng/tickets?event=e2",
+        "status": 200,
+        "canonical": [
+          "https://www.baeentertainmentgroup.com/tickets"
+        ],
+        "robots": [
+          "index, follow"
+        ],
+        "h1": [
+          "Get Tickets"
+        ],
+        "title": "Concert & Live Show Tickets \u2014 BAE",
+        "server": "envoy",
+        "source": "separate intended URL checked in addition"
+      },
+      {
+        "url": "https://bae.jktl.com.ng/culture",
+        "chain": [
+          {
+            "url": "https://bae.jktl.com.ng/culture",
+            "status": 200
+          }
+        ],
+        "final_url": "https://bae.jktl.com.ng/culture",
+        "status": 200,
+        "canonical": [
+          "https://www.baeentertainmentgroup.com/culture"
+        ],
+        "robots": [
+          "index, follow"
+        ],
+        "h1": [
+          "BAE Culture"
+        ],
+        "title": "Music, Art & Culture \u2014 BAE",
+        "server": "envoy",
+        "source": "separate intended URL checked in addition"
+      }
+    ],
+    "canonicalTargets": [
+      {
+        "url": "https://www.baeentertainmentgroup.com",
+        "chain": [
+          {
+            "url": "https://www.baeentertainmentgroup.com",
+            "status": 200
+          }
+        ],
+        "final_url": "https://www.baeentertainmentgroup.com",
+        "status": 200,
+        "canonical": [
+          "https://www.baeentertainmentgroup.com"
+        ],
+        "robots": [
+          "index, follow"
+        ],
+        "h1": [
+          "Three Labels.One Movement."
+        ],
+        "title": "BAE \u2014 Music, Artists & Live Shows",
+        "server": "envoy"
+      },
+      {
+        "url": "https://www.baeentertainmentgroup.com/artists",
+        "chain": [
+          {
+            "url": "https://www.baeentertainmentgroup.com/artists",
+            "status": 200
+          }
+        ],
+        "final_url": "https://www.baeentertainmentgroup.com/artists",
+        "status": 200,
+        "canonical": [
+          "https://www.baeentertainmentgroup.com/artists"
+        ],
+        "robots": [
+          "index, follow"
+        ],
+        "h1": [
+          "Artists"
+        ],
+        "title": "Artists & Label Roster \u2014 BAE",
+        "server": "envoy"
+      },
+      {
+        "url": "https://www.baeentertainmentgroup.com/culture",
+        "chain": [
+          {
+            "url": "https://www.baeentertainmentgroup.com/culture",
+            "status": 200
+          }
+        ],
+        "final_url": "https://www.baeentertainmentgroup.com/culture",
+        "status": 200,
+        "canonical": [
+          "https://www.baeentertainmentgroup.com/culture"
+        ],
+        "robots": [
+          "index, follow"
+        ],
+        "h1": [
+          "BAE Culture"
+        ],
+        "title": "Music, Art & Culture \u2014 BAE",
+        "server": "envoy"
+      },
+      {
+        "url": "https://www.baeentertainmentgroup.com/events",
+        "chain": [
+          {
+            "url": "https://www.baeentertainmentgroup.com/events",
+            "status": 200
+          }
+        ],
+        "final_url": "https://www.baeentertainmentgroup.com/events",
+        "status": 200,
+        "canonical": [
+          "https://www.baeentertainmentgroup.com/events"
+        ],
+        "robots": [
+          "index, follow"
+        ],
+        "h1": [
+          "Events"
+        ],
+        "title": "Live Shows, Tours & Events \u2014 BAE",
+        "server": "envoy"
+      },
+      {
+        "url": "https://www.baeentertainmentgroup.com/tickets",
+        "chain": [
+          {
+            "url": "https://www.baeentertainmentgroup.com/tickets",
+            "status": 200
+          }
+        ],
+        "final_url": "https://www.baeentertainmentgroup.com/tickets",
+        "status": 200,
+        "canonical": [
+          "https://www.baeentertainmentgroup.com/tickets"
+        ],
+        "robots": [
+          "index, follow"
+        ],
+        "h1": [
+          "Get Tickets"
+        ],
+        "title": "Concert & Live Show Tickets \u2014 BAE",
+        "server": "envoy"
+      }
+    ],
+    "discovery": {
+      "robotsStatus": 200,
+      "robotsText": "User-Agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\nDisallow: /account\nDisallow: /verify\nDisallow: /login\nDisallow: /signup\nDisallow: /forgot-password\nDisallow: /reset-password\nDisallow: /tickets/confirm\nDisallow: /ticket/\n\nSitemap: https://www.baeentertainmentgroup.com/sitemap.xml\n",
+      "sitemapStatus": 200,
+      "sitemapUrls": [
+        "https://www.baeentertainmentgroup.com",
+        "https://www.baeentertainmentgroup.com/events",
+        "https://www.baeentertainmentgroup.com/tickets",
+        "https://www.baeentertainmentgroup.com/news",
+        "https://www.baeentertainmentgroup.com/releases",
+        "https://www.baeentertainmentgroup.com/artists",
+        "https://www.baeentertainmentgroup.com/media",
+        "https://www.baeentertainmentgroup.com/culture",
+        "https://www.baeentertainmentgroup.com/about",
+        "https://www.baeentertainmentgroup.com/contact",
+        "https://www.baeentertainmentgroup.com/faqs",
+        "https://www.baeentertainmentgroup.com/privacy",
+        "https://www.baeentertainmentgroup.com/terms",
+        "https://www.baeentertainmentgroup.com/cookies"
+      ],
+      "allFivePreferredPagesIncluded": true
+    },
+    "sourceReviewedReadOnly": "client-integrations/bae-label at 63d256b",
+    "applicationChangesNeeded": false,
+    "deployed": false
+  },
+  "stage": "pre-deployment audit snapshot; production release subsequently authorized"
+}

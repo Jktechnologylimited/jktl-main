@@ -1,6 +1,8 @@
 import { pageMetadata } from "./metadata";
 import type { featurePages } from "@/data/feature-pages";
+import type { DIGITAL_PRODUCTS } from "@/lib/website-pricing";
 type Feature = (typeof featurePages)[number];
+type DigitalProduct = (typeof DIGITAL_PRODUCTS)[number];
 type SearchCopy = { title: string; description: string; cta: string; faqs: { question: string; answer: string }[] };
 
 export const entryPageCopy: Record<string, SearchCopy> = {
@@ -33,8 +35,25 @@ export const entryPageCopy: Record<string, SearchCopy> = {
   },
 };
 
+function featureSearchCopy(page: Feature) {
+  if (page.section === "products" && page.slug === "ai-chatbot") return {
+    title: "Website Chatbot for FAQs & Enquiries",
+    description: "Build a website chatbot with approved FAQs, enquiry capture and WhatsApp handoff. Start free with JKTL Business; AI-generated replies require activation.",
+  };
+  return entryPageCopy[`${page.section}/${page.slug}`];
+}
+
+export function digitalProductMetadata(product: DigitalProduct) {
+  return pageMetadata(`/products/${product.id}`, {
+    title: product.id === "business-email" ? "Business Email for Your Domain in Nigeria" : product.name,
+    description: product.id === "business-email"
+      ? "Get business email on your domain with JKTL. Compare approved mailbox plans, confirm annual pricing and arrange setup with the JKTL team."
+      : product.description,
+  });
+}
+
 export function featurePageMetadata(page: Feature) {
-  const key = `${page.section}/${page.slug}`, copy = entryPageCopy[key];
+  const key = `${page.section}/${page.slug}`, copy = featureSearchCopy(page);
   return pageMetadata(`/${key}`, {
     title: copy?.title || page.label,
     description: copy?.description || page.intro,
@@ -44,11 +63,20 @@ export function featurePageMetadata(page: Feature) {
 
 export function featurePageSchema(page: Feature) {
   const url = `https://jktl.com.ng/${page.section}/${page.slug}`;
+  return pageSchema(url, page.label, page.title, featureSearchCopy(page)?.description || page.intro);
+}
+
+export function digitalProductSchema(product: DigitalProduct) {
+  const metadata = digitalProductMetadata(product);
+  return pageSchema(`https://jktl.com.ng/products/${product.id}`, product.name, product.title, metadata.description || product.description);
+}
+
+function pageSchema(url: string, label: string, title: string, description: string) {
   return { "@context": "https://schema.org", "@graph": [
-    { "@type": "WebPage", "@id": url + "#webpage", url, name: page.title, description: entryPageCopy[`${page.section}/${page.slug}`]?.description || page.intro, breadcrumb: { "@id": url + "#breadcrumb" } },
+    { "@type": "WebPage", "@id": url + "#webpage", url, name: title, description, breadcrumb: { "@id": url + "#breadcrumb" } },
     { "@type": "BreadcrumbList", "@id": url + "#breadcrumb", itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://jktl.com.ng" },
-      { "@type": "ListItem", position: 2, name: page.label, item: url },
+      { "@type": "ListItem", position: 2, name: label, item: url },
     ] },
   ] };
 }
